@@ -196,7 +196,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -448,6 +448,52 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2715379222557514610, guid: f7af86bfaf94f594fbcc6d38825058c2, type: 3}
   m_PrefabInstance: {fileID: 3175687769631365315}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1620989033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1620989035}
+  - component: {fileID: 1620989034}
+  m_Layer: 0
+  m_Name: BootstrapController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1620989034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620989033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fcdd0cddbf86946883b359d9571644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BootstrapController
+  _patchPanel: {fileID: 0}
+  _titlePanel: {fileID: 0}
+--- !u!4 &1620989035
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620989033}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 661.7455, y: 971.13513, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3175687769631365315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -641,6 +687,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_Patch
       objectReference: {fileID: 0}
+    - target: {fileID: 6027290934519596449, guid: 0877e8e547f511646812644b07880b6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -653,3 +703,4 @@ SceneRoots:
   - {fileID: 350221690}
   - {fileID: 563732274}
   - {fileID: 405598778}
+  - {fileID: 1620989035}
