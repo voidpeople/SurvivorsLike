@@ -9,7 +9,7 @@ public class SceneLoader : SingletonMonoBehaviour<SceneLoader>
 
     //UniTask라는 이름은 기본적으로 유니티 환경에서 비동기적으로 수행되는 하나의 작업 단위나 연산을 나타내는 타입 이름 이면서
     //이 비동기 라이브러리의 이름으로 사용됨~
-    public async UniTask LoadScene(string sceneName, float fadeOutDuration = 1f, float fadeInDuration = 1f, float holdTime = 5f)
+    public async UniTask LoadScene(string sceneName, float fadeOutDuration = 1f, float fadeInDuration = 1f, float holdTime = 0f)
     {
         if (_isLoading) 
             return;
@@ -29,10 +29,6 @@ public class SceneLoader : SingletonMonoBehaviour<SceneLoader>
             var op = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
             op.allowSceneActivation = false;
 
-            while (op.progress < 0.9f)
-            {
-                await UniTask.Yield();
-            }
             while (op.progress < 0.9f)
             {
                 //PlayerLoopTiming은 UniTask 라이브러리의 열거형
