@@ -9,10 +9,16 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/00_Bootstrap.unity
     guid: e4076d5d88bb0ed4bba6fd1561710ea4
   - enabled: 1
-    path: Assets/_Project/Scenes/01_Lobby.unity
+    path: Assets/_Project/Scenes/01_Patch.unity
+    guid: d5616eb926c62bb4c91cc29e755aae88
+  - enabled: 1
+    path: Assets/_Project/Scenes/02_Title.unity
+    guid: c0b6190e064749b40ae27c92e1c18667
+  - enabled: 1
+    path: Assets/_Project/Scenes/03_Lobby.unity
     guid: 6c50503025588bb4eb7ccfaa6ee25527
   - enabled: 1
-    path: Assets/_Project/Scenes/02_InGame.unity
+    path: Assets/_Project/Scenes/04_InGame.unity
     guid: d9cb4d329a23b954e914958858475d15
   - enabled: 1
     path: Assets/_Project/Scenes/EmptyScene.unity
