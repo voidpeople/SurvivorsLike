@@ -12,29 +12,15 @@ public enum GaemState : byte
     Result = 5,
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    public static GameManager Instance { get; private set; }
     public GaemState CurrentState { get; private set; }
 
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Object.Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        Init();
-    }
-
-    private void Init()
+    protected override void ChildAwake()
     {
         CurrentState = GaemState.None;
     }
+  
 
     public void LoadScene(string name) => SceneManager.LoadSceneAsync(name);
     public void PauseGame() => Time.timeScale = 0f;
