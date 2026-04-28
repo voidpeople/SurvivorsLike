@@ -7,6 +7,8 @@ public class BootstrapController : MonoBehaviour
 {
     void Start()
     {
+        GameManager.Instance.SetGameState(GaemState.Bootstrap);
+
         // DelayRun()은 비동기 함수(async)이기 때문에
         // 그냥 호출하면 실행은 되지만, 결과를 기다리지 않으면 경고가 발생할 수 있음
 
@@ -32,8 +34,8 @@ public class BootstrapController : MonoBehaviour
         // await:
         // → Delay가 끝날 때까지 여기서 "비동기적으로 대기"
         // → Unity 메인 스레드를 멈추지 않음 (게임은 계속 돌아감)
-        await UniTask.Delay(3000, cancellationToken: this.GetCancellationTokenOnDestroy());
-        Debug.Log("3초 후 실행");
+        await UniTask.Delay(1000, cancellationToken: this.GetCancellationTokenOnDestroy());
+        Debug.Log("1초 후 실행");
 
         await GameManager.Instance.LoadScene("01_Patch");
     }

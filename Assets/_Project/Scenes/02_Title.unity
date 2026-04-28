@@ -574,6 +574,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7656168874342753527, guid: f7af86bfaf94f594fbcc6d38825058c2, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656168874342753527, guid: f7af86bfaf94f594fbcc6d38825058c2, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656168874342753527, guid: f7af86bfaf94f594fbcc6d38825058c2, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7694009375211079839, guid: f7af86bfaf94f594fbcc6d38825058c2, type: 3}
       propertyPath: m_Name
       value: Panel_Title
