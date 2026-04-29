@@ -8,9 +8,4 @@ public class InGameController : MonoBehaviour
         GameManager.Instance.SetGameState(GaemState.InGame);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
