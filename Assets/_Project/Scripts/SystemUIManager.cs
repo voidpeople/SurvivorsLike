@@ -33,7 +33,11 @@ public class SystemUIData
 //한번에 하나의 UI만 출력된다.
 public class SystemUIManager : SingletonMonoBehaviour<SystemUIManager>
 {
+    [SerializeField] private LoadingUI loadingUI;
+    [SerializeField] private ErrorUI errorUI;
+
     private SystemUIType _currentUIType;
+    private BaseSystemUI _currentUI;
 
     private void Show(SystemUIType type)
     {
