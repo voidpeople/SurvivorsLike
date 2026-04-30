@@ -10,12 +10,12 @@ using static UnityEngine.InputSystem.InputControlScheme;
 
 public enum GaemState : byte
 {
-    None = 0,
-    Bootstrap = 1,
-    Patch = 2,
-    Title = 3,
-    Lobby = 4,
-    InGame = 5,
+    None,
+    Bootstrap,
+    Patch,
+    Title,
+    Lobby,
+    InGame
 }
 
 public class GameManager : SingletonMonoBehaviour<GameManager>

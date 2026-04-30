@@ -24,12 +24,12 @@ public class PatchResponse
 
 public enum PatchCheckStatus : byte
 {
-    UpToDate = 0,          //최신 상태
-    NeedPatch = 1,         //패치 필요
-    ForcePatch = 2,        //강제 패치
-    NetworkError = 3,      //서버 통신 실패
-    ServerMaintenance = 4, //서버 점검
-    InvalidResponse = 5    //알수 없는 오류
+    UpToDate,          //최신 상태
+    NeedPatch,         //패치 필요
+    ForcePatch,        //강제 패치
+    NetworkError,      //서버 통신 실패
+    ServerMaintenance, //서버 점검
+    InvalidResponse    //알수 없는 오류
 }
 
 public class PatchCheckResult
