@@ -11,14 +11,14 @@ public class ErrorUI : BaseSystemUI
 
     private Action _onAction;
 
-    public void SetData(SystemUIData data, Action onAction)
-    {
-        titleText.text = data.title;
-        messageText.text = data.message;
+    //public void SetData(SystemUIData data, Action onAction)
+    //{
+    //    titleText.text = data.title;
+    //    messageText.text = data.message;
 
-        _onAction = onAction;
+    //    _onAction = onAction;
 
-        actionButton.onClick.RemoveAllListeners();
-        actionButton.onClick.AddListener(() => _onAction?.Invoke());
-    }
+    //    actionButton.onClick.RemoveAllListeners();
+    //    actionButton.onClick.AddListener(() => _onAction?.Invoke());
+    //}
 }

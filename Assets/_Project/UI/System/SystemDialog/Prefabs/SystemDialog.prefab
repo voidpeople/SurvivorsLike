@@ -912,7 +912,7 @@ GameObject:
   - component: {fileID: 1080633434314941986}
   - component: {fileID: 8570273725611791151}
   m_Layer: 0
-  m_Name: SystemPopup
+  m_Name: SystemDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
