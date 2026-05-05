@@ -911,6 +911,7 @@ GameObject:
   - component: {fileID: 8210879500053528753}
   - component: {fileID: 1080633434314941986}
   - component: {fileID: 8570273725611791151}
+  - component: {fileID: 1113720831784075709}
   m_Layer: 0
   m_Name: SystemDialog
   m_TagString: Untagged
@@ -1039,6 +1040,28 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1113720831784075709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842176510986503233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1512d17c95098e742af141f3f89dde61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.UI.SystemDialog
+  _topBarImage: {fileID: 2057111447539849434}
+  _iconImage: {fileID: 6145369539039544857}
+  _titleText: {fileID: 3758078409861210922}
+  _messageText: {fileID: 5664263754609347997}
+  _confirmButton: {fileID: 6495462042142922938}
+  _confirmButtonImage: {fileID: 2814031297762377651}
+  _confirmButtonText: {fileID: 982586672576149665}
+  _cancelButton: {fileID: 8851275909560426897}
+  _canceButtonImage: {fileID: 3529903009552736023}
+  _cancelButtonText: {fileID: 6224253997917826208}
 --- !u!1 &8549896540110154703
 GameObject:
   m_ObjectHideFlags: 0
