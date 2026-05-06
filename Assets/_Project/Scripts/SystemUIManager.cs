@@ -95,6 +95,29 @@ namespace SurvivorsLike.UI
             });
         }
 
+        public async UniTask ShowAlertAsync(
+            string title,
+            string message,
+            DialogType type,
+            string confirmText = "확인",
+            CancellationToken ct = default)
+        {
+            var tcs = new UniTaskCompletionSource();
+
+            ShowDialog(new DialogConfig
+            {
+                Title = title,
+                Message = message,
+                Type = type,
+                ConfirmText = confirmText,
+                OnConfirm = () => tcs.TrySetResult(),
+            });
+
+            using var reg = ct.Register(() => tcs.TrySetResult());
+
+            await tcs.Task;
+        }
+
         //확인와 취소 버튼이 있는 다이얼로그 선택 창
         public void ShowConfirm(
             string title,

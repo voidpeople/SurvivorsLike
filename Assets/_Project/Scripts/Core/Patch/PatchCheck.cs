@@ -1,7 +1,8 @@
-﻿using UnityEngine.Networking;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using System;
 using UnityEngine;
+using UnityEngine.Networking;
 
 /*
  JSON 메세지
@@ -45,6 +46,9 @@ public static  class PatchCheck
 {
     public static async UniTask<PatchCheckResult> CheckPatchAsync()
     {
+        //테스트 코드
+        await UniTask.Delay(TimeSpan.FromSeconds(2.0f));
+
         //서버 URL
         string patchServerURL = "https://myPatchServer.com/getVersion";
 

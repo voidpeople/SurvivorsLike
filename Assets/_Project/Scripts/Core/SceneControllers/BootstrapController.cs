@@ -16,32 +16,39 @@ public class BootstrapController : MonoBehaviour
         var cts = this.GetCancellationTokenOnDestroy();
 
         try
-        { 
-            PatchCheckResult result = await PatchCheck.CheckPatchAsync();
-            GameManager.Instance.SetPatchResult(result);
+        {
+            int numRetry = 3;
 
-            switch (result.Status)
+            do
             {
-                case PatchCheckStatus.UpToDate:
-                    await GameManager.Instance.LoadScene("02_Title");
-                    break;
+                PatchCheckResult result = await PatchCheck.CheckPatchAsync();
+                GameManager.Instance.SetPatchResult(result);
 
-                case PatchCheckStatus.ForcePatch:
-                case PatchCheckStatus.NeedPatch:
-                    await GameManager.Instance.LoadScene("01_Patch");
-                    break;
+                switch (result.Status)
+                {
+                    case PatchCheckStatus.UpToDate:
+                        await GameManager.Instance.LoadScene("02_Title");
+                        break;
 
-                case PatchCheckStatus.NetworkError:
-                    SystemUIManager.Instance.ShowAlert(
-                        "네트워크 오류",
-                        result.Message,
-                        DialogType.NetworkError,
-                        "재시도");
-                    break;
-                case PatchCheckStatus.ServerMaintenance:
-                case PatchCheckStatus.InvalidResponse:
-                    break;
-            }
+                    case PatchCheckStatus.ForcePatch:
+                    case PatchCheckStatus.NeedPatch:
+                        await GameManager.Instance.LoadScene("01_Patch");
+                        break;
+
+                    case PatchCheckStatus.NetworkError:
+                        await SystemUIManager.Instance.ShowAlertAsync(
+                            "네트워크 오류",
+                            result.Message,
+                            DialogType.NetworkError,
+                            "재시도");
+                        --numRetry;
+                        break;
+                    case PatchCheckStatus.ServerMaintenance:
+                    case PatchCheckStatus.InvalidResponse:
+                        break;
+                }
+
+            } while (numRetry > 0);
         }
         catch(OperationCanceledException)
         {
