@@ -15,11 +15,11 @@ namespace SurvivorsLike.UI
     //한번에 하나의 UI만 출력된다.
     public class SystemUIManager : SingletonMonoBehaviour<SystemUIManager>
     {
-
         ////////////////////////////////////////////////////////
         #region Dialog
         [SerializeField] private Transform _dialogLayer;
         [SerializeField] private SystemDialog _dialogPrefab;
+        [SerializeField] private SystemUIConfigSO _systemUIConfigSO;
 
         [Title("Object Pool Settings")]
         [SerializeField, Range(1, 5)] private int _dialogPoolDefaultSize = 2;
@@ -37,6 +37,8 @@ namespace SurvivorsLike.UI
                     //다이얼로그의 인스턴스 생성 후 dialogLayer에 자식으로 추가하고
                     //오브젝트는 비 활성화 시킨다.
                     var d = Instantiate(_dialogPrefab, _dialogLayer);
+                    SystemDialog systemDialog = d.GetComponent<SystemDialog>();
+                    systemDialog.Init(_systemUIConfigSO);
                     d.gameObject.SetActive(false);
 
                     return d;
@@ -79,17 +81,14 @@ namespace SurvivorsLike.UI
         public void ShowAlert(
             string title,
             string message,
-            Sprite iconSprite,
-            Color color,
+            DialogType type,
             Action onConfirm = null)
         {
             ShowDialog(new DialogConfig
             {
                 Title = title,
                 Message = message,
-                Type = DialogType.Alert,
-                IconSprite = iconSprite,
-                DialogColor = color,
+                Type = type,
                 OnConfirm = onConfirm
             });
         }
@@ -98,8 +97,7 @@ namespace SurvivorsLike.UI
         public void ShowConfirm(
             string title,
             string message,
-            Sprite iconSprite,
-            Color color,
+            DialogType type,
             string confirmText = "확인",
             string cancelText = "취소",
             Action onConfirm = null,
@@ -109,9 +107,7 @@ namespace SurvivorsLike.UI
             {
                 Title = title,
                 Message = message,
-                Type = DialogType.Confirm,
-                IconSprite = iconSprite,
-                DialogColor = color,
+                Type = type,
                 ConfirmText = confirmText,
                 CancelText = cancelText,
                 OnConfirm = onConfirm,
@@ -128,8 +124,7 @@ namespace SurvivorsLike.UI
         public async UniTask<bool> ShowConfirmAsync(
             string title,
             string message,
-            Sprite iconSprite,
-            Color color,
+            DialogType type,
             string confirmText = "확인",
             string cancelText = "취소",
             CancellationToken ct = default)
@@ -146,9 +141,7 @@ namespace SurvivorsLike.UI
             {
                 Title = title,
                 Message = message,
-                Type = DialogType.Confirm,
-                IconSprite = iconSprite,
-                DialogColor = color,
+                Type = type,
                 ConfirmText = confirmText,
                 CancelText = cancelText,
                 // [확인] 버튼을 누르면 → tcs 에 true 를 설정 → 아래 await 가 true 를 받고 실행 재개
@@ -193,6 +186,7 @@ namespace SurvivorsLike.UI
         #region Common
         protected override void ChildAwake()
         {
+            _systemUIConfigSO.Init();
             InitPDialogPool();
         }
 

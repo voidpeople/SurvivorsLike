@@ -9,7 +9,6 @@ using static UnityEngine.Rendering.STP;
 
 namespace SurvivorsLike.UI
 {
-
     public class SystemDialog : MonoBehaviour
     {
         [Title("TopBar")]
@@ -28,8 +27,15 @@ namespace SurvivorsLike.UI
         [SerializeField] private Image _canceButtonImage;
         [SerializeField] private TextMeshProUGUI _cancelButtonText;
 
+        private SystemUIConfigSO _systemUIConfigSO;
+
         public DialogConfig Config { get; protected set; }
         private Action _onClose;
+
+        public void Init(SystemUIConfigSO systemUIConfigSO)
+        {
+            _systemUIConfigSO = systemUIConfigSO;
+        }
 
         public void Show(DialogConfig config, Action onClose = null)
         {
@@ -46,17 +52,17 @@ namespace SurvivorsLike.UI
             if (isConfirm)
                 _cancelButtonText.text = config.CancelText;
 
-            _iconImage.sprite = config.IconSprite;
+            _iconImage.sprite = _systemUIConfigSO.GetDialogIcon(config.Type);
 
-            SetColor(config);
+            SetColor(_systemUIConfigSO.GetDialogColor(config.Type));
             InitButtons(config, onClose);
         }
 
-        private void SetColor(DialogConfig config)
+        private void SetColor(Color color)
         {
-            _topBarImage.color = config.DialogColor;
-            _confirmButtonImage.color = config.DialogColor;
-            _canceButtonImage.color = config.DialogColor;
+            _topBarImage.color = color;
+            _confirmButtonImage.color = color;
+            _canceButtonImage.color = color;
         }
 
         private void InitButtons(DialogConfig config, Action onClose)

@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;         // UniTask 2.5.10 그대로 유지
 using R3;                              // UniRx 대신 R3
+using SurvivorsLike.UI;
 using System;
 using System.Linq.Expressions;
 using System.Threading;
@@ -31,9 +32,14 @@ public class BootstrapController : MonoBehaviour
                     break;
 
                 case PatchCheckStatus.NetworkError:
+                    SystemUIManager.Instance.ShowAlert(
+                        "네트워크 오류",
+                        result.Message,
+                        DialogType.NetworkError
+                        );
+                    break;
                 case PatchCheckStatus.ServerMaintenance:
                 case PatchCheckStatus.InvalidResponse:
-                    //ShowPopup(result.Message);
                     break;
             }
         }

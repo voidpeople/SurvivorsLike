@@ -51,8 +51,20 @@ public static  class PatchCheck
         //using 명령은 try finally 명령와 같다.
         using (UnityWebRequest request = UnityWebRequest.Get(patchServerURL))
         {
-            //서버에 요청을 한다.
-            await request.SendWebRequest();
+            try
+            {
+                //서버에 요청을 한다.
+                await request.SendWebRequest();
+            }
+            catch(UnityWebRequestException ex)
+            {
+                UnityEngine.Debug.LogWarning("패치 서버 통신 실패~");
+                return new PatchCheckResult
+                {
+                    Status = PatchCheckStatus.NetworkError,
+                    Message = "인터넷 연결을 확인해 주세요."
+                };
+            }
 
             //통신 실패 처리~
             if(request.result != UnityWebRequest.Result.Success)
