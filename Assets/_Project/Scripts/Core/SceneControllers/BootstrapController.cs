@@ -35,8 +35,8 @@ public class BootstrapController : MonoBehaviour
                     SystemUIManager.Instance.ShowAlert(
                         "네트워크 오류",
                         result.Message,
-                        DialogType.NetworkError
-                        );
+                        DialogType.NetworkError,
+                        "재시도");
                     break;
                 case PatchCheckStatus.ServerMaintenance:
                 case PatchCheckStatus.InvalidResponse:

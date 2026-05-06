@@ -82,6 +82,7 @@ namespace SurvivorsLike.UI
             string title,
             string message,
             DialogType type,
+            string confirmText = "확인",
             Action onConfirm = null)
         {
             ShowDialog(new DialogConfig
@@ -89,6 +90,7 @@ namespace SurvivorsLike.UI
                 Title = title,
                 Message = message,
                 Type = type,
+                ConfirmText = confirmText,
                 OnConfirm = onConfirm
             });
         }
