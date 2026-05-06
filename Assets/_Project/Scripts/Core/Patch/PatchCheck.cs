@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using UnityEngine;
 using UnityEngine.Networking;
+using static UnityEngine.Audio.ProcessorInstance;
 
 /*
  JSON 메세지
@@ -48,6 +49,22 @@ public static  class PatchCheck
     {
         //테스트 코드
         await UniTask.Delay(TimeSpan.FromSeconds(2.0f));
+        //return new PatchCheckResult
+        //{
+        //    Status = PatchCheckStatus.NeedPatch,
+        //    Message = "정상",
+        //    RequiredVersion = "1.2.0",
+        //    LatestVersion = "1.4.0"
+        //};
+
+        return new PatchCheckResult
+        {
+            Status = PatchCheckStatus.UpToDate,
+            Message = "정상",
+            RequiredVersion = "1.4.0",
+            LatestVersion = "1.4.0"
+        };
+
 
         //서버 URL
         string patchServerURL = "https://myPatchServer.com/getVersion";

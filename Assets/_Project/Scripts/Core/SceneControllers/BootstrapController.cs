@@ -17,6 +17,7 @@ public class BootstrapController : MonoBehaviour
 
         try
         {
+            PatchCheckStatus resultStat = PatchCheckStatus.UpToDate;
             int numRetry = 3;
 
             do
@@ -41,6 +42,7 @@ public class BootstrapController : MonoBehaviour
                             result.Message,
                             DialogType.NetworkError,
                             "재시도");
+                        resultStat = PatchCheckStatus.NetworkError;
                         --numRetry;
                         break;
                     case PatchCheckStatus.ServerMaintenance:
@@ -48,7 +50,7 @@ public class BootstrapController : MonoBehaviour
                         break;
                 }
 
-            } while (numRetry > 0);
+            } while ((numRetry > 0) && (resultStat == PatchCheckStatus.NetworkError));
         }
         catch(OperationCanceledException)
         {
