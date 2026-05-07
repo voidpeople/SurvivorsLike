@@ -1,13 +1,26 @@
 ﻿using UnityEngine;
 using R3;
 
-//MVP 패턴 - Model
 
-public class LobbyTabModel
+namespace SurvivorsLike
 {
-    public ReactiveProperty<LobbyTabType> CurrentTab { get; }
-    = new ReactiveProperty<LobbyTabType>(LobbyTabType.Battle);
+    public enum LobbyTabType
+    {
+        None = -1,
+        Stores = 0,
+        Equipment,
+        Battle,
+        Challenge,
+        Evolution
+    }
 
-    public void SelectTab(LobbyTabType tabType)
-        => CurrentTab.Value = tabType;
+    //MVP 패턴 - Model
+    public class LobbyTabModel
+    {
+        public ReactiveProperty<LobbyTabType> CurrentTab { get; }
+        = new ReactiveProperty<LobbyTabType>(LobbyTabType.None);
+
+        public void SelectTab(LobbyTabType tabType)
+            => CurrentTab.Value = tabType;
+    }
 }

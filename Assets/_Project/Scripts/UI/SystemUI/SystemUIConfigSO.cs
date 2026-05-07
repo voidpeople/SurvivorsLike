@@ -1,9 +1,8 @@
-﻿using SurvivorsLike.UI;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace SurvivorsLike.UI
+namespace SurvivorsLike
 {
 
     [CreateAssetMenu(fileName = "SystemUIDataSO", menuName = "Scriptable Objects/SystemUIDataSO")]

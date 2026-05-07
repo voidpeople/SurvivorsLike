@@ -1,33 +1,44 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public enum LobbyTabType
+
+namespace SurvivorsLike
 {
-    Stores = 0,
-    Equipment,
-    Battle,
-    Challenge,
-    Evolution
-}
-
-public class LobbyController : MonoBehaviour
-{
-    [SerializeField] private ToggleGroup _lobbyStateTabBtnGroup;
-    [SerializeField] private Toggle[] _lobbyStateTabBtns;
-
-    private LobbyTabType _currentLobbyTabType = LobbyTabType.Battle;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class LobbyController : MonoBehaviour
     {
-        GameManager.Instance.SetGameState(GaemState.Lobby);
+        [Header("탭 UI")]
+        [SerializeField] private LobbyTabView _tabView;
 
-        SetBattleState();
-    }
+        private LobbyTabModel     _tabModel;
+        private LobbyTabPresenter _tabPresenter;
 
-    void SetBattleState()
-    {
-        _currentLobbyTabType = LobbyTabType.Battle;
-        _lobbyStateTabBtns[(int)_currentLobbyTabType].isOn = true;
+        private void Awake()
+        {
+            Init();
+        }
+
+        private void Start()
+        {
+            GameManager.Instance.SetGameState(GaemState.Lobby);
+            _tabPresenter.SelectTab(LobbyTabType.Battle);
+        }
+
+        private void OnDestroy()
+        {
+            Destroy();
+        }
+
+        void Init()
+        {
+            _tabModel = new LobbyTabModel();
+            _tabView.Init();
+            _tabPresenter = new LobbyTabPresenter(_tabView, _tabModel);
+        }
+
+        private void Destroy()
+        {
+            _tabPresenter?.Dispose();
+            _tabView?.Destroy();
+        }
     }
 }

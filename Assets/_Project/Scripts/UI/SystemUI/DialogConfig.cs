@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace SurvivorsLike.UI
+namespace SurvivorsLike
 {
     public enum DialogType
     {

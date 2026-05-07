@@ -8,7 +8,7 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace SurvivorsLike.UI
+namespace SurvivorsLike
 {
     //로딩(대기) UI, 오류 팝업창, 경고 팝업창 담당 클래스~
     //SystemUIManager의 모든 UI은 기본적으로 백그라운드에 투명한 이미지를 배치하여 레이캐스팅을 막는다.

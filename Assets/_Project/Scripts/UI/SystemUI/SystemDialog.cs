@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using SurvivorsLike.UI;
 using System;
 using TMPro;
 using TriInspector;
@@ -7,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.STP;
 
-namespace SurvivorsLike.UI
+namespace SurvivorsLike
 {
     public class SystemDialog : MonoBehaviour
     {
