@@ -24,16 +24,18 @@ namespace SurvivorsLike
             _view = view;
             _model = model;
 
-            //모델의 CurrentTab 깂이 수정되면
-            //뷰의 SetTabSelect함수를 호출하도록 설정
+            //Model => View
+            //모델의 CurrentTab 값이 수정되면
+            //뷰의 SetTabSelect함수가 호출 되도록 설정
             //_disposables을 추가하는 이유는 인스턴스 소멸시 _disposables을 통해
             //_model의 R3 Subscribe 구독을 해제하기 위해서 추가~
             _model.CurrentTab
                 .Subscribe(tabType => _view.SetTabSelect(tabType))
                 .AddTo(_disposables);
 
-            //사용자의 입력으로 뷰가 갱신되면 OnTabClickedHandler 함수로 통보 받는다.
-            _view.OnTabClicked += OnTabClickedHandler;
+            //View => Model
+            //사용자의 입력으로 뷰가 갱신되면 모델의 SelectTab함수가 호출 되도록 설정
+            _view.OnTabClicked += tabType => _model.SelectTab(tabType);
         }
 
         //코드로 탭 전환시 이 함수를 호추한다. 그러면 모델의 값이 수정되고
@@ -43,16 +45,12 @@ namespace SurvivorsLike
         public void SelectTab(LobbyTabType tabType)
             => _model.SelectTab(tabType);
 
-        //사용자의 입력에 위해 뷰가 갱신되면 OnTabClickedHandler함수로 통보 받는다.
-        private void OnTabClickedHandler(LobbyTabType tabType)
-            => _model.SelectTab(tabType);
-
 
         //Dispose()함수는 인스턴스 종료시 외부에서 명시적으로 호출해 주어야 한다.
         //인스턴스 종료시 자원들 해제하기
         public void Dispose()
         {
-            _view.OnTabClicked -= OnTabClickedHandler;
+            _view.OnTabClicked -= tabType => _model.SelectTab(tabType);
             _disposables.Dispose();
         }
     }

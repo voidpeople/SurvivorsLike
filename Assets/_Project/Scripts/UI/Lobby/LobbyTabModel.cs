@@ -6,7 +6,6 @@ namespace SurvivorsLike
 {
     public enum LobbyTabType
     {
-        None = -1,
         Stores = 0,
         Equipment,
         Battle,
@@ -18,7 +17,7 @@ namespace SurvivorsLike
     public class LobbyTabModel
     {
         public ReactiveProperty<LobbyTabType> CurrentTab { get; }
-        = new ReactiveProperty<LobbyTabType>(LobbyTabType.None);
+        = new ReactiveProperty<LobbyTabType>(LobbyTabType.Battle);
 
         public void SelectTab(LobbyTabType tabType)
             => CurrentTab.Value = tabType;

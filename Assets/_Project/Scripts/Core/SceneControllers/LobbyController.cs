@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -17,9 +19,12 @@ namespace SurvivorsLike
             Init();
         }
 
-        private void Start()
+        private async UniTaskVoid Start()
         {
             GameManager.Instance.SetGameState(GaemState.Lobby);
+
+            //await UniTask.Delay(TimeSpan.FromSeconds(2.0f));
+
             _tabPresenter.SelectTab(LobbyTabType.Battle);
         }
 

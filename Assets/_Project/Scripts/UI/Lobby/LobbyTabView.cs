@@ -41,8 +41,11 @@ namespace SurvivorsLike
         {
             int tabIndex = (int)tabType;
 
+            //_tabToggles[tabIndex].isOn = true;
+            _tabToggles[tabIndex].Select();
+
             //SetIsOnWithoutNotify()함수는 통보 없이 해당 토글을 선택하게 해 준다.
-            _tabToggles[tabIndex].SetIsOnWithoutNotify(true);
+            //_tabToggles[tabIndex].SetIsOnWithoutNotify(true);
 
             //현재 선택된 탭 버튼으 패널만 활성화 하고 나머지는 비 활성화
             UpdateTabPanels(tabIndex);
