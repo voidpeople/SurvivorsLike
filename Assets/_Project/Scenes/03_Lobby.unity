@@ -1842,7 +1842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1291263543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1855,6 +1855,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0baf4d41cf1beea4089d82b735ba4aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LobbyController
+  _lobbyStateTabBtnGroup: {fileID: 1301791012}
+  _lobbyStateTabBtns:
+  - {fileID: 63807618}
+  - {fileID: 1879515319}
+  - {fileID: 440476237}
+  - {fileID: 1492418667}
+  - {fileID: 1403023462}
 --- !u!4 &1291263544
 Transform:
   m_ObjectHideFlags: 0
@@ -2021,7 +2028,7 @@ GameObject:
   - component: {fileID: 1301791011}
   - component: {fileID: 1301791012}
   m_Layer: 5
-  m_Name: Panel_TabButtons
+  m_Name: Panel_LobbyStatusTabBtns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2127,7 +2134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ToggleGroup
-  m_AllowSwitchOff: 1
+  m_AllowSwitchOff: 0
 --- !u!1 &1403023457
 GameObject:
   m_ObjectHideFlags: 0
