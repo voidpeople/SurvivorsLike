@@ -5,13 +5,15 @@ namespace SurvivorsLike
 {
     public class BattlePanelPresenter : IDisposable
     {
-        private readonly BattlePanelModel _model;
-        private readonly BattlePanelView  _view;
+        private readonly BattlePanelModel        _model;
+        private readonly BattlePanelView         _view;
+        private readonly Func<string, UniTask>   _loadScene;
 
-        public BattlePanelPresenter(BattlePanelView view, BattlePanelModel model)
+        public BattlePanelPresenter(BattlePanelView view, BattlePanelModel model, Func<string, UniTask> loadScene)
         {
-            _view  = view;
-            _model = model;
+            _view      = view;
+            _model     = model;
+            _loadScene = loadScene;
 
             _view.OnGameStartClicked += OnGameStartClicked;
         }
@@ -28,7 +30,7 @@ namespace SurvivorsLike
             _model.SetCanStart(false);
             _view.SetInteractable(false);
 
-            await GameManager.Instance.LoadScene(BattlePanelModel.GameSceneName);
+            await _loadScene(BattlePanelModel.GameSceneName);
         }
 
         public void Dispose()

@@ -42,7 +42,8 @@ namespace SurvivorsLike
 
             _battlePanelModel = new BattlePanelModel();
             _battlePanelView.Init();
-            _battlePanelPresenter = new BattlePanelPresenter(_battlePanelView, _battlePanelModel);
+            _battlePanelPresenter = new BattlePanelPresenter(_battlePanelView, _battlePanelModel,
+                sceneName => GameManager.Instance.LoadScene(sceneName));
         }
 
         private void Destroy()

@@ -35,7 +35,7 @@ namespace SurvivorsLike
 
             //View => Model
             //사용자의 입력으로 뷰가 갱신되면 모델의 SelectTab함수가 호출 되도록 설정
-            _view.OnTabClicked += tabType => _model.SelectTab(tabType);
+            _view.OnTabClicked += OnTabClicked;
         }
 
         //코드로 탭 전환시 이 함수를 호추한다. 그러면 모델의 값이 수정되고
@@ -45,12 +45,14 @@ namespace SurvivorsLike
         public void SelectTab(LobbyTabType tabType)
             => _model.SelectTab(tabType);
 
+        private void OnTabClicked(LobbyTabType tabType)
+            => _model.SelectTab(tabType);
 
         //Dispose()함수는 인스턴스 종료시 외부에서 명시적으로 호출해 주어야 한다.
         //인스턴스 종료시 자원들 해제하기
         public void Dispose()
         {
-            _view.OnTabClicked -= tabType => _model.SelectTab(tabType);
+            _view.OnTabClicked -= OnTabClicked;
             _disposables.Dispose();
         }
     }

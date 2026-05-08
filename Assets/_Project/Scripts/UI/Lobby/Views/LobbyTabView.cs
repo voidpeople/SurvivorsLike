@@ -52,7 +52,7 @@ namespace SurvivorsLike
         }
 
         //현재 선택된 탭 버튼으 패널만 활성화 하고 나머지는 비 활성화
-        public void UpdateTabPanels(int tabIndex)
+        private void UpdateTabPanels(int tabIndex)
         {
             for (int ii = 0; ii < _tabPanels.Length; ii++)
             {
