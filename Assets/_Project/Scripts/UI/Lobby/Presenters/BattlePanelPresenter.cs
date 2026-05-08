@@ -25,7 +25,7 @@ namespace SurvivorsLike
             StartGameAsync().Forget();
         }
 
-        private async UniTaskVoid StartGameAsync()
+        private async UniTask StartGameAsync()
         {
             _model.SetCanStart(false);
             _view.SetInteractable(false);
