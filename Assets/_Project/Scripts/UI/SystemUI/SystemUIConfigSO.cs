@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SurvivorsLike
 {
 
-    [CreateAssetMenu(fileName = "SystemUIDataSO", menuName = "Scriptable Objects/SystemUIDataSO")]
+    [CreateAssetMenu(fileName = "SystemUIDataSO", menuName = "SurvivorsLike/Data/SystemUIDataSO")]
     public class SystemUIConfigSO : ScriptableObject
     {
         [Header("Dialog Icons")]
