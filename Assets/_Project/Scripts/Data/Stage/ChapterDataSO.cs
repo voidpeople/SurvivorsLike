@@ -2,7 +2,7 @@
 
 namespace SurvivorsLike
 {
-
+    //스테이지 테이블 정보
     [CreateAssetMenu(fileName = "ChapterDataSO", menuName = "SurvivorsLike/Data/ChapterDataSO")]
     public class ChapterDataSO : ScriptableObject
     {
