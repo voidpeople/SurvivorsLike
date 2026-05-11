@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
@@ -19,6 +20,8 @@ namespace SurvivorsLike.UI.Lobby
         private bool _isSnapping;
         private bool _isSetupDone;
         private const float SnapDuration = 0.25f;
+
+        public event Action<int> OnCardCentered;
 
         private void Start()
         {
@@ -137,6 +140,7 @@ namespace SurvivorsLike.UI.Lobby
             {
                 _scrollRect.horizontalNormalizedPosition = targetPos;
                 _isSnapping = false;
+                OnCardCentered?.Invoke(index);
             }
             else
             {
@@ -148,7 +152,11 @@ namespace SurvivorsLike.UI.Lobby
                     SnapDuration
                 ).SetEase(Ease.OutCubic)
                  .SetId(this)
-                 .OnComplete(() => _isSnapping = false);
+                 .OnComplete(() =>
+                 {
+                     _isSnapping = false;
+                     OnCardCentered?.Invoke(index);
+                 });
             }
 
             RefreshButtons();
