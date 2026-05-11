@@ -8,8 +8,8 @@ namespace SurvivorsLike
 {
     public class BattlePanelView : MonoBehaviour
     {
-        [SerializeField] private GameObject _stageSelectPanel;
-        [SerializeField] private Button _stageSelectButton;
+        [SerializeField] private GameObject _chapterSelectPanel;
+        [SerializeField] private Button _chapterSelectButton;
         [SerializeField] private Button _battleStartButton;
 
         //BattlePanelPresenter의 OnGameStartClicked()가 구독한다.
@@ -17,7 +17,7 @@ namespace SurvivorsLike
 
         public void Init()
         {
-            _stageSelectButton.onClick.AddListener(() => _stageSelectPanel.SetActive(true));
+            _chapterSelectButton.onClick.AddListener(() => _chapterSelectPanel.SetActive(true));
             _battleStartButton.onClick.AddListener(() => OnGameStartClicked?.Invoke());
         }
 

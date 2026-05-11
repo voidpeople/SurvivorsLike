@@ -845,8 +845,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f2cd2fa1801a5478687af62afe7bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.BattlePanelView
-  _stageSelectPanel: {fileID: 1164990383}
-  _stageSelectButton: {fileID: 1566039242}
+  _chapterSelectPanel: {fileID: 0}
+  _chapterSelectButton: {fileID: 0}
   _battleStartButton: {fileID: 2084599055}
 --- !u!1 &280909752
 GameObject:
@@ -2224,7 +2224,7 @@ GameObject:
   - component: {fileID: 1164990386}
   - component: {fileID: 1164990388}
   m_Layer: 5
-  m_Name: Panel_StageSelect
+  m_Name: Panel_ChapterSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2303,7 +2303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72e6f10f9fb63044905f06c871b917a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSelectPanelView
-  _stageScrollCtrl: {fileID: 1193927255}
+  _chapterScrollCtrl: {fileID: 0}
   _selectButton: {fileID: 569523896}
   _exitButton: {fileID: 1031004857}
 --- !u!1 &1167367742
@@ -2532,7 +2532,7 @@ GameObject:
   - component: {fileID: 1193927252}
   - component: {fileID: 1193927255}
   m_Layer: 5
-  m_Name: StageCarousel_Scroll
+  m_Name: Scroll_Chapter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2644,6 +2644,12 @@ MonoBehaviour:
   _btnPrev: {fileID: 1803198610}
   _btnNext: {fileID: 1782714477}
   _cardPrefab: {fileID: 6799206967344792015, guid: 459aaf139abbc974893186a82c72e6b4, type: 3}
+  _stageCount: 0
+  _currentIndex: 0
+  _snapPositions: []
+  _dragStartNormPos: 0
+  _isSnapping: 0
+  _isSetupDone: 0
 --- !u!1 &1217741307
 GameObject:
   m_ObjectHideFlags: 0
@@ -4009,7 +4015,7 @@ GameObject:
   - component: {fileID: 1566039243}
   - component: {fileID: 1566039242}
   m_Layer: 5
-  m_Name: Button_Stages
+  m_Name: Button_Chapters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

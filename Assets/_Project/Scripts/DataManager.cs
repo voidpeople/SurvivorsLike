@@ -7,7 +7,7 @@ public class DataManager : SingletonMonoBehaviour<DataManager>
 
     }
 
-    private void LoadStageData()
+    private void LoadChapterData()
     {
 
     }

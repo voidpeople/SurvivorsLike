@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StageSelectPanelView : MonoBehaviour
+public class ChapterSelectPanelView : MonoBehaviour
 {
-    [SerializeField] private StageScrollController _stageScrollCtrl;
+    [SerializeField] private ChapterScrollController _chapterScrollCtrl;
     [SerializeField] private Button _selectButton;
     [SerializeField] private Button _exitButton;
 
