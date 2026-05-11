@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7e3db106e9d2b449161321a633f129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChapterSheetDownloader
-  sheetName: StageData
-  saveFolderPath: Assets/_Project/Data/Stage
+  sheetName: ChapterData
+  saveFolderPath: Assets/_Project/Data/Chapter
   spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
 --- !u!114 &198747365
 MonoBehaviour:
