@@ -8,7 +8,7 @@ using UnityEditor;
 //관련 구글 시트들을 다운로드 테이블 데이터를 스크립트블 오브젝트에 저장한다.
 public class GameDataDownloadManager : MonoBehaviour
 {
-    [Header("공통 설정 — 딱 한 번만 입력")]
+    [Header("구글 시트의 URL에서 ID 가져와 설정")]
     [SerializeField] private string _spreadsheetId;
 
     [Header("Sheet Downloaders")]
