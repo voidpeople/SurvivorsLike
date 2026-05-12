@@ -1,18 +1,40 @@
 ﻿using SurvivorsLike.UI.Lobby;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 namespace SurvivorsLike
 {
+    //View은 결정을 하지 않는다. 보고만 한다.
+    //결정은 Presenter에서 한다.
     public class ChapterSelectPanelView : MonoBehaviour
     {
         [SerializeField] private ChapterScrollController _chapterScrollCtrl;
         [SerializeField] private Button _selectButton; //챕터 선택 후 나가기
         [SerializeField] private Button _exitButton;   //그냥 나가기
 
-        private void Start()
+        public event Action<int> OnFinishScrollChapter;
+        public event Action OnSelectChapter;
+        public event Action OnExitPanel;
+
+        public void Init()
         {
+            _chapterScrollCtrl.OnCardCentered += index => OnFinishScrollChapter?.Invoke(index);
+            _selectButton.onClick.AddListener(() => OnSelectChapter?.Invoke());
+            _exitButton.onClick.AddListener(() => OnExitPanel?.Invoke());
+        }
+
+        public void SetupChapterCards(IReadOnlyList<ChapterDataSO> chapterList)
+        {
+            _chapterScrollCtrl.SetupChapters(chapterList);
+        }
+
+        public void Destroy()
+        {
+            _selectButton?.onClick.RemoveAllListeners();
+            _exitButton?.onClick.RemoveAllListeners();
         }
     }
 }

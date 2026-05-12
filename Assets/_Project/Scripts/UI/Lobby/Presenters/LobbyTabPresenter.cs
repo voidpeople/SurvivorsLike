@@ -13,7 +13,7 @@ namespace SurvivorsLike
     public class LobbyTabPresenter : IDisposable
     {
         private readonly LobbyTabModel _model;
-        private readonly LobbyTabView _view;
+        private readonly LobbyTabView  _view;
 
         //R3 Subscribe 구독들을 한 바구니에 담아서 한 번에 해제하는 컨테이너 변수 선언
         private readonly CompositeDisposable _disposables = new();

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using DG.Tweening;
+using UnityEngine.UI;
 
 namespace SurvivorsLike.UI.Lobby
 {
@@ -50,7 +51,7 @@ namespace SurvivorsLike.UI.Lobby
         }
 
         //동적 카드 추가
-        public void SetupChapters(ChapterDataSO[] chapters)
+        public void SetupChapters(IReadOnlyList<ChapterDataSO> chapterList)
         {
             // 기존 카드 제거 (SetParent(null)로 즉시 분리 후 Destroy)
             for (int i = _scrollRect.content.childCount - 1; i >= 0; i--)
@@ -60,13 +61,13 @@ namespace SurvivorsLike.UI.Lobby
                 Destroy(child.gameObject);
             }
 
-            _chapterCount = chapters.Length;
+            _chapterCount = chapterList.Count;
             _currentIndex = 0;
 
-            for (int i = 0; i < chapters.Length; i++)
+            for (int i = 0; i < chapterList.Count; i++)
             {
                 var card = Instantiate(_cardPrefab, _scrollRect.content);
-                card.Setup(chapters[i], i);
+                card.Setup(chapterList[i], i);
             }
 
             // Content 너비를 카드 수 × Viewport 너비로 설정
