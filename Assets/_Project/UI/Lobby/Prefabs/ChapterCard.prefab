@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6426087800476706856}
   - component: {fileID: 8282868715273481703}
   - component: {fileID: 7958794816018913209}
+  - component: {fileID: 6477707657803772846}
   m_Layer: 5
   m_Name: ChapterCard
   m_TagString: Untagged
@@ -97,6 +98,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &6477707657803772846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924571453353500731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c627ae63d2e68498b9dc9aedcdb9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.UI.Lobby.ChapterCardView
+  _chapterImage: {fileID: 3580072558883601378}
 --- !u!1 &9149211970422173046
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +123,7 @@ GameObject:
   - component: {fileID: 6381761132915883977}
   - component: {fileID: 3580072558883601378}
   m_Layer: 0
-  m_Name: Img_StageBg
+  m_Name: Img_ChapterImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

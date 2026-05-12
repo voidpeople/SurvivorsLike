@@ -18,6 +18,9 @@ namespace SurvivorsLike
         private AsyncOperationHandle<IList<ChapterDataSO>> _chapterDataSOListHandle;
         private readonly List<ChapterDataSO> _chapterDataSOList = new();
 
+        //IReadOnlyList은 Add, Remove, Clear 등의 수정 메서드가 없는 인터페이스
+        public IReadOnlyList<ChapterDataSO> ChapterDataSOList => _chapterDataSOList;
+
         public async UniTask InitAsync(CancellationToken ct = default)
         {
             //챕터 데이터 파일 비동기 로드
