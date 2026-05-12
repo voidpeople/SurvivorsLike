@@ -3,7 +3,7 @@
 
 namespace SurvivorsLike
 {
-    public class GameResultPanelPresenter
+    public class ChapterSelectPanelModel
     {
 
     }

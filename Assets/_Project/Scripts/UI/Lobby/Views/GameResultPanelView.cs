@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public class GameResultPanelView : MonoBehaviour
+namespace SurvivorsLike
 {
+    public class GameResultPanelView : MonoBehaviour
+    {
 
+    }
 }

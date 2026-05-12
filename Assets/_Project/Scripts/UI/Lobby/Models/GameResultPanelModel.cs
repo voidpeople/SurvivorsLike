@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 
-public class GameResultPanelModel : MonoBehaviour
-{
 
+namespace SurvivorsLike
+{
+    public class GameResultPanelModel
+    {
+
+    }
 }

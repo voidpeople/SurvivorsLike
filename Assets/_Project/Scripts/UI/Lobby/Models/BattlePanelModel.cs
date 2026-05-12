@@ -1,3 +1,5 @@
+﻿
+
 namespace SurvivorsLike
 {
     public class BattlePanelModel
