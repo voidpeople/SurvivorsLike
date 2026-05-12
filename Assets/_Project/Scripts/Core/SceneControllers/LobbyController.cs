@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.U2D;
 
 
 namespace SurvivorsLike
@@ -14,6 +15,9 @@ namespace SurvivorsLike
 
         [Header("챕터 선택 패널 뷰")]
         [SerializeField] private ChapterSelectPanelView _chapterSelectPanelView;
+
+        [Header("아틀라스")]
+        [SerializeField] private SpriteAtlas _lobbyChapterAtlas;
 
         private LobbyTabModel     _tabModel;
         private LobbyTabPresenter _tabPresenter;
@@ -60,6 +64,7 @@ namespace SurvivorsLike
                 );
         }
 
+        //TODO : 아래 함수는 ChapterSelectPanelPresenter에게 위임 하는게 맞는 것 같다.
         private void OnSelectChapter(ChapterDataSO chapData)
         {
             //1.챕터 선택 패널을 오픈하는 버튼의 챕터 이미지를 새로 선택한 챕터 이미지로 설정

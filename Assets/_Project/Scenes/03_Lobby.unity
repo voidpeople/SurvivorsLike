@@ -846,7 +846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.BattlePanelView
   _chapterSelectPanel: {fileID: 1164990383}
-  _chapterSelectButton: {fileID: 1566039242}
+  _chapterPanelButton: {fileID: 0}
   _battleStartButton: {fileID: 2084599055}
 --- !u!1 &280909752
 GameObject:
@@ -2229,7 +2229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1164990384
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3163,6 +3163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LobbyController
   _tabView: {fileID: 1301791013}
   _battlePanelView: {fileID: 238589075}
+  _chapterSelectPanelView: {fileID: 0}
 --- !u!4 &1291263544
 Transform:
   m_ObjectHideFlags: 0
@@ -4118,7 +4119,7 @@ GameObject:
   - component: {fileID: 1566039243}
   - component: {fileID: 1566039242}
   m_Layer: 5
-  m_Name: Button_Chapters
+  m_Name: Button_ChapterPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
