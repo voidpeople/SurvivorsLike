@@ -1,4 +1,5 @@
-﻿using SurvivorsLike.UI.Lobby;
+﻿using DG.Tweening;
+using SurvivorsLike.UI.Lobby;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace SurvivorsLike
 
         public void Init()
         {
-            _chapterScrollCtrl.OnCardCentered += index => OnFinishScrollChapter?.Invoke(index);
+            _chapterScrollCtrl.OnCardCentered += FinishScrollChapter;
             _selectButton.onClick.AddListener(() => OnSelectChapter?.Invoke());
             _exitButton.onClick.AddListener(() => OnExitPanel?.Invoke());
         }
@@ -31,8 +32,17 @@ namespace SurvivorsLike
             _chapterScrollCtrl.SetupChapters(chapterList);
         }
 
+        private void FinishScrollChapter(int index)
+        {
+            OnFinishScrollChapter?.Invoke(index);
+        }
+
+        public void Show() => gameObject.SetActive(true);
+        public void Hide() => gameObject.SetActive(false);
+
         public void Destroy()
         {
+            _chapterScrollCtrl.OnCardCentered -= FinishScrollChapter;
             _selectButton?.onClick.RemoveAllListeners();
             _exitButton?.onClick.RemoveAllListeners();
         }

@@ -48,6 +48,8 @@ namespace SurvivorsLike.UI.Lobby
         private void OnDestroy()
         {
             DOTween.Kill(this);
+            _btnPrev?.onClick.RemoveAllListeners();
+            _btnNext?.onClick.RemoveAllListeners();
         }
 
         //동적 카드 추가
