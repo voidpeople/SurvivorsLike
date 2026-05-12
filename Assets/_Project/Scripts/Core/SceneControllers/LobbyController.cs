@@ -62,7 +62,10 @@ namespace SurvivorsLike
 
         private void OnSelectChapter(ChapterDataSO chapData)
         {
+            //1.챕터 선택 패널을 오픈하는 버튼의 챕터 이미지를 새로 선택한 챕터 이미지로 설정
+            //_battlePanelView.
 
+            //2.GameSessionData 클래스에 챕터 데이터 저장
         }
 
         private void Destroy()

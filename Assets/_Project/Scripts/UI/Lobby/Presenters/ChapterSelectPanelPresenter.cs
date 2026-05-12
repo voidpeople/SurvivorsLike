@@ -29,9 +29,8 @@ namespace SurvivorsLike
 
         //챕터 카드들이 스크롤이 끝나면 멈출 경우 현재 보여지는 카드의 인덱스를 반환
         public void OnFinishScrollChapter(int index)
-        {
-            //_model.get
-            //_onSelectChapter?.Invoke();
+        {            
+            _onSelectChapter?.Invoke(_model.SelectedChapter);
         }
 
         //선택 버튼을 클릭할 경우 호출되는 함수
