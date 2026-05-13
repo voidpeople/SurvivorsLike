@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SurvivorsLike
 {
-    public class GameResultPanelPresenter
+    public class GameResultPanelPresenter : IDisposable
     {
         private readonly GameResultPanelModel _model;
         private readonly GameResultPanelView _view;
@@ -23,6 +23,10 @@ namespace SurvivorsLike
         {
             //결과창은 그대로 남겨 놓은 상태에서 InGameController 통보하면
             //InGameController가 로비씬을 로딩한다.
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
