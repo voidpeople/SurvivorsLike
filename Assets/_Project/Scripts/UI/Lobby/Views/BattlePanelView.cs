@@ -38,8 +38,8 @@ namespace SurvivorsLike
 
         public void Destroy()
         {
-            _chapterPanelButton?.onClick.RemoveAllListeners();
-            _battleStartButton?.onClick.RemoveAllListeners();
+            _chapterPanelButton.onClick.RemoveAllListeners();
+            _battleStartButton.onClick.RemoveAllListeners();
         }
     }
 }

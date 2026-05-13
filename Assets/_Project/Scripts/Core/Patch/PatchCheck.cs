@@ -24,7 +24,7 @@ public class PatchResponse
     public string latestVersion;   //최신 패치 버전
 }
 
-public enum PatchCheckStatus : byte
+public enum PatchCheckStatus
 {
     UpToDate,          //최신 상태
     NeedPatch,         //패치 필요

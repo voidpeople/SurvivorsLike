@@ -1,14 +1,13 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.InputSystem.InputControlScheme;
 
 
 //하나의 씬에서 여러 상태는 별도의 하위 스테이트를 enum으로 관리 할 것~
 //LobbyState => Stores, Equipment, Battle, Challenges, Evolution
 //InGameState => GamePlay, Result
 
-public enum GaemState : byte
+public enum GameState
 {
     None,
     Bootstrap,
@@ -20,14 +19,17 @@ public enum GaemState : byte
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    public GaemState CurrentState { get; private set; }
+    private GameSessionData _gameSessionData = new GameSessionData();
+    public GameSessionData SessionData { get { return _gameSessionData; } }
+
+    public GameState CurrentState { get; private set; }
 
     protected override void ChildAwake()
     {
-        CurrentState = GaemState.None;
+        CurrentState = GameState.None;
     }
 
-    public void SetGameState(GaemState state)
+    public void SetGameState(GameState state)
     {
         CurrentState = state;
     }

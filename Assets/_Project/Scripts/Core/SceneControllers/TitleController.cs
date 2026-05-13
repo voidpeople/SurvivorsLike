@@ -8,7 +8,7 @@ public class TitleController : MonoBehaviour
 {
     private async UniTaskVoid Start()
     {
-        GameManager.Instance.SetGameState(GaemState.Title);
+        GameManager.Instance.SetGameState(GameState.Title);
 
         CancellationToken ct = this.GetCancellationTokenOnDestroy();
         await DataManager.Instance.InitAsync(ct);

@@ -60,8 +60,8 @@ namespace SurvivorsLike
         public void Destroy()
         {
             _chapterScrollCtrl.OnCardCentered -= FinishScrollChapter;
-            _selectButton?.onClick.RemoveAllListeners();
-            _exitButton?.onClick.RemoveAllListeners();
+            _selectButton.onClick.RemoveAllListeners();
+            _exitButton.onClick.RemoveAllListeners();
         }
     }
 }

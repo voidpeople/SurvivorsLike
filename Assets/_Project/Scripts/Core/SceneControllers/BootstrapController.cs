@@ -12,7 +12,7 @@ namespace SurvivorsLike
     {
         private async UniTaskVoid Start()
         {
-            GameManager.Instance.SetGameState(GaemState.Bootstrap);
+            GameManager.Instance.SetGameState(GameState.Bootstrap);
 
             //오브젝트 파괴 시 모든 비동기 로직을 멈추기 위한 토큰
             var cts = this.GetCancellationTokenOnDestroy();

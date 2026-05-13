@@ -34,12 +34,12 @@ namespace SurvivorsLike
         public void Show()
         {
             _view.ScrollToChapter(_model.SelectedIndex);
-            _view?.Show();
+            _view.Show();
         }
 
         public void Hide()
         {
-            _view?.Hide();
+            _view.Hide();
         }
 
         //챕터 카드들이 스크롤이 끝나면 멈출 경우 현재 보여지는 카드의 인덱스를 반환
@@ -59,13 +59,13 @@ namespace SurvivorsLike
             //다른 외부 객체들이 챕터 선택에 대한 통보를 받게 하기 위해~
             _onSelectChapter?.Invoke(_model.SelectedChapter);
 
-            _view?.Hide();
+            _view.Hide();
         }
 
         //나가기 버튼을 클릭할 경우 호출되는 함수
         public void OnExitPanel()
         {
-            _view?.Hide();
+            _view.Hide();
         }
 
         public void Dispose()

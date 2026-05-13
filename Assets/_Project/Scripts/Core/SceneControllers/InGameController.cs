@@ -19,7 +19,7 @@ public class InGameController : MonoBehaviour
 
     void Start()
     {
-        GameManager.Instance.SetGameState(GaemState.InGame);
+        GameManager.Instance.SetGameState(GameState.InGame);
     }
 
     private void OnDestroy()
@@ -39,7 +39,7 @@ public class InGameController : MonoBehaviour
 
     private void Destroy()
     {
-        _resultPresenter?.Dispose();
-        _resultPanelView?.Destroy();
+        _resultPresenter.Dispose();
+        _resultPanelView.Destroy();
     }
 }
