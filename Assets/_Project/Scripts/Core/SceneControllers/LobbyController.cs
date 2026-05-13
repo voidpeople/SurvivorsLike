@@ -59,18 +59,7 @@ namespace SurvivorsLike
             _chapterSelectPanelView.Init();
             _chapterSelectPanelPresenter = new ChapterSelectPanelPresenter(
                 _chapterSelectPanelModel,
-                _chapterSelectPanelView,
-                OnSelectChapter
-                );
-        }
-
-        //TODO : 아래 함수는 ChapterSelectPanelPresenter에게 위임 하는게 맞는 것 같다.
-        private void OnSelectChapter(ChapterDataSO chapData)
-        {
-            //1.챕터 선택 패널을 오픈하는 버튼의 챕터 이미지를 새로 선택한 챕터 이미지로 설정
-            //_battlePanelView.
-
-            //2.GameSessionData 클래스에 챕터 데이터 저장
+                _chapterSelectPanelView);
         }
 
         private void Destroy()

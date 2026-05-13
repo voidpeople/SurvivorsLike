@@ -2,6 +2,7 @@
 using SurvivorsLike.UI.Lobby;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ namespace SurvivorsLike
     //결정은 Presenter에서 한다.
     public class ChapterSelectPanelView : MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private ChapterScrollController _chapterScrollCtrl;
         [SerializeField] private Button _selectButton; //챕터 선택 후 나가기
         [SerializeField] private Button _exitButton;   //그냥 나가기
@@ -35,6 +37,16 @@ namespace SurvivorsLike
         private void FinishScrollChapter(int index)
         {
             OnFinishScrollChapter?.Invoke(index);
+        }
+
+        public void SetChapterName(string name)
+        {
+            _chapterNameText.text = name;
+        }
+
+        public int GetCurrentChapterIndex()
+        {
+            return _chapterScrollCtrl.GetCurrentChapterIndex();
         }
 
         public void Show() => gameObject.SetActive(true);
