@@ -2,36 +2,47 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TabButton : MonoBehaviour
+public class TabButton : Button
 {
-    [SerializeField] private Image _image;
     [SerializeField] private Sprite _normalSprite;
     [SerializeField] private Sprite _selectedSprite;
 
     public event Action<TabButton> OnSelected;
 
-    private bool _isSelected;
+    //private bool _isSelected;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        transition = Transition.None; // Transition은 코드로 제어
         Deselect();
+    }
+
+    // Button 클릭 이벤트 내부 처리
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        onClick.AddListener(HandleClick);
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        onClick.RemoveListener(HandleClick);
+    }
+
+    private void HandleClick()
+    {
+        OnSelected?.Invoke(this);
     }
 
     public void Select()
     {
-        _isSelected = true;
-        _image.sprite = _selectedSprite;
+        image.sprite = _selectedSprite;
     }
 
     public void Deselect()
     {
-        _isSelected = false;
-        _image.sprite = _normalSprite;
-    }
-
-    // Button onClick에서 호출
-    public void OnClick()
-    {
-        OnSelected?.Invoke(this);
+        image.sprite = _normalSprite;
     }
 }

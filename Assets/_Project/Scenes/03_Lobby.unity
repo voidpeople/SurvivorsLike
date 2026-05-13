@@ -442,7 +442,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0536eb63690d1a94d8e2ca4f3db79187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TabButton
-  _image: {fileID: 63807616}
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 63807616}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
   _normalSprite: {fileID: 21300000, guid: 77de097a7b4263f4cb7b327800ab6001, type: 3}
   _selectedSprite: {fileID: 21300000, guid: 3c7f97f333dd02344b4e6c94564378d6, type: 3}
 --- !u!1 &130746143
@@ -1135,7 +1166,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0536eb63690d1a94d8e2ca4f3db79187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TabButton
-  _image: {fileID: 440476235}
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 440476235}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
   _normalSprite: {fileID: 21300000, guid: 3baf01db87985bf43a564f0640f9f561, type: 3}
   _selectedSprite: {fileID: 21300000, guid: 84477fa9a12269945819b4118bb764cc, type: 3}
 --- !u!1 &569523894
@@ -3218,6 +3280,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e047d95f433ab54dbd0e314e74e8681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.LobbyTabView
+  _tabButtons:
+  - {fileID: 63807618}
+  - {fileID: 1879515319}
+  - {fileID: 440476237}
+  - {fileID: 1492418667}
+  - {fileID: 1403023462}
+  _tabPanels:
+  - {fileID: 635821717}
+  - {fileID: 280909752}
+  - {fileID: 238589071}
+  - {fileID: 1903719}
+  - {fileID: 1906197036}
 --- !u!1 &1403023457
 GameObject:
   m_ObjectHideFlags: 0
@@ -3328,7 +3402,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0536eb63690d1a94d8e2ca4f3db79187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TabButton
-  _image: {fileID: 1403023460}
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1403023460}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
   _normalSprite: {fileID: 21300000, guid: 65c8379659cb22c45a9ebef75a4aeb09, type: 3}
   _selectedSprite: {fileID: 21300000, guid: 69e73ccec8e86b64db00db886c00d758, type: 3}
 --- !u!1 &1484238320
@@ -3715,7 +3820,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0536eb63690d1a94d8e2ca4f3db79187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TabButton
-  _image: {fileID: 1492418665}
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1492418665}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
   _normalSprite: {fileID: 21300000, guid: 9fed59345422f54498c589c806cfc6a7, type: 3}
   _selectedSprite: {fileID: 21300000, guid: 059680c70f02db645a7a5f7d4c9c1f21, type: 3}
 --- !u!1 &1566039240
@@ -4572,7 +4708,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0536eb63690d1a94d8e2ca4f3db79187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TabButton
-  _image: {fileID: 1879515317}
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1879515317}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
   _normalSprite: {fileID: 21300000, guid: 90f3a884b5cbd0d489d8bb711ba97af8, type: 3}
   _selectedSprite: {fileID: 21300000, guid: 5b3067e51bc6bb54e97a1c7665d8b494, type: 3}
 --- !u!1 &1906197036

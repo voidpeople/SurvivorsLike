@@ -33,6 +33,7 @@ namespace SurvivorsLike
 
         public void ShowView()
         {
+            _view.ScrollToChapter(_model.SelectedIndex);
             _view?.Show();
         }
 

@@ -133,6 +133,13 @@ namespace SurvivorsLike.UI.Lobby
 
         public int GetCurrentChapterIndex() => _currentIndex;
 
+        public void ScrollToIndex(int index, bool instant = false)
+        {
+            if (index < 0 || index >= _chapterCount) return;
+            _currentIndex = index;
+            SnapTo(index, instant);
+        }
+
         //내부 스냅~
         private void SnapTo(int index, bool instant = false)
         {

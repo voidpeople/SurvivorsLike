@@ -49,6 +49,11 @@ namespace SurvivorsLike
             return _chapterScrollCtrl.GetCurrentChapterIndex();
         }
 
+        public void ScrollToChapter(int index)
+        {
+            _chapterScrollCtrl.ScrollToIndex(index, instant: true);
+        }
+
         public void Show() => gameObject.SetActive(true);
         public void Hide() => gameObject.SetActive(false);
 
