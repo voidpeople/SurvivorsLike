@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace SurvivorsLike
 {
+    //서로 다른 View와 View간에 혹은 Presenter와 Presenter간에 직접 호출하거나 참조하는 건 좋지 않다.
+    //이런 경우 MVP클래스들의 부모 클래스를 통해 작업이 이루어 져야 한다.
+
     public class ChapterSelectPanelPresenter : IDisposable
     {
         private readonly ChapterSelectPanelModel _model;
@@ -14,10 +17,12 @@ namespace SurvivorsLike
         //onSelectChapter은 챕터가 선택되면 GameSessionData에 선택된 챕터의 데이터를 저장하기 위해~
         public ChapterSelectPanelPresenter(
             ChapterSelectPanelModel model,
-            ChapterSelectPanelView view)
+            ChapterSelectPanelView view,
+            Action<ChapterDataSO> onSelectedChapter)
         {
             _view = view;
             _model = model;
+            _onSelectChapter = onSelectedChapter;
 
             _view.OnFinishScrollChapter += OnFinishScrollChapter;
             _view.OnSelectChapter += OnSelectChapter;
@@ -46,18 +51,10 @@ namespace SurvivorsLike
             _view?.Hide();
         }
 
-        ////TODO : 아래 함수는 ChapterSelectPanelPresenter에게 위임 하는게 맞는 것 같다.
-        //private void OnSelectChapter(ChapterDataSO chapData)
-        //{
-        //    //1.챕터 선택 패널을 오픈하는 버튼의 챕터 이미지를 새로 선택한 챕터 이미지로 설정
-        //    //_battlePanelView.
-
-        //    //2.GameSessionData 클래스에 챕터 데이터 저장
-        //}
-
         //나가기 버튼을 클릭할 경우 호출되는 함수
         public void OnExitPanel()
-        { 
+        {
+            _view?.Hide();
         }
 
         public void Dispose()

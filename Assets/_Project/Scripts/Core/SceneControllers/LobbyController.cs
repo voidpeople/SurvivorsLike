@@ -59,7 +59,15 @@ namespace SurvivorsLike
             _chapterSelectPanelView.Init();
             _chapterSelectPanelPresenter = new ChapterSelectPanelPresenter(
                 _chapterSelectPanelModel,
-                _chapterSelectPanelView);
+                _chapterSelectPanelView,
+                OnSelectChpter);
+        }
+
+        private void OnSelectChpter(ChapterDataSO chapterData)
+        {
+            Sprite s = _lobbyChapterAtlas.GetSprite(chapterData.displaySpriteName);
+            _battlePanelView.SetChapterPanelButtonImage(s);
+            Debug.Log($"챕터 선택 - {chapterData.displayName}");
         }
 
         private void Destroy()
