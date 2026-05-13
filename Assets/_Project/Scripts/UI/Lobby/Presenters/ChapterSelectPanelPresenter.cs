@@ -31,13 +31,13 @@ namespace SurvivorsLike
             _view.SetupChapterCards(_model.ChapterList);            
         }
 
-        public void ShowView()
+        public void Show()
         {
             _view.ScrollToChapter(_model.SelectedIndex);
             _view?.Show();
         }
 
-        public void HiewView()
+        public void Hide()
         {
             _view?.Hide();
         }

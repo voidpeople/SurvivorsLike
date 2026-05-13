@@ -28,12 +28,12 @@ namespace SurvivorsLike
             _view.OnOpenChapterSelectPanel += OnOpenChapterSelectPanel;
             _view.OnGameStart += OnGameStartClicked;
 
-            chapterSelectPanelPresenter?.HiewView();
+            chapterSelectPanelPresenter?.Hide();
         }
 
         private void OnOpenChapterSelectPanel()
         {
-            _chapterSelectPanelPresenter?.ShowView();
+            _chapterSelectPanelPresenter?.Show();
         }
 
         private void OnGameStartClicked()
