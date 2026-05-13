@@ -23,7 +23,7 @@ namespace SurvivorsLike
 
         [Header("에셋 참조 (나중에 연결)")]
         public Sprite thumbnail;
-        public GameObject mapPrefab;
+        //public GameObject mapPrefab;
 
         // WaveDataSO / EnemyDataSO 는 해당 클래스 생성 후 추가 예정    
     }

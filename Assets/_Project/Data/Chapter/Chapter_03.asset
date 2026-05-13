@@ -15,11 +15,10 @@ MonoBehaviour:
   chapterID: 3
   displayName: "\uBD95\uAD34\uB41C \uACF5\uC7A5"
   difficulty: "\uC911\uAE09"
-  displaySpriteName: stage03_icon
+  displaySpriteName: lobby_chapter03
   recommendedCP: 1200
   energyCost: 5
   durationSec: 900
   rewardGold: 500
   rewardGem: 10
   thumbnail: {fileID: 0}
-  mapPrefab: {fileID: 0}

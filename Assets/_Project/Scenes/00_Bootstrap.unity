@@ -706,6 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc73bf9c01b513449e2fda076c0652d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DataManager
+  _lobbyChapterAtlas: {fileID: 4343727234628468602, guid: a65f24056ac148543b9a7fbf2000ed13, type: 2}
 --- !u!114 &872027389
 MonoBehaviour:
   m_ObjectHideFlags: 0

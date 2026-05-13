@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.U2D;
 
 
 namespace SurvivorsLike
@@ -13,6 +14,9 @@ namespace SurvivorsLike
 
     public class DataManager : SingletonMonoBehaviour<DataManager>
     {
+        [Header("아틀라스")]
+        [SerializeField] private SpriteAtlas _lobbyChapterAtlas;
+
         private const string ChapterDataLabel = "ChapterData";
 
         private AsyncOperationHandle<IList<ChapterDataSO>> _chapterDataSOListHandle;
@@ -51,7 +55,18 @@ namespace SurvivorsLike
             //챕터 아이디로 정렬~
             _chapterDataSOList.Sort((a, b) => a.chapterID.CompareTo(b.chapterID));
 
+            BindChapterThumbnails();
+
             Debug.Log($"[DataManager] ChapterData {_chapterDataSOList.Count}개 로드 완료");
+        }
+
+        private void BindChapterThumbnails()
+        {
+            foreach(var charpterData in _chapterDataSOList)
+            {
+                Sprite s = _lobbyChapterAtlas.GetSprite(charpterData.displaySpriteName);
+                charpterData.thumbnail = s;
+            }
         }
 
         private void ReleaseChapterDataSOListHandle()

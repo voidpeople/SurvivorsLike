@@ -64,10 +64,19 @@ SpriteAtlas:
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
-    packedSpriteRenderDataKeys: []
+    packedSpriteRenderDataKeys:
+    - 0c96c35593008b94c8374adb90ada1b3: 21300000
+    - 983205c6e7667a542b3a5791e978b7da: 21300000
+    - 97de2bbc127b9d6459c54bcb86999f5e: 21300000
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 0c96c35593008b94c8374adb90ada1b3, type: 3}
+  - {fileID: 21300000, guid: 983205c6e7667a542b3a5791e978b7da, type: 3}
+  - {fileID: 21300000, guid: 97de2bbc127b9d6459c54bcb86999f5e, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - lobby_chapter02
+  - lobby_chapter03
+  - lobby_chapter01
   m_RenderDataMap: {}
-  m_Tag: LobbyStage
+  m_Tag: LobbyChapter
   m_IsVariant: 0
