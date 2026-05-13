@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 
@@ -9,20 +10,32 @@ namespace SurvivorsLike
         private readonly GameResultPanelModel _model;
         private readonly GameResultPanelView _view;
 
+        private readonly Func<string, UniTask> _loadScene;
+
         public GameResultPanelPresenter(
             GameResultPanelModel model,
-            GameResultPanelView view)
+            GameResultPanelView view,
+            Func<string, UniTask> loadScene)
         {
             _model = model;
             _view = view;
+            _loadScene = loadScene;
 
             _view.OnResultConfirmed += OnResultConfirmed;
         }
 
+
         private void OnResultConfirmed()
         {
-            //결과창은 그대로 남겨 놓은 상태에서 InGameController 통보하면
-            //InGameController가 로비씬을 로딩한다.
+            StartGameAsync().Forget();
+        }
+
+        private async UniTask StartGameAsync()
+        {
+            //버튼의 연속 클릭 방지~
+            _view.SetInteractable(false);
+
+            await _loadScene(GameResultPanelModel.GameSceneName);
         }
 
         public void Dispose()
