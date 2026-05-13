@@ -41,7 +41,7 @@ namespace SurvivorsLike
         {
             int tabIndex = (int)tabType;
 
-            //_tabToggles[tabIndex].isOn = true;
+            _tabToggles[tabIndex].isOn = true;
             _tabToggles[tabIndex].Select();
 
             //SetIsOnWithoutNotify()함수는 통보 없이 해당 토글을 선택하게 해 준다.

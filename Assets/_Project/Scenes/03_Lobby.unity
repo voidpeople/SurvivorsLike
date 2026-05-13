@@ -844,7 +844,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f2cd2fa1801a5478687af62afe7bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.BattlePanelView
-  _chapterSelectPanel: {fileID: 1164990383}
   _chapterPanelButton: {fileID: 1566039242}
   _battleStartButton: {fileID: 2084599055}
 --- !u!1 &280909752

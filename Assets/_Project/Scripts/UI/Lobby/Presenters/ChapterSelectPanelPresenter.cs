@@ -36,6 +36,11 @@ namespace SurvivorsLike
             _view?.Show();
         }
 
+        public void HiewView()
+        {
+            _view?.Hide();
+        }
+
         //챕터 카드들이 스크롤이 끝나면 멈출 경우 현재 보여지는 카드의 인덱스를 반환
         public void OnFinishScrollChapter(int index)
         {
