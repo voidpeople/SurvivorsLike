@@ -31,6 +31,11 @@ namespace SurvivorsLike
             _view.SetupChapterCards(_model.ChapterList);            
         }
 
+        public void ShowView()
+        {
+            _view?.Show();
+        }
+
         //챕터 카드들이 스크롤이 끝나면 멈출 경우 현재 보여지는 카드의 인덱스를 반환
         public void OnFinishScrollChapter(int index)
         {

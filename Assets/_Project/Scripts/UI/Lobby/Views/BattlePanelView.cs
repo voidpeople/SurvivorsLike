@@ -7,18 +7,18 @@ using UnityEngine.UI;
 namespace SurvivorsLike
 {
     public class BattlePanelView : MonoBehaviour
-    {
-        [SerializeField] private GameObject _chapterSelectPanel;
+    {        
         [SerializeField] private Button _chapterPanelButton;
         [SerializeField] private Button _battleStartButton;
 
         //BattlePanelPresenter의 OnGameStartClicked()가 구독한다.
-        public event Action OnGameStartClicked;
+        public event Action OnOpenChapterSelectPanel;
+        public event Action OnGameStart;
 
         public void Init()
         {
-            _chapterPanelButton.onClick.AddListener(() => _chapterSelectPanel.SetActive(true));
-            _battleStartButton.onClick.AddListener(() => OnGameStartClicked?.Invoke());
+            _chapterPanelButton.onClick.AddListener(() => OnOpenChapterSelectPanel?.Invoke());
+            _battleStartButton.onClick.AddListener(() => OnGameStart?.Invoke());
         }
 
         //플레이어의 입력을 막고자 할 때~
@@ -38,6 +38,7 @@ namespace SurvivorsLike
 
         public void Destroy()
         {
+            _chapterPanelButton?.onClick.RemoveAllListeners();
             _battleStartButton?.onClick.RemoveAllListeners();
         }
     }

@@ -50,17 +50,20 @@ namespace SurvivorsLike
             _tabView.Init();
             _tabPresenter = new LobbyTabPresenter(_tabView, _tabModel);
 
-            _battlePanelModel = new BattlePanelModel();
-            _battlePanelView.Init();
-            _battlePanelPresenter = new BattlePanelPresenter(_battlePanelView, _battlePanelModel,
-                sceneName => GameManager.Instance.LoadScene(sceneName));
-
             _chapterSelectPanelModel = new ChapterSelectPanelModel(DataManager.Instance.ChapterDataSOList);
             _chapterSelectPanelView.Init();
             _chapterSelectPanelPresenter = new ChapterSelectPanelPresenter(
                 _chapterSelectPanelModel,
                 _chapterSelectPanelView,
                 OnSelectChpter);
+
+            _battlePanelModel = new BattlePanelModel();
+            _battlePanelView.Init();
+            _battlePanelPresenter = new BattlePanelPresenter(
+                _battlePanelView,
+                _battlePanelModel,
+                _chapterSelectPanelPresenter,
+                sceneName => GameManager.Instance.LoadScene(sceneName));
         }
 
         private void OnSelectChpter(ChapterDataSO chapterData)
