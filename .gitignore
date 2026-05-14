@@ -106,3 +106,9 @@ Assets/ExternalDependencyManager.meta
 Assets/Plugins/iOS/Firebase/
 Assets/Plugins/tvOS/Firebase/
 firebase_unity_sdk/
+Assets/google-services.json
+Assets/google-services.json.meta
+Assets/StreamingAssets/google-services-desktop.json
+Assets/StreamingAssets/google-services-desktop.json.meta
+
+
