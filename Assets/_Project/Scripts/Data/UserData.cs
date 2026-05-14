@@ -12,13 +12,13 @@ namespace SurvivorsLike
     [FirestoreData]
     public class UserData
     {
-        [FirestoreProperty] public string userID { get; set; }
+        [FirestoreProperty] public string userId { get; set; }
         [FirestoreProperty] public string nickName { get; set; }
         [FirestoreProperty] public int level { get; set; }
         [FirestoreProperty] public int gold { get; set; }
         [FirestoreProperty] public int gem { get; set; }
-        [FirestoreProperty] public int selectedChapterID { get; set; }    //현재 선택된 챕터의 아이디
-        [FirestoreProperty] public int lastClearedChapterID { get; set; } //마지막으로 클리어 한 챕터의 아이디
+        [FirestoreProperty] public int selectedChapterId { get; set; }    //현재 선택된 챕터의 아이디
+        [FirestoreProperty] public int lastClearedChapterId { get; set; } //마지막으로 클리어 한 챕터의 아이디
     }
 }
 

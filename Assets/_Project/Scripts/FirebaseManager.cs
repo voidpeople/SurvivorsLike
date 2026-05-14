@@ -20,8 +20,19 @@ namespace SurvivorsLike
         {
         }
 
+        public async UniTask<bool> InitAsync()
+        {
+            bool isFirebaseInit = await InitFirebaseAsync(); // Firebase SDK 초기화
+            if (isFirebaseInit == false)
+                return false;
+
+            InitFirestore();                         // DB 인스턴스 준비
+
+            return true;
+        }
+
         //Firebase 초기화 함수
-        private async UniTask InitFirebaseAsync()
+        private async UniTask<bool> InitFirebaseAsync()
         {
             //CheckAndFixDependenciesAsyncg함수는 Firebase를 사용하기 전에 반드시 필요한 네이티브 라이브러리가
             //기기에 준비되어 있는지 확인하고, 없으면 자동으로 수정을 시도한다.
@@ -32,8 +43,12 @@ namespace SurvivorsLike
             }
             else
             {
+                //시스템 오류창 띄우기
                 Debug.LogError($"Firebase 초기화 실패 : {dependencyStatus}");
+                return false;
             }
+
+            return true;
         }
 
         //서버DB와 연동되는 DB 인스턴스를 가져온다.
@@ -43,7 +58,7 @@ namespace SurvivorsLike
         }
 
         //익명으로 로그인~
-        private async UniTask<string> PlayAsGuest()
+        public async UniTask<string> PlayAsGuestAsync()
         {
             //FirebaseAuth.DefaultInstance은 앱 전체에서 공유하는 Auth 인스턴스임~
             _auth = FirebaseAuth.DefaultInstance;
@@ -81,13 +96,13 @@ namespace SurvivorsLike
 
                 var newUserData = new UserData()
                 {
-                    userID = userID,
+                    userId = userID,
                     nickName = GenerateRandomNickName(), //자동생성 함수 추가
                     level = 1,
                     gold = 0,
                     gem = 0,
-                    selectedChapterID = 0,
-                    lastClearedChapterID = 0,
+                    selectedChapterId = 0,
+                    lastClearedChapterId = 0,
                 };
 
                 //신규 유저 데이터를 서버에 저장
@@ -104,17 +119,18 @@ namespace SurvivorsLike
         {
             // Firestore 경로: users/{userId}/profile 문서에 저장
             // 구조: users (컬렉션) → userId (문서) → profile (하위 컬렉션) → data (문서)
-            DocumentReference docRef = _db.Collection("users").Document(userData.userID)
+            DocumentReference docRef = _db.Collection("users").Document(userData.userId)
                                           .Collection("profile").Document("data");
 
             var dicData = new Dictionary<string, object>
             {
+                { "userID", userData.userId },
                 { "nickName", userData.nickName },
                 { "level", userData.level },
                 { "gold", userData.gold },
                 { "gem", userData.gem },
-                { "selectedChapterID", userData.selectedChapterID },
-                { "lastClearedChapterID", userData.lastClearedChapterID },
+                { "selectedChapterID", userData.selectedChapterId },
+                { "lastClearedChapterID", userData.lastClearedChapterId },
             };
 
             //SetAsync함수를 통해 데이터를 서버에 업로드~

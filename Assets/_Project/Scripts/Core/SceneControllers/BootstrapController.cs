@@ -17,6 +17,21 @@ namespace SurvivorsLike
             //오브젝트 파괴 시 모든 비동기 로직을 멈추기 위한 토큰
             var cts = this.GetCancellationTokenOnDestroy();
 
+            bool isFirebaseInit = await FirebaseManager.Instance.InitAsync();
+            if (isFirebaseInit == false)
+            {
+                await SystemUIManager.Instance.ShowAlertAsync(
+                    "네트워크 오류",
+                    "인증 서버 오류",
+                    DialogType.NetworkError,
+                    "확 인");
+
+                return;
+            }
+
+            string userID = await FirebaseManager.Instance.PlayAsGuestAsync();
+
+
             try
             {
                 PatchCheckStatus resultStat = PatchCheckStatus.UpToDate;
