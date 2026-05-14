@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using SurvivorsLike.UI.Lobby;
 using System;
 using System.Collections.Generic;
 using TMPro;

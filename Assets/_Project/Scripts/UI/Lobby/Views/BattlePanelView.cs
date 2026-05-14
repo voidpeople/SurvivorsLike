@@ -1,5 +1,4 @@
-﻿using SurvivorsLike.UI.Lobby;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 

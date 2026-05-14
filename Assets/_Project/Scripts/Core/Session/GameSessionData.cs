@@ -1,17 +1,20 @@
-﻿using SurvivorsLike;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GameSessionData
+
+namespace SurvivorsLike
 {
-    public ChapterDataSO ChapterData { get; private set; }
-
-    public void Init(ChapterDataSO chapterdata)
+    public class GameSessionData
     {
-        ChapterData = chapterdata;
-    }
+        public ChapterDataSO ChapterData { get; private set; }
 
-    public void Clear()
-    {
-        ChapterData = null;
+        public void Init(ChapterDataSO chapterdata)
+        {
+            ChapterData = chapterdata;
+        }
+
+        public void Clear()
+        {
+            ChapterData = null;
+        }
     }
 }

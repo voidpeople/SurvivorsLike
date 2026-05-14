@@ -1,16 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SaveData : MonoBehaviour
+
+namespace SurvivorsLike
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class SaveData
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

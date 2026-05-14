@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Threading;
 using UnityEngine;
 
+
 namespace SurvivorsLike
 {
-
     public class BootstrapController : MonoBehaviour
     {
         private async UniTaskVoid Start()

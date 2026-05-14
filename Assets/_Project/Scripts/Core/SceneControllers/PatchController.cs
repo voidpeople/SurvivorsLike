@@ -1,34 +1,38 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class PatchController : MonoBehaviour
+
+namespace SurvivorsLike
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class PatchController : MonoBehaviour
     {
-        GameManager.Instance.SetGameState(GameState.Patch);
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+            GameManager.Instance.SetGameState(GameState.Patch);
 
-        DelayRun().Forget();
-    }
+            DelayRun().Forget();
+        }
 
-    async UniTask DelayRun()
-    {
-        // UniTask.Delay(3000)
-        // �� 3000 �и���(= 3��) ���� ���
+        async UniTask DelayRun()
+        {
+            // UniTask.Delay(3000)
+            // �� 3000 �и���(= 3��) ���� ���
 
-        // cancellationToken:
-        // �� "�� �۾��� ����� �� �ִ� ��ȣ"
-        // �� �� ���, �� GameObject�� Destroy(����)�Ǹ� �ڵ����� ��ҵ�
+            // cancellationToken:
+            // �� "�� �۾��� ����� �� �ִ� ��ȣ"
+            // �� �� ���, �� GameObject�� Destroy(����)�Ǹ� �ڵ����� ��ҵ�
 
-        // this.GetCancellationTokenOnDestroy()
-        // �� MonoBehaviour�� �ı��� �� �ڵ����� Cancel�Ǵ� ��ū�� ������
+            // this.GetCancellationTokenOnDestroy()
+            // �� MonoBehaviour�� �ı��� �� �ڵ����� Cancel�Ǵ� ��ū�� ������
 
-        // await:
-        // �� Delay�� ���� ������ ���⼭ "�񵿱������� ���"
-        // �� Unity ���� �����带 ������ ���� (������ ��� ���ư�)
-        await UniTask.Delay(1000, cancellationToken: this.GetCancellationTokenOnDestroy());
-        Debug.Log("1�� �� ����");
+            // await:
+            // �� Delay�� ���� ������ ���⼭ "�񵿱������� ���"
+            // �� Unity ���� �����带 ������ ���� (������ ��� ���ư�)
+            await UniTask.Delay(1000, cancellationToken: this.GetCancellationTokenOnDestroy());
+            Debug.Log("1�� �� ����");
 
-        await GameManager.Instance.LoadScene("02_Title");
+            await GameManager.Instance.LoadScene("02_Title");
+        }
     }
 }

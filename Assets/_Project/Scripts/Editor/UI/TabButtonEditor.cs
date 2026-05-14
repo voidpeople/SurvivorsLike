@@ -1,28 +1,32 @@
 ﻿using UnityEditor;
 using UnityEditor.UI;
 
-[CustomEditor(typeof(TabButton))]
-public class TabButtonEditor : ButtonEditor
+
+namespace SurvivorsLike
 {
-    private SerializedProperty _normalSprite;
-    private SerializedProperty _selectedSprite;
-
-    protected override void OnEnable()
+    [CustomEditor(typeof(TabButton))]
+    public class TabButtonEditor : ButtonEditor
     {
-        base.OnEnable();
-        _normalSprite = serializedObject.FindProperty("_normalSprite");
-        _selectedSprite = serializedObject.FindProperty("_selectedSprite");
-    }
+        private SerializedProperty _normalSprite;
+        private SerializedProperty _selectedSprite;
 
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI(); // Button 기본 Inspector 표시
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _normalSprite = serializedObject.FindProperty("_normalSprite");
+            _selectedSprite = serializedObject.FindProperty("_selectedSprite");
+        }
 
-        serializedObject.Update();
-        EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Tab Button", EditorStyles.boldLabel);
-        EditorGUILayout.PropertyField(_normalSprite);
-        EditorGUILayout.PropertyField(_selectedSprite);
-        serializedObject.ApplyModifiedProperties();
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI(); // Button 기본 Inspector 표시
+
+            serializedObject.Update();
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Tab Button", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(_normalSprite);
+            EditorGUILayout.PropertyField(_selectedSprite);
+            serializedObject.ApplyModifiedProperties();
+        }
     }
 }

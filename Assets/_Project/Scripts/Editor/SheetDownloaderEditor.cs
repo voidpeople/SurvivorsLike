@@ -2,35 +2,39 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(SheetDownloaderBase), true)]
-public class SheetDownloaderEditor : Editor
+namespace SurvivorsLike
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(SheetDownloaderBase), true)]
+    public class SheetDownloaderEditor : Editor
     {
-        base.OnInspectorGUI();
-        if (GUILayout.Button("Download This Sheet", GUILayout.Height(35)))
-            ((SheetDownloaderBase)target).StartDownload();
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            if (GUILayout.Button("Download This Sheet", GUILayout.Height(35)))
+                ((SheetDownloaderBase)target).StartDownload();
+        }
+    }
+
+    [CustomEditor(typeof(GameDataDownloadManager))]
+    public class GameDataDownloadManagerEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            EditorGUILayout.Space(5);
+
+            if (GUILayout.Button("Auto Collect Downloaders", GUILayout.Height(30)))
+                ((GameDataDownloadManager)target).CollectDownloaders();
+
+            EditorGUILayout.Space(3);
+
+            GUI.backgroundColor = Color.green;
+            if (GUILayout.Button("⬇ Download ALL Sheets", GUILayout.Height(45)))
+                ((GameDataDownloadManager)target).DownloadAll();
+            GUI.backgroundColor = Color.white;
+        }
     }
 }
 
-[CustomEditor(typeof(GameDataDownloadManager))]
-public class GameDataDownloadManagerEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-
-        EditorGUILayout.Space(5);
-
-        if (GUILayout.Button("Auto Collect Downloaders", GUILayout.Height(30)))
-            ((GameDataDownloadManager)target).CollectDownloaders();
-
-        EditorGUILayout.Space(3);
-
-        GUI.backgroundColor = Color.green;
-        if (GUILayout.Button("⬇ Download ALL Sheets", GUILayout.Height(45)))
-            ((GameDataDownloadManager)target).DownloadAll();
-        GUI.backgroundColor = Color.white;
-    }
-}
 #endif
