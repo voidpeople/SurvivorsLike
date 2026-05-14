@@ -1,5 +1,8 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using System;
+using System.Diagnostics;
+using System.Threading;
+using UnityEngine;
 
 namespace SurvivorsLike
 {
@@ -10,7 +13,9 @@ namespace SurvivorsLike
         private readonly ChapterSelectPanelPresenter _chapterSelectPanelPresenter;
 
         private readonly Action                      _onGameStart;
-        private readonly Func<string, UniTask>       _loadScene;
+        private readonly Func<string, CancellationToken, UniTask>       _loadScene;
+
+        private readonly CancellationToken _ct;
 
         //씬의 하이라키 상에서는 BattlePanel와 ChapterSelectPanel은 종속 관계가 아니지만
         //개념적으로는 ChapterSelectPanel가 BattlePanel에 종속 되므로
@@ -20,13 +25,15 @@ namespace SurvivorsLike
             BattlePanelModel model,
             ChapterSelectPanelPresenter chapterSelectPanelPresenter,
             Action onGameStart,
-            Func<string, UniTask> loadScene)
+            Func<string, CancellationToken, UniTask> loadScene,
+            CancellationToken ct)
         {
             _view                        = view;
             _model                       = model;
             _chapterSelectPanelPresenter = chapterSelectPanelPresenter;
             _onGameStart                 = onGameStart;
             _loadScene                   = loadScene;
+            _ct                          = ct;
 
             _view.OnOpenChapterSelectPanel += OnOpenChapterSelectPanel;
             _view.OnGameStart += OnGameStartClicked;
@@ -48,15 +55,30 @@ namespace SurvivorsLike
             //게임 플레이를 할 수 있는 스테미나 포인터가 미달되면 여기서 함수를 종료 시킬 것~
 
             _onGameStart?.Invoke();
-            StartGameAsync().Forget();
+            StartGameAsync(_ct).Forget();
         }
 
-        private async UniTask StartGameAsync()
+        private async UniTask StartGameAsync(CancellationToken ct)
         {
             _model.SetCanStart(false);
             _view.SetInteractable(false);
 
-            await _loadScene(BattlePanelModel.GameSceneName);
+            try
+            {
+                await _loadScene(BattlePanelModel.GameSceneName, ct);
+            }
+            catch (OperationCanceledException)
+            {
+                _view.SetInteractable(true);
+                _model.SetCanStart(true);
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogException(e);
+                _view.SetInteractable(true);  
+                _model.SetCanStart(true);
+                // 필요시 SystemUIManager로 오류 팝업
+            }
         }
 
         public void Dispose()

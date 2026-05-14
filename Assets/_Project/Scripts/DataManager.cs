@@ -25,10 +25,10 @@ namespace SurvivorsLike
         //IReadOnlyList은 Add, Remove, Clear 등의 수정 메서드가 없는 인터페이스
         public IReadOnlyList<ChapterDataSO> ChapterDataSOList => _chapterDataSOList;
 
-        public async UniTask InitAsync(CancellationToken ct = default)
+        public UniTask InitAsync(CancellationToken ct)
         {
             //챕터 데이터 파일 비동기 로드
-            await LoadChapterDataAsync(ct);
+            return LoadChapterDataAsync(ct);
         }
 
         //dㅇㅁㄴ
@@ -43,8 +43,9 @@ namespace SurvivorsLike
             //그리고 AttachExternalCancellation()함수를 통해 해당 비동기 작업이 취소 될 수 있도록
             //CancellationToken을 등록한다.
             await _chapterDataSOListHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            ct.ThrowIfCancellationRequested();
 
-            if(_chapterDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
+            if (_chapterDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError($"[DataManager] ChapterData 로드 실패: {_chapterDataSOListHandle.OperationException}");
                 return;

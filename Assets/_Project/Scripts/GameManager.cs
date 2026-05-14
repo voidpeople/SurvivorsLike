@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,9 +36,9 @@ namespace SurvivorsLike
             CurrentState = state;
         }
 
-        public async UniTask LoadScene(string sceneName)
+        public UniTask LoadSceneAsync(string sceneName, CancellationToken ct)
         {
-            await SceneLoader.Instance.LoadScene(sceneName);
+            return SceneLoader.Instance.LoadSceneAsync(sceneName, ct: ct);
         }
 
         public void PauseGame() => Time.timeScale = 0f;

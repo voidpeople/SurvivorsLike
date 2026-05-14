@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using System;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
 using static UnityEngine.Audio.ProcessorInstance;
@@ -48,10 +49,10 @@ namespace SurvivorsLike
     //패치 서버와 통신하여 패치를 할 지를 검사한다.
     public static class PatchCheck
     {
-        public static async UniTask<PatchCheckResult> CheckPatchAsync()
+        public static async UniTask<PatchCheckResult> CheckPatchAsync(CancellationToken ct)
         {
             //테스트 코드
-            await UniTask.Delay(TimeSpan.FromSeconds(2.0f));
+            await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: ct);
             //return new PatchCheckResult
             //{
             //    Status = PatchCheckStatus.NeedPatch,
@@ -78,11 +79,11 @@ namespace SurvivorsLike
                 try
                 {
                     //서버에 요청을 한다.
-                    await request.SendWebRequest();
+                    await request.SendWebRequest().WithCancellation(ct);
                 }
                 catch (UnityWebRequestException ex)
                 {
-                    UnityEngine.Debug.LogWarning("패치 서버 통신 실패~");
+                    Debug.LogWarning($"패치 서버 통신 실패: {ex.Message}");
                     return new PatchCheckResult
                     {
                         Status = PatchCheckStatus.NetworkError,
@@ -109,7 +110,11 @@ namespace SurvivorsLike
                 {
                     response = JsonConvert.DeserializeObject<PatchResponse>(jsonData);
                 }
-                catch
+                catch (OperationCanceledException)
+                {
+                    throw;  // 취소는 반드시 상위로 전파
+                }
+                catch (JsonException e)  // Newtonsoft.Json의 파싱 예외만 명확히 잡기
                 {
                     return new PatchCheckResult
                     {

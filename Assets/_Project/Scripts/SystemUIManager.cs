@@ -113,7 +113,11 @@ namespace SurvivorsLike
                 OnConfirm = () => tcs.TrySetResult(),
             });
 
-            using var reg = ct.Register(() => tcs.TrySetResult());
+            using var reg = ct.Register(() =>
+            {
+                tcs.TrySetResult();
+                CloseTopDialog();
+            });
 
             await tcs.Task;
         }
@@ -179,7 +183,11 @@ namespace SurvivorsLike
             //즉 외부에서 비동기 작업에 대한 취소 신호가 오면 Register() 함수로 등록된
             //tcs.TrySetResult(false) 로직이 실행되어 Task가 완료 상태가 된다.
             //그러면 아래의 await에서 대기중 이던 로직이 재개되어 tcs.Task 값을 반환한다.
-            using var reg = ct.Register(() => tcs.TrySetResult(false));
+            using var reg = ct.Register(() =>
+            {
+                tcs.TrySetResult(false);
+                CloseTopDialog();
+            });
 
             //tcs.Task은 아직 완료되지 않은 UniTask<bool> 태스크 객체이다.
             //await 명령은 아직 완료되지 않은 tcs.Task 태스크가 완료될 때 까지 실행을 멈추고 기다린다.

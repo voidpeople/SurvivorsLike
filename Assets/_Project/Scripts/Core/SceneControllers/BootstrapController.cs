@@ -17,29 +17,42 @@ namespace SurvivorsLike
             //오브젝트 파괴 시 모든 비동기 로직을 멈추기 위한 토큰
             CancellationToken ct = this.GetCancellationTokenOnDestroy();
 
-            bool isAccountReady = await AccountAsync(ct);
-            if (isAccountReady == false)
-                return;
-
             try
+            {
+                bool isAccountReady = await AccountAsync(ct);
+                if (isAccountReady == false)
+                    return;
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("AccountAsync: 작업이 취소되었습니다.");
+                return;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return;
+            }
+
+                try
             {
                 PatchCheckStatus resultStat = PatchCheckStatus.UpToDate;
                 int numRetry = 3;
 
                 do
                 {
-                    PatchCheckResult result = await PatchCheck.CheckPatchAsync();
+                    PatchCheckResult result = await PatchCheck.CheckPatchAsync(ct);
                     GameManager.Instance.SetPatchResult(result);
 
                     switch (result.Status)
                     {
                         case PatchCheckStatus.UpToDate:
-                            await GameManager.Instance.LoadScene("02_Title");
+                            await GameManager.Instance.LoadSceneAsync("02_Title", ct);
                             break;
 
                         case PatchCheckStatus.ForcePatch:
                         case PatchCheckStatus.NeedPatch:
-                            await GameManager.Instance.LoadScene("01_Patch");
+                            await GameManager.Instance.LoadSceneAsync("01_Patch", ct);
                             break;
 
                         case PatchCheckStatus.NetworkError:
@@ -66,8 +79,11 @@ namespace SurvivorsLike
             }
             catch (Exception e)
             {
-                // 그 외 예상치 못한 에러 처리 [1, 11]
                 Debug.LogException(e);
+                await SystemUIManager.Instance.ShowAlertAsync(
+                    "오류",
+                    "예기치 못한 오류가 발생했습니다.\n앱을 재시작해 주세요.",
+                    DialogType.Alert, "확인", ct);
             }
         }
 
@@ -86,6 +102,8 @@ namespace SurvivorsLike
                                                                             "나가기",
                                                                             "재시도",
                                                                             ct);
+
+                    ct.ThrowIfCancellationRequested();
                     if (isRetry == false)
                     {
                         Application.Quit();

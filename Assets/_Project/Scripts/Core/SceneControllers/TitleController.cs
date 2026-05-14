@@ -13,10 +13,16 @@ namespace SurvivorsLike
             GameManager.Instance.SetGameState(GameState.Title);
 
             CancellationToken ct = this.GetCancellationTokenOnDestroy();
-            await DataManager.Instance.InitAsync(ct);
-
-            await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: ct);
-            await GameManager.Instance.LoadScene("03_Lobby");
+            try
+            {
+                await DataManager.Instance.InitAsync(ct);
+                await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: ct);
+                await GameManager.Instance.LoadSceneAsync("03_Lobby", ct);
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("TitleController 작업 취소됨");
+            }
         }
     }
 }

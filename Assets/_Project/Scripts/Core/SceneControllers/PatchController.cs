@@ -1,4 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
+using System;
+using System.Threading;
 using UnityEngine;
 
 
@@ -6,33 +8,24 @@ namespace SurvivorsLike
 {
     public class PatchController : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        private async UniTaskVoid Start()
         {
             GameManager.Instance.SetGameState(GameState.Patch);
 
-            DelayRun().Forget();
-        }
-
-        async UniTask DelayRun()
-        {
-            // UniTask.Delay(3000)
-            // �� 3000 �и���(= 3��) ���� ���
-
-            // cancellationToken:
-            // �� "�� �۾��� ����� �� �ִ� ��ȣ"
-            // �� �� ���, �� GameObject�� Destroy(����)�Ǹ� �ڵ����� ��ҵ�
-
-            // this.GetCancellationTokenOnDestroy()
-            // �� MonoBehaviour�� �ı��� �� �ڵ����� Cancel�Ǵ� ��ū�� ������
-
-            // await:
-            // �� Delay�� ���� ������ ���⼭ "�񵿱������� ���"
-            // �� Unity ���� �����带 ������ ���� (������ ��� ���ư�)
-            await UniTask.Delay(1000, cancellationToken: this.GetCancellationTokenOnDestroy());
-            Debug.Log("1�� �� ����");
-
-            await GameManager.Instance.LoadScene("02_Title");
+            CancellationToken ct = this.GetCancellationTokenOnDestroy();
+            try
+            {
+                await UniTask.Delay(1000, cancellationToken: ct);
+                await GameManager.Instance.LoadSceneAsync("02_Title", ct);
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("PatchController 작업 취소됨");
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
     }
 }

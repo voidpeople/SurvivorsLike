@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -32,12 +33,15 @@ namespace SurvivorsLike
         //MVP클래스 같에 상호 참조를 허용하지 않기 때문에 상위 클래스를 통해 데이터 전달
         private ChapterDataSO _selectedChapterData;
 
+        private CancellationToken _ct;
+
         private void Awake()
         {
+            _ct = this.GetCancellationTokenOnDestroy();
             Init();
         }
 
-        private async UniTaskVoid Start()
+        private void Start()
         {
             GameManager.Instance.SetGameState(GameState.Lobby);
             _tabPresenter.SelectTab(LobbyTabType.Battle);
@@ -68,7 +72,8 @@ namespace SurvivorsLike
                 _battlePanelModel,
                 _chapterSelectPanelPresenter,
                 OnGameStart,
-                sceneName => GameManager.Instance.LoadScene(sceneName));
+                (sceneName, ct) => GameManager.Instance.LoadSceneAsync(sceneName, ct),
+                _ct);
         }
 
         private void OnSelectChpter(ChapterDataSO chapterData)

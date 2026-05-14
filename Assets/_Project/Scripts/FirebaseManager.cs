@@ -81,6 +81,10 @@ namespace SurvivorsLike
                 Debug.Log($"익명 로그인 성공 - UserId : {result.User.UserId}");
                 return result.User.UserId;
             }
+            catch (OperationCanceledException)
+            {
+                throw;  // 일관성 유지, 상위 전파 명시
+            }
             catch (FirebaseException e)
             {
                 Debug.LogError($"익명 로그인 실패 : {e.Message}");
@@ -129,6 +133,10 @@ namespace SurvivorsLike
                 //기존 유저는 서버로 부터 받은 데이터 그대로 반환
                 return snapshot.ConvertTo<UserData>();
             }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
             catch (FirebaseException e)
             {
                 Debug.LogError($"Firestore 데이터 로드 실패 (FirebaseException) : {e.Message}");
@@ -136,7 +144,7 @@ namespace SurvivorsLike
             }
             catch (Exception e)
             {
-                Debug.LogError($"Firestore 데이터 로드 실패 (Exception) : {e.Message}");
+                Debug.LogException(e);
                 return null;
             }
         }
@@ -166,6 +174,10 @@ namespace SurvivorsLike
                 await docRef.SetAsync(dicData).AsUniTask().AttachExternalCancellation(ct);;
                 Debug.Log("서버에 유저 데이터 저장 완료~");
                 return true;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;  // 취소는 상위로 전파
             }
             catch (FirebaseException e)
             {
