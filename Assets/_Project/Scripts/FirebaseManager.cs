@@ -186,7 +186,7 @@ namespace SurvivorsLike
             }
             catch (Exception e)
             {
-                Debug.LogError($"Firestore 데이터 저장 실패 (Exception) : {e.Message}");
+                Debug.LogException(e);
                 return false;
             }
         }

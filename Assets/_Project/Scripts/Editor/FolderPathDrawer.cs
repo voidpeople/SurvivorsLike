@@ -117,7 +117,7 @@ namespace SurvivorsLike
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[FolderPath] SetFolderSelection 실패: {e.Message}");
+                Debug.LogException(e);
                 return false;
             }
         }

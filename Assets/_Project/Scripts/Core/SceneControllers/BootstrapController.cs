@@ -80,10 +80,13 @@ namespace SurvivorsLike
             catch (Exception e)
             {
                 Debug.LogException(e);
+
                 await SystemUIManager.Instance.ShowAlertAsync(
                     "오류",
                     "예기치 못한 오류가 발생했습니다.\n앱을 재시작해 주세요.",
-                    DialogType.Alert, "확인", ct);
+                    DialogType.Alert,
+                    "확인",
+                     CancellationToken.None);  // 오류 팝업은 취소 불가 토큰으로~
             }
         }
 
