@@ -48,6 +48,12 @@ namespace SurvivorsLike
             {
                 _view.SetInteractable(true);
             }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+
+                _view.SetInteractable(true);
+            }
         }
 
         public void Dispose()

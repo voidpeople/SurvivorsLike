@@ -23,6 +23,17 @@ namespace SurvivorsLike
             {
                 Debug.Log("TitleController 작업 취소됨");
             }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+
+                await SystemUIManager.Instance.ShowAlertAsync(
+                    "오류",
+                    "데이터 로드에 실패했습니다.\n앱을 재시작해 주세요.",
+                    DialogType.Alert,
+                    "확인",
+                    CancellationToken.None);
+            }
         }
     }
 }
