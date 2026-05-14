@@ -128,12 +128,12 @@ namespace SurvivorsLike
             }
             catch (FirebaseException e)
             {
-                Debug.LogError($"Firestore 데이터 로드 실패 (Firebase) : {e.Message}");
+                Debug.LogError($"Firestore 데이터 로드 실패 (FirebaseException) : {e.Message}");
                 return null;
             }
             catch (Exception e)
             {
-                Debug.LogError($"Firestore 데이터 로드 실패 (예외) : {e.Message}");
+                Debug.LogError($"Firestore 데이터 로드 실패 (Exception) : {e.Message}");
                 return null;
             }
         }
@@ -141,12 +141,14 @@ namespace SurvivorsLike
         //유저 데이터를 파이어베이스 서버에 저장
         public async UniTask<bool> SaveUserDataAsync(UserData userData)
         {
-            // Firestore 경로: users/{userId}/profile 문서에 저장
-            // 구조: users (컬렉션) → userId (문서) → profile (하위 컬렉션) → data (문서)
-            DocumentReference docRef = _db.Collection("users").Document(userData.userId)
-                                          .Collection("profile").Document("data");
+            try
+            {
+                // Firestore 경로: users/{userId}/profile 문서에 저장
+                // 구조: users (컬렉션) → userId (문서) → profile (하위 컬렉션) → data (문서)
+                DocumentReference docRef = _db.Collection("users").Document(userData.userId)
+                                              .Collection("profile").Document("data");
 
-            var dicData = new Dictionary<string, object>
+                var dicData = new Dictionary<string, object>
             {
                 { "userId", userData.userId },
                 { "nickName", userData.nickName },
@@ -157,11 +159,21 @@ namespace SurvivorsLike
                 { "lastClearedChapterID", userData.lastClearedChapterId },
             };
 
-            //SetAsync함수를 통해 데이터를 서버에 업로드~
-            await docRef.SetAsync(dicData).AsUniTask();
-            Debug.Log("서버에 유저 데이터 저장 완료~");
-
-            return true;
+                //SetAsync함수를 통해 데이터를 서버에 업로드~
+                await docRef.SetAsync(dicData).AsUniTask();
+                Debug.Log("서버에 유저 데이터 저장 완료~");
+                return true;
+            }
+            catch (FirebaseException e)
+            {
+                Debug.LogError($"Firestore 데이터 저장 실패 (FirebaseException) : {e.Message}");
+                return false;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Firestore 데이터 저장 실패 (Exception) : {e.Message}");
+                return false;
+            }
         }
 
         private string GenerateRandomNickName()

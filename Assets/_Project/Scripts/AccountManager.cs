@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 
@@ -9,19 +10,22 @@ namespace SurvivorsLike
     {
         public UserData UserData { get; private set; }
 
-        public async UniTask<bool> InitAsync()
+        public async UniTask<bool> SetupAsync()
         {
+            //파이어베이스 SDK 초기화
             bool isFirebaseInit = false;
             for (int ii = 0; ii < 3; ++ii)
             {
                 isFirebaseInit = await FirebaseManager.Instance.InitAsync();
                 if (isFirebaseInit == true)
                     break;
+
+                await UniTask.Delay(1000);
             }
             if (isFirebaseInit == false)
                 return false;
 
-
+            //익명 로그인
             string userId = null;
             for (int ii = 0; ii < 3; ++ii)
             {
@@ -29,19 +33,26 @@ namespace SurvivorsLike
                 userId = await FirebaseManager.Instance.PlayAsGuestAsync();
                 if (userId != null)
                     break;
+
+                await UniTask.Delay(1000);
             }
             if (userId == null)
                 return false;
 
-            UserData = await FirebaseManager.Instance.LoadUserDataAsync(userId);
+            //유저 데이터 로드
+            UserData = null;
+            for (int ii = 0; ii < 3; ++ii)
+            {
+                UserData = await FirebaseManager.Instance.LoadUserDataAsync(userId);
+                if (UserData != null)
+                    break;
+
+                await UniTask.Delay(1000);
+            }
+            if (UserData == null)
+                return false;
 
             return true;
-        }
-
-        public async UniTask PlayAsGuestAsync()
-        {
-
-            
         }
     }
 }
