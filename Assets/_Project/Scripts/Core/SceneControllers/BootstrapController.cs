@@ -29,7 +29,8 @@ namespace SurvivorsLike
                 return;
             }
 
-            string userID = await FirebaseManager.Instance.PlayAsGuestAsync();
+            //익명으로 로그인
+            await AccountManager.Instance.PlayAsGuestAsync();
 
 
             try

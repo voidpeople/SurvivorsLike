@@ -584,6 +584,8 @@ GameObject:
   - component: {fileID: 872027385}
   - component: {fileID: 872027384}
   - component: {fileID: 872027389}
+  - component: {fileID: 872027391}
+  - component: {fileID: 872027390}
   m_Layer: 0
   m_Name: DontDestroyManagers
   m_TagString: Untagged
@@ -724,6 +726,30 @@ MonoBehaviour:
   _systemUIConfigSO: {fileID: 11400000, guid: 755b2d224a6f7a24c9afefa8d046222f, type: 2}
   _dialogPoolDefaultSize: 2
   _dialogPoolMaxSize: 5
+--- !u!114 &872027390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 872027379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a36093c5d3d27547ad6a15f874d78b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.AccountManager
+--- !u!114 &872027391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 872027379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4d0b3684b13a14ca44e5fb7db67bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.FirebaseManager
 --- !u!223 &1509311401 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 2879812715918927319, guid: f85ed29fdb33b674a8cc1170fa69cc64, type: 3}
