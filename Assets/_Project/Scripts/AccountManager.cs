@@ -9,11 +9,39 @@ namespace SurvivorsLike
     {
         public UserData UserData { get; private set; }
 
+        public async UniTask<bool> InitAsync()
+        {
+            bool isFirebaseInit = false;
+            for (int ii = 0; ii < 3; ++ii)
+            {
+                isFirebaseInit = await FirebaseManager.Instance.InitAsync();
+                if (isFirebaseInit == true)
+                    break;
+            }
+            if (isFirebaseInit == false)
+                return false;
+
+
+            string userId = null;
+            for (int ii = 0; ii < 3; ++ii)
+            {
+                //익명으로 로그인
+                userId = await FirebaseManager.Instance.PlayAsGuestAsync();
+                if (userId != null)
+                    break;
+            }
+            if (userId == null)
+                return false;
+
+            UserData = await FirebaseManager.Instance.LoadUserDataAsync(userId);
+
+            return true;
+        }
+
         public async UniTask PlayAsGuestAsync()
         {
-            //익명으로 로그인
-            string userID = await FirebaseManager.Instance.PlayAsGuestAsync();
-            UserData = await FirebaseManager.Instance.LoadUserDataAsync(userID);
+
+            
         }
     }
 }

@@ -64,58 +64,82 @@ namespace SurvivorsLike
             _auth = FirebaseAuth.DefaultInstance;
 
             //이미 로그인 되어 있는지 검사
-            if(_auth.CurrentUser != null)
+            if (_auth.CurrentUser != null)
             {
                 Debug.Log($"이미 로그인 되어 있음! : {_auth.CurrentUser.UserId}");
                 return _auth.CurrentUser.UserId;
             }
 
-            // 익명 로그인: 이메일/비밀번호 없이 Firebase가 임시계정을 자동 생성해준다.
-            // 같은 기기에서 재실행해도 동일한 UserId가 유지된다
-            AuthResult result = await _auth.SignInAnonymouslyAsync().AsUniTask();
-            Debug.Log($"익명 로그인 성공 - UserID : {result.User.UserId}");
-
-            //이 유저 아이디를 저장해서 사용할 것~
-            return result.User.UserId;
+            try
+            {
+                // 익명 로그인: 이메일/비밀번호 없이 Firebase가 임시계정을 자동 생성해준다.
+                // 같은 기기에서 재실행해도 동일한 UserId가 유지된다
+                AuthResult result = await _auth.SignInAnonymouslyAsync().AsUniTask();
+                Debug.Log($"익명 로그인 성공 - UserId : {result.User.UserId}");
+                return result.User.UserId;
+            }
+            catch (FirebaseException e)
+            {
+                Debug.LogError($"익명 로그인 실패 : {e.Message}");
+                return null;  // null 반환으로 실패 전달
+            }
         }
 
-        public async UniTask<UserData> LoadUserDataAsync(string userID)
+        public async UniTask<UserData> LoadUserDataAsync(string userId)
         {
-            //Document는 Firestore 데이터베이스의 기본 저장 단위입니다.
-            //JSON과 유사한 구조로 데이터를 저장하며, 고유한 ID를 가집니다.
-            //그리고 DocumentReference은 그런 문서(Document)을 참조하는 객체의 타입입니다.
-            DocumentReference docRef = _db.Collection("users").Document(userID)
-                            .Collection("profile").Document("data");
-
-            //DocumentReference가 가리키는 문서 데이터로 부터 특정 순간의 데이터를 가져온다.
-            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync().AsUniTask();
-
-            if(snapshot.Exists == false)
+            try
             {
-                Debug.Log("저장 데이터가 없음~ 신규 유저 생성 할 것~");
+                //Document는 Firestore 데이터베이스의 기본 저장 단위입니다.
+                //JSON과 유사한 구조로 데이터를 저장하며, 고유한 ID를 가집니다.
+                //그리고 DocumentReference은 그런 문서(Document)을 참조하는 객체의 타입입니다.
+                DocumentReference docRef = _db.Collection("users").Document(userId)
+                            .Collection("profile").Document("data");
+                //DocumentReference가 가리키는 문서 데이터로 부터 특정 순간의 데이터를 가져온다.
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync().AsUniTask();
 
-                var newUserData = new UserData()
+                if (snapshot.Exists == false)
                 {
-                    userId = userID,
-                    nickName = GenerateRandomNickName(), //자동생성 함수 추가
-                    level = 1,
-                    gold = 0,
-                    gem = 0,
-                    selectedChapterId = 0,
-                    lastClearedChapterId = 0,
-                };
+                    Debug.Log("저장 데이터가 없음~ 신규 유저 생성 할 것~");
 
-                //신규 유저 데이터를 서버에 저장
-                await SaveUserDataAsync(newUserData);
-                return newUserData;
+                    var newUserData = new UserData()
+                    {
+                        userId = userId,
+                        nickName = GenerateRandomNickName(), //자동생성 함수 추가
+                        level = 1,
+                        gold = 0,
+                        gem = 0,
+                        selectedChapterId = 0,
+                        lastClearedChapterId = 0,
+                    };
+
+                    //신규 유저 데이터를 서버에 저장
+                    bool isSaved = await SaveUserDataAsync(newUserData);
+                    if(isSaved == false)
+                    {
+                        Debug.LogError("신규 유저 데이터 서버 저장 실패!");
+                        return null;
+                    }
+
+                    return newUserData;
+                }
+
+                //기존 유저는 서버로 부터 받은 데이터 그대로 반환
+                return snapshot.ConvertTo<UserData>();
             }
-
-            //기존 유저는 서버로 부터 받은 데이터 그대로 반환
-            return snapshot.ConvertTo<UserData>();
+            catch (FirebaseException e)
+            {
+                Debug.LogError($"Firestore 데이터 로드 실패 (Firebase) : {e.Message}");
+                return null;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Firestore 데이터 로드 실패 (예외) : {e.Message}");
+                return null;
+            }
         }
 
         //유저 데이터를 파이어베이스 서버에 저장
-        public async UniTask SaveUserDataAsync(UserData userData)
+        public async UniTask<bool> SaveUserDataAsync(UserData userData)
         {
             // Firestore 경로: users/{userId}/profile 문서에 저장
             // 구조: users (컬렉션) → userId (문서) → profile (하위 컬렉션) → data (문서)
@@ -124,7 +148,7 @@ namespace SurvivorsLike
 
             var dicData = new Dictionary<string, object>
             {
-                { "userID", userData.userId },
+                { "userId", userData.userId },
                 { "nickName", userData.nickName },
                 { "level", userData.level },
                 { "gold", userData.gold },
@@ -136,6 +160,8 @@ namespace SurvivorsLike
             //SetAsync함수를 통해 데이터를 서버에 업로드~
             await docRef.SetAsync(dicData).AsUniTask();
             Debug.Log("서버에 유저 데이터 저장 완료~");
+
+            return true;
         }
 
         private string GenerateRandomNickName()
