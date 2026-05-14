@@ -103,3 +103,6 @@ Assets/Firebase/
 Assets/Firebase.meta
 Assets/ExternalDependencyManager/
 Assets/ExternalDependencyManager.meta
+Assets/Plugins/iOS/Firebase/
+Assets/Plugins/tvOS/Firebase/
+firebase_unity_sdk/
