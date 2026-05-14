@@ -7,12 +7,12 @@ namespace SurvivorsLike
     [Serializable]
     public class UserData
     {
-        public string userId;
+        public string userID;
         public string nickname;
-        public int level;
-        public int gold;
-        public int gem;
-        public int[] clearedChapterIds;
+        public int    level;
+        public int    gold;
+        public int    gem;
+        public int[]  clearedChapterIDs;
     }
 }
 
