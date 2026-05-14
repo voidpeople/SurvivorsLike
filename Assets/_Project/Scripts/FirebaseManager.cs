@@ -4,6 +4,8 @@ using Firebase.Auth;
 using Firebase.Extensions;
 using Firebase.Firestore;
 using Google.MiniJSON;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -80,13 +82,16 @@ namespace SurvivorsLike
                 var newUserData = new UserData()
                 {
                     userID = userID,
-                    nickname = "", //자동생성 함수 추가
+                    nickName = GenerateRandomNickName(), //자동생성 함수 추가
                     level = 1,
                     gold = 0,
                     gem = 0,
+                    selectedChapterID = 0,
+                    lastClearedChapterID = 0,
                 };
 
-                //await SaveUserDataAsync(newUserData);
+                //신규 유저 데이터를 서버에 저장
+                await SaveUserDataAsync(newUserData);
                 return newUserData;
             }
 
@@ -94,9 +99,34 @@ namespace SurvivorsLike
             return snapshot.ConvertTo<UserData>();
         }
 
+        //유저 데이터를 파이어베이스 서버에 저장
         public async UniTask SaveUserDataAsync(UserData userData)
         {
+            // Firestore 경로: users/{userId}/profile 문서에 저장
+            // 구조: users (컬렉션) → userId (문서) → profile (하위 컬렉션) → data (문서)
+            DocumentReference docRef = _db.Collection("users").Document(userData.userID)
+                                          .Collection("profile").Document("data");
 
+            var dicData = new Dictionary<string, object>
+            {
+                { "nickName", userData.nickName },
+                { "level", userData.level },
+                { "gold", userData.gold },
+                { "gem", userData.gem },
+                { "selectedChapterID", userData.selectedChapterID },
+                { "lastClearedChapterID", userData.lastClearedChapterID },
+            };
+
+            //SetAsync함수를 통해 데이터를 서버에 업로드~
+            await docRef.SetAsync(dicData).AsUniTask();
+            Debug.Log("서버에 유저 데이터 저장 완료~");
+        }
+
+        private string GenerateRandomNickName()
+        {
+            //밀리세컨드 단위로 동일한 시간에 닉네임을 생성하지 않는 이상 중복 불가~
+            long uid = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            return $"player_{uid}";
         }
     }
 }
