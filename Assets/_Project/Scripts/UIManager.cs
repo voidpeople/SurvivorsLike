@@ -1,6 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class UIManager : SingletonMonoBehaviour<UIManager>
+
+
+namespace SurvivorsLike
 {
+    public class UIManager : SingletonMonoBehaviour<UIManager>
+    {
 
+    }
 }

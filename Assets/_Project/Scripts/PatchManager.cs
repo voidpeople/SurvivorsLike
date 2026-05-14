@@ -1,6 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PatchManager : MonoBehaviour
+
+namespace SurvivorsLike
 {
+    public class PatchManager : MonoBehaviour
+    {
 
+    }
 }

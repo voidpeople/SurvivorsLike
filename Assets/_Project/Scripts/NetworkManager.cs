@@ -1,6 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class NetworkManager : SingletonMonoBehaviour<NetworkManager>
+namespace SurvivorsLike
 {
+    public class NetworkManager : SingletonMonoBehaviour<NetworkManager>
+    {
 
+    }
 }

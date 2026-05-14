@@ -2,8 +2,10 @@
 using UnityEngine;
 
 
-
-public class UserDataManager : SingletonMonoBehaviour<UserDataManager>
+namespace SurvivorsLike
 {
-    public UserData GetUserData { get; private set; }
+    public class UserDataManager : SingletonMonoBehaviour<UserDataManager>
+    {
+        public UserData GetUserData { get; private set; }
+    }
 }

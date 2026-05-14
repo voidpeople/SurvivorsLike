@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace SurvivorsLike.UI.Lobby
+namespace SurvivorsLike
 {
     public class ChapterScrollController : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {

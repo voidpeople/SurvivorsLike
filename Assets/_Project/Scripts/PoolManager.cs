@@ -1,6 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PoolManager : SingletonMonoBehaviour<PoolManager>
+
+namespace SurvivorsLike
 {
+    public class PoolManager : SingletonMonoBehaviour<PoolManager>
+    {
 
+    }
 }

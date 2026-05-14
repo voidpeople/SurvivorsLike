@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 
-namespace SurvivorsLike.UI.Lobby
+namespace SurvivorsLike
 {
     //View은 받은 데이터를 그대로 표시하는 역활을 해야 한다.
     //아틀라스르 조회하는 기능은 외부에서 할 것~

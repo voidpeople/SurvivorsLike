@@ -1,6 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SoundManager : SingletonMonoBehaviour<SoundManager>
+
+namespace SurvivorsLike
 {
+    public class SoundManager : SingletonMonoBehaviour<SoundManager>
+    {
 
+    }
 }
