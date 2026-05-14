@@ -23,11 +23,13 @@ namespace SurvivorsLike
 
         public async UniTask<bool> InitAsync(CancellationToken ct)
         {
-            bool isFirebaseInit = await InitFirebaseAsync(ct); // Firebase SDK 초기화
+            // Firebase SDK 초기화
+            bool isFirebaseInit = await InitFirebaseAsync(ct); 
             if (isFirebaseInit == false)
                 return false;
 
-            InitFirestore();                         // DB 인스턴스 준비
+            // DB 인스턴스 준비
+            InitFirestore();  
 
             return true;
         }
@@ -37,7 +39,7 @@ namespace SurvivorsLike
         {
             //CheckAndFixDependenciesAsyncg함수는 Firebase를 사용하기 전에 반드시 필요한 네이티브 라이브러리가
             //기기에 준비되어 있는지 확인하고, 없으면 자동으로 수정을 시도한다.
-            DependencyStatus dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask();
+            DependencyStatus dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask().AttachExternalCancellation(ct);
             if(dependencyStatus == DependencyStatus.Available)
             {
                 Debug.Log("Firebase 초기화 성공!");
@@ -75,7 +77,7 @@ namespace SurvivorsLike
             {
                 // 익명 로그인: 이메일/비밀번호 없이 Firebase가 임시계정을 자동 생성해준다.
                 // 같은 기기에서 재실행해도 동일한 UserId가 유지된다
-                AuthResult result = await _auth.SignInAnonymouslyAsync().AsUniTask();
+                AuthResult result = await _auth.SignInAnonymouslyAsync().AsUniTask().AttachExternalCancellation(ct);
                 Debug.Log($"익명 로그인 성공 - UserId : {result.User.UserId}");
                 return result.User.UserId;
             }
@@ -96,7 +98,7 @@ namespace SurvivorsLike
                 DocumentReference docRef = _db.Collection("users").Document(userId)
                             .Collection("profile").Document("data");
                 //DocumentReference가 가리키는 문서 데이터로 부터 특정 순간의 데이터를 가져온다.
-                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync().AsUniTask();
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync().AsUniTask().AttachExternalCancellation(ct);
 
                 if (snapshot.Exists == false)
                 {
@@ -161,7 +163,7 @@ namespace SurvivorsLike
             };
 
                 //SetAsync함수를 통해 데이터를 서버에 업로드~
-                await docRef.SetAsync(dicData).AsUniTask();
+                await docRef.SetAsync(dicData).AsUniTask().AttachExternalCancellation(ct);;
                 Debug.Log("서버에 유저 데이터 저장 완료~");
                 return true;
             }
