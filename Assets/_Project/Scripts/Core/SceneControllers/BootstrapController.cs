@@ -17,7 +17,7 @@ namespace SurvivorsLike
             //오브젝트 파괴 시 모든 비동기 로직을 멈추기 위한 토큰
             CancellationToken ct = this.GetCancellationTokenOnDestroy();
 
-            bool isAccountReady = await AccountAsync();
+            bool isAccountReady = await AccountAsync(ct);
             if (isAccountReady == false)
                 return;
 
@@ -47,7 +47,8 @@ namespace SurvivorsLike
                                                                     "네트워크 오류",
                                                                     result.Message,
                                                                     DialogType.NetworkError,
-                                                                    "재시도");
+                                                                    "재시도",
+                                                                    ct);
                             resultStat = PatchCheckStatus.NetworkError;
                             --numRetry;
                             break;
@@ -70,12 +71,12 @@ namespace SurvivorsLike
             }
         }
 
-        private async UniTask<bool> AccountAsync()
+        private async UniTask<bool> AccountAsync(CancellationToken ct)
         {
             bool isAccountReady = false;
             do
             {
-                isAccountReady = await AccountManager.Instance.SetupAsync();
+                isAccountReady = await AccountManager.Instance.SetupAsync(ct);
                 if (isAccountReady == false)
                 {
                     bool isRetry = await SystemUIManager.Instance.ShowConfirmAsync(
@@ -83,7 +84,8 @@ namespace SurvivorsLike
                                                                             "인증 오류",
                                                                             DialogType.Confirm,
                                                                             "나가기",
-                                                                            "재시도");
+                                                                            "재시도",
+                                                                            ct);
                     if (isRetry == false)
                     {
                         Application.Quit();

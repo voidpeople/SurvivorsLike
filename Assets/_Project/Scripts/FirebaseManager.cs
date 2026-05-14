@@ -6,6 +6,7 @@ using Firebase.Firestore;
 using Google.MiniJSON;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 
@@ -20,9 +21,9 @@ namespace SurvivorsLike
         {
         }
 
-        public async UniTask<bool> InitAsync()
+        public async UniTask<bool> InitAsync(CancellationToken ct)
         {
-            bool isFirebaseInit = await InitFirebaseAsync(); // Firebase SDK 초기화
+            bool isFirebaseInit = await InitFirebaseAsync(ct); // Firebase SDK 초기화
             if (isFirebaseInit == false)
                 return false;
 
@@ -32,7 +33,7 @@ namespace SurvivorsLike
         }
 
         //Firebase 초기화 함수
-        private async UniTask<bool> InitFirebaseAsync()
+        private async UniTask<bool> InitFirebaseAsync(CancellationToken ct)
         {
             //CheckAndFixDependenciesAsyncg함수는 Firebase를 사용하기 전에 반드시 필요한 네이티브 라이브러리가
             //기기에 준비되어 있는지 확인하고, 없으면 자동으로 수정을 시도한다.
@@ -58,7 +59,7 @@ namespace SurvivorsLike
         }
 
         //익명으로 로그인~
-        public async UniTask<string> PlayAsGuestAsync()
+        public async UniTask<string> PlayAsGuestAsync(CancellationToken ct)
         {
             //FirebaseAuth.DefaultInstance은 앱 전체에서 공유하는 Auth 인스턴스임~
             _auth = FirebaseAuth.DefaultInstance;
@@ -85,7 +86,7 @@ namespace SurvivorsLike
             }
         }
 
-        public async UniTask<UserData> LoadUserDataAsync(string userId)
+        public async UniTask<UserData> LoadUserDataAsync(string userId, CancellationToken ct)
         {
             try
             {
@@ -113,7 +114,7 @@ namespace SurvivorsLike
                     };
 
                     //신규 유저 데이터를 서버에 저장
-                    bool isSaved = await SaveUserDataAsync(newUserData);
+                    bool isSaved = await SaveUserDataAsync(newUserData, ct);
                     if(isSaved == false)
                     {
                         Debug.LogError("신규 유저 데이터 서버 저장 실패!");
@@ -139,7 +140,7 @@ namespace SurvivorsLike
         }
 
         //유저 데이터를 파이어베이스 서버에 저장
-        public async UniTask<bool> SaveUserDataAsync(UserData userData)
+        public async UniTask<bool> SaveUserDataAsync(UserData userData, CancellationToken ct)
         {
             try
             {
