@@ -77,126 +77,27 @@ namespace SurvivorsLike
             _dialogStack.Push(dialog);
         }
 
-        //확인 버튼 만 존재하는 단순 알림 다이얼로그 창
-        public void ShowAlert(
-            string title,
-            string message,
-            DialogType type,
-            string confirmText = "확인",
-            Action onConfirm = null)
-        {
-            ShowDialog(new DialogConfig
-            {
-                Title = title,
-                Message = message,
-                Type = type,
-                ConfirmText = confirmText,
-                OnConfirm = onConfirm
-            });
-        }
+        // 시스템 이벤트 전용 메서드 - 호출부는 콜백만 전달
+        public void ShowNetworkErrorDialog(Action onRetry, Action onQuit)
+            => ShowDialog(DialogConfig.NetworkError(onRetry, onQuit));
 
-        public async UniTask ShowAlertAsync(
-            string title,
-            string message,
-            DialogType type,
-            string confirmText = "확인",
-            CancellationToken ct = default)
-        {
-            var tcs = new UniTaskCompletionSource();
+        public void ShowAuthErrorDialog(Action onRetry, Action onQuit)
+            => ShowDialog(DialogConfig.AuthError(onRetry, onQuit));
 
-            ShowDialog(new DialogConfig
-            {
-                Title = title,
-                Message = message,
-                Type = type,
-                ConfirmText = confirmText,
-                OnConfirm = () => tcs.TrySetResult(),
-            });
+        public void ShowMaintenanceDialog(string message)
+            => ShowDialog(DialogConfig.Maintenance(message));
 
-            using var reg = ct.Register(() =>
-            {
-                tcs.TrySetResult();
-                CloseTopDialog();
-            });
+        public void ShowSessionExpiredDialog(Action onConfirm)
+            => ShowDialog(DialogConfig.SessionExpired(onConfirm));
 
-            await tcs.Task;
-        }
+        public void ShowForceUpdateDialog(Action onUpdate)
+            => ShowDialog(DialogConfig.ForceUpdate(onUpdate));
 
-        //확인와 취소 버튼이 있는 다이얼로그 선택 창
-        public void ShowConfirm(
-            string title,
-            string message,
-            DialogType type,
-            string confirmText = "확인",
-            string cancelText = "취소",
-            Action onConfirm = null,
-            Action onCancel = null)
-        {
-            ShowDialog(new DialogConfig
-            {
-                Title = title,
-                Message = message,
-                Type = type,
-                ConfirmText = confirmText,
-                CancelText = cancelText,
-                OnConfirm = onConfirm,
-                OnCancel = onCancel
-            });
-        }
+        public void ShowNoticeDialog(string title, string message, Action onConfirm = null)
+            => ShowDialog(DialogConfig.Notice(title, message, onConfirm));
 
-        //확인 취소 버튼이 있는 비동기 다이얼로그 창
-        /*
-         * CancellationToken ct : 외부에서 "이 작업을 취소해라" 신호를 보낼 수 있는 토큰.
-         *  - default = 아무도 취소 신호를 보내지 않는 기본 토큰
-         *  - 씬 전환, 앱 종료 시 등 외부에서 강제 종료할 때 사용한다.* 
-         */
-        public async UniTask<bool> ShowConfirmAsync(
-            string title,
-            string message,
-            DialogType type,
-            string confirmText = "확인",
-            string cancelText = "취소",
-            CancellationToken ct = default)
-        {
-            /*
-             * UniTaskCompletionSource<T> : 비동기 상황에서도 내가 원하는 타이밍에 직접 결과값을 반환할 수 있게 해 주는 객체
-             * 1.tcs 를 생성하면 내부에 아직 완료되지 않은 UniTask<bool> 가 만들어진다.
-             * 2.누군가 tcs.TrySetResult(값) 을 호출하는 순간 Task 가 완료 상태가 된다.
-             * 3.아래의 await tcs.Task 는 그 순간까지 여기서 대기한다.
-             */
-            var tcs = new UniTaskCompletionSource<bool>();
-
-            ShowDialog(new DialogConfig
-            {
-                Title = title,
-                Message = message,
-                Type = type,
-                ConfirmText = confirmText,
-                CancelText = cancelText,
-                // [확인] 버튼을 누르면 → tcs 에 true 를 설정 → 아래 await 가 true 를 받고 실행 재개
-                OnConfirm = () => tcs.TrySetResult(true),
-                // [취소] 버튼을 누르면 → tcs 에 false 를 설정 → 아래 await 가 false 를 받고 실행 재개
-                OnCancel = () => tcs.TrySetResult(false)
-            });
-
-            //CancellationToken 객체인 ct에 취소 콜백 함수를 등록한다.
-            //즉 외부에서 비동기 작업에 대한 취소 신호가 오면 Register() 함수로 등록된
-            //tcs.TrySetResult(false) 로직이 실행되어 Task가 완료 상태가 된다.
-            //그러면 아래의 await에서 대기중 이던 로직이 재개되어 tcs.Task 값을 반환한다.
-            using var reg = ct.Register(() =>
-            {
-                tcs.TrySetResult(false);
-                CloseTopDialog();
-            });
-
-            //tcs.Task은 아직 완료되지 않은 UniTask<bool> 태스크 객체이다.
-            //await 명령은 아직 완료되지 않은 tcs.Task 태스크가 완료될 때 까지 실행을 멈추고 기다린다.
-            //그러다가 위의 tcs.TrySetResult() 로직 중 한개가 실행되면 태스크가 완료된 거므로
-            //대기 상태를 중지하고 로직 실행을 재개하면서 tcs.TrySetResult을 통해 설정된 bool 값을 반환한다.
-            //(그러니까 await 명령이 tcs.TrySetResult()함수가 실행되어 태스크가 완료될 때 까지 로직의 실행을 중지하고
-            //대기를 타고 있는 거임)
-            return await tcs.Task;
-        }
+        public void ShowCriticalErrorDialog(string message = null)
+            => ShowDialog(DialogConfig.CriticalError(message ?? "예기치 못한 오류가 발생했습니다.\n앱을 재시작해 주세요."));
 
         //현재 여러개의 다이얼로그 창들이 활성화 되어 있다면
         //최 상단의 다이얼로그를 닫기를 해준다.
@@ -219,7 +120,6 @@ namespace SurvivorsLike
         #region Common
         protected override void ChildAwake()
         {
-            _systemUIConfigSO.Init();
             InitPDialogPool();
         }
 

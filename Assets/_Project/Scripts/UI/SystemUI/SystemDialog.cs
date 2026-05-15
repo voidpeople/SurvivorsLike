@@ -1,10 +1,9 @@
-﻿using DG.Tweening;
 using System;
 using TMPro;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.STP;
+
 
 namespace SurvivorsLike
 {
@@ -28,8 +27,7 @@ namespace SurvivorsLike
 
         private SystemUIConfigSO _systemUIConfigSO;
 
-        public DialogConfig Config { get; protected set; }
-        private Action _onClose;
+        public DialogConfig Config { get; private set; }
 
         public void Init(SystemUIConfigSO systemUIConfigSO)
         {
@@ -42,45 +40,40 @@ namespace SurvivorsLike
 
             _titleText.text = config.Title;
             _messageText.text = config.Message;
-
             _confirmButtonText.text = config.ConfirmText;
 
-            bool isConfirm = (config.Type == DialogType.Confirm);
-            _cancelButton.gameObject.SetActive(isConfirm);
-
-            if (isConfirm)
+            bool isDual = (_systemUIConfigSO.GetButtonType(config.Type) == DialogButtonType.DualButton);
+            _cancelButton.gameObject.SetActive(isDual);
+            if (isDual)
                 _cancelButtonText.text = config.CancelText;
 
-            _iconImage.sprite = _systemUIConfigSO.GetDialogIcon(config.Type);
-
-            SetColor(_systemUIConfigSO.GetDialogColor(config.Type));
-            InitButtons(config, onClose);
+            _iconImage.sprite = _systemUIConfigSO.GetIcon(config.Type);
+            ApplyColor(_systemUIConfigSO.GetColor(config.Type));
+            BindButtons(config, onClose);
         }
 
-        private void SetColor(Color color)
+        private void ApplyColor(Color color)
         {
             _topBarImage.color = color;
             _confirmButtonImage.color = color;
             _canceButtonImage.color = color;
         }
 
-        private void InitButtons(DialogConfig config, Action onClose)
+        private void BindButtons(DialogConfig config, Action onClose)
         {
-            _onClose = onClose;
-
             _confirmButton.onClick.RemoveAllListeners();
             _cancelButton.onClick.RemoveAllListeners();
 
             _confirmButton.onClick.AddListener(() =>
             {
+                onClose?.Invoke();
                 config.OnConfirm?.Invoke();
-                _onClose?.Invoke();
             });
 
             _cancelButton.onClick.AddListener(() =>
             {
+                onClose?.Invoke();
                 config.OnCancel?.Invoke();
-                _onClose?.Invoke();
             });
         }
 

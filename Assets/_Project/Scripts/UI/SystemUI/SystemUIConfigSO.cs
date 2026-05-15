@@ -1,54 +1,68 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace SurvivorsLike
 {
-
     [CreateAssetMenu(fileName = "SystemUIDataSO", menuName = "SurvivorsLike/Data/SystemUIDataSO")]
     public class SystemUIConfigSO : ScriptableObject
     {
         [Header("Dialog Icons")]
-        [SerializeField] private Sprite _DialogInfoIcon;
-        [SerializeField] private Sprite _DialogErrorIcon;
+        [SerializeField] private Sprite _infoIcon;
+        [SerializeField] private Sprite _warningIcon;
+        [SerializeField] private Sprite _errorIcon;
 
-        [Header("Dialog Colos")]
-        [SerializeField] private Color _DialogInfoColor;
-        [SerializeField] private Color _DialogErrorColor;
+        [Header("Dialog Colors")]
+        [SerializeField] private Color _infoColor;
+        [SerializeField] private Color _warningColor;
+        [SerializeField] private Color _errorColor;
 
-        private Dictionary<DialogType, Sprite> _DialogIconMap;
-        private Dictionary<DialogType, Color> _DialogColorMap;
-
-        public void Init()
+        // DialogType → Severity 매핑 (아이콘/색상 결정)
+        private static readonly Dictionary<DialogType, DialogSeverity> _severityMap = new()
         {
-            _DialogIconMap = new Dictionary<DialogType, Sprite>
+            { DialogType.AuthError,      DialogSeverity.Error   },
+            { DialogType.NetworkError,   DialogSeverity.Error   },
+            { DialogType.SessionExpired, DialogSeverity.Error   },
+            { DialogType.ForceUpdate,    DialogSeverity.Warning },
+            { DialogType.Confirm,        DialogSeverity.Warning },
+            { DialogType.Maintenance,    DialogSeverity.Info    },
+            { DialogType.Notice,         DialogSeverity.Info    },
+            { DialogType.Alert,          DialogSeverity.Info    },
+            { DialogType.CriticalError,  DialogSeverity.Error   },
+        };
+
+        // DialogType → ButtonType 매핑 (버튼 구성 결정)
+        private static readonly Dictionary<DialogType, DialogButtonType> _buttonTypeMap = new()
+        {
+            { DialogType.AuthError,      DialogButtonType.DualButton   },
+            { DialogType.NetworkError,   DialogButtonType.DualButton   },
+            { DialogType.ForceUpdate,    DialogButtonType.DualButton   },
+            { DialogType.Confirm,        DialogButtonType.DualButton   },
+            { DialogType.Notice,         DialogButtonType.DualButton   },
+            { DialogType.SessionExpired, DialogButtonType.SingleButton },
+            { DialogType.Maintenance,    DialogButtonType.SingleButton },
+            { DialogType.Alert,          DialogButtonType.SingleButton },
+            { DialogType.CriticalError,  DialogButtonType.SingleButton },
+        };
+
+        public Sprite GetIcon(DialogType type)
+            => _severityMap[type] switch
             {
-                { DialogType.NetworkError, _DialogErrorIcon },
-                { DialogType.Maintenance, _DialogInfoIcon },
-                { DialogType.SessionExpired, _DialogErrorIcon },
-                { DialogType.ForceUpdate, _DialogInfoIcon },
-                { DialogType.Notice, _DialogInfoIcon },
-                { DialogType.Alert, _DialogInfoIcon },
-                { DialogType.Confirm, _DialogInfoIcon }
+                DialogSeverity.Error   => _errorIcon,
+                DialogSeverity.Warning => _warningIcon,
+                _                      => _infoIcon
             };
 
-            _DialogColorMap = new Dictionary<DialogType, Color>
+        public Color GetColor(DialogType type)
+            => _severityMap[type] switch
             {
-                { DialogType.NetworkError, _DialogErrorColor },
-                { DialogType.Maintenance, _DialogInfoColor },
-                { DialogType.SessionExpired, _DialogErrorColor },
-                { DialogType.ForceUpdate, _DialogInfoColor },
-                { DialogType.Notice, _DialogInfoColor },
-                { DialogType.Alert, _DialogInfoColor },
-                { DialogType.Confirm, _DialogInfoColor }
+                DialogSeverity.Error   => _errorColor,
+                DialogSeverity.Warning => _warningColor,
+                _                      => _infoColor
             };
-        }
 
-        public Sprite GetDialogIcon(DialogType type)
-            => _DialogIconMap.TryGetValue(type, out var s) ? s : null;
-
-        public Color GetDialogColor(DialogType type)
-            => _DialogColorMap.TryGetValue(type, out var s) ? s : Color.gray;
+        public DialogButtonType GetButtonType(DialogType type)
+            => _buttonTypeMap[type];
     }
 
 }

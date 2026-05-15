@@ -56,15 +56,17 @@ namespace SurvivorsLike
                             break;
 
                         case PatchCheckStatus.NetworkError:
-                            await SystemUIManager.Instance.ShowAlertAsync(
-                                                                    "네트워크 오류",
-                                                                    result.Message,
-                                                                    DialogType.NetworkError,
-                                                                    "재시도",
-                                                                    ct);
+                        {
+                            var tcs = new UniTaskCompletionSource();
+                            SystemUIManager.Instance.ShowNetworkErrorDialog(
+                                onRetry: () => tcs.TrySetResult(),
+                                onQuit:  () => Application.Quit()
+                            );
+                            await tcs.Task;
                             resultStat = PatchCheckStatus.NetworkError;
                             --numRetry;
                             break;
+                        }
                         case PatchCheckStatus.ServerMaintenance:
                         case PatchCheckStatus.InvalidResponse:
                             break;
@@ -83,13 +85,7 @@ namespace SurvivorsLike
             catch (Exception e)
             {
                 Debug.LogException(e);
-
-                await SystemUIManager.Instance.ShowAlertAsync(
-                    "오류",
-                    "예기치 못한 오류가 발생했습니다.\n앱을 재시작해 주세요.",
-                    DialogType.Alert,
-                    "확인",
-                     CancellationToken.None);  // 오류 팝업은 취소 불가 토큰으로~
+                SystemUIManager.Instance.ShowCriticalErrorDialog();
             }
         }
 
@@ -99,15 +95,16 @@ namespace SurvivorsLike
             do
             {
                 isAccountReady = await AccountManager.Instance.SetupAsync(ct);
+                //테스트 코드
+                //isAccountReady = false;
                 if (isAccountReady == false)
                 {
-                    bool isRetry = await SystemUIManager.Instance.ShowConfirmAsync(
-                                                                            "오류",
-                                                                            "인증 오류",
-                                                                            DialogType.Confirm,
-                                                                            "재시도",
-                                                                            "나가기",
-                                                                            ct);
+                    var tcs = new UniTaskCompletionSource<bool>();
+                    SystemUIManager.Instance.ShowAuthErrorDialog(
+                        onRetry: () => tcs.TrySetResult(true),
+                        onQuit:  () => tcs.TrySetResult(false)
+                    );
+                    bool isRetry = await tcs.Task;
 
                     ct.ThrowIfCancellationRequested();
                     if (isRetry == false)
@@ -125,13 +122,12 @@ namespace SurvivorsLike
                 isAccountReady = await UserDataManager.Instance.LoadUserDataAsync(userId, ct);
                 if (isAccountReady == false)
                 {
-                    bool isRetry = await SystemUIManager.Instance.ShowConfirmAsync(
-                                                                            "오류",
-                                                                            "인증 오류",
-                                                                            DialogType.Confirm,
-                                                                            "나가기",
-                                                                            "재시도",
-                                                                            ct);
+                    var tcs = new UniTaskCompletionSource<bool>();
+                    SystemUIManager.Instance.ShowAuthErrorDialog(
+                        onRetry: () => tcs.TrySetResult(true),
+                        onQuit:  () => tcs.TrySetResult(false)
+                    );
+                    bool isRetry = await tcs.Task;
 
                     ct.ThrowIfCancellationRequested();
                     if (isRetry == false)
