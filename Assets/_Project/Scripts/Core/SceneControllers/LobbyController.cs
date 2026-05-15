@@ -58,7 +58,9 @@ namespace SurvivorsLike
             _tabView.Init();
             _tabPresenter = new LobbyTabPresenter(_tabView, _tabModel);
 
-            _chapterSelectPanelModel = new ChapterSelectPanelModel(DataManager.Instance.ChapterDataSOList);
+            _chapterSelectPanelModel = new ChapterSelectPanelModel(
+                DataManager.Instance.ChapterDataSOList,
+                UserDataManager.Instance.UserData);
             _chapterSelectPanelView.Init();
             _chapterSelectPanelPresenter = new ChapterSelectPanelPresenter(
                 _chapterSelectPanelModel,

@@ -1,10 +1,29 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using System.Threading;
+using UnityEngine;
 
 
 namespace SurvivorsLike
 {
     public class UserDataManager : SingletonMonoBehaviour<UserDataManager>
     {
-        public UserData GetUserData { get; private set; }
+        public UserData UserData { get; private set; }
+
+        public async UniTask<bool> LoadUserDataAsync(string userId, CancellationToken ct)
+        {
+            for (int ii = 0; ii < 3; ++ii)
+            {
+                UserData = await FirebaseManager.Instance.LoadUserDataAsync(userId, ct);
+                if (UserData != null)
+                    break;
+
+                await UniTask.Delay(1000, cancellationToken: ct);
+            }
+            if (UserData == null)
+                return false;
+
+            return true;
+        }
+
     }
 }

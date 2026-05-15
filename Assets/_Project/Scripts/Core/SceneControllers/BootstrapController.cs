@@ -118,6 +118,30 @@ namespace SurvivorsLike
                 }
             } while (isAccountReady == false);
 
+            isAccountReady = false;
+            string userId = AccountManager.Instance.UserId;
+            do
+            {
+                isAccountReady = await UserDataManager.Instance.LoadUserDataAsync(userId, ct);
+                if (isAccountReady == false)
+                {
+                    bool isRetry = await SystemUIManager.Instance.ShowConfirmAsync(
+                                                                            "오류",
+                                                                            "인증 오류",
+                                                                            DialogType.Confirm,
+                                                                            "나가기",
+                                                                            "재시도",
+                                                                            ct);
+
+                    ct.ThrowIfCancellationRequested();
+                    if (isRetry == false)
+                    {
+                        Application.Quit();
+                        return false;
+                    }
+                }
+            } while (isAccountReady == false);
+
             return true;
         }
     }

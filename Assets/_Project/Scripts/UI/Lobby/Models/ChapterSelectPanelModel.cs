@@ -22,6 +22,14 @@ namespace SurvivorsLike
             SelectedIndex = index;
         }
 
+        //현재 선택된 챕터 아이디
+        private int _selectedChapterId;
+        //마지막 클리어 챕터 아이디
+        private int _lastClearedChapterId;
+
+        public int SelectedChapterId => _selectedChapterId;
+        public int LastClearedChapterId => _lastClearedChapterId;
+
         public ChapterDataSO GetChapterData(int index)
         {
             if (index < 0 || index >= ChapterList.Count)
@@ -30,9 +38,12 @@ namespace SurvivorsLike
             return ChapterList[index];
         }
 
-        public ChapterSelectPanelModel(IReadOnlyList<ChapterDataSO> chapterList)
+        public ChapterSelectPanelModel(IReadOnlyList<ChapterDataSO> chapterList, UserData userData)
         {
             ChapterList = chapterList;
+
+            _selectedChapterId    = userData.selectedChapterId;
+            _lastClearedChapterId = userData.lastClearedChapterId;
         }
     }
 }
