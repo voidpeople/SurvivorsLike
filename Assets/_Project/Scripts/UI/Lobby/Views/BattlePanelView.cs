@@ -14,8 +14,10 @@ namespace SurvivorsLike
         public event Action OnOpenChapterSelectPanel;
         public event Action OnGameStart;
 
-        public void Init()
+        public void Init(Sprite currentChapterSprite)
         {
+            _chapterPanelButton.image.sprite = currentChapterSprite;
+
             _chapterPanelButton.onClick.AddListener(() => OnOpenChapterSelectPanel?.Invoke());
             _battleStartButton.onClick.AddListener(() => OnGameStart?.Invoke());
         }
