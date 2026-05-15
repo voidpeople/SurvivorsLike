@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using UnityEngine;
 
 
@@ -28,13 +29,13 @@ namespace SurvivorsLike
             _view.OnSelectChapter += OnSelectChapter;
             _view.OnExitPanel += OnExitPanel;
 
-            _view.SetupChapterCards(_model.ChapterList);            
+            _view.SetupChapterCards(_model.ChapterDataList);            
         }
 
         public void Show()
-        {
-            _view.ScrollToChapter(_model.SelectedIndex);
+        {            
             _view.Show();
+            _view.ScrollToChapter(_model.SelectedCardIndex);
         }
 
         public void Hide()
@@ -55,9 +56,12 @@ namespace SurvivorsLike
         //선택 버튼을 클릭할 경우 호출되는 함수
         public void OnSelectChapter()
         {
-            _model.SetSelectedIndex(_view.GetCurrentChapterIndex());            
+            _model.SetSelectedCardIndex(_view.GetCurrentChapterIndex());            
             //다른 외부 객체들이 챕터 선택에 대한 통보를 받게 하기 위해~
-            _onSelectChapter?.Invoke(_model.SelectedChapter);
+            _onSelectChapter?.Invoke(_model.SelectedChapterData);
+
+            //CancellationToken ct = this.GetCancellationTokenOnDestroy();            
+            //await UserDataManager.Instance.SaveSelectedChapterIdAsync(_model.SelectedChapter.chapterID, ct);
 
             _view.Hide();
         }

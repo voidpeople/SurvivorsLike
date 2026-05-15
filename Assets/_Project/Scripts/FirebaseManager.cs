@@ -103,6 +103,10 @@ namespace SurvivorsLike
                             .Collection("profile").Document("data");
                 //DocumentReference가 가리키는 문서 데이터로 부터 특정 순간의 데이터를 가져온다.
                 DocumentSnapshot snapshot = await docRef.GetSnapshotAsync().AsUniTask().AttachExternalCancellation(ct);
+                //Source.Server을 인자로 넣어주지 않으면 로컬의 캐시 데이터를 가져와 사용한다.
+                //DocumentSnapshot snapshot = await docRef.GetSnapshotAsync(Source.Server)
+                //                                        .AsUniTask()
+                //                                        .AttachExternalCancellation(ct);
 
                 if (snapshot.Exists == false)
                 {
@@ -113,9 +117,9 @@ namespace SurvivorsLike
                         userId = userId,
                         nickName = GenerateRandomNickName(), //자동생성 함수 추가
                         level = 1,
-                        gold = 0,
-                        gem = 0,
-                        selectedChapterId = 0,
+                        gold = 1000,
+                        gem = 100,
+                        selectedChapterId = 1,
                         lastClearedChapterId = 0,
                     };
 
@@ -166,8 +170,8 @@ namespace SurvivorsLike
                 { "level", userData.level },
                 { "gold", userData.gold },
                 { "gem", userData.gem },
-                { "selectedChapterID", userData.selectedChapterId },
-                { "lastClearedChapterID", userData.lastClearedChapterId },
+                { "selectedChapterId", userData.selectedChapterId },
+                { "lastClearedChapterId", userData.lastClearedChapterId },
             };
 
                 //SetAsync함수를 통해 데이터를 서버에 업로드~

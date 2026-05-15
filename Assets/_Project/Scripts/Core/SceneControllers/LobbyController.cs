@@ -65,7 +65,7 @@ namespace SurvivorsLike
             _chapterSelectPanelPresenter = new ChapterSelectPanelPresenter(
                 _chapterSelectPanelModel,
                 _chapterSelectPanelView,
-                OnSelectChpter);
+                OnSelectChapter);
 
             _battlePanelModel = new BattlePanelModel();
             _battlePanelView.Init();
@@ -78,7 +78,7 @@ namespace SurvivorsLike
                 _ct);
         }
 
-        private void OnSelectChpter(ChapterDataSO chapterData)
+        private void OnSelectChapter(ChapterDataSO chapterData)
         {
             Sprite s = _lobbyChapterAtlas.GetSprite(chapterData.displaySpriteName);
             _battlePanelView.SetChapterPanelButtonImage(s);

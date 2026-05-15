@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 
@@ -8,42 +9,71 @@ namespace SurvivorsLike
 
     public class ChapterSelectPanelModel
     {
-        public IReadOnlyList<ChapterDataSO> ChapterList { get; }
+        public IReadOnlyList<ChapterDataSO> ChapterDataList { get; }
+        private Dictionary<int, ChapterDataSO> _chapterDataDic = new Dictionary<int, ChapterDataSO>();
+        private Dictionary<int, int> _chapterCardIndexDic = new Dictionary<int, int>();
 
-        //선택 버튼을 클릭하여 선택한 챕터의 인덱스
-        public int SelectedIndex { get; private set; }
-        public ChapterDataSO SelectedChapter => ChapterList[SelectedIndex];
-
-        public void SetSelectedIndex(int index)
+        //선택 버튼을 클릭하여 SelectedIndex에 해당 챕터 카드의 인덱스가 저장된다.
+        public int SelectedCardIndex { get; private set; }
+        public ChapterDataSO SelectedChapterData
         {
-            if (index < 0 || index >= ChapterList.Count)
-                return;
-
-            SelectedIndex = index;
+            get
+            {
+                return _chapterDataDic[SelectedCardIndex];
+            }
         }
 
-        //현재 선택된 챕터 아이디
-        private int _selectedChapterId;
+        public void SetSelectedCardIndex(int index)
+        {
+            if (index < 0 || index >= ChapterDataList.Count)
+                return;
+
+            SelectedCardIndex = index;
+        }
+
         //마지막 클리어 챕터 아이디
         private int _lastClearedChapterId;
-
-        public int SelectedChapterId => _selectedChapterId;
         public int LastClearedChapterId => _lastClearedChapterId;
 
         public ChapterDataSO GetChapterData(int index)
         {
-            if (index < 0 || index >= ChapterList.Count)
+            if (index < 0 || index >= ChapterDataList.Count)
                 return null ;
 
-            return ChapterList[index];
+            return ChapterDataList[index];
         }
 
         public ChapterSelectPanelModel(IReadOnlyList<ChapterDataSO> chapterList, UserData userData)
         {
-            ChapterList = chapterList;
+            ChapterDataList = chapterList;
+            CreateChapterDics();
+            SetSelectedCardIndex(GetChapterCardIndex(userData.selectedChapterId)); 
 
-            _selectedChapterId    = userData.selectedChapterId;
             _lastClearedChapterId = userData.lastClearedChapterId;
+        }
+
+        private void CreateChapterDics()
+        {
+            for (int ii = 0; ii < ChapterDataList.Count; ii++)
+            {
+                _chapterDataDic.Add(ii, ChapterDataList[ii]);
+            }
+
+            for (int ii = 0; ii < ChapterDataList.Count; ii++)
+            {
+                _chapterCardIndexDic.Add(ChapterDataList[ii].chapterID, ii);
+            }
+        }
+
+        private int GetChapterCardIndex(int chapterId)
+        {
+            int index = -1;
+            if(_chapterCardIndexDic.TryGetValue(chapterId, out index) == false)
+            {
+                Debug.LogError($"존재하지 않는 챕터 아이디 : {chapterId}");
+            }
+
+            return index;
         }
     }
 }
