@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace SurvivorsLike
         private readonly ChapterSelectPanelView  _view;
 
         private readonly Action<ChapterDataSO>   _onSelectChapter;
+
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
         //onSelectChapter은 챕터가 선택되면 GameSessionData에 선택된 챕터의 데이터를 저장하기 위해~
         public ChapterSelectPanelPresenter(
@@ -54,16 +57,20 @@ namespace SurvivorsLike
         }
 
         //선택 버튼을 클릭할 경우 호출되는 함수
-        public void OnSelectChapter()
+        private void OnSelectChapter()
         {
-            _model.SetSelectedCardIndex(_view.GetCurrentChapterIndex());            
+            _model.SetSelectedCardIndex(_view.GetCurrentChapterIndex());
             //다른 외부 객체들이 챕터 선택에 대한 통보를 받게 하기 위해~
             _onSelectChapter?.Invoke(_model.SelectedChapterData);
 
-            //CancellationToken ct = this.GetCancellationTokenOnDestroy();            
-            //await UserDataManager.Instance.SaveSelectedChapterIdAsync(_model.SelectedChapter.chapterID, ct);
+            SaveSelectedChapterIdAsync();
 
             _view.Hide();
+        }
+
+        private async UniTaskVoid SaveSelectedChapterIdAsync()
+        {
+            await UserDataManager.Instance.SaveSelectedChapterIdAsync(_model.SelectedChapterData.chapterId, _cts.Token);
         }
 
         //나가기 버튼을 클릭할 경우 호출되는 함수

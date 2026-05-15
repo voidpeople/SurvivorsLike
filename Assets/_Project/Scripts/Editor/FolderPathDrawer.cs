@@ -102,10 +102,32 @@ namespace SurvivorsLike
                 }
                 else
                 {
-                    var entityId = Activator.CreateInstance(
-                        elementType,
-                        BindingFlags.CreateInstance, null,
-                        new object[] { folder.GetInstanceID() }, null);
+                    // Unity 6에서 EntityId 등 int 래퍼 구조체 처리
+                    // int를 받는 non-public 생성자 우선 탐색, 없으면 필드 직접 설정
+                    object entityId;
+                    var ctor = elementType
+                        .GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                        .FirstOrDefault(c =>
+                        {
+                            var p = c.GetParameters();
+                            return p.Length == 1 && p[0].ParameterType == typeof(int);
+                        });
+
+                    if (ctor != null)
+                    {
+                        entityId = ctor.Invoke(new object[] { folder.GetInstanceID() });
+                    }
+                    else
+                    {
+                        entityId = System.Runtime.Serialization.FormatterServices
+                            .GetUninitializedObject(elementType);
+                        var intField = elementType
+                            .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                            .FirstOrDefault(f => f.FieldType == typeof(int));
+
+                        if (intField == null) return false;
+                        intField.SetValue(entityId, folder.GetInstanceID());
+                    }
 
                     var arr = Array.CreateInstance(elementType, 1);
                     arr.SetValue(entityId, 0);

@@ -7,7 +7,7 @@ namespace SurvivorsLike
     public class ChapterDataSO : ScriptableObject
     {
         [Header("기본 정보")]
-        public int chapterID;
+        public int chapterId;
         public string displayName;       // "버려진 도시"
         public string difficulty;        // "초급" / "중급" / "고급"
         public string displaySpriteName; // UI애 출력 될 스프라이트 이름

@@ -54,7 +54,7 @@ namespace SurvivorsLike
             _chapterDataSOList.Clear();
             _chapterDataSOList.AddRange(_chapterDataSOListHandle.Result);
             //챕터 아이디로 정렬~
-            _chapterDataSOList.Sort((a, b) => a.chapterID.CompareTo(b.chapterID));
+            _chapterDataSOList.Sort((a, b) => a.chapterId.CompareTo(b.chapterId));
 
             BindChapterThumbnails();
 

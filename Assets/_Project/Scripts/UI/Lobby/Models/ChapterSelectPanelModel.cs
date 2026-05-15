@@ -61,7 +61,7 @@ namespace SurvivorsLike
 
             for (int ii = 0; ii < ChapterDataList.Count; ii++)
             {
-                _chapterCardIndexDic.Add(ChapterDataList[ii].chapterID, ii);
+                _chapterCardIndexDic.Add(ChapterDataList[ii].chapterId, ii);
             }
         }
 

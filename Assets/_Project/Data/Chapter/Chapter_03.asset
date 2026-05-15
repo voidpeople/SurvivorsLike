@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5befac6ae80664d88ad8585466a919, type: 3}
   m_Name: Chapter_03
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.ChapterDataSO
-  chapterID: 3
+  chapterId: 3
   displayName: "\uBD95\uAD34\uB41C \uACF5\uC7A5"
   difficulty: "\uC911\uAE09"
   displaySpriteName: lobby_chapter03
