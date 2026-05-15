@@ -25,7 +25,13 @@ namespace SurvivorsLike
                 //해당 비동기 작업을 즉시 멈추도록 설정하는 함수이다.
                 await FadeManager.Instance.FadeOutAsync(fadeOutDuration, ct);
 
-                var op = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
+                AsyncOperation op = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
+                if(op == null)
+                {
+                    Debug.LogError($"[SceneLoader] 씬을 찾을 수 없음: {sceneName}");
+                    _isLoading = false;
+                    return;
+                }    
                 op.allowSceneActivation = false;
 
                 while (op.progress < 0.9f)
@@ -39,7 +45,8 @@ namespace SurvivorsLike
 
                 //씬 활성화 및 실제 완료 대기
                 op.allowSceneActivation = true;
-                //op.isDone이 true가 될 때까지 기다려야 씬 전환이 완전히 끝납니다.
+
+                //아래 로직은 op.isDone이 true가 될 때까지 기다리는 로직임~
                 await op.WithCancellation(ct);
 
                 //유지 시간 대기 (Delay 사용)
@@ -51,7 +58,7 @@ namespace SurvivorsLike
                 //페이드 인
                 await FadeManager.Instance.FadeInAsync(fadeInDuration, ct);
             }
-            finally
+            finally //언제나 거침~
             {
                 _isLoading = false;
             }

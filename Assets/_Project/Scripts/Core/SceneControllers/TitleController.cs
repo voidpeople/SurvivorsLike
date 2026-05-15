@@ -17,7 +17,7 @@ namespace SurvivorsLike
             {
                 await DataManager.Instance.InitAsync(ct);
                 await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: ct);
-                await GameManager.Instance.LoadSceneAsync("03_Lobby", ct);
+                await GameManager.Instance.LoadSceneAsync("03_Lobby");
             }
             catch (OperationCanceledException)
             {

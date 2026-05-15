@@ -11,14 +11,14 @@ namespace SurvivorsLike
         private readonly GameResultPanelModel _model;
         private readonly GameResultPanelView _view;
 
-        private readonly Func<string, CancellationToken, UniTask> _loadScene;
+        private readonly Func<string, UniTask> _loadScene;
 
         private readonly CancellationToken _ct;
 
         public GameResultPanelPresenter(
             GameResultPanelModel model,
             GameResultPanelView view,
-            Func<string, CancellationToken, UniTask> loadScene,
+            Func<string, UniTask> loadScene,
             CancellationToken ct)
         {
             _model = model;
@@ -32,17 +32,17 @@ namespace SurvivorsLike
 
         private void OnResultConfirmed()
         {
-            StartGameAsync(_ct).Forget();
+            StartGameAsync().Forget();
         }
 
-        private async UniTask StartGameAsync(CancellationToken ct)
+        private async UniTask StartGameAsync()
         {
             //버튼의 연속 클릭 방지~
             _view.SetInteractable(false);
 
             try
             {
-                await _loadScene(GameResultPanelModel.GameSceneName, ct);
+                await _loadScene(GameResultPanelModel.GameSceneName);
             }
             catch (OperationCanceledException)
             {

@@ -13,7 +13,7 @@ namespace SurvivorsLike
         private readonly ChapterSelectPanelPresenter _chapterSelectPanelPresenter;
 
         private readonly Action                      _onGameStart;
-        private readonly Func<string, CancellationToken, UniTask>       _loadScene;
+        private readonly Func<string, UniTask>       _loadScene;
 
         private readonly CancellationToken _ct;
 
@@ -25,7 +25,7 @@ namespace SurvivorsLike
             BattlePanelModel model,
             ChapterSelectPanelPresenter chapterSelectPanelPresenter,
             Action onGameStart,
-            Func<string, CancellationToken, UniTask> loadScene,
+            Func<string, UniTask> loadScene,
             CancellationToken ct)
         {
             _view                        = view;
@@ -55,17 +55,17 @@ namespace SurvivorsLike
             //게임 플레이를 할 수 있는 스테미나 포인터가 미달되면 여기서 함수를 종료 시킬 것~
 
             _onGameStart?.Invoke();
-            StartGameAsync(_ct).Forget();
+            StartGameAsync().Forget();
         }
 
-        private async UniTask StartGameAsync(CancellationToken ct)
+        private async UniTask StartGameAsync()
         {
             _model.SetCanStart(false);
             _view.SetInteractable(false);
 
             try
             {
-                await _loadScene(BattlePanelModel.GameSceneName, ct);
+                await _loadScene(BattlePanelModel.GameSceneName);
             }
             catch (OperationCanceledException)
             {

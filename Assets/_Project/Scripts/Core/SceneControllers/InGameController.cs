@@ -39,7 +39,7 @@ namespace SurvivorsLike
             _resultPresenter = new GameResultPanelPresenter(
                 _resultModel,
                 _resultPanelView,
-                (sceneName, ct) => GameManager.Instance.LoadSceneAsync(sceneName, ct),
+                (sceneName) => GameManager.Instance.LoadSceneAsync(sceneName),
                 ct);
         }
 

@@ -45,14 +45,14 @@ namespace SurvivorsLike
                     GameManager.Instance.SetPatchResult(result);
 
                     switch (result.Status)
-                    {
+                    { 
                         case PatchCheckStatus.UpToDate:
-                            await GameManager.Instance.LoadSceneAsync("02_Title", ct);
+                            await GameManager.Instance.LoadSceneAsync("02_Title");
                             break;
 
                         case PatchCheckStatus.ForcePatch:
                         case PatchCheckStatus.NeedPatch:
-                            await GameManager.Instance.LoadSceneAsync("01_Patch", ct);
+                            await GameManager.Instance.LoadSceneAsync("01_Patch");
                             break;
 
                         case PatchCheckStatus.NetworkError:
@@ -72,10 +72,13 @@ namespace SurvivorsLike
 
                 } while ((numRetry > 0) && (resultStat == PatchCheckStatus.NetworkError));
             }
-            catch (OperationCanceledException)
+            catch (OperationCanceledException e)
             {
                 // 오브젝트 파괴 등으로 작업이 취소된 경우 조용히 종료 [9, 10]
-                Debug.Log("Bootstrap 작업이 취소되었습니다.");
+                Debug.Log("Bootstrap 작업이 취소되었습니다.");                
+
+                Debug.Log($"취소된 토큰: {e.CancellationToken.GetHashCode()}");
+                //Debug.LogException(e);
             }
             catch (Exception e)
             {

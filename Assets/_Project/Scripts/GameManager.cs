@@ -36,8 +36,9 @@ namespace SurvivorsLike
             CurrentState = state;
         }
 
-        public UniTask LoadSceneAsync(string sceneName, CancellationToken ct)
+        public UniTask LoadSceneAsync(string sceneName)
         {
+            CancellationToken ct = this.GetCancellationTokenOnDestroy();
             return SceneLoader.Instance.LoadSceneAsync(sceneName, ct: ct);
         }
 

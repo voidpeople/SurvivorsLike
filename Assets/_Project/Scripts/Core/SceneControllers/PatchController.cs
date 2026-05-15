@@ -16,7 +16,7 @@ namespace SurvivorsLike
             try
             {
                 await UniTask.Delay(1000, cancellationToken: ct);
-                await GameManager.Instance.LoadSceneAsync("02_Title", ct);
+                await GameManager.Instance.LoadSceneAsync("02_Title");
             }
             catch (OperationCanceledException)
             {

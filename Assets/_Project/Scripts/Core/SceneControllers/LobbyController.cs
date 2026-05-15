@@ -72,7 +72,7 @@ namespace SurvivorsLike
                 _battlePanelModel,
                 _chapterSelectPanelPresenter,
                 OnGameStart,
-                (sceneName, ct) => GameManager.Instance.LoadSceneAsync(sceneName, ct),
+                (sceneName) => GameManager.Instance.LoadSceneAsync(sceneName),
                 _ct);
         }
 
