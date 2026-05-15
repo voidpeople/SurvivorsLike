@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c627ae63d2e68498b9dc9aedcdb9d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.UI.Lobby.ChapterCardView
-  _chapterImage: {fileID: 3580072558883601378}
+  _chapterThumbnailImage: {fileID: 3580072558883601378}
 --- !u!1 &9149211970422173046
 GameObject:
   m_ObjectHideFlags: 0

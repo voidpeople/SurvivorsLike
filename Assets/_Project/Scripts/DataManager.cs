@@ -66,7 +66,7 @@ namespace SurvivorsLike
             foreach(var charpterData in _chapterDataSOList)
             {
                 Sprite s = _lobbyChapterAtlas.GetSprite(charpterData.displaySpriteName);
-                charpterData.thumbnail = s;
+                charpterData.thumbnailSprite = s;
             }
         }
 

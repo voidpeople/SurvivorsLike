@@ -70,7 +70,7 @@ namespace SurvivorsLike
 
             //챕터 패널 버튼의 이미지를 현재 선택된 챕터의 이미지로 설정하기
             _battlePanelModel = new BattlePanelModel();
-            _battlePanelView.Init(_chapterSelectPanelModel.SelectedChapterData.thumbnail);
+            _battlePanelView.Init(_chapterSelectPanelModel.SelectedChapterData.thumbnailSprite);
             _battlePanelPresenter = new BattlePanelPresenter(
                 _battlePanelView,
                 _battlePanelModel,
