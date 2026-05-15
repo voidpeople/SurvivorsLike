@@ -34,7 +34,7 @@ namespace SurvivorsLike
                 return;
             }
 
-                try
+            try
             {
                 PatchCheckStatus resultStat = PatchCheckStatus.UpToDate;
                 int numRetry = 3;
@@ -105,8 +105,8 @@ namespace SurvivorsLike
                                                                             "오류",
                                                                             "인증 오류",
                                                                             DialogType.Confirm,
-                                                                            "나가기",
                                                                             "재시도",
+                                                                            "나가기",
                                                                             ct);
 
                     ct.ThrowIfCancellationRequested();

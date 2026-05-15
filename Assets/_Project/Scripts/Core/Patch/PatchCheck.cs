@@ -52,7 +52,8 @@ namespace SurvivorsLike
         public static async UniTask<PatchCheckResult> CheckPatchAsync(CancellationToken ct)
         {
             //테스트 코드
-            await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: ct);
+            //await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: ct);
+
             //return new PatchCheckResult
             //{
             //    Status = PatchCheckStatus.NeedPatch,
@@ -112,7 +113,7 @@ namespace SurvivorsLike
                 }
                 catch (OperationCanceledException)
                 {
-                    throw;  // 취소는 반드시 상위로 전파
+                    throw; //취소는 반드시 상위로 전파
                 }
                 catch (JsonException e)  // Newtonsoft.Json의 파싱 예외만 명확히 잡기
                 {
