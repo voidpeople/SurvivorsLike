@@ -62,21 +62,21 @@ namespace SurvivorsLike
             //    LatestVersion = "1.4.0"
             //};
 
-            //return new PatchCheckResult
-            //{
-            //    Status = PatchCheckStatus.UpToDate,
-            //    Message = "정상",
-            //    RequiredVersion = "1.4.0",
-            //    LatestVersion = "1.4.0"
-            //};
-
             return new PatchCheckResult
             {
-                Status = PatchCheckStatus.NetworkError,
+                Status = PatchCheckStatus.UpToDate,
                 Message = "정상",
                 RequiredVersion = "1.4.0",
                 LatestVersion = "1.4.0"
             };
+
+            //return new PatchCheckResult
+            //{
+            //    Status = PatchCheckStatus.NetworkError,
+            //    Message = "정상",
+            //    RequiredVersion = "1.4.0",
+            //    LatestVersion = "1.4.0"
+            //};
 
 
             //서버 URL
