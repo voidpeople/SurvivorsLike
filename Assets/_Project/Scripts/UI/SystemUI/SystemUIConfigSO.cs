@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace SurvivorsLike
 {
-    [CreateAssetMenu(fileName = "SystemUIDataSO", menuName = "SurvivorsLike/Data/SystemUIDataSO")]
+    [CreateAssetMenu(fileName = "SystemUIDataSO", menuName = "SurvivorsLike/UI/SystemUIDataSO")]
     public class SystemUIConfigSO : ScriptableObject
     {
         [Header("Dialog Icons")]
