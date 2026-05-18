@@ -21,12 +21,11 @@ namespace SurvivorsLike
         public int rewardGold;
         public int rewardGem;
 
+        //맵 데이터와 썸 네일 스프라이트는 런타임에 해당 항목들 찾아서 설정됨~
         [Header("맵")]
         public MapDataSO mapData;
-
-        [Header("에셋 참조 (나중에 연결)")]
+        [Header("챕터 스프라이트")]
         public Sprite thumbnailSprite;
-        //public GameObject mapPrefab;
 
         // WaveDataSO / EnemyDataSO 는 해당 클래스 생성 후 추가 예정    
     }
