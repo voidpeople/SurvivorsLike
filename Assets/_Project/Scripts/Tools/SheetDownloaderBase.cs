@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -105,6 +107,13 @@ namespace SurvivorsLike
         protected int Int(Dictionary<string, string> r, string k, int d = 0) => r.TryGetValue(k, out var v) && int.TryParse(v, out var n) ? n : d;
         protected float Float(Dictionary<string, string> r, string k, float d = 0f) => r.TryGetValue(k, out var v) && float.TryParse(v, out var n) ? n : d;
         protected bool Bool(Dictionary<string, string> r, string k, bool d = false) => r.TryGetValue(k, out var v) && bool.TryParse(v, out var n) ? n : d;
+        protected UnityEngine.Color Color(Dictionary<string, string> r, string k, UnityEngine.Color d = default)
+        {
+            if (r.TryGetValue(k, out var v) && ColorUtility.TryParseHtmlString(v, out var c))
+                return c;
+            return d;
+        }
+
 
         private void ClearSaveFolder()
         {

@@ -21,6 +21,9 @@ namespace SurvivorsLike
         public int rewardGold;
         public int rewardGem;
 
+        [Header("맵")]
+        public MapDataSO mapData;
+
         [Header("에셋 참조 (나중에 연결)")]
         public Sprite thumbnailSprite;
         //public GameObject mapPrefab;
