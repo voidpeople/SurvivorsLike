@@ -28,6 +28,7 @@ namespace SurvivorsLike
         // Manager가 호출 전에 주입
         [HideInInspector] public string spreadsheetId;
 
+        //sheetName을 사용하려면 tsv가 아닌 csv방식으로 다운 받아야 함~
         //public string BuildUrl() =>
         //    $"https://docs.google.com/spreadsheets/d/{spreadsheetId}/export?format=tsv&sheet={sheetName}";
         public string BuildUrl() =>
