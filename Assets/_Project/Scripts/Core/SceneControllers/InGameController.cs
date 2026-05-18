@@ -9,7 +9,8 @@ namespace SurvivorsLike
 {
     public class InGameController : MonoBehaviour
     {
-        [Header("결과창 뷰")]
+        [Header("결과창")]
+        [SerializeField] private Canvas _resultPanelCanvas;
         [SerializeField] private GameResultPanelView _resultPanelView;
 
         private GameResultPanelModel _resultModel;
@@ -41,7 +42,21 @@ namespace SurvivorsLike
                 _resultPanelView,
                 (sceneName) => GameManager.Instance.LoadSceneAsync(sceneName),
                 ct);
+            HideGameResultPanel();
         }
+
+        private void ShowGameResultPanel()
+        {
+            _resultPanelCanvas.gameObject.SetActive(true);
+            _resultPresenter.Show();            
+        }
+
+        private void HideGameResultPanel()
+        {
+            _resultPresenter.Hide();
+            _resultPanelCanvas.gameObject.SetActive(false);
+        }
+
 
         private void Destroy()
         {

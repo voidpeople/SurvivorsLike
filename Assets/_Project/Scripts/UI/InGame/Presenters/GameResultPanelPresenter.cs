@@ -56,6 +56,16 @@ namespace SurvivorsLike
             }
         }
 
+        public void Show()
+        {
+            _view.Show();
+        }
+
+        public void Hide()
+        {
+            _view.Hide();
+        }
+
         public void Dispose()
         {
             _view.OnResultConfirmed -= OnResultConfirmed;

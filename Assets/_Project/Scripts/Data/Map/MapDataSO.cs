@@ -25,10 +25,9 @@ namespace SurvivorsLike
 
         [Title("조명")]
         public Color ambientLightColor = new Color(0.4f, 0.4f, 0.5f, 1f);  // 환경광 색상. 챕터 분위기의 핵심.
-        public Color mainLightColor = Color.white;                           // 디렉셔널 라이트 색상.
+        public Color mainLightColor = Color.white;                         // 디렉셔널 라이트 색상.
 
         [Title("오디오")]
         public string bgmKey;                   // 배경음 Addressables 키.
     }
-
 }

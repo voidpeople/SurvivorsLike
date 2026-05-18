@@ -38,7 +38,8 @@
       "PowerShell(Get-ChildItem \"C:\\\\___UnityWork\\\\SurvivorsLike\\\\Assets\\\\_Project\\\\UI\\\\Lobby\\\\Textures\\\\LobbyTab\" -Force | ForEach-Object { $_.Name })",
       "mcp__UnityMCP__manage_texture",
       "WebSearch",
-      "PowerShell(pandoc *)"
+      "PowerShell(pandoc *)",
+      "Bash(powershell *)"
     ]
   }
 }
