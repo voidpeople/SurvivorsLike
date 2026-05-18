@@ -21,4 +21,5 @@ MonoBehaviour:
   durationSec: 900
   rewardGold: 300
   rewardGem: 5
-  thumbnail: {fileID: 0}
+  mapData: {fileID: 0}
+  thumbnailSprite: {fileID: 0}

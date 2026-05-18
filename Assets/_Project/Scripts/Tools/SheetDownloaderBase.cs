@@ -12,10 +12,14 @@ using UnityEditor;
 
 namespace SurvivorsLike
 {
+    //구글 시트를 tsv 방식으로 다운로드 받으면 값 사이의 구분자를 csv와 같이 쉼표(,)가 아닌
+    //탭(/t)을 사용하므로 쉼표가 있는 데이터가 있어도 파싱 오류가 날 일이 없다.
+    //그 대신 URL의 접근을 시트 이름이 아닌 시트 그리드 번호로 접근해야 한다.
     public abstract class SheetDownloaderBase : MonoBehaviour
     {
         [Header("Sheet 설정")]
         public string sheetName;        // 구글 시트 탭 이름
+        public int sheetGid;
 
         //인스펙터 창에서 saveFolderPath에 폴더 경로를 열어주는 버튼을 추가해 준다.
         [FolderPath]
@@ -24,8 +28,10 @@ namespace SurvivorsLike
         // Manager가 호출 전에 주입
         [HideInInspector] public string spreadsheetId;
 
+        //public string BuildUrl() =>
+        //    $"https://docs.google.com/spreadsheets/d/{spreadsheetId}/export?format=tsv&sheet={sheetName}";
         public string BuildUrl() =>
-            $"https://docs.google.com/spreadsheets/d/{spreadsheetId}/export?format=tsv&sheet={sheetName}";
+            $"https://docs.google.com/spreadsheets/d/{spreadsheetId}/export?format=tsv&gid={sheetGid}";
 
         public abstract void StartDownload();
     }

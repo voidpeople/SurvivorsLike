@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 198747363}
   - component: {fileID: 198747365}
   - component: {fileID: 198747364}
+  - component: {fileID: 198747366}
   m_Layer: 0
   m_Name: GameDataDownloadManager
   m_TagString: Untagged
@@ -165,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChapterSheetDownloader
   sheetName: ChapterData
+  sheetGid: 0
   saveFolderPath: Assets/_Project/Data/Chapter
   spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
 --- !u!114 &198747365
@@ -182,6 +184,23 @@ MonoBehaviour:
   _spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
   _downloaders:
   - {fileID: 198747364}
+  - {fileID: 198747366}
+--- !u!114 &198747366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198747361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65faecdcb20a4b2418c01cf0764a3b9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.MapSheetDownloader
+  sheetName: MapData
+  sheetGid: 486600733
+  saveFolderPath: Assets/_Project/Data/Map
+  spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
 --- !u!1 &320198488
 GameObject:
   m_ObjectHideFlags: 0
