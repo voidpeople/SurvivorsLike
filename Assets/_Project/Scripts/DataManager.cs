@@ -14,28 +14,40 @@ namespace SurvivorsLike
 
     public class DataManager : SingletonMonoBehaviour<DataManager>
     {
+        #region ChapterData
         [Header("아틀라스")]
         [SerializeField] private SpriteAtlas _lobbyChapterAtlas;
 
         private const string ChapterDataLabel = "ChapterData";
+        private const string MapDataLabel = "MapData";
+
 
         private AsyncOperationHandle<IList<ChapterDataSO>> _chapterDataSOListHandle;
         private readonly List<ChapterDataSO> _chapterDataSOList = new();
 
         //IReadOnlyList은 Add, Remove, Clear 등의 수정 메서드가 없는 인터페이스
         public IReadOnlyList<ChapterDataSO> ChapterDataSOList => _chapterDataSOList;
+        #endregion
 
-        public UniTask InitAsync(CancellationToken ct)
+        #region MapData
+        private AsyncOperationHandle<IList<MapDataSO>> _mapDataSOListHandle;
+        private readonly Dictionary<int, MapDataSO> _mapDataSODic = new();
+
+        public IReadOnlyDictionary<int, MapDataSO> MapDataSODic => _mapDataSODic;
+        
+        #endregion
+
+
+        public async UniTask InitAsync(CancellationToken ct)
         {
-            //챕터 데이터 파일 비동기 로드
-            return LoadChapterDataAsync(ct);
+            ReleaseDataSOListHandle();
+            await LoadMapDataAsync(ct);
+            await LoadChapterDataAsync(ct);
         }
 
         //dㅇㅁㄴ
         private async UniTask LoadChapterDataAsync(CancellationToken ct)
         {
-            ReleaseChapterDataSOListHandle();
-
             //어드레서블 어셋을 비동기 로드 시작
             _chapterDataSOListHandle = Addressables.LoadAssetsAsync<ChapterDataSO>(ChapterDataLabel, null);
 
@@ -56,12 +68,13 @@ namespace SurvivorsLike
             //챕터 아이디로 정렬~
             _chapterDataSOList.Sort((a, b) => a.chapterId.CompareTo(b.chapterId));
 
-            BindChapterThumbnails();
+            LinkChapterMapData();
+            LinkChapterThumbnails();
 
             Debug.Log($"[DataManager] ChapterData {_chapterDataSOList.Count}개 로드 완료");
         }
 
-        private void BindChapterThumbnails()
+        private void LinkChapterThumbnails()
         {
             foreach(var charpterData in _chapterDataSOList)
             {
@@ -70,18 +83,62 @@ namespace SurvivorsLike
             }
         }
 
-        private void ReleaseChapterDataSOListHandle()
+        private void LinkChapterMapData()
+        {
+            foreach (var charpterData in _chapterDataSOList)
+            {
+                MapDataSO data = null;
+                if (MapDataSODic.TryGetValue(charpterData.chapterId, out data) == true)
+                    charpterData.mapData = data;
+                else
+                    Debug.LogError($"맵 데이터가 존재하지 않습니다. : chapterId - {charpterData.chapterId}");
+            }
+        }
+
+        private async UniTask LoadMapDataAsync(CancellationToken ct)
+        {
+            //어드레서블 어셋을 비동기 로드 시작
+            _mapDataSOListHandle = Addressables.LoadAssetsAsync<MapDataSO>(MapDataLabel, null);
+
+            //.Net의 기본 Task을 성능 최적화를 위해 AsUniTask()함수를 이용해 UniTask로 변환하여 작업을 진행한다.
+            //그리고 AttachExternalCancellation()함수를 통해 해당 비동기 작업이 취소 될 수 있도록
+            //CancellationToken을 등록한다.
+            await _mapDataSOListHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            ct.ThrowIfCancellationRequested();
+
+            if (_mapDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"[DataManager] MapData 로드 실패: {_mapDataSOListHandle.OperationException}");
+                return;
+            }
+
+            _mapDataSODic.Clear();
+            foreach (var mapData in _mapDataSOListHandle.Result)
+            {
+                _mapDataSODic.Add(mapData.mapId, mapData);
+            }
+
+            Debug.Log($"[DataManager] MapData {_mapDataSODic.Count}개 로드 완료");
+        }
+
+        private void ReleaseDataSOListHandle()
         {
             if(_chapterDataSOListHandle.IsValid() == true)
             {
                 Addressables.Release(_chapterDataSOListHandle);
                 _chapterDataSOList.Clear();
             }
+
+            if (_mapDataSOListHandle.IsValid() == true)
+            {
+                Addressables.Release(_mapDataSOListHandle);
+                _mapDataSODic.Clear();
+            }
         }
 
         protected override void OnDestroy()
         {
-            ReleaseChapterDataSOListHandle();
+            ReleaseDataSOListHandle();
             base.OnDestroy();
         }
     }

@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: StaticGroup
   m_GUID: 5f8ec3731694a1542ac3f066278d0146
   m_SerializeEntries:
+  - m_GUID: 393f9cf74bc165f4d85fb37a5bca283c
+    m_Address: Assets/_Project/Data/Map
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MapData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e26030eb395dfa9438402f8581d84f12
     m_Address: Assets/_Project/Data/Chapter
     m_ReadOnly: 0
