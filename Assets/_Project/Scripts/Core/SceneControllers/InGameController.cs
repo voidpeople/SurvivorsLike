@@ -29,12 +29,14 @@ namespace SurvivorsLike
             GameManager.Instance.SetGameState(GameState.InGame);
 
             CancellationToken ct = this.GetCancellationTokenOnDestroy();
+
+            MapDataSO mapData = GameManager.Instance.SessionData.ChapterData.mapData;            
             // 모든 시스템 병렬 로드 — 각 시스템이 자신의 에셋만 책임
             await UniTask.WhenAll(
-                _mapController.LoadAssetsAsync(GameManager.Instance.SessionData.ChapterData.mapData, ct)
+                _mapController.LoadAssetsAsync(mapData, ct)
             );
 
-            await _mapController.SetupMapAsync(GameManager.Instance.SessionData.ChapterData.mapData, ct);
+            await _mapController.SetupMapAsync(mapData, ct);
 
             InitResultPanelAsync(ct);
         }
