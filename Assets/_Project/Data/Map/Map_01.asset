@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Map_01
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.MapDataSO
   mapId: 1
-  groundMaterialKey: mat_ground_city 60
+  groundMaterialKey: mat/ground/blue3
   playAreaRadius: 60
   decorationGroupKey: deco_city
   decorationCount: 40
