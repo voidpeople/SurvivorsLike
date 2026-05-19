@@ -16,19 +16,19 @@ MonoBehaviour:
   m_GUID: 6d9072307abd8a641adf83c1a7208e27
   m_SerializeEntries:
   - m_GUID: 26016ef301a84e4448bf0529125721fb
-    m_Address: Assets/_Project/Maps/Materials/Ground/Prototype_512x512_Blue3.mat
+    m_Address: mat/ground/blue3
     m_ReadOnly: 0
     m_SerializedLabels:
     - GroundMaterial
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a25542156318b5a4e839c11e7f61f581
-    m_Address: Assets/_Project/Maps/Materials/Ground/Prototype_512x512_Orange.mat
+    m_Address: mat/ground/orange
     m_ReadOnly: 0
     m_SerializedLabels:
     - GroundMaterial
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d278da4e7eea5b54cb8db164d6e31014
-    m_Address: Assets/_Project/Maps/Materials/Ground/Prototype_512x512_Green1.mat
+    m_Address: mat/ground/green
     m_ReadOnly: 0
     m_SerializedLabels:
     - GroundMaterial
