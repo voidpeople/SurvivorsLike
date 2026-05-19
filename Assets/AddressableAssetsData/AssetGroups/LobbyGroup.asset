@@ -10,14 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: LobbyGroup
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Default Local Group
-  m_GUID: eda85d807075e0b438c1e3b0f62bf3f4
-  m_SerializeEntries: []
+  m_GroupName: LobbyGroup
+  m_GUID: ad138f390276d6c498d215882c8d72f3
+  m_SerializeEntries:
+  - m_GUID: 393f9cf74bc165f4d85fb37a5bca283c
+    m_Address: Assets/_Project/Data/Map
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MapData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e26030eb395dfa9438402f8581d84f12
+    m_Address: Assets/_Project/Data/Chapter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ChapterData
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ce1e3262b4e8f419e19b8a78f907e4, type: 2}
   m_SchemaSet:
-    m_Schemas:
-    - {fileID: 11400000, guid: 62902207188207e4fa6de50d37d56180, type: 2}
-    - {fileID: 11400000, guid: 446043792c0812342bbf3df9ebc6c72a, type: 2}
+    m_Schemas: []

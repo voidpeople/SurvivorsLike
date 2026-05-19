@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
+using Tayx.Graphy.Audio;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,7 +11,7 @@ namespace SurvivorsLike
     public class InGameController : MonoBehaviour
     {
         [Header("게임플레이")]
-        [SerializeField] private GameObject _groundObject;
+        [SerializeField] private MapController _mapController;
 
         [Header("결과창")]
         [SerializeField] private Canvas _resultPanelCanvas;
@@ -21,28 +22,26 @@ namespace SurvivorsLike
 
         private void Awake()
         {
-            Init();
         }
 
-        void Start()
+        private async UniTaskVoid Start()
         {
             GameManager.Instance.SetGameState(GameState.InGame);
+
+            CancellationToken ct = this.GetCancellationTokenOnDestroy();
+            // 모든 시스템 병렬 로드 — 각 시스템이 자신의 에셋만 책임
+            await UniTask.WhenAll(
+                _mapController.LoadAssetsAsync(GameManager.Instance.SessionData.ChapterData.mapData, ct)
+            );
+
+            await _mapController.SetupMapAsync(GameManager.Instance.SessionData.ChapterData.mapData, ct);
+
+            InitResultPanelAsync(ct);
         }
 
         private void OnDestroy()
         {
             Destroy();
-        }
-
-        private async UniTaskVoid Init()
-        {
-            CancellationToken ct = this.GetCancellationTokenOnDestroy();
-            await SetupMapAsync(GameManager.Instance.SessionData.ChapterData.mapData, ct);
-            InitResultPanelAsync(ct);
-        }
-
-        public async UniTask SetupMapAsync(MapDataSO mapData, CancellationToken ct)
-        {
         }
 
         private void InitResultPanelAsync(CancellationToken ct)

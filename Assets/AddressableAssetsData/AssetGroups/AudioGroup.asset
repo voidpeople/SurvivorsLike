@@ -10,20 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: StaticGroup
+  m_Name: AudioGroup
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: StaticGroup
-  m_GUID: 5f8ec3731694a1542ac3f066278d0146
-  m_SerializeEntries:
-  - m_GUID: 755b2d224a6f7a24c9afefa8d046222f
-    m_Address: Assets/_Project/Data/UI/SystemUIDataSO.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - SystemUI
-    FlaggedDuringContentUpdateRestriction: 0
+  m_GroupName: AudioGroup
+  m_GUID: 3cb79b81bab2bd34badb47502d12d054
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ce1e3262b4e8f419e19b8a78f907e4, type: 2}
   m_SchemaSet:
-    m_Schemas:
-    - {fileID: 11400000, guid: 73b615c028828214989b5941e8c213e2, type: 2}
-    - {fileID: 11400000, guid: 26a92c1883ccf7e4282f659108af9cf6, type: 2}
+    m_Schemas: []
