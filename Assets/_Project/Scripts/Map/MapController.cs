@@ -26,9 +26,14 @@ namespace SurvivorsLike
             await _matAssetHandle.ToUniTask(cancellationToken: ct);
         }
 
-        public async UniTask SetupMapAsync(CancellationToken ct)
+        public async UniTask SetupMapAsync(MapDataSO mapData, CancellationToken ct)
         {
             _groundRenderer.sharedMaterial = _matAssetHandle.Result;
+
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+            RenderSettings.ambientLight = mapData.ambientLightColor;
+
+            _mainLight.color = mapData.mainLightColor;
         }
 
         public void ReleaseAssets()
