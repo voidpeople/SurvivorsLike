@@ -26,7 +26,7 @@ namespace SurvivorsLike
             await _matAssetHandle.ToUniTask(cancellationToken: ct);
         }
 
-        public async UniTask SetupMapAsync(MapDataSO mapData, CancellationToken ct)
+        public async UniTask SetupMapAsync(CancellationToken ct)
         {
             _groundRenderer.sharedMaterial = _matAssetHandle.Result;
         }

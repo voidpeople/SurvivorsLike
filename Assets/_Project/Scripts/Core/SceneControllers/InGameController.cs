@@ -34,7 +34,7 @@ namespace SurvivorsLike
                 _mapController.LoadAssetsAsync(GameManager.Instance.SessionData.ChapterData.mapData, ct)
             );
 
-            await _mapController.SetupMapAsync(GameManager.Instance.SessionData.ChapterData.mapData, ct);
+            await _mapController.SetupMapAsync(ct);
 
             InitResultPanelAsync(ct);
         }
