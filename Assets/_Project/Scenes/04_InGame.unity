@@ -119,6 +119,19 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!134 &107429752
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 2
+  m_DynamicFriction: 0.6
+  m_StaticFriction: 0.6
+  m_Bounciness: 0
+  m_FrictionCombine: 0
+  m_BounceCombine: 0
 --- !u!1 &172166168
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +455,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 388864265}
+  - component: {fileID: 388864267}
+  - component: {fileID: 388864266}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -465,6 +480,43 @@ Transform:
   - {fileID: 508754709}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &388864266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388864264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3818a3000ae3f2f49ba4e97740fa80bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerController
+--- !u!143 &388864267
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388864264}
+  m_Material: {fileID: 1108039469}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.8
+  m_Radius: 0.35
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.05
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &508754708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -516,6 +568,14 @@ PrefabInstance:
     - target: {fileID: 3862277631971027947, guid: eb111b0d85eaf7741a055447cd25a608, type: 3}
       propertyPath: m_Name
       value: RobotKyle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738558639147882546, guid: eb111b0d85eaf7741a055447cd25a608, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 107429752}
+    - target: {fileID: 5615815007780928290, guid: eb111b0d85eaf7741a055447cd25a608, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -825,6 +885,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.GameResultPanelView
   _confirmButton: {fileID: 1936481817}
+--- !u!134 &1108039469
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 2
+  m_DynamicFriction: 0.6
+  m_StaticFriction: 0.6
+  m_Bounciness: 0
+  m_FrictionCombine: 0
+  m_BounceCombine: 0
 --- !u!1 &1644530798
 GameObject:
   m_ObjectHideFlags: 0
