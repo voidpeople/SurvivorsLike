@@ -690,7 +690,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InGameController
   _mapController: {fileID: 933019015}
-  _enemyWaveSystem: {fileID: 0}
   _playerTransform: {fileID: 0}
   _resultPanelCanvas: {fileID: 2080003469}
   _resultPanelView: {fileID: 1062681915}

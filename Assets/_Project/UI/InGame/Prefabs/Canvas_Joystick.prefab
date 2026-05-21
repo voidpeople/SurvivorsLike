@@ -197,10 +197,44 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8170153791668043269, guid: 9e49f46122830d348acb98ced4ce2553, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6820375164188378502}
   m_SourcePrefab: {fileID: 100100000, guid: 9e49f46122830d348acb98ced4ce2553, type: 3}
 --- !u!224 &8322004387374739124 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8170153791668043268, guid: 9e49f46122830d348acb98ced4ce2553, type: 3}
+  m_PrefabInstance: {fileID: 152987628706828464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8322004387374739125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8170153791668043269, guid: 9e49f46122830d348acb98ced4ce2553, type: 3}
+  m_PrefabInstance: {fileID: 152987628706828464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6820375164188378502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8322004387374739125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6dca53917844984386845940635c5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VirtualJoystick
+  _canvas: {fileID: 6684455578576464078}
+  _backgroundRT: {fileID: 8322004388527893290}
+  _handleRT: {fileID: 8322004388204859696}
+  _handleRangeRatio: 1
+--- !u!224 &8322004388204859696 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8170153791961219456, guid: 9e49f46122830d348acb98ced4ce2553, type: 3}
+  m_PrefabInstance: {fileID: 152987628706828464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8322004388527893290 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8170153792821263258, guid: 9e49f46122830d348acb98ced4ce2553, type: 3}
   m_PrefabInstance: {fileID: 152987628706828464}
   m_PrefabAsset: {fileID: 0}
