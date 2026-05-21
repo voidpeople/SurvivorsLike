@@ -1,9 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
-using Tayx.Graphy.Audio;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 
 namespace SurvivorsLike
@@ -12,6 +10,7 @@ namespace SurvivorsLike
     {
         [Header("게임플레이")]
         [SerializeField] private MapController _mapController;
+         [SerializeField] private Transform _playerTransform;
 
         [Header("결과창")]
         [SerializeField] private Canvas _resultPanelCanvas;
@@ -30,7 +29,7 @@ namespace SurvivorsLike
 
             CancellationToken ct = this.GetCancellationTokenOnDestroy();
 
-            MapDataSO mapData = GameManager.Instance.SessionData.ChapterData.mapData;            
+            MapDataSO mapData = GameManager.Instance.SessionData.ChapterData.mapData;
             // 모든 시스템 병렬 로드 — 각 시스템이 자신의 에셋만 책임
             await UniTask.WhenAll(
                 _mapController.LoadAssetsAsync(mapData, ct)
@@ -58,10 +57,22 @@ namespace SurvivorsLike
             HideGameResultPanel();
         }
 
+        // ─── 스테이지 종료 콜백 ──────────────────────────────
+        private void OnStageCleared()
+        {
+            ShowGameResultPanel();
+        }
+
+        // EnemyBase.OnDead() → 이 메서드 호출로 패배 처리
+        public void OnPlayerDead()
+        {
+            ShowGameResultPanel();
+        }
+
         private void ShowGameResultPanel()
         {
             _resultPanelCanvas.gameObject.SetActive(true);
-            _resultPresenter.Show();            
+            _resultPresenter.Show();
         }
 
         private void HideGameResultPanel()
