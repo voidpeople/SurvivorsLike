@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 
 namespace SurvivorsLike
 {
+    //추후에 여러가지 조이스틱 타입을 구현 할 경우 VirtualJoystick을 상속받아 구현할 것~
+    //FloatingJoystick, FixedJoystick, ...
+
     public class VirtualJoystick : MonoBehaviour,
     IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
