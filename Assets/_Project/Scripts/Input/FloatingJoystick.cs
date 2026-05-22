@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-namespace SurvivorsLike.UI
+namespace SurvivorsLike
 {
     public class FloatingJoystick : JoystickBase
     {

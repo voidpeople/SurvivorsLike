@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace SurvivorsLike.UI
+namespace SurvivorsLike
 {
     public class FixedJoystick : JoystickBase
     {

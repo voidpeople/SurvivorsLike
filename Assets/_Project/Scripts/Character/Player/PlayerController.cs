@@ -19,5 +19,11 @@ namespace SurvivorsLike
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private JoystickBase _joystick;
+
+        public void Update()
+        {
+            if (_joystick.IsPressed == true)
+                Debug.Log(_joystick.InputValue);
+        }
     }
 }

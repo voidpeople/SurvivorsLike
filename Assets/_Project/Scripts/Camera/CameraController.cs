@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-namespace SurvivorsLike.Core
+namespace SurvivorsLike
 {
     public class CameraController : MonoBehaviour
     {

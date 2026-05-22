@@ -29,6 +29,8 @@ namespace SurvivorsLike
 
         protected virtual void Awake()
         {
+            _isPressed = false;
+
             //Screen Space - Overlay 모드는 카메라가 필요 없음
             if (_canvas.renderMode == RenderMode.ScreenSpaceOverlay)
                 _canvasCamera = null;
@@ -83,7 +85,7 @@ namespace SurvivorsLike
             _isPressed = false;
         }
 
-        protected virtual void OnFingerDown(PointerEventData e) { }
-        protected virtual void OnFingerUp(PointerEventData e) { }
+        protected virtual void OnFingerDown(PointerEventData eventData) { }
+        protected virtual void OnFingerUp(PointerEventData eventData) { }
     }
 }
