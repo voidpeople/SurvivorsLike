@@ -1,5 +1,4 @@
-﻿using SurvivorsLike.UI;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
@@ -10,9 +9,7 @@ namespace SurvivorsLike
         IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         [SerializeField] private Canvas _canvas;
-        //Floating Joystick 프리팹의 Background RectTransform
         [SerializeField] protected RectTransform _backgroundRT;
-        //Floating Joystick 프리팹의 Handle RectTransform
         [SerializeField] private RectTransform _handleRT;
 
         //_handleRT가 _backgroundRT 반지름 안에서 이동할 수 있는 비율 (1.0 = 100%)

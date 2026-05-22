@@ -10,7 +10,7 @@ namespace SurvivorsLike
     {
         [Header("게임플레이")]
         [SerializeField] private MapController _mapController;
-         [SerializeField] private Transform _playerTransform;
+        [SerializeField] private Transform _playerTransform;
 
         [Header("결과창")]
         [SerializeField] private Canvas _resultPanelCanvas;

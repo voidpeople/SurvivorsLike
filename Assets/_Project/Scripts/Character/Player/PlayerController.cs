@@ -1,5 +1,6 @@
 ﻿using SurvivorsLike;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 
@@ -19,11 +20,22 @@ namespace SurvivorsLike
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private JoystickBase _joystick;
+        private CharacterAnimatorController _animatorCtrler;
 
-        public void Update()
+        private PlayerMover  _mover;
+
+        private void Awake()
         {
-            if (_joystick.IsPressed == true)
-                Debug.Log(_joystick.InputValue);
+            TryGetComponent(out _mover);
+            _animatorCtrler = GetComponentInChildren<CharacterAnimatorController>();
+        }
+
+        private void Update()
+        {
+            _mover.SetMove(_joystick.IsPressed);
+
+            _mover.SetInputDirection(_joystick.InputValue);
+            _animatorCtrler.SetSpeed(_mover.AnimatorSpeed);
         }
     }
 }
