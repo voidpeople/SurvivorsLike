@@ -1,43 +1,39 @@
-﻿using UnityEngine;
+﻿using SurvivorsLike.UI;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 
 namespace SurvivorsLike
 {
-    //추후에 여러가지 조이스틱 타입을 구현 할 경우 VirtualJoystick을 상속받아 구현할 것~
-    //FloatingJoystick, FixedJoystick, ...
-
-    public class VirtualJoystick : MonoBehaviour,
-    IPointerDownHandler, IDragHandler, IPointerUpHandler
+    public abstract class JoystickBase : MonoBehaviour,
+        IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         [SerializeField] private Canvas _canvas;
         //Floating Joystick 프리팹의 Background RectTransform
-        [SerializeField] private RectTransform _backgroundRT;
+        [SerializeField] protected RectTransform _backgroundRT;
         //Floating Joystick 프리팹의 Handle RectTransform
         [SerializeField] private RectTransform _handleRT;
 
         //_handleRT가 _backgroundRT 반지름 안에서 이동할 수 있는 비율 (1.0 = 100%)
         [SerializeField, Range(0.1f, 1f)] private float _handleRangeRatio = 1f;
 
-        private Camera _canvasCamera;          //Overlay 모드면 null
-        private Vector2 _defaultBackgroundPos; //손 가락을 떼었을 때 조이스틱이 돌아올 기본 위치
-        private Vector2 _inputValue;           //최종 입력 값
+        private Camera _canvasCamera;          //Overlay 모드면 null        
 
+        private bool _isPressed;
+        private Vector2 _inputValue;
+
+        public bool IsPressed { get { return _isPressed; } }
         public Vector2 InputValue { get { return _inputValue; } }
 
-        //현재 손가락이 눌렸는지 여부~
-        public bool IsPressed { get; private set; }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             //Screen Space - Overlay 모드는 카메라가 필요 없음
             if (_canvas.renderMode == RenderMode.ScreenSpaceOverlay)
                 _canvasCamera = null;
             else
-                _canvasCamera = _canvas.worldCamera;
-
-            _defaultBackgroundPos = _backgroundRT.anchoredPosition;
+                _canvasCamera = _canvas.worldCamera;            
         }
 
         //손가락이 UI 영역을 처음 터치할 때 호출.
@@ -45,9 +41,8 @@ namespace SurvivorsLike
         {
             //Debug.Log($"OnPointerDown : {eventData.position}");
 
-            _backgroundRT.anchoredPosition = eventData.position;
-            IsPressed = true;
-
+            _isPressed = true;
+            OnFingerDown(eventData);            
             //드래그 시작~
             OnDrag(eventData);
         }
@@ -82,10 +77,13 @@ namespace SurvivorsLike
             //Debug.Log($"OnPointerUp : {eventData.position}");
 
             //손가락이 떨어지면 모든 상태 초기화
+            OnFingerUp(eventData);
             _inputValue = Vector2.zero;
-            _handleRT.anchoredPosition = Vector2.zero;
-            _backgroundRT.anchoredPosition = _defaultBackgroundPos;
-            IsPressed = false;
+            _handleRT.anchoredPosition = Vector2.zero;            
+            _isPressed = false;
         }
+
+        protected virtual void OnFingerDown(PointerEventData e) { }
+        protected virtual void OnFingerUp(PointerEventData e) { }
     }
 }

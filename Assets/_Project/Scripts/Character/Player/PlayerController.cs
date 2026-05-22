@@ -18,6 +18,6 @@ namespace SurvivorsLike
 {
     public class PlayerController : MonoBehaviour
     {
-
+        [SerializeField] private JoystickBase _joystick;
     }
 }

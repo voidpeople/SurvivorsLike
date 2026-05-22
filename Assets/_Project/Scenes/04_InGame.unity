@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3818a3000ae3f2f49ba4e97740fa80bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerController
+  _joystick: {fileID: 8056769512457833248}
 --- !u!143 &388864267
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1048,6 +1049,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6dc7fea29ea5b8a43ba8fe4fe9d682bf, type: 3}
+--- !u!114 &8056769512457833248 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1626350524926924246, guid: 6dc7fea29ea5b8a43ba8fe4fe9d682bf, type: 3}
+  m_PrefabInstance: {fileID: 8056769512457833247}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf6535b7a2ed40419d64f39bea66e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.UI.FloatingJoystick
 --- !u!1001 &8460122926657203974
 PrefabInstance:
   m_ObjectHideFlags: 0
