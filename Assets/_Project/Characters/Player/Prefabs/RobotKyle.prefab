@@ -1222,9 +1222,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1114260476483171701}
   - component: {fileID: 5615815007780928290}
-  - component: {fileID: 4230172184524446774}
   - component: {fileID: 2645183743928524526}
   - component: {fileID: 7207314371324451760}
+  - component: {fileID: 4230172184524446774}
   - component: {fileID: 634068049834217909}
   m_Layer: 6
   m_Name: RobotKyle
@@ -1273,18 +1273,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4230172184524446774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3862277631971027947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c64e6cb59d2bf34abe383c684ddb865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimatorController
 --- !u!135 &2645183743928524526
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1333,6 +1321,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &4230172184524446774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862277631971027947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c64e6cb59d2bf34abe383c684ddb865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimatorController
 --- !u!114 &634068049834217909
 MonoBehaviour:
   m_ObjectHideFlags: 0
