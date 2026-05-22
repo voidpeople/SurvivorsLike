@@ -9,6 +9,7 @@ namespace SurvivorsLike
         [SerializeField] private Camera _camera;
 
         [Header("Follow")]
+        [SerializeField] private Transform _target;
         [SerializeField] private Vector3 _offset = new Vector3(0f, 14f, -12f);
         [SerializeField] private float _smoothTime = 0.15f;
 
@@ -18,7 +19,6 @@ namespace SurvivorsLike
         [Header("Zoom")]
         [SerializeField] private float _defaultFOV = 65f;
 
-        private Transform _target;
         private Vector3 _velocity;
 
         //카메라가 따라가고자 하는 타겟 오브젝트 설정(플레이어 캐릭터~)
@@ -74,7 +74,8 @@ namespace SurvivorsLike
 
         private void LateUpdate()
         {
-            if (_target == null) return;
+            if (_target == null)
+                return;
 
             Vector3 desired = _target.position + _offset;
             transform.position = Vector3.SmoothDamp(transform.position, desired, ref _velocity, _smoothTime);
