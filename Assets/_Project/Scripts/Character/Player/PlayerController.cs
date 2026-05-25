@@ -22,7 +22,7 @@ namespace SurvivorsLike
         [SerializeField] private JoystickBase _joystick;
         private CharacterAnimatorController _animatorCtrler;
 
-        private PlayerMover  _mover;
+        private PlayerMovement  _mover;
 
         private void Awake()
         {

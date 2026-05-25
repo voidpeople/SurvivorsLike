@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1840583509881203262}
   - component: {fileID: 3502668115267927627}
   - component: {fileID: 5058403979184871992}
-  - component: {fileID: 5682635523110266975}
+  - component: {fileID: 7328166546213776976}
   - component: {fileID: 8932818792674811067}
   - component: {fileID: 7190566350381184012}
   - component: {fileID: 1509010388623914126}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1134069fd1136dc43956a3c2452ba0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
---- !u!114 &5682635523110266975
+--- !u!114 &7328166546213776976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6d5dd517ac260c42aa3eb845d04bb06, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySkill
 --- !u!114 &8932818792674811067
 MonoBehaviour:
   m_ObjectHideFlags: 0

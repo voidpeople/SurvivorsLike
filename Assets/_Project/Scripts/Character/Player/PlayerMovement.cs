@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SurvivorsLike
 {
-    public class PlayerMover : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour
     {
         //_moveSpeedMultiplier값 곱셈 전 기본 이동속도 (단위: m/s)
         [SerializeField] private float _baseMoveSpeed = 5f;
