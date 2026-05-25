@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 7328166546213776976}
   - component: {fileID: 8932818792674811067}
   - component: {fileID: 7190566350381184012}
-  - component: {fileID: 1509010388623914126}
   - component: {fileID: 5437200879967169959}
   m_Layer: 0
   m_Name: Enemy_Melee
@@ -112,18 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24fd3920444c39340b36bce3502c470d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeath
---- !u!114 &1509010388623914126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7229551025161841568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e6ecb63411cecb4f88dc833df506cfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimator
 --- !u!114 &5437200879967169959
 MonoBehaviour:
   m_ObjectHideFlags: 0
