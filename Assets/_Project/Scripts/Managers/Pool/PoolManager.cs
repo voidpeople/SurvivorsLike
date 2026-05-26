@@ -26,6 +26,17 @@ namespace SurvivorsLike
             return null;
         }
 
+        //EnemyController enemy = PoolManager.Instance.Get<EnemyController>("enemy/spiderBot");
+        public T Get<T>(string address) where T : Component
+        {
+            GameObject obj = Get(address); 
+            if (obj != null)
+                return obj.GetComponent<T>();
+
+            Debug.LogError($"[PoolManager] 미등록 키: {address}");
+            return null;           
+        }
+
         //반환
         public void Return(PoolableObject poolableObj)
         {
