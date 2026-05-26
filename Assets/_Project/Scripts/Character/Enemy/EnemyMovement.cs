@@ -24,7 +24,7 @@ namespace SurvivorsLike
 
         private void Update()
         {
-            if (!_isMoving == (_targetTransform == null))
+            if ((_isMoving == false) || (_targetTransform == null))
                 return;
 
             ApplyMovement();
@@ -50,11 +50,10 @@ namespace SurvivorsLike
             if (dirVec.sqrMagnitude < ArrivalSqrThreshold)
                 return;
 
-            _targetTransform.position = Vector3.MoveTowards(
+            _transform.position = Vector3.MoveTowards(
                 currentPos,
                 targetPos,
-                _moveSpeed * Time.deltaTime
-                );
+                _moveSpeed * Time.deltaTime);
         }
     }
 }

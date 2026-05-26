@@ -37,11 +37,14 @@ namespace SurvivorsLike
             await _mapController.SetupMapAsync(mapData, ct);
 
             await PoolManager.Instance.CreatePoolAsync("enemy/spiderbot", 100, 300, ct);
-            await PoolManager.Instance.PreCreateAsync("enemy/spiderbot", 100, 10, ct);            
+            await PoolManager.Instance.PreCreateAsync("enemy/spiderbot", 100, 10, ct);
+
+            EnemyController controller = PoolManager.Instance.Get<EnemyController>("enemy/spiderbot");
+            controller.gameObject.SetActive(true);
+            controller.transform.SetPositionAndRotation(new Vector3(0f, 0f, 20f), Quaternion.identity);
+            controller.Init(_playerTransform);
 
             InitResultPanelAsync(ct);
-
-            Debug.Log("InGameController::Start");
         }
 
         private void OnDestroy()
