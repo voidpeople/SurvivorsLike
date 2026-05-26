@@ -17,7 +17,7 @@ namespace SurvivorsLike
 
         public GameObject Get(string address)
         {
-            if (_poolDic.TryGetValue(address, out var pool) == true)
+            if (_poolDic.TryGetValue(address, out var pool))
             {
                 return pool.Get();
             }
@@ -52,7 +52,7 @@ namespace SurvivorsLike
             int batchSize = 10,
             CancellationToken ct = default)
         {
-            if (_poolDic.TryGetValue(address, out var pool) == false)
+            if (_poolDic.TryGetValue(address, out var pool))
             {
                 Debug.LogError($"[PoolManager] PreWarm 실패 — 미등록: {address}");
                 return;
@@ -110,8 +110,8 @@ namespace SurvivorsLike
             ObjectPool<GameObject> newPool = new ObjectPool<GameObject>(
                 createFunc: () =>
                 {
-                    var obj = Object.Instantiate(prefab);
-                    var poolableObj = obj.GetComponent<PoolableObject>();
+                    GameObject obj = Object.Instantiate(prefab);
+                    PoolableObject poolableObj = obj.GetComponent<PoolableObject>();
                     if(poolableObj == null)
                         poolableObj = obj.AddComponent<PoolableObject>();
                     poolableObj.Address = address;
