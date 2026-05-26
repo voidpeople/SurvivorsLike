@@ -33,7 +33,6 @@ namespace SurvivorsLike
             if (obj != null)
                 return obj.GetComponent<T>();
 
-            Debug.LogError($"[PoolManager] 미등록 키: {address}");
             return null;           
         }
 
