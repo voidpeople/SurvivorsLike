@@ -33,6 +33,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - GroundMaterial
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df4c128ec8d6de841aab7b0a714d4b16
+    m_Address: enemy/spiderbot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EnemyPrefab
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ce1e3262b4e8f419e19b8a78f907e4, type: 2}
   m_SchemaSet:

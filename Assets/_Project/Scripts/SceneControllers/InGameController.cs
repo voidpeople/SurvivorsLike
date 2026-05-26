@@ -34,10 +34,14 @@ namespace SurvivorsLike
             await UniTask.WhenAll(
                 _mapController.LoadAssetsAsync(mapData, ct)
             );
-
             await _mapController.SetupMapAsync(mapData, ct);
 
+            await PoolManager.Instance.CreatePoolAsync("enemy/spiderbot", 100, 300, ct);
+            await PoolManager.Instance.PreCreateAsync("enemy/spiderbot", 100, 10, ct);            
+
             InitResultPanelAsync(ct);
+
+            Debug.Log("InGameController::Start");
         }
 
         private void OnDestroy()

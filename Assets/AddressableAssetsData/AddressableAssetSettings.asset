@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 5f8ec3731694a1542ac3f066278d0146
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 243dbece1f1137ee2f857652f0fc343e
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -108,6 +108,8 @@ MonoBehaviour:
     - MapData
     - GroundMaterial
     - SystemUI
+    - EnemyPrefab
+    - PlayerPrefab
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 27695b5ebf6981f468f27870c475b0b9, type: 2}
