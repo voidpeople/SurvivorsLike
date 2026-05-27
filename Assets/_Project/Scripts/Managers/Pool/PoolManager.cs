@@ -52,9 +52,9 @@ namespace SurvivorsLike
             int batchSize = 10,
             CancellationToken ct = default)
         {
-            if (_poolDic.TryGetValue(address, out var pool))
+            if (!_poolDic.TryGetValue(address, out var pool))
             {
-                Debug.LogError($"[PoolManager] PreWarm 실패 — 미등록: {address}");
+                Debug.LogError($"[PoolManager] PreCreateAsync 실패 — 미등록: {address}");
                 return;
             }
 
