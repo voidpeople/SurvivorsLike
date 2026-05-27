@@ -10,7 +10,7 @@ namespace SurvivorsLike
     public class DevManager : MonoBehaviour
     {
         [SerializeField] private GameObject _managerPrefab;
-        [SerializeField] private int _chapterId = 1;
+        [SerializeField] private int _loadChapterId = 1;
 
 #if UNITY_EDITOR
         private void Awake()
@@ -31,10 +31,10 @@ namespace SurvivorsLike
         {
             await DataManager.Instance.InitAsync(ct);
 
-            ChapterDataSO chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.chapterId == _chapterId);
+            ChapterDataSO chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.chapterId == _loadChapterId);
             if(chapter == null)
             {
-                Debug.LogWarning($"선택한 챕터를 찾을 수 없습니다. : chapterId - {_chapterId}");
+                Debug.LogWarning($"선택한 챕터를 찾을 수 없습니다. : chapterId - {_loadChapterId}");
                 chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.chapterId == 1);
             }
             GameManager.Instance.SessionData.Clear();
