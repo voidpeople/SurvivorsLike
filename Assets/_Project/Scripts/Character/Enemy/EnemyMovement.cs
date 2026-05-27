@@ -6,19 +6,20 @@ namespace SurvivorsLike
     public class EnemyMovement : MonoBehaviour
     {
         [SerializeField] private float _moveSpeed = 3f;
+        [SerializeField] private float _rotateSpeed = 10f;
+        [SerializeField] private float _stoppingDistance = 0.5f;
 
         private Transform _transform;
         private Transform _targetTransform;
+        private float _sqrStoppingDistance;
         private bool _isMoving;
 
-        //목표 위치에 도착 후 목표를 약간 오버해서 이동 후
-        //다시 목표 위치로 이동 하려는 버그 예방
-        private const float ArrivalSqrThreshold = 0.01f;
 
         private void Awake()
         {
             //성능 최적화를 위해 캐싱
             _transform = transform;
+            _sqrStoppingDistance = _stoppingDistance * _stoppingDistance;
             _isMoving = false;
         }
 
@@ -27,7 +28,13 @@ namespace SurvivorsLike
             if ((_isMoving == false) || (_targetTransform == null))
                 return;
 
+            RotateToTarget();
             ApplyMovement();
+        }
+
+        private void OnValidate()
+        {
+            _sqrStoppingDistance = _stoppingDistance * _stoppingDistance;
         }
 
         public void SetTarget(Transform targetTransform)
@@ -45,9 +52,10 @@ namespace SurvivorsLike
         {
             Vector3 currentPos = _transform.position;
             Vector3 targetPos = _targetTransform.position;
+            targetPos.y = _transform.position.y;
             Vector3 dirVec = targetPos - currentPos;
 
-            if (dirVec.sqrMagnitude < ArrivalSqrThreshold)
+            if (dirVec.sqrMagnitude <= _sqrStoppingDistance)
                 return;
 
             _transform.position = Vector3.MoveTowards(
@@ -55,5 +63,17 @@ namespace SurvivorsLike
                 targetPos,
                 _moveSpeed * Time.deltaTime);
         }
+
+        private void RotateToTarget()
+        {
+            Vector3 direction = (_targetTransform.position - _transform.position);
+            direction.y = 0f; // 수평 회전만 (지면 기준)
+
+            if (direction.sqrMagnitude < 0.001f) return;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotateSpeed * Time.deltaTime);
+        }
+
     }
 }
