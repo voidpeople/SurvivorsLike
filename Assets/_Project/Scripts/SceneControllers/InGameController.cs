@@ -49,6 +49,8 @@ namespace SurvivorsLike
 
         private void OnDestroy()
         {
+            PoolManager.Instance.ReleasePool("enemy/spiderbot");
+
             Destroy();
         }
 
