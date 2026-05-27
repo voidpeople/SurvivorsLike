@@ -1223,8 +1223,9 @@ GameObject:
   - component: {fileID: 1114260476483171701}
   - component: {fileID: 5615815007780928290}
   - component: {fileID: 2645183743928524526}
-  - component: {fileID: 4230172184524446774}
-  - component: {fileID: 634068049834217909}
+  - component: {fileID: 2667955802213349926}
+  - component: {fileID: 3807664989218078219}
+  - component: {fileID: 2655578330019511266}
   m_Layer: 6
   m_Name: RobotKyle
   m_TagString: Player
@@ -1293,7 +1294,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4230172184524446774
+--- !u!114 &2667955802213349926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1302,10 +1303,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3862277631971027947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c64e6cb59d2bf34abe383c684ddb865, type: 3}
+  m_Script: {fileID: 11500000, guid: a6a87019ac1cb2a418e8080b9b044e5f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimatorController
---- !u!114 &634068049834217909
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
+--- !u!114 &3807664989218078219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1314,9 +1315,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 3862277631971027947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c72019e3ec28a014581172698771ea14, type: 3}
+  m_Script: {fileID: 11500000, guid: 2562b7236fd276941b2207b78bf149f4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterFxController
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVFX
+--- !u!114 &2655578330019511266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862277631971027947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bfe65676ec790343b2984dfa2840a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSFX
 --- !u!1 &4072265639379859564
 GameObject:
   m_ObjectHideFlags: 0

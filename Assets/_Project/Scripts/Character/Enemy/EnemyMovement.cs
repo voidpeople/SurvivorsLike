@@ -32,6 +32,7 @@ namespace SurvivorsLike
             ApplyMovement();
         }
 
+        //에디터의 인스펙터에서 변수 값 수정하면 즉시 반영
         private void OnValidate()
         {
             _sqrStoppingDistance = _stoppingDistance * _stoppingDistance;
@@ -67,7 +68,7 @@ namespace SurvivorsLike
         private void RotateToTarget()
         {
             Vector3 direction = (_targetTransform.position - _transform.position);
-            direction.y = 0f; // 수평 회전만 (지면 기준)
+            direction.y = 0f; // 수평 회전
 
             if (direction.sqrMagnitude < 0.001f) return;
 

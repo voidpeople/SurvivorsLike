@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6335764318694536383}
+  - {fileID: 7149108373325474746}
   m_Father: {fileID: 4451131020235709777}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5809515936868004094
@@ -110,6 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   _moveSpeed: 3
+  _rotateSpeed: 10
+  _stoppingDistance: 1
 --- !u!114 &2973509993165519399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,13 +224,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5575125017191997428, guid: c0dbf9df853724047b894109d0157993, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f4cb13ab76204be4a8488189abd3dbfc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0dbf9df853724047b894109d0157993, type: 3}
---- !u!4 &6335764318694536383 stripped
+--- !u!4 &7149108373325474746 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5090935554602275245, guid: c0dbf9df853724047b894109d0157993, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8249810349642845864, guid: c0dbf9df853724047b894109d0157993, type: 3}
   m_PrefabInstance: {fileID: 1246242543916049682}
   m_PrefabAsset: {fileID: 0}

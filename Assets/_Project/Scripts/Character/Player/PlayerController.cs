@@ -20,22 +20,22 @@ namespace SurvivorsLike
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private JoystickBase _joystick;
-        private CharacterAnimatorController _animatorCtrler;
+        private PlayerAnimationController _animationController;
 
-        private PlayerMovement  _mover;
+        private PlayerMovement  _movement;
 
         private void Awake()
         {
-            TryGetComponent(out _mover);
-            _animatorCtrler = GetComponentInChildren<CharacterAnimatorController>();
+            TryGetComponent(out _movement);
+            _animationController = GetComponentInChildren<PlayerAnimationController>();
         }
 
         private void Update()
         {
-            _mover.SetMove(_joystick.IsPressed);
+            _movement.SetMove(_joystick.IsPressed);
 
-            _mover.SetInputDirection(_joystick.InputValue);
-            _animatorCtrler.SetSpeed(_mover.AnimatorSpeed);
+            _movement.SetInputDirection(_joystick.InputValue);
+            _animationController.SetSpeed(_movement.AnimatorSpeed);
         }
     }
 }

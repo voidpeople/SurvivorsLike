@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CharacterAnimatorController : MonoBehaviour
+public class PlayerAnimationController : MonoBehaviour
 {
     protected static readonly int SpeedHash = Animator.StringToHash("Speed");
     protected static readonly int IsDeadHash = Animator.StringToHash("IsDead");
