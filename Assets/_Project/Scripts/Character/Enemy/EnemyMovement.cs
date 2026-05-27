@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace SurvivorsLike
@@ -13,6 +14,9 @@ namespace SurvivorsLike
         private Transform _targetTransform;
         private float _sqrStoppingDistance;
         private bool _isMoving;
+
+        //목표 위치에 도착하면 이벤트 발송
+        public event Action OnArrived;
 
 
         private void Awake()
@@ -47,6 +51,7 @@ namespace SurvivorsLike
         public void Stop()
         {
             _isMoving = false;
+            OnArrived?.Invoke();
         }
 
         private void ApplyMovement()
@@ -57,7 +62,10 @@ namespace SurvivorsLike
             Vector3 dirVec = targetPos - currentPos;
 
             if (dirVec.sqrMagnitude <= _sqrStoppingDistance)
+            {
+                OnArrived?.Invoke();
                 return;
+            }
 
             _transform.position = Vector3.MoveTowards(
                 currentPos,
