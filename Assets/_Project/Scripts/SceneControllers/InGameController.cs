@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace SurvivorsLike
@@ -16,6 +17,9 @@ namespace SurvivorsLike
         [SerializeField] private Canvas _resultPanelCanvas;
         [SerializeField] private GameResultPanelView _resultPanelView;
 
+        [Header("Development")]
+        [SerializeField] private DevManager _devManager;
+
         private GameResultPanelModel _resultModel;
         private GameResultPanelPresenter _resultPresenter;
 
@@ -25,9 +29,18 @@ namespace SurvivorsLike
 
         private async UniTaskVoid Start()
         {
-            GameManager.Instance.SetGameState(GameState.InGame);
-
             CancellationToken ct = this.GetCancellationTokenOnDestroy();
+
+#if UNITY_EDITOR
+            var activeScene = SceneManager.GetActiveScene();
+            bool isDirectLaunch = activeScene.buildIndex != 0;
+            if (isDirectLaunch)
+            {
+                await _devManager.PrepareInGameAsync(ct);
+            }
+#endif
+
+            GameManager.Instance.SetGameState(GameState.InGame);           
 
             MapDataSO mapData = GameManager.Instance.SessionData.ChapterData.mapData;
             // 모든 시스템 병렬 로드 — 각 시스템이 자신의 에셋만 책임
@@ -48,9 +61,7 @@ namespace SurvivorsLike
         }
 
         private void OnDestroy()
-        {
-            PoolManager.Instance.ReleasePool("enemy/spiderbot");
-
+        {      
             Destroy();
         }
 
@@ -94,6 +105,9 @@ namespace SurvivorsLike
         {
             _resultPresenter.Dispose();
             _resultPanelView.Destroy();
+
+            if(PoolManager.Instance != null)
+                PoolManager.Instance.ReleasePool("enemy/spiderbot");
         }
     }
 }

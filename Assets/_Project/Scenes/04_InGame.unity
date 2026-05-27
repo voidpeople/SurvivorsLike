@@ -246,6 +246,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &228903194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 228903196}
+  - component: {fileID: 228903195}
+  m_Layer: 0
+  m_Name: DevManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &228903195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228903194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85cdcc3ec60f5d7479d25a3b411113f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.ManagerLoader
+  _managerPrefab: {fileID: 4988463936840931386, guid: c81b329446a2f8f41bdf9417d8b11771, type: 3}
+  _chapterId: 3
+--- !u!4 &228903196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228903194}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.19531, y: -0, z: 19.91799}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &388864265 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3734726258012029599, guid: 404f7a0811a63484198c9260b923205a, type: 3}
@@ -577,6 +623,7 @@ MonoBehaviour:
   _playerTransform: {fileID: 388864265}
   _resultPanelCanvas: {fileID: 2080003469}
   _resultPanelView: {fileID: 1062681915}
+  _devManager: {fileID: 228903195}
 --- !u!4 &1644530800
 Transform:
   m_ObjectHideFlags: 0
@@ -1092,7 +1139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2327441823422602847, guid: df0a55185f474494f88179698c092816, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2846111908762085725, guid: df0a55185f474494f88179698c092816, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -1101,6 +1148,10 @@ PrefabInstance:
     - target: {fileID: 6118907532034734890, guid: df0a55185f474494f88179698c092816, type: 3}
       propertyPath: m_Name
       value: Canvas_Result
+      objectReference: {fileID: 0}
+    - target: {fileID: 6118907532034734890, guid: df0a55185f474494f88179698c092816, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1121,3 +1172,4 @@ SceneRoots:
   - {fileID: 4389492048316241046}
   - {fileID: 4374696770231279094}
   - {fileID: 2616474560581296181}
+  - {fileID: 228903196}
