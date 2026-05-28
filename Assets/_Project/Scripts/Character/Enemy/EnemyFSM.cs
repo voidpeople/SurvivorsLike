@@ -53,10 +53,10 @@ namespace SurvivorsLike
                 _currentState.Update();
         }
 
-        public void OnDestinationReached()
-        {
-            (_currentState as IMovementListener)?.OnDestinationReached();
-        }
+        //public void OnDestinationReached()
+        //{
+        //    (_currentState as IMovementListener)?.OnDestinationReached();
+        //}
 
         public void OnTargetDied()
         {

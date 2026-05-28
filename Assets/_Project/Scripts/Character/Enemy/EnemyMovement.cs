@@ -11,13 +11,12 @@ namespace SurvivorsLike
         [SerializeField] private float _stoppingDistance = 0.5f;
 
         private Transform _transform;
-        private Transform _targetTransform;
+        private Vector3 _destination;
         private float _sqrStoppingDistance;
         private bool _isMoving;
 
         //목표 위치에 도착하면 이벤트 발송
-        public event Action OnDestinationReached;
-
+        //public event Action OnDestinationReached;
 
         private void Awake()
         {
@@ -29,7 +28,7 @@ namespace SurvivorsLike
 
         private void Update()
         {
-            if ((_isMoving == false) || (_targetTransform == null))
+            if (_isMoving == false)
                 return;
 
             RotateToTarget();
@@ -42,29 +41,29 @@ namespace SurvivorsLike
             _sqrStoppingDistance = _stoppingDistance * _stoppingDistance;
         }
 
-        public void SetTarget(Transform targetTransform)
+        public void SetDestination(Vector3 destination)
         {
-            _targetTransform = targetTransform;
+            _destination = destination;
             _isMoving = true;
         }
 
         public void Stop()
         {
             _isMoving = false;
-            OnDestinationReached?.Invoke();
+            //OnDestinationReached?.Invoke();
         }
 
         private void ApplyMovement()
         {
             Vector3 currentPos = _transform.position;
-            Vector3 targetPos = _targetTransform.position;
+            Vector3 targetPos = _destination;
             targetPos.y = _transform.position.y;
             Vector3 dirVec = targetPos - currentPos;
 
             if (dirVec.sqrMagnitude <= _sqrStoppingDistance)
             {
-                OnDestinationReached?.Invoke();
-                _isMoving = false;
+                //OnDestinationReached?.Invoke();
+                Stop();
                 return;
             }
 
@@ -76,7 +75,7 @@ namespace SurvivorsLike
 
         private void RotateToTarget()
         {
-            Vector3 direction = (_targetTransform.position - _transform.position);
+            Vector3 direction = (_destination - _transform.position);
             direction.y = 0f; // 수평 회전
 
             if (direction.sqrMagnitude < 0.001f)

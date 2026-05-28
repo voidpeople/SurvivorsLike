@@ -26,7 +26,7 @@ namespace SurvivorsLike
         }
         public void OnTargetDied()
         {
-
+            _fsm.ChangeState(EnemyStateType.Idle);
         }
     }
 }
