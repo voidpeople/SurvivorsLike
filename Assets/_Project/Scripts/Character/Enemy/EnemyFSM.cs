@@ -49,7 +49,7 @@ namespace SurvivorsLike
 
         public void Update()
         {
-            if(_currentState != null)
+            if (_currentState != null)
                 _currentState.Update();
         }
     }

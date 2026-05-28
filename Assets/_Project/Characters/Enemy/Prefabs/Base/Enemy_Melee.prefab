@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9120480108201786303}
   - component: {fileID: 1840583509881203262}
-  - component: {fileID: 3502668115267927627}
   - component: {fileID: 5058403979184871992}
   - component: {fileID: 7328166546213776976}
   - component: {fileID: 8932818792674811067}
@@ -51,18 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281eea28b214c7d4ab1386c7baec4abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
---- !u!114 &3502668115267927627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7229551025161841568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 312d7642210541443b908e7c89b506fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyFSM
 --- !u!114 &5058403979184871992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +62,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1134069fd1136dc43956a3c2452ba0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
+  _moveSpeed: 3
+  _rotateSpeed: 10
+  _stoppingDistance: 0.5
 --- !u!114 &7328166546213776976
 MonoBehaviour:
   m_ObjectHideFlags: 0
