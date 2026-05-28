@@ -3,8 +3,12 @@
 
 namespace SurvivorsLike
 {
-    public class EnemyAttackState
+    public class EnemyAttackState : EnemyStateBase
     {
+        public EnemyAttackState(EnemyController controller, EnemyFSM fsm)
+            : base(controller, fsm)
+        {
 
+        }
     }
 }
