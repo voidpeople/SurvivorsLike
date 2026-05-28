@@ -1,7 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+
+namespace SurvivorsLike
 {
-    public event Action OnDead;
+    public class PlayerHealth : MonoBehaviour
+    {
+        public event Action OnDead;
+    }
+
 }

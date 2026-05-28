@@ -3,7 +3,7 @@
 
 namespace SurvivorsLike
 {
-    public class EnemyChaseState : EnemyStateBase, IMovementListener
+    public class EnemyChaseState : EnemyStateBase, IMovementListener, ITargetListener
     {
         public EnemyChaseState(EnemyController controller, EnemyFSM fsm)
             : base(controller, fsm)
@@ -31,6 +31,11 @@ namespace SurvivorsLike
         {
             _controller.AnimCtrl.PlayIdle();
             _fsm.ChangeState(EnemyStateType.Attack);
+        }
+
+        public void OnTargetDied()
+        {
+
         }
     }
 }

@@ -60,7 +60,7 @@ namespace SurvivorsLike
 
         public void OnTargetDied()
         {
-
+            (_currentState as ITargetListener)?.OnTargetDied();
         }
     }
 }

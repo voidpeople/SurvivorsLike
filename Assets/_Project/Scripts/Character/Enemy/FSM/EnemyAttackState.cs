@@ -3,7 +3,7 @@
 
 namespace SurvivorsLike
 {
-    public class EnemyAttackState : EnemyStateBase
+    public class EnemyAttackState : EnemyStateBase, ITargetListener
     {
         public EnemyAttackState(EnemyController controller, EnemyFSM fsm)
             : base(controller, fsm)
@@ -23,6 +23,10 @@ namespace SurvivorsLike
 
         public override void Update()
         {
+        }
+        public void OnTargetDied()
+        {
+
         }
     }
 }
