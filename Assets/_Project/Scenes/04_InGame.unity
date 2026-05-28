@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.ManagerLoader
   _managerPrefab: {fileID: 4988463936840931386, guid: c81b329446a2f8f41bdf9417d8b11771, type: 3}
-  _chapterId: 3
+  _loadChapterId: 1
 --- !u!4 &228903196
 Transform:
   m_ObjectHideFlags: 0
@@ -585,7 +585,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: RobotKyle
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4230172184524446774, guid: eb111b0d85eaf7741a055447cd25a608, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -750,67 +751,6 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 2846111908762085725, guid: df0a55185f474494f88179698c092816, type: 3}
   m_PrefabInstance: {fileID: 8460122926657203974}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2616474560581296181
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4451131020235709777, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451131020235709777, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451131020235709777, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -24.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451131020235709777, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451131020235709777, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451131020235709777, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451131020235709777, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451131020235709777, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451131020235709777, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451131020235709777, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5809515936868004094, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_Name
-      value: MeleeEnemy_SpiderBot
-      objectReference: {fileID: 0}
-    - target: {fileID: 5809515936868004094, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: df4c128ec8d6de841aab7b0a714d4b16, type: 3}
 --- !u!1001 &4374696770231279094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1171,5 +1111,4 @@ SceneRoots:
   - {fileID: 933019014}
   - {fileID: 4389492048316241046}
   - {fileID: 4374696770231279094}
-  - {fileID: 2616474560581296181}
   - {fileID: 228903196}

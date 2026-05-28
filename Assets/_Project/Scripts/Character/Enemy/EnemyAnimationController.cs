@@ -1,24 +1,28 @@
 ﻿using UnityEngine;
 
-public class EnemyAnimationController : MonoBehaviour
+
+namespace SurvivorsLike
 {
-    protected static readonly int IsMoveHash = Animator.StringToHash("IsMove");
-    protected static readonly int IsDeadHash = Animator.StringToHash("IsDead");
-
-    protected Animator _animator;
-
-    protected virtual void Awake()
+    public class EnemyAnimationController : MonoBehaviour
     {
-        TryGetComponent(out _animator); 
-    }
+        protected static readonly int IsMoveHash = Animator.StringToHash("IsMove");
+        protected static readonly int IsDeadHash = Animator.StringToHash("IsDead");
 
-    public void SetMove(bool isMove)
-    {
-        _animator.SetBool(IsMoveHash, isMove);
-    }
+        protected Animator _animator;
 
-    public void SetDead()
-    {
-        _animator.SetBool(IsDeadHash, true);
+        protected virtual void Awake()
+        {
+            TryGetComponent(out _animator);
+        }
+
+        public void SetMove(bool isMove)
+        {
+            _animator.SetBool(IsMoveHash, isMove);
+        }
+
+        public void SetDead()
+        {
+            _animator.SetBool(IsDeadHash, true);
+        }
     }
 }

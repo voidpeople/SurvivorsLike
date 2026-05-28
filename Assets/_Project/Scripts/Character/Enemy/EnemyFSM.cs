@@ -1,16 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EnemyFSM : MonoBehaviour
+
+namespace SurvivorsLike
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class EnemyFSM
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //대기, 이동, 공격, 사망 
     }
 }
