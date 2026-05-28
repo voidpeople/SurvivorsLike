@@ -13,7 +13,7 @@ namespace SurvivorsLike
 
         public override void Enter()
         {
-
+            _controller.AnimCtrl.PlayIdle();
         }
 
         public override void Exit()

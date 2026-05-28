@@ -16,7 +16,7 @@ namespace SurvivorsLike
         private bool _isMoving;
 
         //목표 위치에 도착하면 이벤트 발송
-        public event Action OnArrived;
+        public event Action OnDestinationReached;
 
 
         private void Awake()
@@ -51,7 +51,7 @@ namespace SurvivorsLike
         public void Stop()
         {
             _isMoving = false;
-            OnArrived?.Invoke();
+            OnDestinationReached?.Invoke();
         }
 
         private void ApplyMovement()
@@ -63,7 +63,8 @@ namespace SurvivorsLike
 
             if (dirVec.sqrMagnitude <= _sqrStoppingDistance)
             {
-                OnArrived?.Invoke();
+                OnDestinationReached?.Invoke();
+                _isMoving = false;
                 return;
             }
 
@@ -78,7 +79,10 @@ namespace SurvivorsLike
             Vector3 direction = (_targetTransform.position - _transform.position);
             direction.y = 0f; // 수평 회전
 
-            if (direction.sqrMagnitude < 0.001f) return;
+            if (direction.sqrMagnitude < 0.001f)
+            {
+                return;
+            }
 
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotateSpeed * Time.deltaTime);

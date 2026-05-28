@@ -70,9 +70,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5058403979184871992, guid: 751a9795a36b16840ba5119743bd1ee2, type: 3}
+      propertyPath: _stoppingDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7229551025161841568, guid: 751a9795a36b16840ba5119743bd1ee2, type: 3}
       propertyPath: m_Name
-      value: EnemyMelee_SpiderBot Variant
+      value: EnemyMelee_SpiderBot
       objectReference: {fileID: 0}
     - target: {fileID: 9120480108201786303, guid: 751a9795a36b16840ba5119743bd1ee2, type: 3}
       propertyPath: m_LocalPosition.x

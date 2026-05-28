@@ -16,7 +16,7 @@ namespace SurvivorsLike
         private readonly EnemyStateBase[] _states;
         private EnemyStateBase _currentState;
 
-        private EnemyStateType _currentStateType;
+        public EnemyStateType CurrentStateType { get; private set; }
 
         public EnemyFSM()
         {
@@ -31,19 +31,19 @@ namespace SurvivorsLike
         public void Init(EnemyStateType type)
         {
             _currentState?.Exit();
-            _currentStateType = type;
-            _currentState = _states[(int)_currentStateType];
+            CurrentStateType = type;
+            _currentState = _states[(int)CurrentStateType];
             _currentState.Enter();
         }
 
         public void ChangeState(EnemyStateType type)
         {
-            if (_currentStateType == type)
+            if (CurrentStateType == type)
                 return;
 
             _currentState?.Exit();
-            _currentStateType = type;
-            _currentState = _states[(int)_currentStateType];
+            CurrentStateType = type;
+            _currentState = _states[(int)CurrentStateType];
             _currentState.Enter();
         }
 
@@ -51,6 +51,16 @@ namespace SurvivorsLike
         {
             if (_currentState != null)
                 _currentState.Update();
+        }
+
+        public void OnDestinationReached()
+        {
+            (_currentState as IMovementListener)?.OnDestinationReached();
+        }
+
+        public void OnTargetDied()
+        {
+
         }
     }
 }
