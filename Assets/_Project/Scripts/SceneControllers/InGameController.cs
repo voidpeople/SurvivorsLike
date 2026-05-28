@@ -50,7 +50,7 @@ namespace SurvivorsLike
             await _mapController.SetupMapAsync(mapData, ct);
 
             await PoolManager.Instance.CreatePoolAsync("enemy/spiderbot", 100, 300, ct);
-            await PoolManager.Instance.PreCreateAsync("enemy/spiderbot", 100, 10, ct);
+            await PoolManager.Instance.PreCreateAsync("enemy/spiderbot", 1, 10, ct);
 
             EnemyController controller = PoolManager.Instance.Get<EnemyController>("enemy/spiderbot");
             controller.gameObject.SetActive(true);

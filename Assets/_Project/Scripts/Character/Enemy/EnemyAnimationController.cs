@@ -15,12 +15,17 @@ namespace SurvivorsLike
             TryGetComponent(out _animator);
         }
 
-        public void SetMove(bool isMove)
+        public void PlayIdle()
         {
-            _animator.SetBool(IsMoveHash, isMove);
+            _animator.SetBool(IsMoveHash, false);
         }
 
-        public void SetDead()
+        public void PlayMove()
+        {
+            _animator.SetBool(IsMoveHash, true);
+        }
+
+        public void PlayDead()
         {
             _animator.SetBool(IsDeadHash, true);
         }
