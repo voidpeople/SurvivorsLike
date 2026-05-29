@@ -50,6 +50,9 @@ namespace SurvivorsLike
             _fsm.RegisterState(EnemyStateType.Dead, new EnemyDeadState(this, _fsm));
         }
 
+
+        //타겟은 플레이어 캐릭터 하나 이므로
+        //적 캐릭터가 스폰되자 마자 Init 함수를 통해 타겟이 설정됨~
         public void Init(Transform targetTrasnform)
         {
             TargetTransform = targetTrasnform;

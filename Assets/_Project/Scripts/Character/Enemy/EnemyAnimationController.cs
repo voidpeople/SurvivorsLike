@@ -5,8 +5,8 @@ namespace SurvivorsLike
 {
     public class EnemyAnimationController : MonoBehaviour
     {
-        protected static readonly int IsMoveHash = Animator.StringToHash("IsMove");
-        protected static readonly int IsDeadHash = Animator.StringToHash("IsDead");
+        protected static readonly int SpeedHash = Animator.StringToHash("Speed");
+        protected static readonly int IsAttackHash = Animator.StringToHash("IsAttack");
 
         protected Animator _animator;
 
@@ -17,17 +17,17 @@ namespace SurvivorsLike
 
         public void PlayIdle()
         {
-            _animator.SetBool(IsMoveHash, false);
+            _animator.SetFloat(SpeedHash, 0f);
         }
 
         public void PlayMove()
         {
-            _animator.SetBool(IsMoveHash, true);
+            _animator.SetFloat(SpeedHash, 1f);
         }
 
-        public void PlayDead()
+        public void PlayAttack(bool isAttack)
         {
-            _animator.SetBool(IsDeadHash, true);
+            _animator.SetBool(IsAttackHash, isAttack);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace SurvivorsLike
             _attackRangeSqr = _controller.AttackRange * _controller.AttackRange;
 
             _controller.Movement.Stop();
-            _controller.AnimCtrl.PlayIdle();
+            _controller.AnimCtrl.PlayAttack(true);
 
             int taskVersion = ++_taskVersion;
             UpdateAsync(taskVersion, _controller.CTS).Forget();
@@ -40,6 +40,7 @@ namespace SurvivorsLike
 
         public override void Exit()
         {
+            _controller.AnimCtrl.PlayAttack(false);
             //현재 실행중인 태스크 지연 종료~
             _taskVersion++;
         }
@@ -67,6 +68,9 @@ namespace SurvivorsLike
                     _fsm.ChangeState(EnemyStateType.Chase);
                     return;
                 }
+                
+                //만약 스킬이 별도의 쿨타임으로 작동해야 한다면 따로 태스크 함수로 구현~
+                _controller.Skill.UseSkill();
 
                 //0.2초 마다 실행
                 await UniTask.Delay(200, cancellationToken: ct);
