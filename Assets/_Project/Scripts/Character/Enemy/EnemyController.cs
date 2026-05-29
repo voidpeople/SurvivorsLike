@@ -80,5 +80,12 @@ namespace SurvivorsLike
             if (_fsm != null)
                 _fsm.Update();
         }
+
+        private void OnDestroy()
+        {
+            _cts?.Cancel();   //진행 중인 비동기 작업에 취소 신호 전달
+            _cts?.Dispose();  //내부 WaitHandle 등 비관리 리소스 해제
+            _cts = null;
+        }
     }
 }
