@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 9120480108201786303}
   - component: {fileID: 1840583509881203262}
   - component: {fileID: 5058403979184871992}
-  - component: {fileID: 7328166546213776976}
+  - component: {fileID: 1708601440385514216}
   - component: {fileID: 8932818792674811067}
   - component: {fileID: 7190566350381184012}
   - component: {fileID: 5437200879967169959}
   m_Layer: 0
-  m_Name: Enemy_Melee
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281eea28b214c7d4ab1386c7baec4abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  _currentStateType: 0
+  _attackRange: 1
 --- !u!114 &5058403979184871992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +67,7 @@ MonoBehaviour:
   _moveSpeed: 3
   _rotateSpeed: 10
   _stoppingDistance: 0.5
---- !u!114 &7328166546213776976
+--- !u!114 &1708601440385514216
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,9 +76,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7229551025161841568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6d5dd517ac260c42aa3eb845d04bb06, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bb1ae32e00949c469b83e8f695b5e5d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySkill
+  m_EditorClassIdentifier: Assembly-CSharp::SkillController
 --- !u!114 &8932818792674811067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee386d30a3219a4d97e2ae26e789a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  _health: 0
 --- !u!114 &7190566350381184012
 MonoBehaviour:
   m_ObjectHideFlags: 0

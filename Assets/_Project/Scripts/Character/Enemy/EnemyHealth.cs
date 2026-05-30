@@ -5,16 +5,29 @@ namespace SurvivorsLike
 {
     public class EnemyHealth : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
+        [SerializeField] float _health;
+        private bool _isDead;
 
+        private void OnEnable()
+        {
+            Init();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Init()
         {
+            _isDead = false;
+        }
 
+        public void TakeDamage(float damage)
+        {
+            if (_isDead == true)
+                return;
+
+            _health -= damage;
+            if(_health <= 0f)
+            {
+                _isDead = true;
+            }
         }
     }
 }
