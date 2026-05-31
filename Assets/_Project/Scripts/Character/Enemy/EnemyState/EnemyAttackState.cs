@@ -68,9 +68,9 @@ namespace SurvivorsLike
                     _fsm.ChangeState(EnemyStateType.Chase);
                     return;
                 }
-                
+
                 //만약 스킬이 별도의 쿨타임으로 작동해야 한다면 따로 태스크 함수로 구현~
-                _controller.Skill.UseSkill();
+                _controller.SkillCtrl.UseAllSkill();
 
                 //0.2초 마다 실행
                 await UniTask.Delay(200, cancellationToken: ct);

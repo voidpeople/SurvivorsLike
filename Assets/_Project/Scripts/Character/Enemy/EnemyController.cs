@@ -14,7 +14,7 @@ namespace SurvivorsLike
 
         public EnemyAnimationController AnimCtrl { get; private set; }
         public EnemyMovement Movement { get; private set; }
-        public EnemySkill Skill { get; private set; }
+        public SkillController SkillCtrl { get; private set; }
         public Transform TargetTransform { get; private set; }
         public float AttackRange { get { return _attackRange; } }
 
@@ -34,8 +34,8 @@ namespace SurvivorsLike
             TryGetComponent(out EnemyMovement movement);
             Movement = movement;
             //Movement.OnDestinationReached += OnDestinationReached;
-            TryGetComponent(out EnemySkill skill);
-            Skill = skill;
+            TryGetComponent(out SkillController skillCtrl);
+            SkillCtrl = skillCtrl;
             TryGetComponent(out EnemyHealth _health);
 
             CreateFSM();
@@ -78,7 +78,7 @@ namespace SurvivorsLike
         {
 #if UNITY_EDITOR
             if (_fsm != null)
-                _currentStateType = _fsm.CurrentStateType;
+                _currentStateType = _fsm.CurrentType;
 #endif
             if (_fsm != null)
                 _fsm.Update();

@@ -1,16 +1,26 @@
+﻿using NUnit.Framework;
+using SurvivorsLike;
 using UnityEngine;
 
 public class SkillController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private SkillBase[] _skills;
+
+    private void Awake()
     {
-        
+        _skills = GetComponents<SkillBase>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UseAllSkill()
     {
-        
+        foreach(SkillBase skill in _skills)
+        {
+            skill.UseSkill();
+        }
+    }
+
+    public void UseSkill(int skillId)
+    {
+
     }
 }
