@@ -6,10 +6,10 @@ namespace SurvivorsLike
 {
     public abstract class BossStateBase : StateBase
     {
-        protected readonly EnemyController _controller;
+        protected readonly BossController _controller;
         protected readonly BossFSM _fsm;
 
-        public BossStateBase(EnemyController controller, BossFSM fsm)
+        public BossStateBase(BossController controller, BossFSM fsm)
         {
             _controller = controller;
             _fsm = fsm;
