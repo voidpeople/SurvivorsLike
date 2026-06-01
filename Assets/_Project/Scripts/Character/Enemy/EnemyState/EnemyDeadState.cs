@@ -14,26 +14,23 @@ namespace SurvivorsLike
 
         public override void Enter()
         {
-            _controller.Movement.Stop();
-            _controller.AnimCtrl.PlayIdle();
+            _ctrl.Movement.Stop();
+            _ctrl.AnimCtrl.PlayIdle();
 
-            ReturnToPoolAsync(_controller.CTS).Forget();
-        }
+            PoolableParticle particleObj = PoolManager.Instance.Get<PoolableParticle>("vfx/explosion/explosion01");
+            Vector3 pos = _ctrl.transform.position;
+            pos.y = 1f;
+            particleObj.Play(pos);
 
-        public override void Exit()
-        {
-        }
-
-        public override void Update()
-        {
+            ReturnToPoolAsync(_ctrl.CTS).Forget();
         }
 
         private async UniTaskVoid ReturnToPoolAsync(CancellationToken ct)
-        {
+        {            
             await UniTask.Delay(1000, cancellationToken: ct);
 
             //Pool매니저에 반환
-            _controller.TryGetComponent<PoolableObject>(out PoolableObject poolableObj);
+            _ctrl.TryGetComponent<PoolableObject>(out PoolableObject poolableObj);
             poolableObj?.Return();
         }
     }

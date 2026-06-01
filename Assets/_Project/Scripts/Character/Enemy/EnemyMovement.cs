@@ -16,7 +16,7 @@ namespace SurvivorsLike
         private bool _isMoving;
 
         //목표 위치에 도착하면 이벤트 발송
-        //public event Action OnDestinationReached;
+        public event Action OnDestinationReached;
 
         private void Awake()
         {
@@ -49,8 +49,11 @@ namespace SurvivorsLike
 
         public void Stop()
         {
+            if(_isMoving == false)
+                return;
+
             _isMoving = false;
-            //OnDestinationReached?.Invoke();
+            OnDestinationReached?.Invoke();
         }
 
         private void ApplyMovement()
@@ -62,7 +65,7 @@ namespace SurvivorsLike
 
             if (dirVec.sqrMagnitude <= _sqrStoppingDistance)
             {
-                //OnDestinationReached?.Invoke();
+                OnDestinationReached?.Invoke();
                 Stop();
                 return;
             }

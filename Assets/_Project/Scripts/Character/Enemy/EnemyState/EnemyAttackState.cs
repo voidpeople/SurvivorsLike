@@ -20,29 +20,29 @@ namespace SurvivorsLike
 
         public override void Enter()
         {
-            _attackRangeSqr = _controller.AttackRange * _controller.AttackRange;
+            _attackRangeSqr = _ctrl.AttackRange * _ctrl.AttackRange;
 
-            _controller.Movement.Stop();
-            _controller.AnimCtrl.PlayAttack(true);
+            _ctrl.Movement.Stop();
+            _ctrl.AnimCtrl.PlayAttack(true);
 
             int taskVersion = ++_taskVersion;
-            UpdateAsync(taskVersion, _controller.CTS).Forget();
-        }
-
-        public override void Update()
-        {
-            if (_controller.TargetTransform == null)
-            {
-                _fsm.ChangeState(EnemyStateType.Idle);
-                return;
-            }
+            UpdateAsync(taskVersion, _ctrl.CTS).Forget();
         }
 
         public override void Exit()
         {
-            _controller.AnimCtrl.PlayAttack(false);
+            _ctrl.AnimCtrl.PlayAttack(false);
             //현재 실행중인 태스크 지연 종료~
             _taskVersion++;
+        }
+
+        public override void Update()
+        {
+            if (_ctrl.TargetTransform == null)
+            {
+                _fsm.ChangeState(EnemyStateType.Idle);
+                return;
+            }
         }
 
         //0.2초 마다 movement에게 새로운 목표 위치를 전송 해줌~
@@ -53,13 +53,13 @@ namespace SurvivorsLike
                 //Update에서도 _controller.TargetTransform의 null 체크를 하지만 UpdateAsync 보다
                 //Update에서 먼저 _controller.TargetTransform의 null 체크를 먼저 한다는 보장은 안된다.
                 //따라서 이곳에도 null 체크를 추가한다.
-                if (_controller.TargetTransform == null)
+                if (_ctrl.TargetTransform == null)
                 {
                     _fsm.ChangeState(EnemyStateType.Idle);
                     return;
                 }
 
-                Vector3 dirVec = _controller.TargetTransform.position - _controller.transform.position;
+                Vector3 dirVec = _ctrl.TargetTransform.position - _ctrl.transform.position;
                 dirVec.y = 0f;
                 float distSqr = dirVec.sqrMagnitude;
                 //타겟이 공격 거리로 부터 멀어지면 Chase 상태로 전환 요청
@@ -70,7 +70,7 @@ namespace SurvivorsLike
                 }
 
                 //만약 스킬이 별도의 쿨타임으로 작동해야 한다면 따로 태스크 함수로 구현~
-                _controller.SkillCtrl.UseAllSkill();
+                _ctrl.SkillCtrl.UseAllSkill();
 
                 //0.2초 마다 실행
                 await UniTask.Delay(200, cancellationToken: ct);

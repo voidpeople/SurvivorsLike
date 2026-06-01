@@ -69,6 +69,11 @@ namespace SurvivorsLike
             _currentState?.Update();
         }
 
+        public void OnDestinationReached()
+        {
+            (_currentState as IMovementListener)?.OnDestinationReached();
+        }
+
         //타겟이 죽은 경우~
         public void OnTargetDied()
         {

@@ -49,13 +49,16 @@ namespace SurvivorsLike
             );
             await _mapController.SetupMapAsync(mapData, ct);
 
-            await PoolManager.Instance.CreatePoolAsync("enemy/spiderbot", 100, 300, ct);
-            await PoolManager.Instance.PreCreateAsync("enemy/spiderbot", 1, 10, ct);
+            await PoolManager.Instance.CreatePoolAsync("character/enemy/spiderbot", 100, 300, ct);
+            await PoolManager.Instance.PreCreateAsync("character/enemy/spiderbot", 1, 10, ct);
 
-            EnemyController controller = PoolManager.Instance.Get<EnemyController>("enemy/spiderbot");
+            EnemyController controller = PoolManager.Instance.Get<EnemyController>("character/enemy/spiderbot");
             controller.gameObject.SetActive(true);
             controller.transform.SetPositionAndRotation(new Vector3(0f, 0f, 20f), Quaternion.identity);
             controller.Init(_playerTransform);
+
+            await PoolManager.Instance.CreatePoolAsync("vfx/explosion/explosion01", 100, 300, ct);
+            await PoolManager.Instance.PreCreateAsync("vfx/explosion/explosion01", 1, 10, ct);
 
             InitResultPanelAsync(ct);
         }
@@ -107,7 +110,7 @@ namespace SurvivorsLike
             _resultPanelView.Destroy();
 
             if(PoolManager.Instance != null)
-                PoolManager.Instance.ReleasePool("enemy/spiderbot");
+                PoolManager.Instance.ReleasePool("character/enemy/spiderbot");
         }
     }
 }

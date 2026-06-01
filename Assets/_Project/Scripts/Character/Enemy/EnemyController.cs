@@ -33,7 +33,7 @@ namespace SurvivorsLike
 
             TryGetComponent(out EnemyMovement movement);
             Movement = movement;
-            //Movement.OnDestinationReached += OnDestinationReached;
+            Movement.OnDestinationReached += OnDestinationReached;
             TryGetComponent(out SkillController skillCtrl);
             SkillCtrl = skillCtrl;
             TryGetComponent(out EnemyHealth _health);
@@ -62,11 +62,11 @@ namespace SurvivorsLike
             health.OnDead += OnTargetDied;
         }
 
-        ////Enemy 캐릭터가 목표 위치에 도착하면 통보 받는 함수
-        //private void OnDestinationReached()
-        //{
-        //    _fsm.OnDestinationReached();
-        //}
+        //Enemy 캐릭터가 목표 위치에 도착하면 통보 받는 함수
+        private void OnDestinationReached()
+        {
+            _fsm.OnDestinationReached();
+        }
 
         //타겟이 죽으면 통보 받는 함수
         private void OnTargetDied()
