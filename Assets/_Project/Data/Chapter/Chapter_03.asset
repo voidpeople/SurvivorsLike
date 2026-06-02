@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5befac6ae80664d88ad8585466a919, type: 3}
   m_Name: Chapter_03
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.ChapterDataSO
-  chapterId: 3
-  displayName: "\uBD95\uAD34\uB41C \uACF5\uC7A5"
-  difficulty: "\uC911\uAE09"
-  displaySpriteName: lobby_chapter03
-  recommendedCP: 1200
-  energyCost: 5
-  durationSec: 900
-  rewardGold: 500
-  rewardGem: 10
-  mapData: {fileID: 0}
-  thumbnailSprite: {fileID: 0}
+  ChapterId: 3
+  DisplayName: "\uBD95\uAD34\uB41C \uACF5\uC7A5"
+  Difficulty: "\uC911\uAE09"
+  DisplaySpriteName: lobby_chapter03
+  RecommendedCP: 1200
+  EnergyCost: 5
+  DurationSec: 900
+  RewardGold: 500
+  RewardGem: 10
+  MapData: {fileID: 0}
+  ThumbnailSprite: {fileID: 0}

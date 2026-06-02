@@ -114,13 +114,13 @@ namespace SurvivorsLike
 
                     var newUserData = new UserData()
                     {
-                        userId = userId,
-                        nickName = GenerateRandomNickName(), //자동생성 함수 추가
-                        level = 1,
-                        gold = 1000,
-                        gem = 100,
-                        selectedChapterId = 1,
-                        lastClearedChapterId = 0,
+                        UserId = userId,
+                        NickName = GenerateRandomNickName(), //자동생성 함수 추가
+                        Level = 1,
+                        Gold = 1000,
+                        Gem = 100,
+                        SelectedChapterId = 1,
+                        LastClearedChapterId = 0,
                     };
 
                     //신규 유저 데이터를 서버에 저장
@@ -160,18 +160,18 @@ namespace SurvivorsLike
             {
                 // Firestore 경로: users/{userId}/profile 문서에 저장
                 // 구조: users (컬렉션) → userId (문서) → profile (하위 컬렉션) → data (문서)
-                DocumentReference docRef = _db.Collection("users").Document(userData.userId)
+                DocumentReference docRef = _db.Collection("users").Document(userData.UserId)
                                               .Collection("profile").Document("data");
 
                 var dicData = new Dictionary<string, object>
             {
-                { "userId", userData.userId },
-                { "nickName", userData.nickName },
-                { "level", userData.level },
-                { "gold", userData.gold },
-                { "gem", userData.gem },
-                { "selectedChapterId", userData.selectedChapterId },
-                { "lastClearedChapterId", userData.lastClearedChapterId },
+                { "userId", userData.UserId },
+                { "nickName", userData.NickName },
+                { "level", userData.Level },
+                { "gold", userData.Gold },
+                { "gem", userData.Gem },
+                { "selectedChapterId", userData.SelectedChapterId },
+                { "lastClearedChapterId", userData.LastClearedChapterId },
             };
 
                 //SetAsync함수를 통해 데이터를 서버에 업로드~

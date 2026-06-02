@@ -42,7 +42,7 @@ namespace SurvivorsLike
 
             GameManager.Instance.SetGameState(GameState.InGame);           
 
-            MapDataSO mapData = GameManager.Instance.SessionData.ChapterData.mapData;
+            MapDataSO mapData = GameManager.Instance.SessionData.ChapterData.MapData;
             // 모든 시스템 병렬 로드 — 각 시스템이 자신의 에셋만 책임
             await UniTask.WhenAll(
                 _mapController.LoadAssetsAsync(mapData, ct)

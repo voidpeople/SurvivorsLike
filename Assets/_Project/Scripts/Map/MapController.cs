@@ -17,7 +17,7 @@ namespace SurvivorsLike
         public async UniTask LoadAssetsAsync(MapDataSO mapData, CancellationToken ct)
         {
             await UniTask.WhenAll(
-                LoadMaterialAsync(mapData.groundMaterialKey, ct)
+                LoadMaterialAsync(mapData.GroundMaterialKey, ct)
             );
         }
         private async UniTask LoadMaterialAsync(string key, CancellationToken ct)
@@ -31,9 +31,9 @@ namespace SurvivorsLike
             _groundRenderer.sharedMaterial = _matAssetHandle.Result;
 
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-            RenderSettings.ambientLight = mapData.ambientLightColor;
+            RenderSettings.ambientLight = mapData.AmbientLightColor;
 
-            _mainLight.color = mapData.mainLightColor;
+            _mainLight.color = mapData.MainLightColor;
         }
 
         public void ReleaseAssets()

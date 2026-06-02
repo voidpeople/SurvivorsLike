@@ -8,11 +8,11 @@ namespace SurvivorsLike
     [CreateAssetMenu(fileName = "ChapterDataSO", menuName = "SurvivorsLike/Data/SkillDataSO")]
     public abstract class SkillDataSO : ScriptableObject
     {
-        public int skillId;
-        public string skillName;
-        public int level;
-        public float damage;
-        public float attackInterval;
-        public string prefabKey;
+        public int SkillId;
+        public string SkillName;
+        public int Level;
+        public float Damage;
+        public float AttackInterval;
+        public string PrefabKey;
     }
 }

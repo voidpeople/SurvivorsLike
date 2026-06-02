@@ -13,8 +13,8 @@ namespace SurvivorsLike
         public void Setup(ChapterDataSO data, int index)
         {
             //View에서 스프라이트를 조회하여 설정 하는건 MVP 패턴에 위반?
-            if (data.thumbnailSprite != null)
-                _chapterThumbnailImage.sprite = data.thumbnailSprite;
+            if (data.ThumbnailSprite != null)
+                _chapterThumbnailImage.sprite = data.ThumbnailSprite;
         }
     }
 }

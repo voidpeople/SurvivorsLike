@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a077c13af0602c54da55c698be6a9fb6, type: 3}
   m_Name: Map_01
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.MapDataSO
-  mapId: 1
-  groundMaterialKey: mat/ground/blue3
-  playAreaRadius: 60
-  decorationGroupKey: deco_city
-  decorationCount: 40
-  decorationSeed: 1
-  ambientLightColor: {r: 0.4, g: 0.4392157, b: 0.5019608, a: 1}
-  mainLightColor: {r: 1, g: 1, b: 1, a: 1}
-  bgmKey: bgm_city
+  MapId: 1
+  GroundMaterialKey: mat/ground/blue3
+  PlayAreaRadius: 60
+  DecorationGroupKey: deco_city
+  DecorationCount: 40
+  DecorationSeed: 1
+  AmbientLightColor: {r: 0.4, g: 0.4392157, b: 0.5019608, a: 1}
+  MainLightColor: {r: 1, g: 1, b: 1, a: 1}
+  BgmKey: bgm_city

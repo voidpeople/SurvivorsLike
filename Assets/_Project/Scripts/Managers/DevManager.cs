@@ -39,11 +39,11 @@ namespace SurvivorsLike
         {
             await DataManager.Instance.InitAsync(ct);
 
-            ChapterDataSO chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.chapterId == _loadChapterId);
+            ChapterDataSO chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.ChapterId == _loadChapterId);
             if(chapter == null)
             {
                 Debug.LogWarning($"선택한 챕터를 찾을 수 없습니다. : chapterId - {_loadChapterId}");
-                chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.chapterId == 1);
+                chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.ChapterId == 1);
             }
             GameManager.Instance.SessionData.Clear();
             GameManager.Instance.SessionData.Init(chapter);

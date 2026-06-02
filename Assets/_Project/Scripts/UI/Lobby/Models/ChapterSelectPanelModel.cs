@@ -47,9 +47,9 @@ namespace SurvivorsLike
         {
             ChapterDataList = chapterList;
             CreateChapterDics();
-            SetSelectedCardIndex(GetChapterCardIndex(userData.selectedChapterId)); 
+            SetSelectedCardIndex(GetChapterCardIndex(userData.SelectedChapterId)); 
 
-            _lastClearedChapterId = userData.lastClearedChapterId;
+            _lastClearedChapterId = userData.LastClearedChapterId;
         }
 
         private void CreateChapterDics()
@@ -61,7 +61,7 @@ namespace SurvivorsLike
 
             for (int ii = 0; ii < ChapterDataList.Count; ii++)
             {
-                _chapterCardIndexDic.Add(ChapterDataList[ii].chapterId, ii);
+                _chapterCardIndexDic.Add(ChapterDataList[ii].ChapterId, ii);
             }
         }
 

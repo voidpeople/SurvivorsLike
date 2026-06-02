@@ -52,7 +52,7 @@ namespace SurvivorsLike
             ChapterDataSO chapterData = _model.GetChapterData(index);
             if (chapterData != null)
             {
-                _view.SetChapterName(chapterData.displayName);
+                _view.SetChapterName(chapterData.DisplayName);
             }
         }
 
@@ -70,7 +70,7 @@ namespace SurvivorsLike
 
         private async UniTaskVoid SaveSelectedChapterIdAsync()
         {
-            await UserDataManager.Instance.SaveSelectedChapterIdAsync(_model.SelectedChapterData.chapterId, _cts.Token);
+            await UserDataManager.Instance.SaveSelectedChapterIdAsync(_model.SelectedChapterData.ChapterId, _cts.Token);
         }
 
         //나가기 버튼을 클릭할 경우 호출되는 함수
