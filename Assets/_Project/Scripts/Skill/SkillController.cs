@@ -2,13 +2,21 @@
 using SurvivorsLike;
 using UnityEngine;
 
+
 public class SkillController : MonoBehaviour
 {
+    //SkillDataSO 데이터로 부터 사용하는 스킬들에 대한
+    //스킬 인스턴스를 생성하여 _skills에 추가한다.
     private SkillBase[] _skills;
 
     private void Awake()
     {
-        _skills = GetComponents<SkillBase>();
+
+    }
+
+    public void Init()
+    {
+
     }
 
     public void UseAllSkill()
@@ -19,8 +27,26 @@ public class SkillController : MonoBehaviour
         }
     }
 
+    public void StopAllSkill()
+    {
+        foreach (SkillBase skill in _skills)
+        {
+            skill.StopSkill();
+        }
+    }
+
     public void UseSkill(int skillId)
     {
 
+    }
+
+    public void StopSkill(int skillId)
+    {
+
+    }
+
+    private void Update()
+    {
+        //_skills
     }
 }
