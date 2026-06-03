@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.MeleeSkillDataSO
   SkillId: 1001
   SkillName: Aura
-  Level: 1
-  Damage: 30
-  AttackInterval: 0
+  Level: 5
+  Damage: 120
+  AttackInterval: 1
   PrefabKey: 
-  AttackRange: 1.2
+  AttackRange: 3.5
   AttackAngle: 360
