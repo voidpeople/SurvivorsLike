@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TriInspector;
 using UnityEngine;
-using static UnityEngine.Analytics.IAnalytic;
 
 
 namespace SurvivorsLike
