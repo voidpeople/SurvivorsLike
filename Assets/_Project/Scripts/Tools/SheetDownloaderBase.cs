@@ -85,6 +85,8 @@ namespace SurvivorsLike
 
                 string[] values = line.Split('\t');
 
+                //문제는 SO 클래스에 구글 시트의 하나의 행을 하나의 SO 오브젝트에 저장해야 하고
+                //어떤 SO 클래스는 구글 시트의 모든 행을 하나의 SO 오브젝트에 저장해야 한다는 거임~
                 var row = new Dictionary<string, string>();
                 for (int j = 0; j < headers.Length && j < values.Length; j++)
                     row[headers[j].Trim()] = values[j].Trim();

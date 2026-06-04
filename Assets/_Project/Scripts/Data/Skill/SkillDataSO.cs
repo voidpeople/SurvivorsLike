@@ -4,15 +4,12 @@
 
 namespace SurvivorsLike
 {
-    //스킬 테이블 정보
-    [CreateAssetMenu(fileName = "ChapterDataSO", menuName = "SurvivorsLike/Data/SkillDataSO")]
+    //스킬 데이터 베이스 클래스
     public abstract class SkillDataSO : ScriptableObject
     {
         public int SkillId;
         public string SkillName;
-        public int Level;
-        public float Damage;
-        public float AttackInterval;
+        public string IconKey; //UI 상의 스킬 아이콘 스프라이트 이름
         public string PrefabKey;
     }
 }
