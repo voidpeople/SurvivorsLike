@@ -26,7 +26,7 @@ namespace SurvivorsLike
             _ctrl.AnimCtrl.PlayAttack(true);
 
             //스킬 사용 시작
-            _ctrl.SkillCtrl.UseAllSkill();
+            //_ctrl.SkillCtrl.UseAllSkill();
 
             int taskVersion = ++_taskVersion;
             UpdateAsync(taskVersion, _ctrl.CTS).Forget();

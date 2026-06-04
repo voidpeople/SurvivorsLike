@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 
-public class PlayerSFX : MonoBehaviour
+
+namespace SurvivorsLike
 {
-    private void OnFootstep(AnimationEvent animationEvent)
+    public class PlayerSFX : MonoBehaviour
     {
+        private void OnFootstep(AnimationEvent animationEvent)
+        {
+        }
     }
 }

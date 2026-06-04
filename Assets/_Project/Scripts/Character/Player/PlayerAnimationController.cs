@@ -1,24 +1,28 @@
 ﻿using UnityEngine;
 
-public class PlayerAnimationController : MonoBehaviour
+
+namespace SurvivorsLike
 {
-    protected static readonly int SpeedHash = Animator.StringToHash("Speed");
-    protected static readonly int IsDeadHash = Animator.StringToHash("IsDead");
-
-    protected Animator _animator;
-
-    protected virtual void Awake()
+    public class PlayerAnimationController : MonoBehaviour
     {
-        TryGetComponent(out _animator);  // 같은 오브젝트, 1회 캐싱
-    }
+        protected static readonly int SpeedHash = Animator.StringToHash("Speed");
+        protected static readonly int IsDeadHash = Animator.StringToHash("IsDead");
 
-    public void SetSpeed(float speed)
-    {
-        _animator.SetFloat(SpeedHash, speed);
-    }
+        protected Animator _animator;
 
-    public void SetDead()
-    {
-        _animator.SetBool(IsDeadHash, true);
+        protected virtual void Awake()
+        {
+            TryGetComponent(out _animator);  // 같은 오브젝트, 1회 캐싱
+        }
+
+        public void SetSpeed(float speed)
+        {
+            _animator.SetFloat(SpeedHash, speed);
+        }
+
+        public void SetDead()
+        {
+            _animator.SetBool(IsDeadHash, true);
+        }
     }
 }
