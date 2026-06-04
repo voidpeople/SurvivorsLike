@@ -20,6 +20,7 @@ namespace SurvivorsLike
 
         private const string ChapterDataLabel = "ChapterData";
         private const string MapDataLabel = "MapData";
+        private const string SkillDataLabel = "SkillData";
 
 
         private AsyncOperationHandle<IList<ChapterDataSO>> _chapterDataSOListHandle;
@@ -31,10 +32,17 @@ namespace SurvivorsLike
 
         #region MapData
         private AsyncOperationHandle<IList<MapDataSO>> _mapDataSOListHandle;
+        //Dictionary<맵 아이디, MapDataSO>
         private readonly Dictionary<int, MapDataSO> _mapDataSODic = new();
 
         public IReadOnlyDictionary<int, MapDataSO> MapDataSODic => _mapDataSODic;
-        
+        #endregion
+
+        #region SkillData
+        private AsyncOperationHandle<IList<SkillDataSO>> _skillDataSOListHandle;
+        //Dictionary<스킬 아이디, SkillDataSO>
+        private readonly Dictionary<int, SkillDataSO> _skillDataSODic = new();
+        public IReadOnlyDictionary<int, SkillDataSO> SkillDataSODic => _skillDataSODic;
         #endregion
 
 
@@ -43,9 +51,9 @@ namespace SurvivorsLike
             ReleaseDataSOListHandle();
             await LoadMapDataAsync(ct);
             await LoadChapterDataAsync(ct);
+            await LoadSkillDataAsync(ct);
         }
 
-        //dㅇㅁㄴ
         private async UniTask LoadChapterDataAsync(CancellationToken ct)
         {
             //어드레서블 어셋을 비동기 로드 시작
@@ -121,6 +129,30 @@ namespace SurvivorsLike
             Debug.Log($"[DataManager] MapData {_mapDataSODic.Count}개 로드 완료");
         }
 
+        private async UniTask LoadSkillDataAsync(CancellationToken ct)
+        {
+            //어드레서블 어셋을 비동기 로드 시작
+            _skillDataSOListHandle = Addressables.LoadAssetsAsync<SkillDataSO>(SkillDataLabel, null);
+
+            await _skillDataSOListHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            ct.ThrowIfCancellationRequested();
+
+            if (_skillDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"[DataManager] SkillData 로드 실패: {_skillDataSOListHandle.OperationException}");
+                return;
+            }
+
+            _skillDataSODic.Clear();
+            foreach (var skillData in _skillDataSOListHandle.Result)
+            {
+                _skillDataSODic.Add(skillData.SkillId, skillData);
+            }
+
+            Debug.Log($"[DataManager] SkillData {_skillDataSODic.Count}개 로드 완료");
+        }
+
+
         private void ReleaseDataSOListHandle()
         {
             if(_chapterDataSOListHandle.IsValid() == true)
@@ -133,6 +165,12 @@ namespace SurvivorsLike
             {
                 Addressables.Release(_mapDataSOListHandle);
                 _mapDataSODic.Clear();
+            }
+
+            if (_skillDataSOListHandle.IsValid() == true)
+            {
+                Addressables.Release(_skillDataSOListHandle);
+                _skillDataSODic.Clear();
             }
         }
 

@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 198747365}
   - component: {fileID: 198747364}
   - component: {fileID: 198747366}
+  - component: {fileID: 198747367}
   m_Layer: 0
   m_Name: GameDataDownloadManager
   m_TagString: Untagged
@@ -185,6 +186,7 @@ MonoBehaviour:
   _downloaders:
   - {fileID: 198747364}
   - {fileID: 198747366}
+  - {fileID: 198747367}
 --- !u!114 &198747366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +202,22 @@ MonoBehaviour:
   sheetName: MapData
   sheetGid: 486600733
   saveFolderPath: Assets/_Project/Data/Map
+  spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
+--- !u!114 &198747367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198747361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f517a7d2826843149a7b060dc02089a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.LinearProjectileSkillSheetDownloader
+  sheetName: LinearProjectileSkillData
+  sheetGid: 389373375
+  saveFolderPath: Assets/_Project/Data/Skill
   spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
 --- !u!1 &320198488
 GameObject:

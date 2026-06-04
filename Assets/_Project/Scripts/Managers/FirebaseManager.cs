@@ -164,15 +164,15 @@ namespace SurvivorsLike
                                               .Collection("profile").Document("data");
 
                 var dicData = new Dictionary<string, object>
-            {
-                { "userId", userData.UserId },
-                { "nickName", userData.NickName },
-                { "level", userData.Level },
-                { "gold", userData.Gold },
-                { "gem", userData.Gem },
-                { "selectedChapterId", userData.SelectedChapterId },
-                { "lastClearedChapterId", userData.LastClearedChapterId },
-            };
+                {
+                    { "userId", userData.UserId },
+                    { "nickName", userData.NickName },
+                    { "level", userData.Level },
+                    { "gold", userData.Gold },
+                    { "gem", userData.Gem },
+                    { "selectedChapterId", userData.SelectedChapterId },
+                    { "lastClearedChapterId", userData.LastClearedChapterId },
+                };
 
                 //SetAsync함수를 통해 데이터를 서버에 업로드~
                 await docRef.SetAsync(dicData).AsUniTask().AttachExternalCancellation(ct);;
