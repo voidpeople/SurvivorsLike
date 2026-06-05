@@ -22,18 +22,27 @@ namespace SurvivorsLike
         [SerializeField] private JoystickBase _joystick;
         private PlayerAnimationController _animationController;
 
-        private PlayerMovement  _movement;
+        private PlayerMovement _movement;
+        private TargetFinder _targetFinder;
+
 
         private void Awake()
         {
             TryGetComponent(out _movement);
+            TryGetComponent(out _targetFinder);
             _animationController = GetComponentInChildren<PlayerAnimationController>();
         }
 
         private void Update()
         {
-            _movement.SetMove(_joystick.IsPressed);
+            _targetFinder.Finding(50f);
+            Transform trans = _targetFinder.GetNearestTarget();
+            if(trans != null)
+            {
+                Debug.Log($"{Time.deltaTime} - {trans.gameObject.name}");
+            }
 
+            _movement.SetMove(_joystick.IsPressed);
             _movement.SetInputDirection(_joystick.InputValue);
             _animationController.SetSpeed(_movement.AnimatorSpeed);
         }

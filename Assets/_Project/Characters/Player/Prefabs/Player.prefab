@@ -146,6 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1ebb6a1bb38646449114801da1d4226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetFinder
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  _maxDetectCount: 50
 --- !u!114 &3152020959518446709
 MonoBehaviour:
   m_ObjectHideFlags: 0
