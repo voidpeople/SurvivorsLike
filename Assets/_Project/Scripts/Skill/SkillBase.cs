@@ -28,7 +28,7 @@ namespace SurvivorsLike
             }
         }
 
-        public virtual bool UseSkill()
+        public virtual bool TryUseSkill()
         {
             if (IsReady == false)
                 return false;

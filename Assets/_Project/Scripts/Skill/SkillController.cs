@@ -15,38 +15,28 @@ namespace SurvivorsLike
 
         public void Init()
         {
-
+            _skillList.Clear();
         }
 
-        public void UseAllSkill()
+        public bool AddSkill(SkillDataSO data)
         {
-            foreach (SkillBase skill in _skillList)
-            {
-                skill.UseSkill();
-            }
+            return true;
         }
 
-        public void StopAllSkill()
-        {
-            foreach (SkillBase skill in _skillList)
-            {
-                skill.StopSkill();
-            }
-        }
-
-        public void UseSkill(int skillId)
-        {
-
-        }
-
-        public void StopSkill(int skillId)
+        public void UpgradeSkill(int skillId, int newLevel)
         {
 
         }
 
         private void Update()
         {
-            //_skills
+            float dt = Time.deltaTime;
+            int count = _skillList.Count;
+            for(int ii = 0; ii < count; ++ii)
+            {
+                _skillList[ii].Tick(dt);
+                _skillList[ii].TryUseSkill();
+            }
         }
     }
 }
