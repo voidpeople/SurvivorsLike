@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 
+
+
 namespace SurvivorsLike
 {
-    //야구 빠따, 루실
-    public class MeleeSkill : SkillBase
+    //화염병, 폭탄
+    public class AreaSkill : SkillBase
     {
         public override void OnUseSkill()
         {

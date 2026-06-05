@@ -9,5 +9,10 @@ namespace SurvivorsLike
     {
         public float AttackRange;
         public float AttackAngle; //캐릭터 정면을 기준으로 어느 정도 앵글 범위로 스킬을 사용할 것인가? 만약 360이면 모든 범위 공격~
+
+        public override float GetCooldown(int level)
+        {
+            return 0f;
+        }
     }
 }

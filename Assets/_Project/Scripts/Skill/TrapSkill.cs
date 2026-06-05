@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
+
 namespace SurvivorsLike
 {
-    //야구 빠따, 루실
-    public class MeleeSkill : SkillBase
+    //지뢰
+    public class TrapSkill : SkillBase
     {
         public override void OnUseSkill()
         {
