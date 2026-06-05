@@ -11,5 +11,7 @@ namespace SurvivorsLike
         public string SkillName;
         public string IconKey; //UI 상의 스킬 아이콘 스프라이트 이름
         public string PrefabKey;
+
+        public abstract float GetCooldown(int level);
     }
 }

@@ -1,52 +1,52 @@
-﻿using NUnit.Framework;
-using SurvivorsLike;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
-public class SkillController : MonoBehaviour
+
+namespace SurvivorsLike
 {
-    //SkillDataSO 데이터로 부터 사용하는 스킬들에 대한
-    //스킬 인스턴스를 생성하여 _skills에 추가한다.
-    private SkillBase[] _skills;
-
-    private void Awake()
+    public class SkillController : MonoBehaviour
     {
+        //8개의 스킬 슬롯
+        private const int MaxSkillSlot = 8;
 
-    }
+        private readonly List<SkillBase> _skillList = new List<SkillBase>(MaxSkillSlot);
 
-    public void Init()
-    {
 
-    }
-
-    public void UseAllSkill()
-    {
-        foreach(SkillBase skill in _skills)
+        public void Init()
         {
-            skill.UseSkill();
-        }
-    }
 
-    public void StopAllSkill()
-    {
-        foreach (SkillBase skill in _skills)
+        }
+
+        public void UseAllSkill()
         {
-            skill.StopSkill();
+            foreach (SkillBase skill in _skillList)
+            {
+                skill.UseSkill();
+            }
         }
-    }
 
-    public void UseSkill(int skillId)
-    {
+        public void StopAllSkill()
+        {
+            foreach (SkillBase skill in _skillList)
+            {
+                skill.StopSkill();
+            }
+        }
 
-    }
+        public void UseSkill(int skillId)
+        {
 
-    public void StopSkill(int skillId)
-    {
+        }
 
-    }
+        public void StopSkill(int skillId)
+        {
 
-    private void Update()
-    {
-        //_skills
+        }
+
+        private void Update()
+        {
+            //_skills
+        }
     }
 }

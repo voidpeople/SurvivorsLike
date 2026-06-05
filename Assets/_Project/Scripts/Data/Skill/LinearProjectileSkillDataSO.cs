@@ -36,5 +36,14 @@ namespace SurvivorsLike
             Debug.LogError($"LinearProjectileSkillLevelData 데이터를 찾을 수 없음~ : SkillId - {SkillId}, Level - {level}");
             return null;
         }
+
+        public override float GetCooldown(int level)
+        {
+            LinearProjectileSkillLevelData data = GetLevelData(level);
+            if (data != null)
+                return data.Cooldown;
+
+            return 0f;
+        }
     }
 }

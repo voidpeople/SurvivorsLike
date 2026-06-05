@@ -1,15 +1,21 @@
-﻿using SurvivorsLike;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MeleeSkill : SkillBase
+namespace SurvivorsLike
 {
-    public override void Init()
+    public class MeleeSkill : SkillBase
     {
-        base.Init();
-    }
+        public override void Init(SkillDataSO data, int level = 1)
+        { 
+            base.Init(data, level);
+        }
 
-    public override void UseSkill()
-    {
-        base.UseSkill();
+        public override bool UseSkill()
+        {
+            return base.UseSkill();
+        }
+
+        public override void OnUseSkill()
+        {
+        }
     }
 }

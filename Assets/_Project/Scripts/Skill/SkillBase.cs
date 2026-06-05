@@ -20,17 +20,46 @@ namespace SurvivorsLike
             _cooldownTimer = 0f;
         }
 
-        public virtual void Tick(float dt)
+        public void Tick(float deltaTime)
         {
-
+            if(_cooldownTimer > 0f)
+            {
+                _cooldownTimer -= deltaTime;
+            }
         }
 
-        public virtual void UseSkill()
+        public virtual bool UseSkill()
         {
+            if (IsReady == false)
+                return false;
+
+            _cooldownTimer = GetCurrentLevelCooldown();
+            OnUseSkill();
+
+            return true;
+        }
+
+        //파생 클래스에서 구현~
+        public abstract void OnUseSkill();
+
+        private float GetCurrentLevelCooldown()
+        {
+            if (_skillData != null)
+            {
+                return _skillData.GetCooldown(_currentLevel);
+            }
+
+            return 0f;
+        }
+
+        public void SetLevel(int level)
+        {
+            _currentLevel = level;
         }
 
         public virtual void StopSkill()
         {
+            _cooldownTimer = 0f;
         }
     }
 }
