@@ -36,11 +36,11 @@ namespace SurvivorsLike
         private void Update()
         {
             _targetFinder.Finding(50f);
-            Transform trans = _targetFinder.GetNearestTarget();
-            if(trans != null)
-            {
-                Debug.Log($"{Time.deltaTime} - {trans.gameObject.name}");
-            }
+            //Transform trans = _targetFinder.GetNearestTarget();
+            //if(trans != null)
+            //{
+            //    Debug.Log($"{Time.deltaTime} - {trans.gameObject.name}");
+            //}
 
             _movement.SetMove(_joystick.IsPressed);
             _movement.SetInputDirection(_joystick.InputValue);

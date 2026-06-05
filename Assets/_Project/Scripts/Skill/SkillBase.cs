@@ -5,26 +5,32 @@ namespace SurvivorsLike
 {
     public abstract class SkillBase
     {
-        private bool _isActive;
+        protected SkillDataSO _skillData;
+        private int _currentLevel = 1;
+        private float _cooldownTimer;
 
-        public virtual void Init()
+        //사용 가능 여부
+        public bool IsReady { get { return (_cooldownTimer <= 0f); } }
+
+
+        public virtual void Init(SkillDataSO data, int level = 1)
         {
-            _isActive = false;
+            _skillData = data;
+            _currentLevel = level;
+            _cooldownTimer = 0f;
         }
 
-        public virtual void SetActive(bool isActive)
+        public virtual void Tick(float dt)
         {
-            _isActive = isActive;
+
         }
 
         public virtual void UseSkill()
         {
-            _isActive = true;
         }
 
         public virtual void StopSkill()
         {
-            _isActive = false;
         }
     }
 }
