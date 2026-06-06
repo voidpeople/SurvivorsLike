@@ -14,18 +14,15 @@ namespace SurvivorsLike
                 return null;
             }
 
-            SkillBase skill = null;
-            switch (data)
+            SkillBase skill = data switch
             {
-                case MeleeSkillDataSO:
-                    skill = new MeleeSkill(); break;
-                case LinearProjectileSkillDataSO:
-                    skill = new LinearProjectileSkill(); break;
-                default:
-                    Debug.LogError($"SkillFactory::Create() - 미 등록 스킬 타입: {data.GetType().Name}");
-                    skill = null;
-                    break;
-            }
+                MeleeSkillDataSO => new MeleeSkill(),
+                LinearProjectileSkillDataSO => new LinearProjectileSkill(),
+                _ => null
+            };
+
+            if (skill == null)
+                Debug.LogError($"SkillFactory::Create() - 미등록 SkillDataSO 타입: {data.GetType().Name}");
 
             return skill;
         }

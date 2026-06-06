@@ -23,6 +23,9 @@ namespace SurvivorsLike
             if (_skillList.Count >= MaxSkillSlot)
                 return false;
 
+            SkillBase skill = SkillFactory.Create(data);
+            skill.Init(data);
+            _skillList.Add(skill);
 
             return true;
         }
