@@ -20,6 +20,10 @@ namespace SurvivorsLike
 
         public bool AddSkill(SkillDataSO data)
         {
+            if (_skillList.Count >= MaxSkillSlot)
+                return false;
+
+
             return true;
         }
 
