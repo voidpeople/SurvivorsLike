@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace SurvivorsLike
 {
-    public class PoolableParticle : PoolableObject
+    public class PoolableParticle : MonoBehaviour, IPoolable
     {
         private ParticleSystem _ps;
+        
+
         private void Awake()
         {
             _ps = GetComponentInChildren<ParticleSystem>();
@@ -15,7 +17,7 @@ namespace SurvivorsLike
         // 자연 종료 시 엔진이 자동 호출 — Inspector: Stop Action → Callback 필수
         private void OnParticleSystemStopped()
         {
-            Return(); // 부모의 Return()
+            ReturnToPool();
         }
 
         public void Play()
@@ -38,5 +40,21 @@ namespace SurvivorsLike
             _ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             _ps.Play();
         }
+
+        #region IPoolable
+        public string PoolKey { get; set; }
+        public void OnGetFromPool()
+        {
+        }
+
+        public void OnReturnToPool()
+        {
+        }
+
+        public void ReturnToPool()
+        {
+            PoolManager.Instance.Return(this);
+        }
+        #endregion
     }
 }
