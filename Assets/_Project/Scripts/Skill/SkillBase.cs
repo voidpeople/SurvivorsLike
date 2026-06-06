@@ -10,11 +10,19 @@ namespace SurvivorsLike
         private float _cooldownTimer;
 
         //사용 가능 여부
-        public bool IsReady { get { return (_cooldownTimer <= 0f); } }
+        public bool IsReady => (_cooldownTimer <= 0f);
+
+        public int SkillId => _skillData.SkillId;
 
 
         public virtual void Init(SkillDataSO data, int level = 1)
         {
+            if (data == null)
+            {
+                Debug.LogError($"SkillBase::Init() - data is null!");
+                return;
+            }
+
             _skillData = data;
             _currentLevel = level;
             _cooldownTimer = 0f;
@@ -44,12 +52,7 @@ namespace SurvivorsLike
 
         private float GetCurrentLevelCooldown()
         {
-            if (_skillData != null)
-            {
-                return _skillData.GetCooldown(_currentLevel);
-            }
-
-            return 0f;
+            return _skillData.GetCooldown(_currentLevel);
         }
 
         public void SetLevel(int level)

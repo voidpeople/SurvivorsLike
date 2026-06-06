@@ -25,7 +25,15 @@ namespace SurvivorsLike
 
         public void UpgradeSkill(int skillId, int newLevel)
         {
-
+            int count = _skillList.Count;
+            for (int ii = 0; ii < count; ++ii)
+            {
+                if(_skillList[ii].SkillId == skillId)
+                {
+                    _skillList[ii].SetLevel(newLevel);
+                    return;
+                }
+            }
         }
 
         private void Update()
