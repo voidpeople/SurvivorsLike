@@ -62,7 +62,8 @@ namespace SurvivorsLike
 
             InitResultPanelAsync(ct);
 
-            //이벤트 발행자 등록
+            await UniTask.Delay(5000, cancellationToken: ct);
+            //이벤트 발송~
             InGameEventBus.OnInGameStart.OnNext(Unit.Default);
         }
 

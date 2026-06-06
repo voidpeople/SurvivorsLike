@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using R3;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,7 +24,11 @@ namespace SurvivorsLike
 
         private CancellationTokenSource _cts;
         public CancellationToken CTS { get { return _cts.Token; } }
-        
+
+        private bool _isPlaying;
+
+        private readonly CompositeDisposable _disposables = new();
+
 
         private void Awake()
         {
@@ -40,6 +45,15 @@ namespace SurvivorsLike
             TryGetComponent(out EnemyHealth _health);
 
             CreateFSM();
+
+            _isPlaying = false;
+        }
+        private void Start()
+        {
+            InGameEventBus.OnInGameStart
+                .Take(1)
+                .Subscribe(_ => OnGameStart())
+                .AddTo(_disposables);
         }
 
         private void CreateFSM()
@@ -51,7 +65,6 @@ namespace SurvivorsLike
             _fsm.RegisterState(EnemyStateType.Dead, new EnemyDeadState(this, _fsm));
         }
 
-
         //타겟은 플레이어 캐릭터 하나 이므로
         //적 캐릭터가 스폰되자 마자 Init 함수를 통해 타겟이 설정됨~
         public void Init(Transform targetTrasnform)
@@ -61,6 +74,11 @@ namespace SurvivorsLike
 
             TargetTransform.TryGetComponent(out PlayerHealth health);
             health.OnDead += OnTargetDied;
+        }
+
+        void OnGameStart()
+        {
+            _isPlaying = true;
         }
 
         //Enemy 캐릭터가 목표 위치에 도착하면 통보 받는 함수
@@ -77,6 +95,9 @@ namespace SurvivorsLike
 
         private void Update()
         {
+            if (_isPlaying == false)
+                return;
+
 #if UNITY_EDITOR
             if (_fsm != null)
                 _currentStateType = _fsm.CurrentType;

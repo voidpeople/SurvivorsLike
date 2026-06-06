@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using R3;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -12,6 +14,22 @@ namespace SurvivorsLike
 
         private readonly List<SkillBase> _skillList = new List<SkillBase>(MaxSkillSlot);
 
+        private bool _isPlaying;
+
+        private readonly CompositeDisposable _disposables = new();
+
+        private void Awake()
+        {
+            _isPlaying = false;
+        }
+
+        private void Start()
+        {
+            InGameEventBus.OnInGameStart
+                .Take(1)
+                .Subscribe(_ => OnGameStart())
+                .AddTo(_disposables);
+        }
 
         public void Init()
         {
@@ -45,6 +63,9 @@ namespace SurvivorsLike
 
         private void Update()
         {
+            if (_isPlaying == false)
+                return;
+
             float dt = Time.deltaTime;
             int count = _skillList.Count;
             for(int ii = 0; ii < count; ++ii)
@@ -52,6 +73,15 @@ namespace SurvivorsLike
                 _skillList[ii].Tick(dt);
                 _skillList[ii].TryUseSkill();
             }
+        }
+        void OnGameStart()
+        {
+            _isPlaying = true;
+        }
+
+        private void OnDestroy()
+        {
+            _disposables.Dispose();
         }
     }
 }

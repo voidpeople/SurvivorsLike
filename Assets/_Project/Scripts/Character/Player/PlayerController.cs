@@ -43,6 +43,7 @@ namespace SurvivorsLike
         private void Start()
         {
             InGameEventBus.OnInGameStart
+                .Take(1)
                 .Subscribe(_ => OnGameStart())
                 .AddTo(_disposables);
         }
@@ -55,10 +56,9 @@ namespace SurvivorsLike
                 _skillController.AddSkill(data);
             }
         }
-
-        private void OnGameStart()
+        void OnGameStart()
         {
-
+            _isPlaying = true;
         }
 
         private void Update()
