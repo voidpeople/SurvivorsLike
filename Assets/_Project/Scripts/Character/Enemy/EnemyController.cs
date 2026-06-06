@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace SurvivorsLike
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, IPoolable
     {
         [SerializeField] private EnemyStateType _currentStateType;
 
@@ -23,6 +23,7 @@ namespace SurvivorsLike
 
         private CancellationTokenSource _cts;
         public CancellationToken CTS { get { return _cts.Token; } }
+        
 
         private void Awake()
         {
@@ -90,5 +91,24 @@ namespace SurvivorsLike
             _cts?.Dispose();  //내부 WaitHandle 등 비관리 리소스 해제
             _cts = null;
         }
+
+        #region IPoolable
+        public string PoolKey { get; set; }
+
+        public void OnGetFromPool()
+        {
+
+        }
+
+        public void OnReturnToPool()
+        {
+
+        }
+
+        public void ReturnToPool()
+        {
+            PoolManager.Instance.Return(this);
+        }
+        #endregion
     }
 }

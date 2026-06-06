@@ -7,9 +7,10 @@ namespace SurvivorsLike
     {
         public string Address { get; internal set; }
 
+
         public void Return()
         {
-            PoolManager.Instance.Return(this);
+            //PoolManager.Instance.Return(this);
         }
     }
 }

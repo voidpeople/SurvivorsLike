@@ -15,21 +15,21 @@ namespace SurvivorsLike
         //나중에 Release을 위해 핸들 보관
         private readonly Dictionary<string, AsyncOperationHandle<GameObject>> _asyncOpHandleDic = new();
 
-        public GameObject Get(string address)
+        public GameObject Get(string poolKey)
         {
-            if (_poolDic.TryGetValue(address, out var pool))
+            if (_poolDic.TryGetValue(poolKey, out var pool))
             {
                 return pool.Get();
             }
 
-            Debug.LogError($"[PoolManager] 미등록 키: {address}");
+            Debug.LogError($"[PoolManager] 미등록 키: {poolKey}");
             return null;
         }
 
         //EnemyController enemy = PoolManager.Instance.Get<EnemyController>("enemy/spiderBot");
-        public T Get<T>(string address) where T : Component
+        public T Get<T>(string poolKey) where T : Component
         {
-            GameObject obj = Get(address); 
+            GameObject obj = Get(poolKey); 
             if (obj != null)
                 return obj.GetComponent<T>();
 
@@ -37,24 +37,33 @@ namespace SurvivorsLike
         }
 
         //반환
-        public void Return(PoolableObject poolableObj)
+        //public void Return(PoolableObject poolableObj)
+        //{
+        //    if (_poolDic.TryGetValue(poolableObj.PoolKey, out var pool))
+        //        pool.Release(poolableObj.gameObject);
+        //    else
+        //        Object.Destroy(poolableObj.gameObject);
+        //}
+
+        public void Return(IPoolable poolable)
         {
-            if (_poolDic.TryGetValue(poolableObj.Address, out var pool))
-                pool.Release(poolableObj.gameObject);
+            MonoBehaviour mono = poolable as MonoBehaviour;
+            if (_poolDic.TryGetValue(poolable.PoolKey, out var pool))
+                pool.Release(mono.gameObject);
             else
-                Object.Destroy(poolableObj.gameObject);
+                Object.Destroy(mono.gameObject);
         }
 
         //사전에 오브젝트 생성
         public async UniTask PreCreateAsync(
-            string address,
+            string poolKey,
             int count,
             int batchSize = 10,
             CancellationToken ct = default)
         {
-            if (!_poolDic.TryGetValue(address, out var pool))
+            if (!_poolDic.TryGetValue(poolKey, out var pool))
             {
-                Debug.LogError($"[PoolManager] PreCreateAsync 실패 — 미등록: {address}");
+                Debug.LogError($"[PoolManager] PreCreateAsync 실패 — 미등록: {poolKey}");
                 return;
             }
 
@@ -76,16 +85,16 @@ namespace SurvivorsLike
 
         //풀 생성~
         public async UniTask CreatePoolAsync(
-            string address,
+            string poolKey,
             int defaultCapacity = 100,
             int maxSize = 300,
             CancellationToken ct = default)
         {
             //중복 방지
-            if (_poolDic.ContainsKey(address))
+            if (_poolDic.ContainsKey(poolKey))
                 return;
 
-            AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(address);            
+            AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(poolKey);            
 
             GameObject prefab = null;
             try
@@ -100,21 +109,32 @@ namespace SurvivorsLike
 
             if (prefab == null)
             {
-                Debug.LogError($"[PoolManager] 프리팹 로드 실패: {address}");
+                Debug.LogError($"[PoolManager] 프리팹 로드 실패: {poolKey}");
                 Addressables.Release(handle);
                 return;
             }
 
-            _asyncOpHandleDic.Add(address, handle);
+            _asyncOpHandleDic.Add(poolKey, handle);
 
             ObjectPool<GameObject> newPool = new ObjectPool<GameObject>(
                 createFunc: () =>
                 {
+                    //GameObject obj = Object.Instantiate(prefab);
+                    //PoolableObject poolableObj = obj.GetComponent<PoolableObject>();
+                    //if(poolableObj == null)
+                    //    poolableObj = obj.AddComponent<PoolableObject>();
+                    //poolableObj.PoolKey = poolKey;
+
+                    //return obj;
+
                     GameObject obj = Object.Instantiate(prefab);
-                    PoolableObject poolableObj = obj.GetComponent<PoolableObject>();
-                    if(poolableObj == null)
-                        poolableObj = obj.AddComponent<PoolableObject>();
-                    poolableObj.Address = address;
+                    IPoolable poolableObj = obj.GetComponent<IPoolable>();
+                    if (poolableObj == null)
+                    {
+                        Debug.LogError($"PoolManager::CreatePoolAsync() - IPoolable가 없는 오브젝트 있음~ : poolKey - {poolKey} ");
+                        return null;
+                    }                        
+                    poolableObj.PoolKey = poolKey;
 
                     return obj;
                 },
@@ -129,32 +149,32 @@ namespace SurvivorsLike
                 defaultCapacity: defaultCapacity,
                 //풀이 보유할 수 있는 최대 오브젝트의 수 (이 사이즈를 초과하는 오브젝트는 자동으로 Destroy가 된다.)
                 maxSize: maxSize); 
-            _poolDic.Add(address, newPool);
+            _poolDic.Add(poolKey, newPool);
         }
 
         //인게임에서 나올 떄 해당 챕터의 오브젝트들 해제~
-        public void ReleasePool(string address)
+        public void ReleasePool(string poolKey)
         {
-            if (_poolDic.TryGetValue(address, out var pool))
+            if (_poolDic.TryGetValue(poolKey, out var pool))
             {
                 //풀 내 오브젝트 Destroy
                 pool.Dispose(); 
-                _poolDic.Remove(address);
+                _poolDic.Remove(poolKey);
             }
 
-            if (_asyncOpHandleDic.TryGetValue(address, out var handle))
+            if (_asyncOpHandleDic.TryGetValue(poolKey, out var handle))
             {
                 //메모리 해제
                 Addressables.Release(handle); 
-                _asyncOpHandleDic.Remove(address);
+                _asyncOpHandleDic.Remove(poolKey);
             }
         }
 
         protected override void OnDestroy()
         {
-            foreach (string address in new List<string>(_poolDic.Keys))
+            foreach (string poolKey in new List<string>(_poolDic.Keys))
             {
-                ReleasePool(address);
+                ReleasePool(poolKey);
             }
 
             base.OnDestroy();

@@ -30,8 +30,7 @@ namespace SurvivorsLike
             await UniTask.Delay(1000, cancellationToken: ct);
 
             //Pool매니저에 반환
-            _ctrl.TryGetComponent<PoolableObject>(out PoolableObject poolableObj);
-            poolableObj?.Return();
+            _ctrl.ReturnToPool();
         }
     }
 }

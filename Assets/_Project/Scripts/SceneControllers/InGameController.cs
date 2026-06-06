@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using R3;
 
 
 namespace SurvivorsLike
@@ -29,8 +30,9 @@ namespace SurvivorsLike
 
         private async UniTaskVoid Start()
         {
-            CancellationToken ct = this.GetCancellationTokenOnDestroy();
+            GameManager.Instance.SetGameState(GameState.InGame);
 
+            CancellationToken ct = this.GetCancellationTokenOnDestroy();            
 #if UNITY_EDITOR
             var activeScene = SceneManager.GetActiveScene();
             bool isDirectLaunch = activeScene.buildIndex != 0;
@@ -38,9 +40,7 @@ namespace SurvivorsLike
             {
                 await _devManager.PrepareInGameAsync(ct);
             }
-#endif
-
-            GameManager.Instance.SetGameState(GameState.InGame);           
+#endif           
 
             MapDataSO mapData = GameManager.Instance.SessionData.ChapterData.MapData;
             // 모든 시스템 병렬 로드 — 각 시스템이 자신의 에셋만 책임
@@ -61,6 +61,9 @@ namespace SurvivorsLike
             await PoolManager.Instance.PreCreateAsync("vfx/explosion/explosion01", 1, 10, ct);
 
             InitResultPanelAsync(ct);
+
+            //이벤트 발행자 등록
+            InGameEventBus.OnInGameStart.OnNext(Unit.Default);
         }
 
         private void OnDestroy()

@@ -1,6 +1,5 @@
-﻿using SurvivorsLike;
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
+using R3;
 
 
 
@@ -24,17 +23,49 @@ namespace SurvivorsLike
 
         private PlayerMovement _movement;
         private TargetFinder _targetFinder;
+        private SkillController _skillController;
+
+        private bool _isPlaying;
+
+        private readonly CompositeDisposable _disposables = new();
 
 
         private void Awake()
         {
             TryGetComponent(out _movement);
             TryGetComponent(out _targetFinder);
+            TryGetComponent(out _skillController);
             _animationController = GetComponentInChildren<PlayerAnimationController>();
+
+            _isPlaying = false;
+        }
+
+        private void Start()
+        {
+            InGameEventBus.OnInGameStart
+                .Subscribe(_ => OnGameStart())
+                .AddTo(_disposables);
+        }
+
+        private void Init()
+        {
+            //기본 스킬이 쿠나이 스킬 추가
+            if(DataManager.Instance.SkillDataSODic.TryGetValue(1001, out SkillDataSO data) == true)
+            {
+                _skillController.AddSkill(data);
+            }
+        }
+
+        private void OnGameStart()
+        {
+
         }
 
         private void Update()
         {
+            if (_isPlaying == false)
+                return;
+
             _targetFinder.Finding(50f);
             //Transform trans = _targetFinder.GetNearestTarget();
             //if(trans != null)
@@ -45,6 +76,11 @@ namespace SurvivorsLike
             _movement.SetMove(_joystick.IsPressed);
             _movement.SetInputDirection(_joystick.InputValue);
             _animationController.SetSpeed(_movement.AnimatorSpeed);
+        }
+
+        private void OnDestroy()
+        {
+            _disposables.Dispose();
         }
     }
 }
