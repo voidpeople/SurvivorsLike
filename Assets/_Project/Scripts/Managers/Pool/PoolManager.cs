@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -11,9 +12,14 @@ namespace SurvivorsLike
 {
     public class PoolManager : SingletonMonoBehaviour<PoolManager>
     {
-        private readonly Dictionary<string, ObjectPool<GameObject>> _poolDic = new();
+        private Dictionary<string, ObjectPool<GameObject>> _poolDic = new();
+        private Dictionary<GameObject, string> _poolKeyDic = new();
         //나중에 Release을 위해 핸들 보관
-        private readonly Dictionary<string, AsyncOperationHandle<GameObject>> _asyncOpHandleDic = new();
+        private Dictionary<string, AsyncOperationHandle<GameObject>> _asyncOpHandleDic = new();
+        // 풀마다 독립적인 IPoolable 캐시 — GetComponent 반복 호출 방지
+        private Dictionary<GameObject, IPoolable> _iPoolableCacheDic = new();
+
+        private bool _isPrewarming;
 
         public GameObject Get(string poolKey)
         {
@@ -22,7 +28,7 @@ namespace SurvivorsLike
                 return pool.Get();
             }
 
-            Debug.LogError($"[PoolManager] 미등록 키: {poolKey}");
+            Debug.LogError($"PoolManager::Get - 미등록 키: {poolKey}");
             return null;
         }
 
@@ -36,22 +42,24 @@ namespace SurvivorsLike
             return null;           
         }
 
-        //반환
-        //public void Return(PoolableObject poolableObj)
-        //{
-        //    if (_poolDic.TryGetValue(poolableObj.PoolKey, out var pool))
-        //        pool.Release(poolableObj.gameObject);
-        //    else
-        //        Object.Destroy(poolableObj.gameObject);
-        //}
-
         public void Return(IPoolable poolable)
         {
             MonoBehaviour mono = poolable as MonoBehaviour;
-            if (_poolDic.TryGetValue(poolable.PoolKey, out var pool))
-                pool.Release(mono.gameObject);
+            if (_poolKeyDic.TryGetValue(mono.gameObject, out string key))
+            {
+                if (_poolDic.TryGetValue(key, out var pool))
+                    pool.Release(mono.gameObject);
+                else
+                {
+                    Object.Destroy(mono.gameObject);
+                    Debug.LogError($"PoolManager::Return - ObjectPool이 존재하지 않는 오브젝트를 반환 하려함~ - PoolKey: {key}, GameObject: {mono.gameObject.name}");
+                }
+            }
             else
+            {
                 Object.Destroy(mono.gameObject);
+                Debug.LogError($"PoolManager::Return - PoolKey가 존재하지 않는 오브젝트를 반환 하려함~ - PoolKey: {key}, GameObject: {mono.gameObject.name}");
+            }
         }
 
         //사전에 오브젝트 생성
@@ -67,6 +75,8 @@ namespace SurvivorsLike
                 return;
             }
 
+            _isPrewarming = true;
+
             GameObject[] tempObjs = new GameObject[count];
             for (int ii = 0; ii < count; ++ii)
             {
@@ -81,6 +91,8 @@ namespace SurvivorsLike
             {
                 pool.Release(tempObjs[ii]);
             }
+
+            _isPrewarming = false;
         }
 
         //풀 생성~
@@ -119,31 +131,53 @@ namespace SurvivorsLike
             ObjectPool<GameObject> newPool = new ObjectPool<GameObject>(
                 createFunc: () =>
                 {
-                    //GameObject obj = Object.Instantiate(prefab);
-                    //PoolableObject poolableObj = obj.GetComponent<PoolableObject>();
-                    //if(poolableObj == null)
-                    //    poolableObj = obj.AddComponent<PoolableObject>();
-                    //poolableObj.PoolKey = poolKey;
-
-                    //return obj;
-
                     GameObject obj = Object.Instantiate(prefab);
                     IPoolable poolableObj = obj.GetComponent<IPoolable>();
                     if (poolableObj == null)
                     {
                         Debug.LogError($"PoolManager::CreatePoolAsync() - IPoolable가 없는 오브젝트 있음~ : poolKey - {poolKey} ");
                         return null;
-                    }                        
-                    poolableObj.PoolKey = poolKey;
+                    }
+                    _poolKeyDic.Add(obj, poolKey);
+                    _iPoolableCacheDic.Add(obj, poolableObj);
 
                     return obj;
                 },
-                //오브젝트을 풀에서 꺼낼 때 활성화 되게 설정
-                actionOnGet: obj => obj.SetActive(true),
-                //오브젝트을 풀에 넣을 때 비 활성화 설정
-                actionOnRelease: obj => obj.SetActive(false),
-                //풀의 maxSize을 초과하면 넘치는 오브젝트를 완전히 삭제 할 때 호출하는 로직 등록
-                actionOnDestroy: obj => Object.Destroy(obj),
+                //GameObject Get(string poolKey) 함수에서
+                //return pool.Get(); 로직을 실행할 때 actionOnGet 로직이 실행됨~
+                actionOnGet: obj =>
+                {
+                    obj.SetActive(true);
+
+                    //Prewarm 중 일 때는 OnSpawn 호출 차단
+                    if (_isPrewarming == false)
+                    {
+                        if (_iPoolableCacheDic.TryGetValue(obj, out var poolable))
+                        {
+                            poolable.OnSpawn();
+                        }
+                    }
+                },
+                //void Return(IPoolable poolable) 함수에서
+                //pool.Release(mono.gameObject); 로직이 실행될 때 actionOnRelease 로직이 실행됨~
+                actionOnRelease: obj =>
+                {
+                    //Prewarm 중 일 때는 OnDespawn 호출 차단
+                    if (_isPrewarming == false)
+                    {
+                        if (_iPoolableCacheDic.TryGetValue(obj, out var poolable))
+                        {
+                            poolable.OnDespawn();
+                        }
+                    }
+                    obj.SetActive(false);
+                },
+                actionOnDestroy: obj =>
+                {
+                    _iPoolableCacheDic.Remove(obj);
+                    _poolKeyDic.Remove(obj);
+                    Object.Destroy(obj);
+                },
                 collectionCheck: false,
                 //풀의 인스턴스 생성 후 생성하여 채워야 할 오브젝트 갯수
                 defaultCapacity: defaultCapacity,

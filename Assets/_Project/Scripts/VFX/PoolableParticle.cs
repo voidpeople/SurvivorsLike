@@ -42,12 +42,11 @@ namespace SurvivorsLike
         }
 
         #region IPoolable
-        public string PoolKey { get; set; }
-        public void OnGetFromPool()
+        public void OnSpawn()
         {
         }
 
-        public void OnReturnToPool()
+        public void OnDespawn()
         {
         }
 

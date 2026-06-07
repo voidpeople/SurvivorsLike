@@ -114,16 +114,31 @@ namespace SurvivorsLike
         }
 
         #region IPoolable
-        public string PoolKey { get; set; }
-
-        public void OnGetFromPool()
+        public void OnSpawn()
         {
+            // 재사용 시 CTS 갱신 — Awake()는 최초 1회만 실행되므로 여기서 처리
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = new CancellationTokenSource();
 
+            _isPlaying = false;
         }
 
-        public void OnReturnToPool()
+        public void OnDespawn()
         {
+            // 진행 중인 비동기 작업 취소
+            _cts?.Cancel();
 
+            // R3 구독 전체 해제
+            _disposables.Clear();
+
+            // Init()에서 등록한 PlayerHealth 이벤트 해제 — 중복 누적 방지
+            if (TargetTransform != null)
+            {
+                if (TargetTransform.TryGetComponent(out PlayerHealth health))
+                    health.OnDead -= OnTargetDied;
+                TargetTransform = null;
+            }
         }
 
         public void ReturnToPool()
