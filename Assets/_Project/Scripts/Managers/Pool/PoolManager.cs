@@ -62,6 +62,7 @@ namespace SurvivorsLike
             }
         }
 
+        //TODO: 추후에 대규모 오브젝트 생성시 드랍 발생할 경우 Time Budget 방식으로 수정할 것~
         //사전에 오브젝트 생성
         public async UniTask PreCreateAsync(
             string poolKey,

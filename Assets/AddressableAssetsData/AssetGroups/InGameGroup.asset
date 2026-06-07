@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - GroundMaterial
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 404f7a0811a63484198c9260b923205a
+    m_Address: character/player/player_base
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerPrefab
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ff385545d434f44ca5725d08d5cebb9
     m_Address: character/enemy/spiderbot
     m_ReadOnly: 0
@@ -44,6 +50,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - GroundMaterial
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb111b0d85eaf7741a055447cd25a608
+    m_Address: character/player/robotkyle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerPrefab
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ce1e3262b4e8f419e19b8a78f907e4, type: 2}

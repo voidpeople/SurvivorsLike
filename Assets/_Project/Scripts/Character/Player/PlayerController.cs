@@ -18,12 +18,16 @@ namespace SurvivorsLike
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private JoystickBase _joystick;
-        private PlayerAnimationController _animationController;
+        [Header("모델 프리팹 링크 루트")]
+        [SerializeField] private Transform _modelRoot;
+        public Transform ModelRoot => _modelRoot;
 
+
+        private PlayerAnimationController _animationController;
         private PlayerMovement _movement;
         private TargetFinder _targetFinder;
         private SkillController _skillController;
+        private JoystickBase _joystick;
 
         private bool _isPlaying;
 
@@ -31,32 +35,34 @@ namespace SurvivorsLike
 
 
         private void Awake()
-        {
+        {            
             TryGetComponent(out _movement);
             TryGetComponent(out _targetFinder);
-            TryGetComponent(out _skillController);
-            _animationController = GetComponentInChildren<PlayerAnimationController>();
+            TryGetComponent(out _skillController);            
 
             _isPlaying = false;
         }
 
-        private void Start()
+        public void Init(JoystickBase joystick, PlayerAnimationController animController)
         {
-            Init();
+            _joystick = joystick;
+            if (_joystick == null)
+                Debug.LogError($"PlayerController::Init - _joystick is Null.");
+
+            _animationController = animController;
+            if (_animationController == null)
+                Debug.LogError($"PlayerController::Init - _animationController is Null.");
+
+            //기본 스킬이 쿠나이 스킬 추가
+            if (DataManager.Instance.SkillDataSODic.TryGetValue(1001, out SkillDataSO data) == true)
+            {
+                _skillController.AddSkill(data);
+            }
 
             InGameEventBus.OnInGameStart
                 .Take(1)
                 .Subscribe(_ => OnGameStart())
                 .AddTo(_disposables);
-        }
-
-        private void Init()
-        {
-            //기본 스킬이 쿠나이 스킬 추가
-            if(DataManager.Instance.SkillDataSODic.TryGetValue(1001, out SkillDataSO data) == true)
-            {
-                _skillController.AddSkill(data);
-            }
         }
 
         void OnGameStart()

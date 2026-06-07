@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3818a3000ae3f2f49ba4e97740fa80bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerController
-  _joystick: {fileID: 0}
+  _modelRoot: {fileID: 5523103103264878769}
 --- !u!114 &7063929355543409026
 MonoBehaviour:
   m_ObjectHideFlags: 0

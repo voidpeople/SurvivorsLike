@@ -11,8 +11,10 @@ namespace SurvivorsLike
     public class InGameController : MonoBehaviour
     {
         [Header("게임플레이")]
+        [SerializeField] private PlayerSpawner _playerSpawner;
+        [SerializeField] private CameraController _cameraController;
         [SerializeField] private MapController _mapController;
-        [SerializeField] private Transform _playerTransform;
+
 
         [Header("결과창")]
         [SerializeField] private Canvas _resultPanelCanvas;
@@ -29,10 +31,15 @@ namespace SurvivorsLike
         }
 
         private async UniTaskVoid Start()
+        {          
+            CancellationToken ct = this.GetCancellationTokenOnDestroy();
+            await InitAsync(ct);
+        }
+
+        private async UniTask InitAsync(CancellationToken ct)
         {
             GameManager.Instance.SetGameState(GameState.InGame);
 
-            CancellationToken ct = this.GetCancellationTokenOnDestroy();            
 #if UNITY_EDITOR
             var activeScene = SceneManager.GetActiveScene();
             bool isDirectLaunch = activeScene.buildIndex != 0;
@@ -49,13 +56,16 @@ namespace SurvivorsLike
             );
             await _mapController.SetupMapAsync(mapData, ct);
 
+            await _playerSpawner.SpawnAsync(ct);
+            _cameraController.SetTarget(_playerSpawner.SpawnPlayerController.transform);
+
             await PoolManager.Instance.CreatePoolAsync("character/enemy/spiderbot", 100, 300, ct);
             await PoolManager.Instance.PreCreateAsync("character/enemy/spiderbot", 1, 10, ct);
 
             EnemyController controller = PoolManager.Instance.Get<EnemyController>("character/enemy/spiderbot");
             controller.gameObject.SetActive(true);
             controller.transform.SetPositionAndRotation(new Vector3(0f, 0f, 20f), Quaternion.identity);
-            controller.Init(_playerTransform);
+            controller.Init(_playerSpawner.SpawnPlayerController.transform);
 
             await PoolManager.Instance.CreatePoolAsync("vfx/explosion/explosion01", 100, 300, ct);
             await PoolManager.Instance.PreCreateAsync("vfx/explosion/explosion01", 1, 10, ct);

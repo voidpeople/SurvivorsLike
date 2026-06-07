@@ -21,6 +21,18 @@ namespace SurvivorsLike
 
         private Vector3 _velocity;
 
+        private void Awake()
+        {
+            ApplySettings();
+        }
+
+        //Inspector 값 변경 시 씬 뷰에 즉시 반영
+        private void OnValidate()
+        {
+            if (_camera == null) return;
+            ApplySettings();
+        }
+
         //카메라가 따라가고자 하는 타겟 오브젝트 설정(플레이어 캐릭터~)
         public void SetTarget(Transform target)
         {
@@ -46,19 +58,6 @@ namespace SurvivorsLike
         public void ResetZoom(float duration = 0.5f)
         {
             ZoomTo(_defaultFOV, duration);
-        }
-
-
-        private void Awake()
-        {
-            ApplySettings();
-        }
-
-        //Inspector 값 변경 시 씬 뷰에 즉시 반영
-        private void OnValidate()
-        {
-            if (_camera == null) return;
-            ApplySettings();
         }
 
         private void ApplySettings()
