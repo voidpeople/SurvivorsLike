@@ -51,7 +51,6 @@ namespace SurvivorsLike
         private void Start()
         {
             InGameEventBus.OnInGameStart
-                .Take(1)
                 .Subscribe(_ => OnGameStart())
                 .AddTo(_disposables);
         }

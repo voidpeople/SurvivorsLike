@@ -11,14 +11,14 @@ namespace SurvivorsLike
         //"1001" => Kunai 그룹 => KunaiSkillData.asset
         //"1002" => DrillShot 그룹 => DrillShotSkillData.asset
         protected override string GetGroupKey(Dictionary<string, string> row)
-            => Str(row, "SkillId");
+            => Str(row, "Id");
 
         protected override LinearProjectileSkillDataSO CreateSO(
             string groupKey, Dictionary<string, string> firstRow)
         {
             var so = ScriptableObject.CreateInstance<LinearProjectileSkillDataSO>();
-            so.SkillId = Int(firstRow, "SkillId");    
-            so.SkillName = Str(firstRow, "SkillName");
+            so.Id = Int(firstRow, "Id");    
+            so.Name = Str(firstRow, "Name");
             so.PrefabKey = Str(firstRow, "PrefabKey");  
             so.IconKey = Str(firstRow, "IconKey");   
             return so;
@@ -45,6 +45,6 @@ namespace SurvivorsLike
             => so.LevelDataList = dataList;
 
         protected override string GetAssetFileName(LinearProjectileSkillDataSO so)
-            => $"LinearProjectileSkill_{so.SkillName}";
+            => $"LinearProjectileSkill_{so.Name}";
     }
 }

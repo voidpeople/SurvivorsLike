@@ -10,7 +10,7 @@ namespace SurvivorsLike
     public class MapDataSO : ScriptableObject
     {
         [Title("맵 아이디")]
-        public int MapId;
+        public int Id;
 
         [Title("그라운드")]
         public string GroundMaterialKey;        // Addressables 키. 공유 Ground Mesh의 머티리얼 교체에 사용.

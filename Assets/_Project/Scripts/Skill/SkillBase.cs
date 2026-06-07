@@ -12,7 +12,7 @@ namespace SurvivorsLike
         //사용 가능 여부
         public bool IsReady => (_cooldownTimer <= 0f);
 
-        public int SkillId => _skillData.SkillId;
+        public int SkillId => _skillData.Id;
 
 
         public virtual void Init(SkillDataSO data, int level = 1)

@@ -10,7 +10,7 @@ namespace SurvivorsLike
         protected override MapDataSO CreateSO(Dictionary<string, string> row)
         {
             var so = ScriptableObject.CreateInstance<MapDataSO>();
-            so.MapId = Int(row, "MapId");               // 파일명 생성에 필수
+            so.Id = Int(row, "Id");               // 파일명 생성에 필수
             so.GroundMaterialKey = Str(row, "GroundMaterialKey");
             so.PlayAreaRadius = Float(row, "PlayAreaRadius", 60f);
             so.DecorationGroupKey = Str(row, "DecorationGroupKey");
@@ -23,7 +23,7 @@ namespace SurvivorsLike
         }
 
         protected override string GetAssetFileName(MapDataSO so)
-            => $"Map_{so.MapId:D2}";
+            => $"Map_{so.Id:D2}";
     }
 
 }

@@ -74,7 +74,7 @@ namespace SurvivorsLike
             _chapterDataSOList.Clear();
             _chapterDataSOList.AddRange(_chapterDataSOListHandle.Result);
             //챕터 아이디로 정렬~
-            _chapterDataSOList.Sort((a, b) => a.ChapterId.CompareTo(b.ChapterId));
+            _chapterDataSOList.Sort((a, b) => a.Id.CompareTo(b.Id));
 
             LinkChapterMapData();
             LinkChapterThumbnails();
@@ -96,10 +96,10 @@ namespace SurvivorsLike
             foreach (var charpterData in _chapterDataSOList)
             {
                 MapDataSO data = null;
-                if (MapDataSODic.TryGetValue(charpterData.ChapterId, out data) == true)
+                if (MapDataSODic.TryGetValue(charpterData.Id, out data) == true)
                     charpterData.MapData = data;
                 else
-                    Debug.LogError($"맵 데이터가 존재하지 않습니다. : ChapterId - {charpterData.ChapterId}");
+                    Debug.LogError($"맵 데이터가 존재하지 않습니다. : ChapterId - {charpterData.Id}");
             }
         }
 
@@ -123,7 +123,7 @@ namespace SurvivorsLike
             _mapDataSODic.Clear();
             foreach (var mapData in _mapDataSOListHandle.Result)
             {
-                _mapDataSODic.Add(mapData.MapId, mapData);
+                _mapDataSODic.Add(mapData.Id, mapData);
             }
 
             Debug.Log($"[DataManager] MapData {_mapDataSODic.Count}개 로드 완료");
@@ -146,7 +146,7 @@ namespace SurvivorsLike
             _skillDataSODic.Clear();
             foreach (var skillData in _skillDataSOListHandle.Result)
             {
-                _skillDataSODic.Add(skillData.SkillId, skillData);
+                _skillDataSODic.Add(skillData.Id, skillData);
             }
 
             Debug.Log($"[DataManager] SkillData {_skillDataSODic.Count}개 로드 완료");

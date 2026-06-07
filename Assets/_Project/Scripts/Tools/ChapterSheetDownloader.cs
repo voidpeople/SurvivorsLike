@@ -9,7 +9,7 @@ namespace SurvivorsLike
         protected override ChapterDataSO CreateSO(Dictionary<string, string> row)
         {
             var so = ScriptableObject.CreateInstance<ChapterDataSO>();
-            so.ChapterId = Int(row, "ChapterId");
+            so.Id = Int(row, "Id");
             so.DisplayName = Str(row, "DisplayName");
             so.Difficulty = Str(row, "Difficulty");
             so.DisplaySpriteName = Str(row, "DisplaySpriteName");
@@ -22,6 +22,6 @@ namespace SurvivorsLike
         }
 
         protected override string GetAssetFileName(ChapterDataSO so)
-            => $"Chapter_{so.ChapterId:D2}";
+            => $"Chapter_{so.Id:D2}";
     }
 }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb2f776f38b0ce4cb002cacf2878e8e, type: 3}
   m_Name: LinearProjectileSkill_Kunai
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.LinearProjectileSkillDataSO
-  SkillId: 1001
-  SkillName: Kunai
+  Id: 1001
+  Name: Kunai
   IconKey: icon/kunai
   PrefabKey: skill/kunai
   LevelDataList:

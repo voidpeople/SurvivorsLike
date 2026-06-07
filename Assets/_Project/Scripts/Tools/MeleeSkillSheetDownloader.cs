@@ -9,8 +9,8 @@ namespace SurvivorsLike
         protected override MeleeSkillDataSO CreateSO(Dictionary<string, string> row)
         {
             var so = ScriptableObject.CreateInstance<MeleeSkillDataSO>();
-            so.SkillId = Int(row, "SkillId");
-            so.SkillName = Str(row, "SkillName");
+            so.Id = Int(row, "Id");
+            so.Name = Str(row, "Name");
             so.AttackRange = Float(row, "AttackRange");
             so.AttackAngle = Float(row, "AttackAngle");
             so.PrefabKey = Str(row, "PrefabKey");
@@ -18,6 +18,6 @@ namespace SurvivorsLike
         }
 
         protected override string GetAssetFileName(MeleeSkillDataSO so)
-            => $"MeleeSkill_{so.SkillId:D2}";
+            => $"MeleeSkill_{so.Id:D2}";
     }
 }

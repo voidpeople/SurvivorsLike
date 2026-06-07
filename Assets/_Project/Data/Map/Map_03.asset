@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a077c13af0602c54da55c698be6a9fb6, type: 3}
   m_Name: Map_03
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.MapDataSO
-  MapId: 3
+  Id: 3
   GroundMaterialKey: mat/ground/green
   PlayAreaRadius: 55
   DecorationGroupKey: deco_ice

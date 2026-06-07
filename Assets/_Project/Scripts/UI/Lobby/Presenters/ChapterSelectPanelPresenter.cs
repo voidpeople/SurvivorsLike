@@ -70,7 +70,7 @@ namespace SurvivorsLike
 
         private async UniTaskVoid SaveSelectedChapterIdAsync()
         {
-            await UserDataManager.Instance.SaveSelectedChapterIdAsync(_model.SelectedChapterData.ChapterId, _cts.Token);
+            await UserDataManager.Instance.SaveSelectedChapterIdAsync(_model.SelectedChapterData.Id, _cts.Token);
         }
 
         //나가기 버튼을 클릭할 경우 호출되는 함수
