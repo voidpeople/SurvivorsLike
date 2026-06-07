@@ -74,6 +74,7 @@ namespace SurvivorsLike
                 _skillList[ii].TryUseSkill();
             }
         }
+
         void OnGameStart()
         {
             _isPlaying = true;

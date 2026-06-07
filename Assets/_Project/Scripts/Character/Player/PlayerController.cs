@@ -42,6 +42,8 @@ namespace SurvivorsLike
 
         private void Start()
         {
+            Init();
+
             InGameEventBus.OnInGameStart
                 .Take(1)
                 .Subscribe(_ => OnGameStart())
@@ -56,6 +58,7 @@ namespace SurvivorsLike
                 _skillController.AddSkill(data);
             }
         }
+
         void OnGameStart()
         {
             _isPlaying = true;

@@ -67,10 +67,6 @@ namespace SurvivorsLike
             InGameEventBus.OnInGameStart.OnNext(Unit.Default);
         }
 
-        private void OnDestroy()
-        {      
-            Destroy();
-        }
 
         private void InitResultPanelAsync(CancellationToken ct)
         {
@@ -84,7 +80,7 @@ namespace SurvivorsLike
             HideGameResultPanel();
         }
 
-        // ─── 스테이지 종료 콜백 ──────────────────────────────
+        //스테이지 종료 콜백
         private void OnStageCleared()
         {
             ShowGameResultPanel();
@@ -115,6 +111,11 @@ namespace SurvivorsLike
 
             if(PoolManager.Instance != null)
                 PoolManager.Instance.ReleasePool("character/enemy/spiderbot");
+        }
+
+        private void OnDestroy()
+        {
+            Destroy();
         }
     }
 }
