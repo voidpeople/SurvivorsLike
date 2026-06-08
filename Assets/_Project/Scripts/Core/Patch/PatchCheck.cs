@@ -119,11 +119,7 @@ namespace SurvivorsLike
                 {
                     response = JsonConvert.DeserializeObject<PatchResponse>(jsonData);
                 }
-                catch (OperationCanceledException)
-                {
-                    throw; //취소는 반드시 상위로 전파
-                }
-                catch (JsonException e)  // Newtonsoft.Json의 파싱 예외만 명확히 잡기
+                catch (JsonException)  // Newtonsoft.Json의 파싱 예외만 명확히 잡기
                 {
                     return new PatchCheckResult
                     {

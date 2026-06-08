@@ -114,10 +114,10 @@ namespace SurvivorsLike
             {
                 prefab = await handle.ToUniTask(cancellationToken: ct);
             }
-            catch
+            finally
             {
-                Addressables.Release(handle);
-                throw;
+                if (prefab == null)
+                    Addressables.Release(handle);
             }
 
             if (prefab == null)

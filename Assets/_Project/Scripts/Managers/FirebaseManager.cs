@@ -1,9 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Firebase;
 using Firebase.Auth;
-using Firebase.Extensions;
 using Firebase.Firestore;
-using Google.MiniJSON;
 using System;
 using System.Collections.Generic;
 using System.Threading;
