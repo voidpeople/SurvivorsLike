@@ -38,6 +38,20 @@ namespace SurvivorsLike
         public IReadOnlyDictionary<int, MapDataSO> MapDataSODic => _mapDataSODic;
         #endregion
 
+        #region PlayerData
+        private AsyncOperationHandle<IList<PlayerDataSO>> _playerDataSOListHandle;
+        //Dictionary<플레이어 캐릭터 아이디, PlayerData>
+        private readonly Dictionary<int, PlayerData> _playerDataDic = new();
+        public IReadOnlyDictionary<int, PlayerData> PlayerDataDic => _playerDataDic;
+        #endregion
+
+        #region EnemyData
+        private AsyncOperationHandle<IList<EnemyDataSO>> _enemyDataSOListHandle;
+        //Dictionary<적 캐릭터 아이디, EnemyData>
+        private readonly Dictionary<int, EnemyData> _enemyDataDic = new();
+        public IReadOnlyDictionary<int, EnemyData> EnemyDataDic => _enemyDataDic;
+        #endregion
+
         #region SkillData
         private AsyncOperationHandle<IList<SkillDataSO>> _skillDataSOListHandle;
         //Dictionary<스킬 아이디, SkillDataSO>
@@ -128,6 +142,33 @@ namespace SurvivorsLike
 
             Debug.Log($"[DataManager] MapData {_mapDataSODic.Count}개 로드 완료");
         }
+
+        private async UniTask LoadPlayerDataAsync(CancellationToken ct)
+        {
+            ////어드레서블 어셋을 비동기 로드 시작
+            //_mapDataSOListHandle = Addressables.LoadAssetsAsync<MapDataSO>(MapDataLabel, null);
+
+            ////.Net의 기본 Task을 성능 최적화를 위해 AsUniTask()함수를 이용해 UniTask로 변환하여 작업을 진행한다.
+            ////그리고 AttachExternalCancellation()함수를 통해 해당 비동기 작업이 취소 될 수 있도록
+            ////CancellationToken을 등록한다.
+            //await _mapDataSOListHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            //ct.ThrowIfCancellationRequested();
+
+            //if (_mapDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
+            //{
+            //    Debug.LogError($"[DataManager] MapData 로드 실패: {_mapDataSOListHandle.OperationException}");
+            //    return;
+            //}
+
+            //_mapDataSODic.Clear();
+            //foreach (var mapData in _mapDataSOListHandle.Result)
+            //{
+            //    _mapDataSODic.Add(mapData.Id, mapData);
+            //}
+
+            //Debug.Log($"[DataManager] MapData {_mapDataSODic.Count}개 로드 완료");
+        }
+
 
         private async UniTask LoadSkillDataAsync(CancellationToken ct)
         {
