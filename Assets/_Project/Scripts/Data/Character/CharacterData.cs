@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace SurvivorsLike
 {
-    public abstract class CharacterDataSO : ScriptableObject
+    [Serializable]
+    public abstract class CharacterData
     {
         public int Id;
         public string Name;

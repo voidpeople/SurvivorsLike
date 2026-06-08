@@ -2,35 +2,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace SurvivorsLike
 {
-    public class EnemySheetDownloader : SheetDownloaderBase<EnemyDataSO>
+    public class EnemySheetDownloader
+        : SingleCollectionSheetDownloader<EnemyDataSO, EnemyData>
     {
-        protected override EnemyDataSO CreateSO(Dictionary<string, string> row)
+        protected override EnemyDataSO CreateSO()
         {
             var so = ScriptableObject.CreateInstance<EnemyDataSO>();
-            so.Id = Int(row, "Id");
-            so.Name = Str(row, "Name");
-            so.Hp = Int(row, "Hp");
-            so.MoveSpeed = Float(row, "MoveSpeed");
-            so.DefaultSkillId = Int(row, "DefaultSkillId");
-            so.IconKey = Str(row, "IconKey");
-            so.PrefabKey = Str(row, "PrefabKey");
-
-            so.Type = EnemyType(row, "Type");
-            if (so.Type == SurvivorsLike.EnemyType.None)
-                Debug.LogError($"EnemySheetDownloader::CreateSO - EnemyType is None.");
-
-            so.DetectionRange = Float(row, "DetectionRange");
-            so.Armor = Float(row, "Armor");
-            so.ExpReward = Int(row, "ExpReward");
-            so.DropGold = Int(row, "DropGold");
-            so.KnockbackResistance = Float(row, "KnockbackResistance");
             return so;
         }
 
+        protected override EnemyData ParseRowData(
+            Dictionary<string, string> row)
+        {
+            return new EnemyData
+            {
+                Id = Int(row, "Id"),
+                Name = Str(row, "Name"),
+                Hp = Int(row, "Hp"),
+                MoveSpeed = Float(row, "MoveSpeed"),
+                DefaultSkillId = Int(row, "DefaultSkillId"),
+                IconKey = Str(row, "IconKey"),
+                PrefabKey = Str(row, "PrefabKey"),
+                Type = EnemyType(row, "Type"),
+                DetectionRange = Float(row, "DetectionRange"),
+                Armor = Float(row, "Armor"),
+                ExpReward = Int(row, "ExpReward"),
+                DropGold = Int(row, "DropGold"),
+                KnockbackResistance = Float(row, "KnockbackResistance"),
+            };
+        }
+
+        //파싱된 LevelData 리스트를 SO의 LevelDataList 필드에 주입
+        protected override void ApplyDataList(
+            EnemyDataSO so,
+            List<EnemyData> dataList)
+            => so.EnemyDataList = dataList;
+
         protected override string GetAssetFileName(EnemyDataSO so)
-            => $"Enemy_{so.Id:D2}";
+            => $"EnemyData";
+
+        protected EnemyType EnemyType(Dictionary<string, string> r, string k)
+        {
+            if (r.TryGetValue(k, out var v) == true)
+            {
+                if (Enum.TryParse<EnemyType>(v, true, out SurvivorsLike.EnemyType enemyType) == true)
+                    return enemyType;
+            }
+
+            Debug.LogError($"EnemySheetDownloader::EnemyType - EnemyType is None.");
+            return SurvivorsLike.EnemyType.None;
+        }
     }
 }

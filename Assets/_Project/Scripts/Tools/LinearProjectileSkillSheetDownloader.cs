@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SurvivorsLike
 {
     public class LinearProjectileSkillSheetDownloader
-        : CollectionSheetDownloader<LinearProjectileSkillDataSO, LinearProjectileSkillLevelData>
+        : MultiCollectionSheetDownloader<LinearProjectileSkillDataSO, LinearProjectileSkillLevelData>
     {
         //행의 SkillId를 그룹핑 키로 반환
         //"1001" => Kunai 그룹 => KunaiSkillData.asset

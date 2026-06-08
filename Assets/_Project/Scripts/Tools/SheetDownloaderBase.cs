@@ -125,18 +125,6 @@ namespace SurvivorsLike
             return d;
         }
 
-        protected EnemyType EnemyType(Dictionary<string, string> r, string k)
-        {
-            if (r.TryGetValue(k, out var v) == true)
-            {
-                if (Enum.TryParse<EnemyType>(v, true, out SurvivorsLike.EnemyType enemyType) == true)
-                    return enemyType;
-            }
-
-            return SurvivorsLike.EnemyType.None;
-        }
-
-
         private void ClearSaveFolder()
         {
 #if UNITY_EDITOR

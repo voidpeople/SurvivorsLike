@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f5d3bb3c9323d4e8eab77f61a07bb4, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerDataSO
+  PlayerDataList:
+  - Id: 1001
+    Name: "\uD2B9\uACF5\uB300\uC6D0"
+    Hp: 100
+    MoveSpeed: 4.5
+    DefaultSkillId: 3001
+    IconKey: icon_player_default
+    PrefabKey: player_default
+    HpRegen: 1
+    PickupRange: 2.5
+  - Id: 1002
+    Name: "\uB808\uC778\uC800"
+    Hp: 90
+    MoveSpeed: 5
+    DefaultSkillId: 3002
+    IconKey: icon_player_ranger
+    PrefabKey: player_ranger
+    HpRegen: 0.8
+    PickupRange: 2.5
+  - Id: 1003
+    Name: "\uD0F1\uCEE4"
+    Hp: 130
+    MoveSpeed: 3.5
+    DefaultSkillId: 3003
+    IconKey: icon_player_tanker
+    PrefabKey: player_tanker
+    HpRegen: 1.5
+    PickupRange: 3
