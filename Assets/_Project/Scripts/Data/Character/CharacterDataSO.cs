@@ -9,6 +9,7 @@ namespace SurvivorsLike
         public string Name;
         public float Hp;
         public float MoveSpeed;
+        public int DefaultSkillId;
         public string IconKey; 
         public string PrefabKey;
     }

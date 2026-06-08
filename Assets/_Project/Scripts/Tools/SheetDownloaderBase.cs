@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+using System;
+
 
 
 #if UNITY_EDITOR
@@ -121,6 +123,17 @@ namespace SurvivorsLike
             if (r.TryGetValue(k, out var v) && ColorUtility.TryParseHtmlString(v, out var c))
                 return c;
             return d;
+        }
+
+        protected EnemyType EnemyType(Dictionary<string, string> r, string k)
+        {
+            if (r.TryGetValue(k, out var v) == true)
+            {
+                if (Enum.TryParse<EnemyType>(v, true, out SurvivorsLike.EnemyType enemyType) == true)
+                    return enemyType;
+            }
+
+            return SurvivorsLike.EnemyType.None;
         }
 
 
