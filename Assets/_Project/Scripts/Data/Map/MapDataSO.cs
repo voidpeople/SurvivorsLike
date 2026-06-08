@@ -4,7 +4,7 @@ using TriInspector;
 
 namespace SurvivorsLike
 {
-
+    //TODO: 추후에 MapData도 List로 저장할 것~
     //맵 데이터
     [CreateAssetMenu(fileName = "MapDataSO", menuName = "SurvivorsLike/Data/MapDataSO")]
     public class MapDataSO : ScriptableObject

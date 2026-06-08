@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace SurvivorsLike
 {
+    //TODO: 추후에 ChapterData도 List로 저장할 것~
     public class ChapterSheetDownloader : SheetDownloaderBase<ChapterDataSO>
     {
         protected override ChapterDataSO CreateSO(Dictionary<string, string> row)
