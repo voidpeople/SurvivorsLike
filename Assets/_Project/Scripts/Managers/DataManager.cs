@@ -166,11 +166,13 @@ namespace SurvivorsLike
             }
 
             _playerDataDic.Clear();
-            var playerDataSOList = _playerDataSOListHandle.Result;
-            PlayerDataSO playerDataSO = playerDataSOList.First();
-            foreach (var playerData in playerDataSO.PlayerDataList)
+            foreach (var playerDataSOList in _playerDataSOListHandle.Result)
             {
-                _playerDataDic.Add(playerData.Id, playerData);
+                List<PlayerData> playerDataList = playerDataSOList.PlayerDataList;
+                foreach (var playerData in playerDataList)
+                {
+                    _playerDataDic.Add(playerData.Id, playerData);
+                }
             }
 
             Debug.Log($"[DataManager] PlayerData {_playerDataDic.Count}개 로드 완료");
@@ -194,11 +196,13 @@ namespace SurvivorsLike
             }
 
             _enemyDataDic.Clear();
-            var enemyDataSOList = _enemyDataSOListHandle.Result;
-            EnemyDataSO enemyDataSO = enemyDataSOList.First();
-            foreach (var enemyData in enemyDataSO.EnemyDataList)
+            foreach (var enemyDataSOList in _enemyDataSOListHandle.Result)
             {
-                _enemyDataDic.Add(enemyData.Id, enemyData);
+                List<EnemyData> enemyDataList = enemyDataSOList.EnemyDataList;
+                foreach (var enemyData in enemyDataList)
+                {
+                    _enemyDataDic.Add(enemyData.Id, enemyData);
+                }
             }
 
             Debug.Log($"[DataManager] EnemyData {_enemyDataDic.Count}개 로드 완료");
