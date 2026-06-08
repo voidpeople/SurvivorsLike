@@ -1,14 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace SurvivorsLike
 {
     // 구글 시트 전체 행 → GroupKey 기준으로 분류 → SO N개 생성
-    // 파일명을 MultiCollectionSheetDownloader.cs 로 변경해 주세요.
     public abstract class MultiCollectionSheetDownloader<TSO, TData>
         : CollectionDownloaderBase<TSO, TData>
         where TSO : ScriptableObject

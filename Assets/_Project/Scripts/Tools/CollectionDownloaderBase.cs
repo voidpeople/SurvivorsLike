@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -97,19 +97,5 @@ namespace SurvivorsLike
 #endif
         }
 
-        protected string Str(Dictionary<string, string> r, string k, string d = "") =>
-            r.TryGetValue(k, out var v) ? v : d;
-
-        protected int Int(Dictionary<string, string> r, string k, int d = 0) =>
-            r.TryGetValue(k, out var v) && int.TryParse(v, out var n) ? n : d;
-
-        // InvariantCulture: 로케일 무관하게 소수점 파싱
-        protected float Float(Dictionary<string, string> r, string k, float d = 0f) =>
-            r.TryGetValue(k, out var v) && float.TryParse(
-                v, System.Globalization.NumberStyles.Float,
-                System.Globalization.CultureInfo.InvariantCulture, out var n) ? n : d;
-
-        protected bool Bool(Dictionary<string, string> r, string k, bool d = false) =>
-            r.TryGetValue(k, out var v) && bool.TryParse(v, out var n) ? n : d;
     }
 }

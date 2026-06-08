@@ -132,6 +132,8 @@ GameObject:
   - component: {fileID: 198747364}
   - component: {fileID: 198747366}
   - component: {fileID: 198747367}
+  - component: {fileID: 198747369}
+  - component: {fileID: 198747368}
   m_Layer: 0
   m_Name: GameDataDownloadManager
   m_TagString: Untagged
@@ -187,6 +189,8 @@ MonoBehaviour:
   - {fileID: 198747364}
   - {fileID: 198747366}
   - {fileID: 198747367}
+  - {fileID: 198747369}
+  - {fileID: 198747368}
 --- !u!114 &198747366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +222,38 @@ MonoBehaviour:
   sheetName: LinearProjectileSkillData
   sheetGid: 389373375
   saveFolderPath: Assets/_Project/Data/Skill
+  spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
+--- !u!114 &198747368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198747361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b0926e12109fbc4ea3aaff0d2025b97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.EnemySheetDownloader
+  sheetName: EnemyData
+  sheetGid: 2019112003
+  saveFolderPath: Assets/_Project/Data/Enemy
+  spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
+--- !u!114 &198747369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198747361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60fa7c87a69ac2c45a6278e24b5b1116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerSheetDownloader
+  sheetName: PlayerData
+  sheetGid: 1448623477
+  saveFolderPath: Assets/_Project/Data/Player
   spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
 --- !u!1 &320198488
 GameObject:

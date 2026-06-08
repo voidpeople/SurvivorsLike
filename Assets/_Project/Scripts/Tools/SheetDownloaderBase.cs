@@ -37,6 +37,27 @@ namespace SurvivorsLike
             $"https://docs.google.com/spreadsheets/d/{spreadsheetId}/export?format=tsv&gid={sheetGid}";
 
         public abstract void StartDownload();
+
+        protected string Str(Dictionary<string, string> r, string k, string d = "") =>
+            r.TryGetValue(k, out var v) ? v : d;
+
+        protected int Int(Dictionary<string, string> r, string k, int d = 0) =>
+            r.TryGetValue(k, out var v) && int.TryParse(v, out var n) ? n : d;
+
+        protected float Float(Dictionary<string, string> r, string k, float d = 0f) =>
+            r.TryGetValue(k, out var v) && float.TryParse(
+                v, System.Globalization.NumberStyles.Float,
+                System.Globalization.CultureInfo.InvariantCulture, out var n) ? n : d;
+
+        protected bool Bool(Dictionary<string, string> r, string k, bool d = false) =>
+            r.TryGetValue(k, out var v) && bool.TryParse(v, out var n) ? n : d;
+
+        protected UnityEngine.Color Color(Dictionary<string, string> r, string k, UnityEngine.Color d = default)
+        {
+            if (r.TryGetValue(k, out var v) && ColorUtility.TryParseHtmlString(v, out var c))
+                return c;
+            return d;
+        }
     }
 
     //구글 스프레드시트에서 데이터을 tsv 형식으로 다운 받아서 JSON으로 변환한 후
@@ -112,18 +133,6 @@ namespace SurvivorsLike
 
         //저장할 .asset 파일명 (확장자 제외)
         protected abstract string GetAssetFileName(T so);
-
-        //Get 함수들~
-        protected string Str(Dictionary<string, string> r, string k, string d = "") => r.TryGetValue(k, out var v) ? v : d;
-        protected int Int(Dictionary<string, string> r, string k, int d = 0) => r.TryGetValue(k, out var v) && int.TryParse(v, out var n) ? n : d;
-        protected float Float(Dictionary<string, string> r, string k, float d = 0f) => r.TryGetValue(k, out var v) && float.TryParse(v, out var n) ? n : d;
-        protected bool Bool(Dictionary<string, string> r, string k, bool d = false) => r.TryGetValue(k, out var v) && bool.TryParse(v, out var n) ? n : d;
-        protected UnityEngine.Color Color(Dictionary<string, string> r, string k, UnityEngine.Color d = default)
-        {
-            if (r.TryGetValue(k, out var v) && ColorUtility.TryParseHtmlString(v, out var c))
-                return c;
-            return d;
-        }
 
         private void ClearSaveFolder()
         {
