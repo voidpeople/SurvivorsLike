@@ -46,7 +46,8 @@ namespace SurvivorsLike
                 chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.Id == 1);
             }
             GameManager.Instance.SessionData.Clear();
-            GameManager.Instance.SessionData.Init(chapter);
+            DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData);
+            GameManager.Instance.SessionData.Init(chapter, playerData);
         }
 #endif
     }

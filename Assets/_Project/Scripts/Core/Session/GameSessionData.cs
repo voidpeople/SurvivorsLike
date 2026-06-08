@@ -7,18 +7,18 @@ namespace SurvivorsLike
     {
         public ChapterDataSO ChapterData { get; private set; }
 
-        public string PlayerModelAddressKey { get; private set; }
+        public PlayerData PlayerData { get; private set; }
 
-        public void Init(ChapterDataSO chapterdata)
+        public void Init(ChapterDataSO chapterdata, PlayerData playerData)
         {
             ChapterData = chapterdata;
-
-            PlayerModelAddressKey = "character/player/robotkyle";
+            PlayerData = playerData;
         }
 
         public void Clear()
         {
             ChapterData = null;
+            PlayerData = null;
         }
     }
 }

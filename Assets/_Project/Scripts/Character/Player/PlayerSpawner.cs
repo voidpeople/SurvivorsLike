@@ -39,7 +39,7 @@ namespace SurvivorsLike
             GameSessionData sessionData = GameManager.Instance.SessionData;
 
             _baseHandle = Addressables.LoadAssetAsync<GameObject>(_playerBaseAddressKey);
-            _modelHandle = Addressables.LoadAssetAsync<GameObject>(sessionData.PlayerModelAddressKey);
+            _modelHandle = Addressables.LoadAssetAsync<GameObject>(sessionData.PlayerData.PrefabKey);
 
             //UniTask.WhenAll()은 메인 스레드에서 여러 비동기 작업을 동시에 시작해서
             //I/O 대기 시간을 겹치게 하는 명령 이지만 멀티스레드 병렬 처리는 아님~

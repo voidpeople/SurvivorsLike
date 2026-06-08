@@ -21,6 +21,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - MapData
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62a927acc157c594798262f99eaf9476
+    m_Address: Assets/_Project/Data/Enemy
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EnemyData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89ce22b947a9905448898bd24587cc33
+    m_Address: Assets/_Project/Data/Player
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e26030eb395dfa9438402f8581d84f12
     m_Address: Assets/_Project/Data/Chapter
     m_ReadOnly: 0

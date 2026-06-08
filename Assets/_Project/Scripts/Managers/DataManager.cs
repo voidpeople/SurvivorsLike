@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace SurvivorsLike
 
         private const string ChapterDataLabel = "ChapterData";
         private const string MapDataLabel = "MapData";
+        private const string PlayerDataLabel = "PlayerData";
+        private const string EnemyDataLabel = "EnemyData";
         private const string SkillDataLabel = "SkillData";
 
 
@@ -65,6 +68,8 @@ namespace SurvivorsLike
             ReleaseDataSOListHandle();
             await LoadMapDataAsync(ct);
             await LoadChapterDataAsync(ct);
+            await LoadPlayerDataAsync(ct);
+            await LoadEnemyDataAsync(ct);
             await LoadSkillDataAsync(ct);
         }
 
@@ -145,28 +150,58 @@ namespace SurvivorsLike
 
         private async UniTask LoadPlayerDataAsync(CancellationToken ct)
         {
-            ////어드레서블 어셋을 비동기 로드 시작
-            //_mapDataSOListHandle = Addressables.LoadAssetsAsync<MapDataSO>(MapDataLabel, null);
+            //어드레서블 어셋을 비동기 로드 시작
+            _playerDataSOListHandle = Addressables.LoadAssetsAsync<PlayerDataSO>(PlayerDataLabel, true);
 
-            ////.Net의 기본 Task을 성능 최적화를 위해 AsUniTask()함수를 이용해 UniTask로 변환하여 작업을 진행한다.
-            ////그리고 AttachExternalCancellation()함수를 통해 해당 비동기 작업이 취소 될 수 있도록
-            ////CancellationToken을 등록한다.
-            //await _mapDataSOListHandle.Task.AsUniTask().AttachExternalCancellation(ct);
-            //ct.ThrowIfCancellationRequested();
+            //.Net의 기본 Task을 성능 최적화를 위해 AsUniTask()함수를 이용해 UniTask로 변환하여 작업을 진행한다.
+            //그리고 AttachExternalCancellation()함수를 통해 해당 비동기 작업이 취소 될 수 있도록
+            //CancellationToken을 등록한다.
+            await _playerDataSOListHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            ct.ThrowIfCancellationRequested();
 
-            //if (_mapDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
-            //{
-            //    Debug.LogError($"[DataManager] MapData 로드 실패: {_mapDataSOListHandle.OperationException}");
-            //    return;
-            //}
+            if (_playerDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"[DataManager] MapData 로드 실패: {_playerDataSOListHandle.OperationException}");
+                return;
+            }
 
-            //_mapDataSODic.Clear();
-            //foreach (var mapData in _mapDataSOListHandle.Result)
-            //{
-            //    _mapDataSODic.Add(mapData.Id, mapData);
-            //}
+            _playerDataDic.Clear();
+            var playerDataSOList = _playerDataSOListHandle.Result;
+            PlayerDataSO playerDataSO = playerDataSOList.First();
+            foreach (var playerData in playerDataSO.PlayerDataList)
+            {
+                _playerDataDic.Add(playerData.Id, playerData);
+            }
 
-            //Debug.Log($"[DataManager] MapData {_mapDataSODic.Count}개 로드 완료");
+            Debug.Log($"[DataManager] PlayerData {_playerDataDic.Count}개 로드 완료");
+        }
+
+        private async UniTask LoadEnemyDataAsync(CancellationToken ct)
+        {
+            //어드레서블 어셋을 비동기 로드 시작
+            _enemyDataSOListHandle = Addressables.LoadAssetsAsync<EnemyDataSO>(EnemyDataLabel, true);
+
+            //.Net의 기본 Task을 성능 최적화를 위해 AsUniTask()함수를 이용해 UniTask로 변환하여 작업을 진행한다.
+            //그리고 AttachExternalCancellation()함수를 통해 해당 비동기 작업이 취소 될 수 있도록
+            //CancellationToken을 등록한다.
+            await _enemyDataSOListHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            ct.ThrowIfCancellationRequested();
+
+            if (_enemyDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"[DataManager] MapData 로드 실패: {_enemyDataSOListHandle.OperationException}");
+                return;
+            }
+
+            _enemyDataDic.Clear();
+            var enemyDataSOList = _enemyDataSOListHandle.Result;
+            EnemyDataSO enemyDataSO = enemyDataSOList.First();
+            foreach (var enemyData in enemyDataSO.EnemyDataList)
+            {
+                _enemyDataDic.Add(enemyData.Id, enemyData);
+            }
+
+            Debug.Log($"[DataManager] EnemyData {_enemyDataDic.Count}개 로드 완료");
         }
 
 
@@ -206,6 +241,18 @@ namespace SurvivorsLike
             {
                 Addressables.Release(_mapDataSOListHandle);
                 _mapDataSODic.Clear();
+            }
+
+            if (_playerDataSOListHandle.IsValid() == true)
+            {
+                Addressables.Release(_playerDataSOListHandle);
+                _playerDataDic.Clear();
+            }
+
+            if (_enemyDataSOListHandle.IsValid() == true)
+            {
+                Addressables.Release(_enemyDataSOListHandle);
+                _enemyDataDic.Clear();
             }
 
             if (_skillDataSOListHandle.IsValid() == true)

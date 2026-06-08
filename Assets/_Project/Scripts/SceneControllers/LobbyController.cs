@@ -87,7 +87,8 @@ namespace SurvivorsLike
         private void OnGameStart()
         {
             GameManager.Instance.SessionData.Clear();
-            GameManager.Instance.SessionData.Init(_chapterSelectPanelModel.SelectedChapterData);
+            DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData);
+            GameManager.Instance.SessionData.Init(_chapterSelectPanelModel.SelectedChapterData, playerData);
         }
 
         private void Destroy()

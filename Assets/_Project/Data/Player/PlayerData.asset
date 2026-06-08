@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerDataSO
   PlayerDataList:
   - Id: 1001
-    Name: "\uD2B9\uACF5\uB300\uC6D0"
+    Name: RobotKyle
     Hp: 100
     MoveSpeed: 4.5
     DefaultSkillId: 3001
     IconKey: icon_player_default
-    PrefabKey: player_default
+    PrefabKey: character/player/robotkyle
     HpRegen: 1
     PickupRange: 2.5
   - Id: 1002
