@@ -13,13 +13,15 @@ namespace SurvivorsLike
         [Header("공격 거리")]
         [SerializeField] private float _attackRange = 1f;
 
+        EnemyData _enemyData;
+
         public EnemyAnimationController AnimCtrl { get; private set; }
         public EnemyMovement Movement { get; private set; }
         public SkillController SkillCtrl { get; private set; }
         public Transform TargetTransform { get; private set; }
         public float AttackRange { get { return _attackRange; } }
 
-        private EnemyHealth _health;
+        private Health _health;
         private EnemyFSM _fsm;
 
         private CancellationTokenSource _cts;
@@ -42,7 +44,7 @@ namespace SurvivorsLike
             Movement.OnDestinationReached += OnDestinationReached;
             TryGetComponent(out SkillController skillCtrl);
             SkillCtrl = skillCtrl;
-            TryGetComponent(out EnemyHealth _health);
+            TryGetComponent(out Health _health);
 
             CreateFSM();
 
@@ -66,12 +68,16 @@ namespace SurvivorsLike
 
         //타겟은 플레이어 캐릭터 하나 이므로
         //적 캐릭터가 스폰되자 마자 Init 함수를 통해 타겟이 설정됨~
-        public void Init(Transform targetTrasnform)
+        public void Init(EnemyData data, Transform targetTrasnform)
         {
+            _enemyData = data;
+            Movement.Init(data);
+            _health.Init(data.Hp);
+
             TargetTransform = targetTrasnform;
             _fsm.Init(EnemyStateType.Idle);
 
-            TargetTransform.TryGetComponent(out PlayerHealth health);
+            TargetTransform.TryGetComponent(out Health health);
             health.OnDead += OnTargetDied;
         }
 
@@ -131,10 +137,10 @@ namespace SurvivorsLike
             // R3 구독 전체 해제
             _disposables.Clear();
 
-            // Init()에서 등록한 PlayerHealth 이벤트 해제 — 중복 누적 방지
+            // Init()에서 등록한 Health 이벤트 해제 — 중복 누적 방지
             if (TargetTransform != null)
             {
-                if (TargetTransform.TryGetComponent(out PlayerHealth health))
+                if (TargetTransform.TryGetComponent(out Health health))
                     health.OnDead -= OnTargetDied;
                 TargetTransform = null;
             }

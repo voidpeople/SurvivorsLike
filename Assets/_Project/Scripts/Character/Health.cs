@@ -1,20 +1,19 @@
-﻿using UnityEngine;
-
+﻿
+using System;
+using UnityEngine;
 
 namespace SurvivorsLike
 {
-    public class EnemyHealth : MonoBehaviour
+    public class Health : MonoBehaviour
     {
         [SerializeField] float _health;
         private bool _isDead;
 
-        private void OnEnable()
-        {
-            Init();
-        }
+        public event Action OnDead;
 
-        private void Init()
+        public void Init(float health)
         {
+            _health = health;
             _isDead = false;
         }
 
@@ -24,7 +23,7 @@ namespace SurvivorsLike
                 return;
 
             _health -= damage;
-            if(_health <= 0f)
+            if (_health <= 0f)
             {
                 _isDead = true;
             }

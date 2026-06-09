@@ -62,10 +62,10 @@ namespace SurvivorsLike
             await PoolManager.Instance.CreatePoolAsync("character/enemy/spiderbot", 100, 300, ct);
             await PoolManager.Instance.PreCreateAsync("character/enemy/spiderbot", 1, 10, ct);
 
-            EnemyController controller = PoolManager.Instance.Get<EnemyController>("character/enemy/spiderbot");
-            controller.gameObject.SetActive(true);
-            controller.transform.SetPositionAndRotation(new Vector3(0f, 0f, 20f), Quaternion.identity);
-            controller.Init(_playerSpawner.SpawnPlayerController.transform);
+            DataManager.Instance.EnemyDataDic.TryGetValue(2002, out EnemyData enemyData);
+            EnemyController enemyCtrl = PoolManager.Instance.Get<EnemyController>(enemyData.PrefabKey);
+            enemyCtrl.transform.SetPositionAndRotation(new Vector3(0f, 0f, 20f), Quaternion.identity);
+            enemyCtrl.Init(enemyData, _playerSpawner.SpawnPlayerController.transform);
 
             await PoolManager.Instance.CreatePoolAsync("vfx/explosion/explosion01", 100, 300, ct);
             await PoolManager.Instance.PreCreateAsync("vfx/explosion/explosion01", 1, 10, ct);

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SurvivorsLike
 {
     public class EnemyMovement : MonoBehaviour
-    {
+    {       
         [SerializeField] private float _moveSpeed = 3f;
         [SerializeField] private float _rotateSpeed = 10f;
         [SerializeField] private float _stoppingDistance = 0.5f;
@@ -26,6 +26,11 @@ namespace SurvivorsLike
             _isMoving = false;
         }
 
+        public void Init(EnemyData data)
+        {
+            _moveSpeed = data.MoveSpeed;
+        }
+
         private void Update()
         {
             if (_isMoving == false)
@@ -40,6 +45,11 @@ namespace SurvivorsLike
         {
             _sqrStoppingDistance = _stoppingDistance * _stoppingDistance;
         }
+
+        //private void SetMoveSpeed(float speed)
+        //{
+        //    _moveSpeed = speed;
+        //}
 
         public void SetDestination(Vector3 destination)
         {

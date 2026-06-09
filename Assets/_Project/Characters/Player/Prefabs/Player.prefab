@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7063929355543409026}
   - component: {fileID: 4433363240797705836}
   - component: {fileID: 5641668939952678026}
-  - component: {fileID: 3152020959518446709}
+  - component: {fileID: 6601682045853072993}
   - component: {fileID: 3903842794369316465}
   - component: {fileID: 2549844659199693674}
   m_Layer: 6
@@ -150,7 +150,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _maxDetectCount: 50
---- !u!114 &3152020959518446709
+--- !u!114 &6601682045853072993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,9 +159,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7047003210136080283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fcc9283a31bcb4488c363dd1e4f8670, type: 3}
+  m_Script: {fileID: 11500000, guid: be0d2b6d3df8de946901e719fa9f3574, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  _health: 0
 --- !u!114 &3903842794369316465
 MonoBehaviour:
   m_ObjectHideFlags: 0
