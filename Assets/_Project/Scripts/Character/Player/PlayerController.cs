@@ -22,11 +22,14 @@ namespace SurvivorsLike
         [SerializeField] private Transform _modelRoot;
         public Transform ModelRoot => _modelRoot;
 
+        PlayerData _playerData;
+
 
         private PlayerAnimationController _animationController;
-        private PlayerMovement _movement;
+        private PlayerMovement _movement;        
         private TargetFinder _targetFinder;
         private SkillController _skillController;
+        private Health _health;
         private JoystickBase _joystick;
 
         private bool _isPlaying;
@@ -36,27 +39,31 @@ namespace SurvivorsLike
 
         private void Awake()
         {            
-            TryGetComponent(out _movement);
+            TryGetComponent(out _movement);            
             TryGetComponent(out _targetFinder);
-            TryGetComponent(out _skillController);            
+            TryGetComponent(out _skillController);
+            TryGetComponent(out _health);
 
             _isPlaying = false;
         }
 
-        public void Init(JoystickBase joystick, PlayerAnimationController animController)
+        public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick)
         {
-            _joystick = joystick;
-            if (_joystick == null)
-                Debug.LogError($"PlayerController::Init - _joystick is Null.");
+            _playerData = data;
+            _health.Init(data.Hp);
 
             _animationController = animController;
             if (_animationController == null)
                 Debug.LogError($"PlayerController::Init - _animationController is Null.");
 
+            _joystick = joystick;
+            if (_joystick == null)
+                Debug.LogError($"PlayerController::Init - _joystick is Null.");
+
             //기본 스킬이 쿠나이 스킬 추가
-            if (DataManager.Instance.SkillDataSODic.TryGetValue(1001, out SkillDataSO data) == true)
+            if (DataManager.Instance.SkillDataSODic.TryGetValue(1001, out SkillDataSO skillData) == true)
             {
-                _skillController.AddSkill(data);
+                _skillController.AddSkill(skillData);
             }
 
             InGameEventBus.OnInGameStart

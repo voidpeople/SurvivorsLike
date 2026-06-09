@@ -42,9 +42,11 @@ namespace SurvivorsLike
             TryGetComponent(out EnemyMovement movement);
             Movement = movement;
             Movement.OnDestinationReached += OnDestinationReached;
+
             TryGetComponent(out SkillController skillCtrl);
             SkillCtrl = skillCtrl;
-            TryGetComponent(out Health _health);
+            TryGetComponent(out Health health);
+            _health = health;
 
             CreateFSM();
 

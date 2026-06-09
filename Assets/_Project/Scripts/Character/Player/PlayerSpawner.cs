@@ -56,7 +56,8 @@ namespace SurvivorsLike
             modelObj.transform.localScale = Vector3.one;
 
             PlayerAnimationController aniCtrl= modelObj.GetComponent<PlayerAnimationController>();
-            playerCtrl.Init(_joystick, aniCtrl);
+            DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData);
+            playerCtrl.Init(playerData, aniCtrl, _joystick);
 
             return playerCtrl;
         }
