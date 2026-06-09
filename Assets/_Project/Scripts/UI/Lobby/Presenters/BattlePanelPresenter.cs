@@ -75,10 +75,9 @@ namespace SurvivorsLike
             catch (Exception e)
             {
                 UnityEngine.Debug.LogException(e);
-
                 _view.SetInteractable(true);  
                 _model.SetCanStart(true);
-                // 필요시 SystemUIManager로 오류 팝업
+                SystemUIManager.Instance.ShowCriticalErrorDialog();
             }
         }
 

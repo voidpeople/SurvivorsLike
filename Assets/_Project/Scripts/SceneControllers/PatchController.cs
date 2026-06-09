@@ -25,6 +25,7 @@ namespace SurvivorsLike
             catch (Exception e)
             {
                 Debug.LogException(e);
+                SystemUIManager.Instance.ShowCriticalErrorDialog();
             }
         }
     }

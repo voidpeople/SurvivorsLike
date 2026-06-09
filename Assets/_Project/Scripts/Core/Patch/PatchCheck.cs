@@ -119,8 +119,9 @@ namespace SurvivorsLike
                 {
                     response = JsonConvert.DeserializeObject<PatchResponse>(jsonData);
                 }
-                catch (JsonException)  // Newtonsoft.Json의 파싱 예외만 명확히 잡기
+                catch (JsonException e)  // Newtonsoft.Json의 파싱 예외만 명확히 잡기
                 {
+                    Debug.LogWarning($"[PatchCheck] JSON 파싱 실패: {e.Message}");
                     return new PatchCheckResult
                     {
                         Status = PatchCheckStatus.InvalidResponse,

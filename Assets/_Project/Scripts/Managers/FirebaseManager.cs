@@ -79,10 +79,6 @@ namespace SurvivorsLike
                 Debug.Log($"익명 로그인 성공 - UserId : {result.User.UserId}");
                 return result.User.UserId;
             }
-            catch (OperationCanceledException)
-            {
-                throw;  // 일관성 유지, 상위 전파 명시
-            }
             catch (FirebaseException e)
             {
                 Debug.LogError($"익명 로그인 실패 : {e.Message}");

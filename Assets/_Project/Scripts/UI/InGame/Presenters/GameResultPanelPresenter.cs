@@ -51,8 +51,8 @@ namespace SurvivorsLike
             catch (Exception e)
             {
                 Debug.LogException(e);
-
                 _view.SetInteractable(true);
+                SystemUIManager.Instance.ShowCriticalErrorDialog();
             }
         }
 

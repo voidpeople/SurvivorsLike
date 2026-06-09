@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,6 +30,12 @@ namespace SurvivorsLike
         protected override void ChildAwake()
         {
             CurrentState = GameState.None;
+
+            //UniTaskVoid을 사용하는 함수에서 호출되는 UniTask 비동기 함수들의 익셉션은 그냥 사라지므로
+            //정확한 원인도 모르고 그냥 앱이 종료 됨~
+            //따라서 UniTaskScheduler.UnobservedTaskException을 통해 그런 익셉션도
+            //모두 받아서 로그를 출력하게 해야 한다.
+            UniTaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
         }
 
         public void SetGameState(GameState state)
@@ -53,6 +60,17 @@ namespace SurvivorsLike
         public void ClearPatchResult()
         {
             PatchCheckResultData = null;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy(); 
+            UniTaskScheduler.UnobservedTaskException -= OnUnobservedTaskException;
+        }
+
+        private void OnUnobservedTaskException(Exception ex)
+        {
+            Debug.LogException(ex);
         }
     }
 }
