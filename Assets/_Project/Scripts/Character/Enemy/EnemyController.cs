@@ -8,29 +8,28 @@ namespace SurvivorsLike
 {
     public class EnemyController : MonoBehaviour, IPoolable
     {
+#if UNITY_EDITOR
+        [Header("개발 테스트용")]
         [SerializeField] private EnemyStateType _currentStateType;
+#endif
 
         [Header("공격 거리")]
         [SerializeField] private float _attackRange = 1f;
 
-        EnemyData _enemyData;
+        private readonly CompositeDisposable _disposables = new();
+
+        private EnemyData _enemyData;
+        private Health _health;
+        private EnemyFSM _fsm;
+        private CancellationTokenSource _cts;
+        private bool _isPlaying;
 
         public EnemyAnimationController AnimCtrl { get; private set; }
         public EnemyMovement Movement { get; private set; }
         public SkillController SkillCtrl { get; private set; }
         public Transform TargetTransform { get; private set; }
-        public float AttackRange { get { return _attackRange; } }
-
-        private Health _health;
-        private EnemyFSM _fsm;
-
-        private CancellationTokenSource _cts;
-        public CancellationToken CTS { get { return _cts.Token; } }
-
-        private bool _isPlaying;
-
-        private readonly CompositeDisposable _disposables = new();
-
+        public float AttackRange => _attackRange;
+        public CancellationToken CTS => _cts.Token;
 
         private void Awake()
         {
@@ -118,6 +117,7 @@ namespace SurvivorsLike
             _cts?.Cancel();   //진행 중인 비동기 작업에 취소 신호 전달
             _cts?.Dispose();  //내부 WaitHandle 등 비관리 리소스 해제
             _cts = null;
+            _disposables.Dispose();
         }
 
         #region IPoolable

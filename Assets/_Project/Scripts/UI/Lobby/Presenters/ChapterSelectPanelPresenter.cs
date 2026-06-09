@@ -84,6 +84,10 @@ namespace SurvivorsLike
             _view.OnFinishScrollChapter -= OnFinishScrollChapter;
             _view.OnSelectChapter -= OnSelectChapter;
             _view.OnExitPanel -= OnExitPanel;
+
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = null;
         }
     }
 }

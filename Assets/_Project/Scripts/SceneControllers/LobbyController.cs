@@ -93,6 +93,8 @@ namespace SurvivorsLike
 
         private void Destroy()
         {
+            _tabModel.Dispose();
+
             _tabPresenter.Dispose();
             _tabView.Destroy();
 

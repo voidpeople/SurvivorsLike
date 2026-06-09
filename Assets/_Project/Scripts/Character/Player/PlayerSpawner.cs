@@ -18,10 +18,6 @@ namespace SurvivorsLike
         private AsyncOperationHandle<GameObject> _baseHandle;
         private AsyncOperationHandle<GameObject> _modelHandle;
 
-        private void Awake()
-        {
-        }
-
         public async UniTask SpawnAsync(CancellationToken ct)
         {
             Vector3 spawnPos = GetSpawnPosition();
@@ -60,6 +56,15 @@ namespace SurvivorsLike
             playerCtrl.Init(playerData, aniCtrl, _joystick);
 
             return playerCtrl;
+        }
+
+        private void OnDestroy()
+        {
+            if (_baseHandle.IsValid())
+                Addressables.Release(_baseHandle);
+
+            if (_modelHandle.IsValid())
+                Addressables.Release(_modelHandle);
         }
     }
 }
