@@ -33,6 +33,8 @@ namespace SurvivorsLike
 
         public void Init(SkillDataSO defaultSkillData)
         {
+            Debug.Assert(defaultSkillData != null, $"{nameof(SkillController)}::Init — defaultSkillData is null");
+
             _skillList.Clear();
             AddSkill(defaultSkillData);
         }

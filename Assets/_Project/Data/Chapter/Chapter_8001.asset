@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c5befac6ae80664d88ad8585466a919, type: 3}
-  m_Name: Chapter_02
+  m_Name: Chapter_8001
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.ChapterDataSO
-  Id: 2
-  DisplayName: "\uC624\uC5FC\uB41C \uD56D\uAD6C"
-  Difficulty: "\uCD08\uAE09"
-  DisplaySpriteName: lobby_chapter02
-  RecommendedCP: 800
+  Id: 8001
+  DisplayName: "\uBC84\uB824\uC9C4 \uB3C4\uC2DC"
+  DisplaySpriteName: lobby_chapter01
+  MapId: 10001
+  RecommendedCP: 500
   EnergyCost: 5
   DurationSec: 900
-  RewardGold: 400
-  RewardGem: 8
+  RewardGold: 300
+  RewardGem: 5
   MapData: {fileID: 0}
   ThumbnailSprite: {fileID: 0}

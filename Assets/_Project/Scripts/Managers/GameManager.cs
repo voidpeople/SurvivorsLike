@@ -22,8 +22,8 @@ namespace SurvivorsLike
 
     public class GameManager : SingletonMonoBehaviour<GameManager>
     {
-        private GameSessionData _gameSessionData = new GameSessionData();
-        public GameSessionData SessionData { get { return _gameSessionData; } }
+        private GameSessionData _gameSessionData;
+        public GameSessionData GameSessionData { get { return _gameSessionData; } }
 
         public GameState CurrentState { get; private set; }
 
@@ -62,15 +62,27 @@ namespace SurvivorsLike
             PatchCheckResultData = null;
         }
 
-        protected override void OnDestroy()
+        public void CreateGameSessionData(ChapterDataSO chapterdata, PlayerData playerData)
         {
-            base.OnDestroy(); 
-            UniTaskScheduler.UnobservedTaskException -= OnUnobservedTaskException;
+            ClearGameSessionData();
+            _gameSessionData = new GameSessionData();
+            _gameSessionData.Init(chapterdata, playerData);
+        }
+        public void ClearGameSessionData()
+        {
+            _gameSessionData?.Clear();
+            _gameSessionData = null;
         }
 
         private void OnUnobservedTaskException(Exception ex)
         {
             Debug.LogException(ex);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            UniTaskScheduler.UnobservedTaskException -= OnUnobservedTaskException;
         }
     }
 }

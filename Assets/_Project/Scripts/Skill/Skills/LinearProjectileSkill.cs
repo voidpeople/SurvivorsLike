@@ -14,10 +14,8 @@ namespace SurvivorsLike
             base.Init(data, level);
 
             _linearProjectileSkillData = data as LinearProjectileSkillDataSO;
-            if (_linearProjectileSkillData == null)
-            {
-                Debug.LogError($"LinearProjectileSkill::Init() - data is null!");
-            }
+            Debug.Assert(_linearProjectileSkillData != null,
+                $"{nameof(LinearProjectileSkill)}::Init — data를 LinearProjectileSkillDataSO로 캐스팅 실패");
         }
 
         public override void OnUseSkill()

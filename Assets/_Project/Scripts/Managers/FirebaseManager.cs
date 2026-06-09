@@ -113,7 +113,7 @@ namespace SurvivorsLike
                         Level = 1,
                         Gold = 1000,
                         Gem = 100,
-                        SelectedChapterId = 1,
+                        SelectedChapterId = 8001,
                         LastClearedChapterId = 0,
                     };
 

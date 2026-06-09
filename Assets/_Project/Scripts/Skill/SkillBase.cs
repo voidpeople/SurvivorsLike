@@ -17,11 +17,7 @@ namespace SurvivorsLike
 
         public virtual void Init(SkillDataSO data, int level = 1)
         {
-            if (data == null)
-            {
-                Debug.LogError($"SkillBase::Init() - data is null!");
-                return;
-            }
+            Debug.Assert(data != null, $"{nameof(SkillBase)}::Init — data is null");
 
             _skillData = data;
             _currentLevel = level;

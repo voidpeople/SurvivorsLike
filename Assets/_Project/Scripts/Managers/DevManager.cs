@@ -14,7 +14,7 @@ namespace SurvivorsLike
 
         [Header("InGame")]
         [SerializeField] private GameObject _managerPrefab;
-        [SerializeField] private int _loadChapterId = 1;
+        [SerializeField] private int _loadChapterId = 8001;
 
 #if UNITY_EDITOR
         private void Awake()
@@ -45,9 +45,9 @@ namespace SurvivorsLike
                 Debug.LogWarning($"선택한 챕터를 찾을 수 없습니다. : chapterId - {_loadChapterId}");
                 chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.Id == 1);
             }
-            GameManager.Instance.SessionData.Clear();
+            GameManager.Instance.GameSessionData.Clear();
             DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData);
-            GameManager.Instance.SessionData.Init(chapter, playerData);
+            GameManager.Instance.GameSessionData.Init(chapter, playerData);
         }
 #endif
     }

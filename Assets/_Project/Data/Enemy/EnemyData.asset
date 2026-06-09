@@ -29,7 +29,7 @@ MonoBehaviour:
   - Id: 2002
     Name: "\uC2A4\uD30C\uC774\uB354 \uBD07"
     Hp: 50
-    MoveSpeed: 10
+    MoveSpeed: 2.5
     DefaultSkillId: 4002
     IconKey: icon_goblin
     PrefabKey: character/enemy/spiderbot

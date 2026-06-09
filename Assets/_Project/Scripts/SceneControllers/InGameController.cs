@@ -41,15 +41,14 @@ namespace SurvivorsLike
             GameManager.Instance.SetGameState(GameState.InGame);
 
 #if UNITY_EDITOR
-            var activeScene = SceneManager.GetActiveScene();
-            bool isDirectLaunch = activeScene.buildIndex != 0;
-            if (isDirectLaunch)
+            //로비로 부터 정상적인 진입이 아니라면~
+            if(GameManager.Instance.GameSessionData == null)
             {
                 await _devManager.PrepareInGameAsync(ct);
             }
 #endif           
 
-            MapDataSO mapData = GameManager.Instance.SessionData.ChapterData.MapData;
+            MapDataSO mapData = GameManager.Instance.GameSessionData.ChapterData.MapData;
             // 모든 시스템 병렬 로드 — 각 시스템이 자신의 에셋만 책임
             await UniTask.WhenAll(
                 _mapController.LoadAssetsAsync(mapData, ct)
@@ -62,8 +61,19 @@ namespace SurvivorsLike
             await PoolManager.Instance.CreatePoolAsync("character/enemy/spiderbot", 100, 300, ct);
             await PoolManager.Instance.PreCreateAsync("character/enemy/spiderbot", 1, 10, ct);
 
-            DataManager.Instance.EnemyDataDic.TryGetValue(2002, out EnemyData enemyData);
+            if (!DataManager.Instance.EnemyDataDic.TryGetValue(2002, out EnemyData enemyData))
+            {
+                Debug.LogError($"{nameof(InGameController)}::InitAsync — EnemyData(2002) 로드 실패");
+                return;
+            }
+
             EnemyController enemyCtrl = PoolManager.Instance.Get<EnemyController>(enemyData.PrefabKey);
+            if (enemyCtrl == null)
+            {
+                Debug.LogError($"{nameof(InGameController)}::InitAsync — EnemyController 풀 취득 실패");
+                return;
+            }
+
             enemyCtrl.transform.SetPositionAndRotation(new Vector3(0f, 0f, 20f), Quaternion.identity);
             enemyCtrl.Init(enemyData, _playerSpawner.SpawnPlayerController.transform);
 

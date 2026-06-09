@@ -34,7 +34,7 @@ namespace SurvivorsLike
 
         private async UniTask<PlayerController> CreatePlayerAsync(Vector3 pos, CancellationToken ct)
         {
-            GameSessionData sessionData = GameManager.Instance.SessionData;
+            GameSessionData sessionData = GameManager.Instance.GameSessionData;
 
             _baseHandle = Addressables.LoadAssetAsync<GameObject>(_playerBaseAddressKey);
             _modelHandle = Addressables.LoadAssetAsync<GameObject>(sessionData.PlayerData.PrefabKey);

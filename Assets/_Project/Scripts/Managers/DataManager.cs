@@ -115,10 +115,10 @@ namespace SurvivorsLike
             foreach (var charpterData in _chapterDataSOList)
             {
                 MapDataSO data = null;
-                if (MapDataSODic.TryGetValue(charpterData.Id, out data) == true)
+                if (MapDataSODic.TryGetValue(charpterData.MapId, out data) == true)
                     charpterData.MapData = data;
                 else
-                    Debug.LogError($"맵 데이터가 존재하지 않습니다. : ChapterId - {charpterData.Id}");
+                    Debug.LogError($"맵 데이터가 존재하지 않습니다. : MapId - {charpterData.MapId}");
             }
         }
 

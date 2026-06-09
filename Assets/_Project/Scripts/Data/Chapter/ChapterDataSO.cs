@@ -8,14 +8,14 @@ namespace SurvivorsLike
     {
         [Header("기본 정보")]
         public int Id;
-        public string DisplayName;       // "버려진 도시"
-        public string Difficulty;        // "초급" / "중급" / "고급"
-        public string DisplaySpriteName; // UI애 출력 될 스프라이트 이름
+        public string DisplayName;       //"버려진 도시"
+        public string DisplaySpriteName; //UI애 출력 될 스프라이트 이름
+        public int MapId;                //맵 아이디
 
         [Header("전투 조건")]
-        public int RecommendedCP;        // 권장 전투력
-        public int EnergyCost = 5;       // 에너지 소모
-        public float DurationSec = 900f; // 15분
+        public int RecommendedCP;        //권장 전투력
+        public int EnergyCost = 5;       //에너지 소모
+        public float DurationSec = 900f; //15분
 
         [Header("보상")]
         public int RewardGold;
@@ -26,7 +26,5 @@ namespace SurvivorsLike
         public MapDataSO MapData;
         [Header("챕터 스프라이트")]
         public Sprite ThumbnailSprite;
-
-        // WaveDataSO / EnemyDataSO 는 해당 클래스 생성 후 추가 예정    
     }
 }

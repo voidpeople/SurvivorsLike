@@ -86,9 +86,15 @@ namespace SurvivorsLike
 
         private void OnGameStart()
         {
-            GameManager.Instance.SessionData.Clear();
-            DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData);
-            GameManager.Instance.SessionData.Init(_chapterSelectPanelModel.SelectedChapterData, playerData);
+            GameManager.Instance.ClearGameSessionData();
+
+            if (!DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData))
+            {
+                Debug.LogError($"{nameof(LobbyController)}::OnGameStart — PlayerData(1001) 로드 실패");
+                return;
+            }
+
+            GameManager.Instance.CreateGameSessionData(_chapterSelectPanelModel.SelectedChapterData, playerData);
         }
 
         private void Destroy()

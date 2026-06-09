@@ -11,6 +11,7 @@ namespace SurvivorsLike
     {
         public IReadOnlyList<ChapterDataSO> ChapterDataList { get; }
         private Dictionary<int, ChapterDataSO> _chapterDataDic = new Dictionary<int, ChapterDataSO>();
+        //Dictionary<챕터 아이디, 챕터 카드 인덱스>
         private Dictionary<int, int> _chapterCardIndexDic = new Dictionary<int, int>();
 
         //선택 버튼을 클릭하여 SelectedIndex에 해당 챕터 카드의 인덱스가 저장된다.
