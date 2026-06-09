@@ -49,22 +49,20 @@ namespace SurvivorsLike
 
         public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick)
         {
+            //Debug.Assert은 배포 빌드에서는 자동 제거됨~
+            Debug.Assert(data != null, $"{nameof(PlayerController)}::Init — data is null");
+            Debug.Assert(animController != null, $"{nameof(PlayerController)}::Init — animController is null");
+            Debug.Assert(joystick != null, $"{nameof(PlayerController)}::Init — joystick is null");
+
             _playerData = data;
             _health.Init(data.Hp);
 
+            DataManager.Instance.SkillDataSODic.TryGetValue(data.DefaultSkillId, out SkillDataSO skillData);
+            _skillController.Init(skillData);
+
             _animationController = animController;
-            if (_animationController == null)
-                Debug.LogError($"PlayerController::Init - _animationController is Null.");
-
             _joystick = joystick;
-            if (_joystick == null)
-                Debug.LogError($"PlayerController::Init - _joystick is Null.");
 
-            //기본 스킬이 쿠나이 스킬 추가
-            if (DataManager.Instance.SkillDataSODic.TryGetValue(1001, out SkillDataSO skillData) == true)
-            {
-                _skillController.AddSkill(skillData);
-            }
 
             InGameEventBus.OnInGameStart
                 .Take(1)

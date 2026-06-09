@@ -22,6 +22,8 @@ namespace SurvivorsLike
         {
             Vector3 spawnPos = GetSpawnPosition();
             SpawnPlayerController = await CreatePlayerAsync(spawnPos, ct);
+            if (SpawnPlayerController == null)
+                Debug.LogError($"{nameof(PlayerSpawner)}::SpawnAsync — 플레이어 스폰 실패");
         }
 
         private Vector3 GetSpawnPosition()
@@ -46,13 +48,28 @@ namespace SurvivorsLike
 
             GameObject playerObj = Instantiate(basePrefab, pos, Quaternion.identity);
             PlayerController playerCtrl = playerObj.GetComponent<PlayerController>();
+            if (playerCtrl == null)
+            {
+                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — PlayerController 컴포넌트 없음");
+                return null;
+            }
 
             GameObject modelObj = Instantiate(modelPrefab, playerCtrl.ModelRoot);
             modelObj.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             modelObj.transform.localScale = Vector3.one;
 
             PlayerAnimationController aniCtrl= modelObj.GetComponent<PlayerAnimationController>();
-            DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData);
+            if (aniCtrl == null)
+            {
+                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — PlayerAnimationController 컴포넌트 없음");
+                return null;
+            }
+
+            if(DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData) == false)
+            {
+                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — PlayerData(1001) 로드 실패");
+                return null;
+            }
             playerCtrl.Init(playerData, aniCtrl, _joystick);
 
             return playerCtrl;

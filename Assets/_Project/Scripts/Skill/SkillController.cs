@@ -31,9 +31,10 @@ namespace SurvivorsLike
                 .AddTo(_disposables);
         }
 
-        public void Init()
+        public void Init(SkillDataSO defaultSkillData)
         {
             _skillList.Clear();
+            AddSkill(defaultSkillData);
         }
 
         public bool AddSkill(SkillDataSO data)
