@@ -21,6 +21,7 @@ namespace SurvivorsLike
         [Header("모델 프리팹 링크 루트")]
         [SerializeField] private Transform _modelRoot;
         public Transform ModelRoot => _modelRoot;
+        
 
         PlayerData _playerData;
 
@@ -33,8 +34,11 @@ namespace SurvivorsLike
         private JoystickBase _joystick;
 
         private bool _isPlaying;
+        private EnemyController _targetCtrl;
 
         private readonly CompositeDisposable _disposables = new();
+
+        public bool IsDead => _health.IsDead;
 
 
         private void Awake()
@@ -45,6 +49,7 @@ namespace SurvivorsLike
             TryGetComponent(out _health);
 
             _isPlaying = false;
+            _targetCtrl = null;
         }
 
         public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick)
@@ -79,13 +84,20 @@ namespace SurvivorsLike
         {
             if (_isPlaying == false)
                 return;
-
-            _targetFinder.Finding(50f);
-            //Transform trans = _targetFinder.GetNearestTarget();
-            //if(trans != null)
-            //{
-            //    Debug.Log($"{Time.deltaTime} - {trans.gameObject.name}");
-            //}
+            
+            if ((_targetCtrl == null) || (_targetCtrl.IsDead == true))
+            {
+                _targetFinder.Finding(50f);
+                Transform targetTrans = _targetFinder.GetNearestTarget();
+                if (targetTrans != null)
+                {
+                    if(targetTrans.gameObject.TryGetComponent<EnemyController>(out _targetCtrl) == true)
+                    {
+                        _skillController.SetTarget(targetTrans);
+                    }    
+                    //Debug.Log($"{Time.deltaTime} - {targetTrans.gameObject.name}");
+                }
+            }
 
             _movement.SetMove(_joystick.IsPressed);
             _movement.SetInputDirection(_joystick.InputValue);

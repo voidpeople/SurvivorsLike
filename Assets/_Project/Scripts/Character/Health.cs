@@ -7,25 +7,26 @@ namespace SurvivorsLike
     public class Health : MonoBehaviour
     {
         [SerializeField] float _health;
-        private bool _isDead;
+        public bool IsDead { get; private set; }
 
-        public event Action OnDead;
+        public event Action Died;
 
         public void Init(float health)
         {
             _health = health;
-            _isDead = false;
+            IsDead = false;
         }
 
         public void TakeDamage(float damage)
         {
-            if (_isDead == true)
+            if (IsDead == true)
                 return;
 
             _health -= damage;
             if (_health <= 0f)
             {
-                _isDead = true;
+                IsDead = true;
+                Died?.Invoke();
             }
         }
     }

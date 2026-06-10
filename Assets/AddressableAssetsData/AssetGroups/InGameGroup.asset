@@ -57,6 +57,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - PlayerPrefab
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec8897d3208a9984f85277d575b4f98c
+    m_Address: projectile/kunai
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ce1e3262b4e8f419e19b8a78f907e4, type: 2}
   m_SchemaSet:

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace SurvivorsLike
 {
-    public class EnemyController : MonoBehaviour, IPoolable
+    public class EnemyController : MonoBehaviour, ITargetListener, IPoolable
     {
 #if UNITY_EDITOR
         [Header("개발 테스트용")]
@@ -30,6 +30,8 @@ namespace SurvivorsLike
         public Transform TargetTransform { get; private set; }
         public float AttackRange => _attackRange;
         public CancellationToken CTS => _cts.Token;
+
+        public bool IsDead => _health.IsDead;
 
         private void Awake()
         {
@@ -74,12 +76,13 @@ namespace SurvivorsLike
             _enemyData = data;
             Movement.Init(data);
             _health.Init(data.Hp);
+            _health.Died += OnDied;
 
             TargetTransform = targetTrasnform;
             _fsm.Init(EnemyStateType.Idle);
 
-            TargetTransform.TryGetComponent(out Health health);
-            health.OnDead += OnTargetDied;
+            TargetTransform.TryGetComponent(out Health targetHealth);
+            targetHealth.Died += OnTargetDied;
         }
 
         void OnGameStart()
@@ -94,9 +97,14 @@ namespace SurvivorsLike
         }
 
         //타겟이 죽으면 통보 받는 함수
-        private void OnTargetDied()
+        public void OnTargetDied()
         {
             _fsm.OnTargetDied();
+        }
+
+        private void OnDied()
+        {
+            _fsm.ChangeState(EnemyStateType.Dead);
         }
 
         private void Update()
@@ -112,13 +120,21 @@ namespace SurvivorsLike
                 _fsm.Update();
         }
 
+        public void ReturnToPool()
+        {
+            PoolManager.Instance.Return(this);
+        }
+
         private void OnDestroy()
         {
+            _health.Died -= OnDied;
+
             _cts?.Cancel();   //진행 중인 비동기 작업에 취소 신호 전달
             _cts?.Dispose();  //내부 WaitHandle 등 비관리 리소스 해제
             _cts = null;
             _disposables.Dispose();
         }
+
 
         #region IPoolable
         public void OnSpawn()
@@ -143,14 +159,9 @@ namespace SurvivorsLike
             if (TargetTransform != null)
             {
                 if (TargetTransform.TryGetComponent(out Health health))
-                    health.OnDead -= OnTargetDied;
+                    health.Died -= OnTargetDied;
                 TargetTransform = null;
             }
-        }
-
-        public void ReturnToPool()
-        {
-            PoolManager.Instance.Return(this);
         }
         #endregion
     }

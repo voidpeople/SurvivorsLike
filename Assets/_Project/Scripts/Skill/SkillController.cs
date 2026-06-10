@@ -14,6 +14,8 @@ namespace SurvivorsLike
 
         private readonly List<SkillBase> _skillList = new List<SkillBase>(MaxSkillSlot);
 
+        private Transform _targetTrasn;
+
         private bool _isPlaying;
 
         private readonly CompositeDisposable _disposables = new();
@@ -37,6 +39,11 @@ namespace SurvivorsLike
 
             _skillList.Clear();
             AddSkill(defaultSkillData);
+        }
+
+        public void SetTarget(Transform targetTrasn)
+        {
+
         }
 
         public bool AddSkill(SkillDataSO data)

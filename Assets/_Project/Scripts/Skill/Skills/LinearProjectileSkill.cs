@@ -8,6 +8,7 @@ namespace SurvivorsLike
     public class LinearProjectileSkill : SkillBase
     {
         private LinearProjectileSkillDataSO _linearProjectileSkillData;
+        
 
         public override void Init(SkillDataSO data, int level = 1)
         {
@@ -19,8 +20,9 @@ namespace SurvivorsLike
         }
 
         public override void OnUseSkill()
-        {
+        {            
             //발사체를 타겟을 향해 발사하는 로직 추가
+            //타겟 Transform
         }
     }
 }
