@@ -30,9 +30,9 @@ namespace SurvivorsLike
             return new LinearProjectileSkillLevelData
             {
                 Level = Int(row, "Level"),
-                Damage = Float(row, "Damage"),
-                ProjectileSpeed = Float(row, "ProjectileSpeed"),
+                Damage = Float(row, "Damage"),                
                 Cooldown = Float(row, "Cooldown"),
+                ProjectileSpeed = Float(row, "ProjectileSpeed"),
                 ProjectileCount = Int(row, "ProjectileCount"),
                 PierceCount = Int(row, "PierceCount"),
             };

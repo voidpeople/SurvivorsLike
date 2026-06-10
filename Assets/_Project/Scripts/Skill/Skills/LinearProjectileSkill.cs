@@ -20,6 +20,7 @@ namespace SurvivorsLike
 
         public override void OnUseSkill()
         {
+            //발사체를 타겟을 향해 발사하는 로직 추가
         }
     }
 }

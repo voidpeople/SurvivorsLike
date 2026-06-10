@@ -36,9 +36,9 @@ namespace SurvivorsLike
         {
             if (IsReady == false)
                 return false;
-
-            _cooldownTimer = GetCurrentLevelCooldown();
+                        
             OnUseSkill();
+            _cooldownTimer = GetCurrentLevelCooldown();
 
             return true;
         }

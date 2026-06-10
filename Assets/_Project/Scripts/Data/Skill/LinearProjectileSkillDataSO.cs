@@ -12,8 +12,8 @@ namespace SurvivorsLike
     {
         public int Level;
         public float Damage;
-        public float ProjectileSpeed;
         public float Cooldown;
+        public float ProjectileSpeed;        
         public int ProjectileCount;   //동시 발사 수
         public int PierceCount;       //관통 횟수
     }
