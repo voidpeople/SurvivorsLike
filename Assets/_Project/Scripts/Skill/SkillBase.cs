@@ -7,7 +7,6 @@ namespace SurvivorsLike
 {
     public abstract class SkillBase
     {
-        protected Transform _ownerTrasn;
         protected SkillDataSO _skillData;
         protected ISkillOwner _owner;
         protected ITargetable _target;
@@ -25,11 +24,10 @@ namespace SurvivorsLike
 
         public virtual void Init(ISkillOwner owner, SkillDataSO data, int level = 1)
         {
-            Debug.Assert(data != null, $"{nameof(SkillBase)}::Init — owner is null");
+            Debug.Assert(owner != null, $"{nameof(SkillBase)}::Init — owner is null");
             Debug.Assert(data != null, $"{nameof(SkillBase)}::Init — data is null");
 
             _owner = owner;
-            _ownerTrasn = owner.Transform;
             _skillData = data;
             _currentLevel = level;
             _cooldownTimer = 0f;

@@ -32,7 +32,7 @@ namespace SurvivorsLike
         {
             return _owner.FirePoint != null
                 ? _owner.FirePoint.position
-                : _ownerTrasn.position + (Vector3.up * 0.5f) + (dir * 0.2f);
+                : _owner.Transform.position + (Vector3.up * 0.5f) + (dir * 0.2f);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -40,12 +40,12 @@ namespace SurvivorsLike
         {
             if(null != _target)
             {
-                Vector3 dir = _target.Transform.position - _ownerTrasn.position;
+                Vector3 dir = _target.Transform.position - _owner.Transform.position;
                 dir.y = 0f;
                 return dir.normalized;
             }
 
-            return _ownerTrasn.forward;
+            return _owner.Transform.forward;
         }
 
         public override void OnUseSkill()

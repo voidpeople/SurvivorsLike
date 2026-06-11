@@ -78,7 +78,6 @@ namespace SurvivorsLike
 
             if (dirVec.sqrMagnitude <= _sqrStoppingDistance)
             {
-                OnDestinationReached?.Invoke();
                 Stop();
                 return;
             }
