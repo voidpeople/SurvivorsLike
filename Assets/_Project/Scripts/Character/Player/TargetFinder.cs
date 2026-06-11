@@ -31,6 +31,10 @@ namespace SurvivorsLike
 
             for(int ii = 0; ii < _hitCount; ++ii)
             {
+                //사망 상태의 캐릭터는 열외~
+                if (_findedColliderBuffer[ii].TryGetComponent<IAlive>(out IAlive alive) && alive.IsDead)
+                    continue;
+
                 float distSqr = (_findedColliderBuffer[ii].transform.position - finderPos).sqrMagnitude;
                 if(distSqr < minDistSqr)
                 {

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace SurvivorsLike
 {
-    public class EnemyController : MonoBehaviour, ITargetListener, IPoolable, ITargetable, IAlive, ISkillOwner
+    public class EnemyController : MonoBehaviour, IPoolable, IAlive, ISkillOwner, ITargetListener, ITargetable 
     {
         // ─── [SerializeField] ────────────────────────────────────────────────
 #if UNITY_EDITOR

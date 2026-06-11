@@ -16,7 +16,7 @@ Player(루트)
 
 namespace SurvivorsLike
 {
-    public class PlayerController : MonoBehaviour, ITargetListener, ITargetable, IAlive, ISkillOwner
+    public class PlayerController : MonoBehaviour, IAlive, ISkillOwner, ITargetListener, ITargetable
     {
         // ─── [SerializeField] ────────────────────────────────────────────────
         [Header("씬 참조")]
@@ -37,8 +37,8 @@ namespace SurvivorsLike
         PlayerData _playerData;
 
         private bool _isPlaying;
-        private ITargetable _currentTarget;
-        private IAlive _crrrentTargetAlive;
+        private ITargetable _target;
+        private Health _targetHealth;
 
         //총구 머즐 포인트 트랜스폼 설정
         private Transform _firePoint;
@@ -78,8 +78,8 @@ namespace SurvivorsLike
 
             _isPlaying = false;
 
-            _currentTarget = null;
-            _crrrentTargetAlive = null;
+            _target = null;
+            _targetHealth = null;
             _firePoint = null;
         }
 
@@ -88,18 +88,19 @@ namespace SurvivorsLike
             if (_isPlaying == false)
                 return;
 
-            if ((_crrrentTargetAlive == null) || (_crrrentTargetAlive.IsDead == true))
+            if (_target == null)
             {
                 _targetFinder.Finding(50f);
                 Transform targetTrans = _targetFinder.GetNearestTarget();
                 if (targetTrans != null)
-                {
-                    targetTrans.TryGetComponent(out _currentTarget);
-                    targetTrans.TryGetComponent(out _crrrentTargetAlive);
+                {                    
+                    targetTrans.TryGetComponent(out _targetHealth);
+                    _targetHealth.Died += OnTargetDied;
 
-                    if (_currentTarget != null)
+                    targetTrans.TryGetComponent(out _target);
+                    if (_target != null)
                     {
-                        _skillController.SetTarget(_currentTarget);
+                        _skillController.SetTarget(_target);
                     }
                     //Debug.Log($"{Time.deltaTime} - {targetTrans.gameObject.name}");
                 }
@@ -146,8 +147,10 @@ namespace SurvivorsLike
         #region ITargetListener
         public void OnTargetDied()
         {
-            _currentTarget = null;
-            _crrrentTargetAlive = null;
+            _targetHealth.Died -= OnTargetDied;
+
+            _target = null;
+            _targetHealth = null;
             _skillController.SetTarget(null);
         }
         #endregion

@@ -27,7 +27,7 @@ namespace SurvivorsLike
 
         private async UniTaskVoid ReturnToPoolAsync(CancellationToken ct)
         {            
-            await UniTask.Delay(1000, cancellationToken: ct);
+            await UniTask.Delay(500, cancellationToken: ct);
 
             //Pool매니저에 반환
             _ctrl.ReturnToPool();
