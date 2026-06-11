@@ -47,7 +47,7 @@ namespace SurvivorsLike
         private void ApplyMovement()
         {
             //이동
-            transform.position = _moveDir * _moveSpeed * Time.deltaTime;
+            transform.position += _moveDir * _moveSpeed * Time.deltaTime;
 
             //거리 체크하여 소멸
             if ((transform.position - _spawnPos).sqrMagnitude >= _rangeSqr)

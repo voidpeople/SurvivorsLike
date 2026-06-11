@@ -80,6 +80,10 @@ namespace SurvivorsLike
             await PoolManager.Instance.CreatePoolAsync("vfx/explosion/explosion01", 100, 300, ct);
             await PoolManager.Instance.PreCreateAsync("vfx/explosion/explosion01", 1, 10, ct);
 
+            //플레이어 캐릭터 스킬 프리팹들 로드
+            await PoolManager.Instance.CreatePoolAsync("projectile/kunai", 50, 100, ct);
+            await PoolManager.Instance.PreCreateAsync("projectile/kunai", 50, 10, ct);
+
             InitResultPanelAsync(ct);
 
             //3초 후 실행
@@ -87,7 +91,6 @@ namespace SurvivorsLike
             //이벤트 발송~
             InGameEventBus.OnInGameStart.OnNext(Unit.Default);
         }
-
 
         private void InitResultPanelAsync(CancellationToken ct)
         {

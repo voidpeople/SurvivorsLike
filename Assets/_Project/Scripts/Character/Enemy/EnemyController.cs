@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace SurvivorsLike
 {
-    public class EnemyController : MonoBehaviour, ITargetListener, IPoolable
+    public class EnemyController : MonoBehaviour, ITargetListener, IPoolable, ITargetable, IAlive
     {
 #if UNITY_EDITOR
         [Header("개발 테스트용")]
@@ -15,6 +15,9 @@ namespace SurvivorsLike
 
         [Header("공격 거리")]
         [SerializeField] private float _attackRange = 1f;
+
+        [Header("조준 타겟")]
+        [SerializeField] private Transform _aimPoint;
 
         private readonly CompositeDisposable _disposables = new();
 
@@ -31,7 +34,23 @@ namespace SurvivorsLike
         public float AttackRange => _attackRange;
         public CancellationToken CTS => _cts.Token;
 
+
+        #region IAlive
         public bool IsDead => _health.IsDead;
+        #endregion
+
+        #region ITargetable
+        public Transform Transform => transform;
+
+        //조준 타겟
+        public Vector3 AimPoint
+        {
+            get
+            {
+                return _aimPoint != null ? _aimPoint.position : transform.position + Vector3.up * 0.5f;
+            }
+        }
+        #endregion
 
         private void Awake()
         {

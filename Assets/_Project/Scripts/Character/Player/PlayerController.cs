@@ -16,10 +16,13 @@ Player(루트)
 
 namespace SurvivorsLike
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, ITargetListener, ITargetable, IAlive
     {
         [Header("모델 프리팹 링크 루트")]
         [SerializeField] private Transform _modelRoot;
+
+        [Header("조준 타겟")]
+        [SerializeField] private Transform _aimPoint;
         public Transform ModelRoot => _modelRoot;
         
 
@@ -34,12 +37,26 @@ namespace SurvivorsLike
         private JoystickBase _joystick;
 
         private bool _isPlaying;
-        private EnemyController _targetCtrl;
+        private ITargetable _currentTarget;
+        private IAlive _crrrentTargetAlive;
+        
 
         private readonly CompositeDisposable _disposables = new();
 
         public bool IsDead => _health.IsDead;
 
+        #region ITargetable
+        public Transform Transform => transform;
+
+        //조준 타겟
+        public Vector3 AimPoint
+        {
+            get
+            {
+                return _aimPoint != null ? _aimPoint.position : transform.position + Vector3.up * 0.5f;
+            }
+        }
+        #endregion
 
         private void Awake()
         {            
@@ -49,7 +66,9 @@ namespace SurvivorsLike
             TryGetComponent(out _health);
 
             _isPlaying = false;
-            _targetCtrl = null;
+
+            _currentTarget = null;
+            _crrrentTargetAlive = null;
         }
 
         public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick)
@@ -80,20 +99,32 @@ namespace SurvivorsLike
             _isPlaying = true;
         }
 
+        #region ITargetListener
+        public void OnTargetDied()
+        {
+            _currentTarget = null;
+            _crrrentTargetAlive = null;
+            _skillController.SetTarget(null);
+        }
+        #endregion
+
         private void Update()
         {
             if (_isPlaying == false)
                 return;
             
-            if ((_targetCtrl == null) || (_targetCtrl.IsDead == true))
+            if ((_crrrentTargetAlive == null) || (_crrrentTargetAlive.IsDead == true))
             {
                 _targetFinder.Finding(50f);
                 Transform targetTrans = _targetFinder.GetNearestTarget();
                 if (targetTrans != null)
                 {
-                    if(targetTrans.gameObject.TryGetComponent<EnemyController>(out _targetCtrl) == true)
+                    targetTrans.TryGetComponent(out _currentTarget);
+                    targetTrans.TryGetComponent(out _crrrentTargetAlive);
+
+                    if (_currentTarget != null)
                     {
-                        _skillController.SetTarget(targetTrans);
+                        _skillController.SetTarget(_currentTarget);
                     }    
                     //Debug.Log($"{Time.deltaTime} - {targetTrans.gameObject.name}");
                 }

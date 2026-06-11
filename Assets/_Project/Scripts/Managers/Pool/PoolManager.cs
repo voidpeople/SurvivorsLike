@@ -28,7 +28,7 @@ namespace SurvivorsLike
                 return pool.Get();
             }
 
-            Debug.LogError($"PoolManager::Get - 미등록 키: {poolKey}");
+            Debug.LogError($"{nameof(PoolManager)}::Get => Unregistered key: {poolKey}");
             return null;
         }
 

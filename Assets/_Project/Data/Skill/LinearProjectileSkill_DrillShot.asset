@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.LinearProjectileSkillDataSO
   Id: 3002
   Name: DrillShot
+  RequiresTarget: 0
   IconKey: icon/drill
   PrefabKey: skill/drill
   LevelDataList:

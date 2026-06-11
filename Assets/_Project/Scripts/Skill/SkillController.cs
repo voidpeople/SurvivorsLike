@@ -14,8 +14,6 @@ namespace SurvivorsLike
 
         private readonly List<SkillBase> _skillList = new List<SkillBase>(MaxSkillSlot);
 
-        private Transform _targetTrasn;
-
         private bool _isPlaying;
 
         private readonly CompositeDisposable _disposables = new();
@@ -41,9 +39,17 @@ namespace SurvivorsLike
             AddSkill(defaultSkillData);
         }
 
-        public void SetTarget(Transform targetTrasn)
+        public void SetTarget(ITargetable target)
         {
+            //Debug.Assert(target != null, $"{nameof(SkillController)}::SetTarget — target is null.");
 
+            int count = _skillList.Count;
+            for (int ii = 0; ii < count; ++ii)
+            {
+                //타겟의 위치 정보가 필요한 스킬
+                //타겟의 위치 정보가 필요 없는 스킬
+                _skillList[ii].SetTarget(target);
+            }
         }
 
         public bool AddSkill(SkillDataSO data)
@@ -52,7 +58,7 @@ namespace SurvivorsLike
                 return false;
 
             SkillBase skill = SkillFactory.Create(data);
-            skill.Init(data);
+            skill.Init(transform, data);
             _skillList.Add(skill);
 
             return true;
