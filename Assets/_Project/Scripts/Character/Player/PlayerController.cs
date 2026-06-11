@@ -21,6 +21,9 @@ namespace SurvivorsLike
         [Header("모델 프리팹 링크 루트")]
         [SerializeField] private Transform _modelRoot;
 
+        [Header("발사체 스폰 위치")]
+        [SerializeField] private Transform _firePoint;
+
         [Header("조준 타겟")]
         [SerializeField] private Transform _aimPoint;
         public Transform ModelRoot => _modelRoot;

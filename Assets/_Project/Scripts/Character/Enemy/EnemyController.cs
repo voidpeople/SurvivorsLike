@@ -16,6 +16,9 @@ namespace SurvivorsLike
         [Header("공격 거리")]
         [SerializeField] private float _attackRange = 1f;
 
+        [Header("발사체 스폰 위치")]
+        [SerializeField] private Transform _firePoint;
+
         [Header("조준 타겟")]
         [SerializeField] private Transform _aimPoint;
 

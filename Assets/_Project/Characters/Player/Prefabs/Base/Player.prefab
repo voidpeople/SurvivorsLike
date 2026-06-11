@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3734726258012029599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5659712055690236246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8942347394039785463}
+  m_Layer: 6
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8942347394039785463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5659712055690236246}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3734726258012029599}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7047003210136080283
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,6 +99,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8942347394039785463}
   - {fileID: 6706324370120283756}
   - {fileID: 5523103103264878769}
   m_Father: {fileID: 0}
@@ -110,6 +142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerController
   _modelRoot: {fileID: 5523103103264878769}
+  _firePoint: {fileID: 8942347394039785463}
+  _aimPoint: {fileID: 6706324370120283756}
 --- !u!114 &7063929355543409026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6706324370120283756}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AimPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

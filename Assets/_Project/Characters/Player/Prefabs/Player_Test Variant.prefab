@@ -115,6 +115,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Test Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8942347394039785463, guid: 404f7a0811a63484198c9260b923205a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942347394039785463, guid: 404f7a0811a63484198c9260b923205a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1487909815729873087, guid: 404f7a0811a63484198c9260b923205a, type: 3}
     m_RemovedGameObjects: []
