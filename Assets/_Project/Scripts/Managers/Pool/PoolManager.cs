@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
@@ -12,6 +12,7 @@ namespace SurvivorsLike
 {
     public class PoolManager : SingletonMonoBehaviour<PoolManager>
     {
+        // ─── private 필드 ────────────────────────────────────────────────────
         private Dictionary<string, ObjectPool<GameObject>> _poolDic = new();
         private Dictionary<GameObject, string> _poolKeyDic = new();
         //나중에 Release을 위해 핸들 보관
@@ -21,6 +22,20 @@ namespace SurvivorsLike
 
         private bool _isPrewarming;
 
+
+        // ─── Unity Lifecycle ─────────────────────────────────────────────────
+        protected override void OnDestroy()
+        {
+            foreach (string poolKey in new List<string>(_poolDic.Keys))
+            {
+                ReleasePool(poolKey);
+            }
+
+            base.OnDestroy();
+        }
+
+
+        // ─── Public Methods ───────────────────────────────────────────────────
         public GameObject Get(string poolKey)
         {
             if (_poolDic.TryGetValue(poolKey, out var pool))
@@ -35,11 +50,11 @@ namespace SurvivorsLike
         //EnemyController enemy = PoolManager.Instance.Get<EnemyController>("enemy/spiderBot");
         public T Get<T>(string poolKey) where T : Component
         {
-            GameObject obj = Get(poolKey); 
+            GameObject obj = Get(poolKey);
             if (obj != null)
                 return obj.GetComponent<T>();
 
-            return null;           
+            return null;
         }
 
         public void Return(IPoolable poolable)
@@ -107,7 +122,7 @@ namespace SurvivorsLike
             if (_poolDic.ContainsKey(poolKey))
                 return;
 
-            AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(poolKey);            
+            AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(poolKey);
 
             GameObject prefab = null;
             try
@@ -183,7 +198,7 @@ namespace SurvivorsLike
                 //풀의 인스턴스 생성 후 생성하여 채워야 할 오브젝트 갯수
                 defaultCapacity: defaultCapacity,
                 //풀이 보유할 수 있는 최대 오브젝트의 수 (이 사이즈를 초과하는 오브젝트는 자동으로 Destroy가 된다.)
-                maxSize: maxSize); 
+                maxSize: maxSize);
             _poolDic.Add(poolKey, newPool);
         }
 
@@ -193,26 +208,16 @@ namespace SurvivorsLike
             if (_poolDic.TryGetValue(poolKey, out var pool))
             {
                 //풀 내 오브젝트 Destroy
-                pool.Dispose(); 
+                pool.Dispose();
                 _poolDic.Remove(poolKey);
             }
 
             if (_asyncOpHandleDic.TryGetValue(poolKey, out var handle))
             {
                 //메모리 해제
-                Addressables.Release(handle); 
+                Addressables.Release(handle);
                 _asyncOpHandleDic.Remove(poolKey);
             }
-        }
-
-        protected override void OnDestroy()
-        {
-            foreach (string poolKey in new List<string>(_poolDic.Keys))
-            {
-                ReleasePool(poolKey);
-            }
-
-            base.OnDestroy();
         }
     }
 }

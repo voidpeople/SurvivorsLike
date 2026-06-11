@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using R3;
 
 
@@ -18,23 +18,25 @@ namespace SurvivorsLike
 {
     public class PlayerController : MonoBehaviour, ITargetListener, ITargetable, IAlive, ISkillOwner
     {
+        // ─── [SerializeField] ────────────────────────────────────────────────
         [Header("모델 프리팹 링크 루트")]
         [SerializeField] private Transform _modelRoot;
 
         [Header("조준 타겟")]
         [SerializeField] private Transform _aimPoint;
-        public Transform ModelRoot => _modelRoot;
-        
-
-        PlayerData _playerData;
 
 
+        // ─── 컴포넌트 참조 ───────────────────────────────────────────────────
         private PlayerAnimationController _animationController;
-        private PlayerMovement _movement;        
+        private PlayerMovement _movement;
         private TargetFinder _targetFinder;
         private SkillController _skillController;
         private Health _health;
         private JoystickBase _joystick;
+
+
+        // ─── 런타임 데이터 ───────────────────────────────────────────────────
+        PlayerData _playerData;
 
         private bool _isPlaying;
         private ITargetable _currentTarget;
@@ -45,12 +47,14 @@ namespace SurvivorsLike
 
         private readonly CompositeDisposable _disposables = new();
 
+
+        // ─── Properties ──────────────────────────────────────────────────────
+        public Transform ModelRoot => _modelRoot;
         public bool IsDead => _health.IsDead;
 
-        
+        #region ITargetable
         public Transform Transform => transform;
 
-        #region ITargetable
         //조준 타겟
         public Vector3 AimPoint
         {
@@ -65,9 +69,11 @@ namespace SurvivorsLike
         public Transform FirePoint => _firePoint;
         #endregion
 
+
+        // ─── Unity Lifecycle ─────────────────────────────────────────────────
         private void Awake()
-        {            
-            TryGetComponent(out _movement);            
+        {
+            TryGetComponent(out _movement);
             TryGetComponent(out _targetFinder);
             TryGetComponent(out _skillController);
             TryGetComponent(out _health);
@@ -79,6 +85,40 @@ namespace SurvivorsLike
             _firePoint = null;
         }
 
+        private void Update()
+        {
+            if (_isPlaying == false)
+                return;
+
+            if ((_crrrentTargetAlive == null) || (_crrrentTargetAlive.IsDead == true))
+            {
+                _targetFinder.Finding(50f);
+                Transform targetTrans = _targetFinder.GetNearestTarget();
+                if (targetTrans != null)
+                {
+                    targetTrans.TryGetComponent(out _currentTarget);
+                    targetTrans.TryGetComponent(out _crrrentTargetAlive);
+
+                    if (_currentTarget != null)
+                    {
+                        _skillController.SetTarget(_currentTarget);
+                    }
+                    //Debug.Log($"{Time.deltaTime} - {targetTrans.gameObject.name}");
+                }
+            }
+
+            _movement.SetMove(_joystick.IsPressed);
+            _movement.SetInputDirection(_joystick.InputValue);
+            _animationController.SetSpeed(_movement.AnimatorSpeed);
+        }
+
+        private void OnDestroy()
+        {
+            _disposables.Dispose();
+        }
+
+
+        // ─── Public Methods ───────────────────────────────────────────────────
         public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick)
         {
             //Debug.Assert은 배포 빌드에서는 자동 제거됨~
@@ -102,11 +142,8 @@ namespace SurvivorsLike
                 .AddTo(_disposables);
         }
 
-        void OnGameStart()
-        {
-            _isPlaying = true;
-        }
 
+        // ─── Interface Implementations ────────────────────────────────────────
         #region ITargetListener
         public void OnTargetDied()
         {
@@ -116,36 +153,11 @@ namespace SurvivorsLike
         }
         #endregion
 
-        private void Update()
+
+        // ─── Private Methods ──────────────────────────────────────────────────
+        void OnGameStart()
         {
-            if (_isPlaying == false)
-                return;
-            
-            if ((_crrrentTargetAlive == null) || (_crrrentTargetAlive.IsDead == true))
-            {
-                _targetFinder.Finding(50f);
-                Transform targetTrans = _targetFinder.GetNearestTarget();
-                if (targetTrans != null)
-                {
-                    targetTrans.TryGetComponent(out _currentTarget);
-                    targetTrans.TryGetComponent(out _crrrentTargetAlive);
-
-                    if (_currentTarget != null)
-                    {
-                        _skillController.SetTarget(_currentTarget);
-                    }    
-                    //Debug.Log($"{Time.deltaTime} - {targetTrans.gameObject.name}");
-                }
-            }
-
-            _movement.SetMove(_joystick.IsPressed);
-            _movement.SetInputDirection(_joystick.InputValue);
-            _animationController.SetSpeed(_movement.AnimatorSpeed);
-        }
-
-        private void OnDestroy()
-        {
-            _disposables.Dispose();
+            _isPlaying = true;
         }
     }
 }

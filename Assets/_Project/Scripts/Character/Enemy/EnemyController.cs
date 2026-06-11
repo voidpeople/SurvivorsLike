@@ -8,6 +8,7 @@ namespace SurvivorsLike
 {
     public class EnemyController : MonoBehaviour, ITargetListener, IPoolable, ITargetable, IAlive, ISkillOwner
     {
+        // ─── [SerializeField] ────────────────────────────────────────────────
 #if UNITY_EDITOR
         [Header("개발 테스트용")]
         [SerializeField] private EnemyStateType _currentStateType;
@@ -19,6 +20,8 @@ namespace SurvivorsLike
         [Header("조준 타겟")]
         [SerializeField] private Transform _aimPoint;
 
+
+        // ─── private 필드 ────────────────────────────────────────────────────
         private readonly CompositeDisposable _disposables = new();
 
         private EnemyData _enemyData;
@@ -28,6 +31,8 @@ namespace SurvivorsLike
         private Transform _firePoint;
         private bool _isPlaying;
 
+
+        // ─── Properties ──────────────────────────────────────────────────────
         public EnemyAnimationController AnimCtrl { get; private set; }
         public EnemyMovement Movement { get; private set; }
         public SkillController SkillCtrl { get; private set; }
@@ -35,14 +40,13 @@ namespace SurvivorsLike
         public float AttackRange => _attackRange;
         public CancellationToken CTS => _cts.Token;
 
-
         #region IAlive
         public bool IsDead => _health.IsDead;
         #endregion
 
+        #region ITargetable
         public Transform Transform => transform;
 
-        #region ITargetable
         //조준 타겟
         public Vector3 AimPoint
         {
@@ -51,13 +55,14 @@ namespace SurvivorsLike
                 return _aimPoint != null ? _aimPoint.position : transform.position + Vector3.up * 0.5f;
             }
         }
-        #endregion        
+        #endregion
 
         #region ISkillOwner
         public Transform FirePoint => _firePoint;
         #endregion
 
 
+        // ─── Unity Lifecycle ─────────────────────────────────────────────────
         private void Awake()
         {
             _cts?.Dispose();
@@ -78,6 +83,7 @@ namespace SurvivorsLike
 
             _isPlaying = false;
         }
+
         private void Start()
         {
             InGameEventBus.OnInGameStart
@@ -85,15 +91,31 @@ namespace SurvivorsLike
                 .AddTo(_disposables);
         }
 
-        private void CreateFSM()
+        private void Update()
         {
-            _fsm = new EnemyFSM();
-            _fsm.RegisterState(EnemyStateType.Idle, new EnemyIdleState(this, _fsm));
-            _fsm.RegisterState(EnemyStateType.Chase, new EnemyChaseState(this, _fsm));
-            _fsm.RegisterState(EnemyStateType.Attack, new EnemyAttackState(this, _fsm));
-            _fsm.RegisterState(EnemyStateType.Dead, new EnemyDeadState(this, _fsm));
+            if (_isPlaying == false)
+                return;
+
+#if UNITY_EDITOR
+            if (_fsm != null)
+                _currentStateType = _fsm.CurrentType;
+#endif
+            if (_fsm != null)
+                _fsm.Update();
         }
 
+        private void OnDestroy()
+        {
+            _health.Died -= OnDied;
+
+            _cts?.Cancel();   //진행 중인 비동기 작업에 취소 신호 전달
+            _cts?.Dispose();  //내부 WaitHandle 등 비관리 리소스 해제
+            _cts = null;
+            _disposables.Dispose();
+        }
+
+
+        // ─── Public Methods ───────────────────────────────────────────────────
         //타겟은 플레이어 캐릭터 하나 이므로
         //적 캐릭터가 스폰되자 마자 Init 함수를 통해 타겟이 설정됨~
         public void Init(EnemyData data, Transform targetTrasnform)
@@ -110,39 +132,10 @@ namespace SurvivorsLike
             targetHealth.Died += OnTargetDied;
         }
 
-        void OnGameStart()
-        {
-            _isPlaying = true;
-        }
-
-        //Enemy 캐릭터가 목표 위치에 도착하면 통보 받는 함수
-        private void OnDestinationReached()
-        {
-            _fsm.OnDestinationReached();
-        }
-
         //타겟이 죽으면 통보 받는 함수
         public void OnTargetDied()
         {
             _fsm.OnTargetDied();
-        }
-
-        private void OnDied()
-        {
-            _fsm.ChangeState(EnemyStateType.Dead);
-        }
-
-        private void Update()
-        {
-            if (_isPlaying == false)
-                return;
-
-#if UNITY_EDITOR
-            if (_fsm != null)
-                _currentStateType = _fsm.CurrentType;
-#endif
-            if (_fsm != null)
-                _fsm.Update();
         }
 
         public void ReturnToPool()
@@ -150,17 +143,8 @@ namespace SurvivorsLike
             PoolManager.Instance.Return(this);
         }
 
-        private void OnDestroy()
-        {
-            _health.Died -= OnDied;
 
-            _cts?.Cancel();   //진행 중인 비동기 작업에 취소 신호 전달
-            _cts?.Dispose();  //내부 WaitHandle 등 비관리 리소스 해제
-            _cts = null;
-            _disposables.Dispose();
-        }
-
-
+        // ─── Interface Implementations ────────────────────────────────────────
         #region IPoolable
         public void OnSpawn()
         {
@@ -189,5 +173,32 @@ namespace SurvivorsLike
             }
         }
         #endregion
+
+
+        // ─── Private Methods ──────────────────────────────────────────────────
+        private void CreateFSM()
+        {
+            _fsm = new EnemyFSM();
+            _fsm.RegisterState(EnemyStateType.Idle, new EnemyIdleState(this, _fsm));
+            _fsm.RegisterState(EnemyStateType.Chase, new EnemyChaseState(this, _fsm));
+            _fsm.RegisterState(EnemyStateType.Attack, new EnemyAttackState(this, _fsm));
+            _fsm.RegisterState(EnemyStateType.Dead, new EnemyDeadState(this, _fsm));
+        }
+
+        void OnGameStart()
+        {
+            _isPlaying = true;
+        }
+
+        //Enemy 캐릭터가 목표 위치에 도착하면 통보 받는 함수
+        private void OnDestinationReached()
+        {
+            _fsm.OnDestinationReached();
+        }
+
+        private void OnDied()
+        {
+            _fsm.ChangeState(EnemyStateType.Dead);
+        }
     }
 }

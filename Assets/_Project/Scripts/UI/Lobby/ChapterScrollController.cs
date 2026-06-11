@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,21 +9,31 @@ namespace SurvivorsLike
 {
     public class ChapterScrollController : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
+        // ─── [SerializeField] ────────────────────────────────────────────────
         [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private Button _btnPrev;
         [SerializeField] private Button _btnNext;
         [SerializeField] private ChapterCardView _cardPrefab;
 
+
+        // ─── 상수 ─────────────────────────────────────────────────────────────
+        private const float SnapDuration = 0.25f;
+
+
+        // ─── private 필드 ────────────────────────────────────────────────────
         private int _chapterCount;
         private int _currentIndex;
         private float[] _snapPositions;
         private float _dragStartNormPos;
         private bool _isSnapping;
         private bool _isSetupDone;
-        private const float SnapDuration = 0.25f;
 
+
+        // ─── Events ───────────────────────────────────────────────────────────
         public event Action<int> OnCardCentered;
 
+
+        // ─── Unity Lifecycle ─────────────────────────────────────────────────
         private void Start()
         {
             _btnPrev.onClick.AddListener(PrevChapter);
@@ -52,6 +62,8 @@ namespace SurvivorsLike
             _btnNext.onClick.RemoveAllListeners();
         }
 
+
+        // ─── Public Methods ───────────────────────────────────────────────────
         //동적 카드 추가
         public void SetupChapters(IReadOnlyList<ChapterDataSO> chapterList)
         {
@@ -82,14 +94,6 @@ namespace SurvivorsLike
             _isSetupDone = true;
             BuildSnapPositions();
             SnapTo(0, instant: true);
-        }
-
-        private void BuildSnapPositions()
-        {
-            _snapPositions = new float[_chapterCount];
-            if (_chapterCount <= 1) return;
-            for (int i = 0; i < _chapterCount; i++)
-                _snapPositions[i] = (float)i / (_chapterCount - 1);
         }
 
         //드래그 시작할 떄 호출됨~
@@ -138,6 +142,16 @@ namespace SurvivorsLike
             if (index < 0 || index >= _chapterCount) return;
             _currentIndex = index;
             SnapTo(index, instant);
+        }
+
+
+        // ─── Private Methods ──────────────────────────────────────────────────
+        private void BuildSnapPositions()
+        {
+            _snapPositions = new float[_chapterCount];
+            if (_chapterCount <= 1) return;
+            for (int i = 0; i < _chapterCount; i++)
+                _snapPositions[i] = (float)i / (_chapterCount - 1);
         }
 
         //내부 스냅~

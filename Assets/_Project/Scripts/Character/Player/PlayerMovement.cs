@@ -1,4 +1,4 @@
-﻿using Unity.Android.Gradle.Manifest;
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 
@@ -6,9 +6,12 @@ namespace SurvivorsLike
 {
     public class PlayerMovement : MonoBehaviour
     {
+        // ─── [SerializeField] ────────────────────────────────────────────────
         //_moveSpeedMultiplier값 곱셈 전 기본 이동속도 (단위: m/s)
         [SerializeField] private float _baseMoveSpeed = 5f;
 
+
+        // ─── private 필드 ────────────────────────────────────────────────────
         private CharacterController _characterCtrl;
         private Vector2 _moveDir;
         private Transform _camTrans;
@@ -21,6 +24,8 @@ namespace SurvivorsLike
         //이동 가능 여부
         private bool _canMove = false;
 
+
+        // ─── Properties ──────────────────────────────────────────────────────
         // 현재 입력 크기 (0~1). 애니메이터의 Speed 파라미터로 전달하는 용도
         public float NormalizedSpeed { get; private set; }
         //작은 조이스틱 움직임에도 애니메이션 곧바로 플레이 되게 하기 위해 추가~
@@ -29,6 +34,8 @@ namespace SurvivorsLike
         // 입력 벡터의 제곱 크기가 임계값 초과 시 true — 제곱 비교로 sqrt 연산 생략
         public bool IsMoving => _moveDir.sqrMagnitude > 0.001f;
 
+
+        // ─── Unity Lifecycle ─────────────────────────────────────────────────
         private void Awake()
         {
             // 같은 GameObject의 CharacterController를 1회 캐싱
@@ -37,6 +44,14 @@ namespace SurvivorsLike
             _camTrans = Camera.main.transform;
         }
 
+        private void Update()
+        {
+            ApplyMovement();
+            ApplyRotation();
+        }
+
+
+        // ─── Public Methods ───────────────────────────────────────────────────
         //이동 활성화/ 비 활성화
         public void SetMove(bool canMove)
         {
@@ -54,7 +69,6 @@ namespace SurvivorsLike
             _moveDir = input;
         }
 
-
         //이동속도 배율을 설정 (버프·디버프 용으로 이용~)
         //Mathf.Max(0)으로 음수 배율(역방향 이동)을 원천 차단
         public void SetMoveSpeedMultiplier(float multiplier)
@@ -62,12 +76,8 @@ namespace SurvivorsLike
             _moveSpeedMultiplier = Mathf.Max(0f, multiplier);
         }
 
-        private void Update()
-        {
-            ApplyMovement();
-            ApplyRotation();
-        }
 
+        // ─── Private Methods ──────────────────────────────────────────────────
         // 수평 이동 벡터를 계산하고 GroundStickForce와 합산하여 CharacterController에 전달
         private void ApplyMovement()
         {
