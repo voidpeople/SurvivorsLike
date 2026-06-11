@@ -5,7 +5,7 @@ namespace SurvivorsLike
 {
     public class CameraController : MonoBehaviour
     {
-        [Header("참조")]
+        // 자식 오브젝트에 붙어 있는 카메라 컴포넌트
         [SerializeField] private Camera _camera;
 
         [Header("Follow")]

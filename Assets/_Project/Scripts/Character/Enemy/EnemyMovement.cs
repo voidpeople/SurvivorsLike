@@ -6,9 +6,10 @@ namespace SurvivorsLike
 {
     public class EnemyMovement : MonoBehaviour
     {       
+        [Header("이동 설정")]
         [SerializeField] private float _moveSpeed = 3f;
         [SerializeField] private float _rotateSpeed = 10f;
-        [SerializeField] private float _stoppingDistance = 0.5f;
+        [SerializeField] private float _stoppingDistance = 0.5f;   // 목표 위치 도달 판정 거리 (단위: m)
 
         private Transform _transform;
         private Vector3 _destination;

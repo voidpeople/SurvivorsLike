@@ -7,6 +7,7 @@ namespace SurvivorsLike
 {
     public class TabButton : Button
     {
+        [Header("스프라이트")]
         [SerializeField] private Sprite _normalSprite;
         [SerializeField] private Sprite _selectedSprite;
 

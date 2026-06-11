@@ -9,6 +9,7 @@ namespace SurvivorsLike
     //씬와 씬 전환시 화면의 페이드 인 아웃을 담당하는 매니저
     public class FadeManager : SingletonMonoBehaviour<FadeManager>
     {
+        [Header("UI 참조")]
         [SerializeField] private Canvas _fadeCanvas;
         [SerializeField] private Image _fadeImage;
 

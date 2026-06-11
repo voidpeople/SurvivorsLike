@@ -10,7 +10,8 @@ namespace SurvivorsLike
 {
     public class PlayerSpawner : MonoBehaviour
     {
-        [SerializeField] private string _playerBaseAddressKey = "character/player/player_base";
+        [Header("참조")]
+        [SerializeField] private string _playerBaseAddressKey = "character/player/player_base";  // 플레이어 베이스 프리팹 어드레서블 키
         [SerializeField] private JoystickBase _joystick;
 
         public PlayerController SpawnPlayerController { get; private set; }

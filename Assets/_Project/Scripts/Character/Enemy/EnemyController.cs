@@ -14,11 +14,9 @@ namespace SurvivorsLike
         [SerializeField] private EnemyStateType _currentStateType;
 #endif
 
-        [Header("공격 거리")]
-        [SerializeField] private float _attackRange = 1f;
-
-        [Header("조준 타겟")]
-        [SerializeField] private Transform _aimPoint;
+        [Header("씬 참조")]
+        [SerializeField] private float _attackRange = 1f;     // 공격 판정 반지름 (단위: m)
+        [SerializeField] private Transform _aimPoint;          // 피탄 기준점 — null이면 position + Y 0.5f 사용
 
 
         // ─── private 필드 ────────────────────────────────────────────────────

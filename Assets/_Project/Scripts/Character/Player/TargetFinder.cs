@@ -5,8 +5,9 @@ namespace SurvivorsLike
 {
     public class TargetFinder : MonoBehaviour
     {
+        [Header("감지 설정")]
         [SerializeField] private LayerMask _enemyLayer;
-        [SerializeField] private int _maxDetectCount = 50;
+        [SerializeField] private int _maxDetectCount = 50;    // OverlapSphere 최대 감지 수 — 버퍼 크기와 동기화
 
         private Collider[] _findedColliderBuffer;
         private int _hitCount;

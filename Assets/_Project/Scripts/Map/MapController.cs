@@ -9,6 +9,7 @@ namespace SurvivorsLike
 {
     public class MapController : MonoBehaviour
     {
+        [Header("씬 참조")]
         [SerializeField] private Renderer _groundRenderer;
         [SerializeField] private Light _mainLight;
 

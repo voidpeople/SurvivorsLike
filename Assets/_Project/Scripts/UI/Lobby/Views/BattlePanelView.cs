@@ -7,6 +7,7 @@ namespace SurvivorsLike
 {
     public class BattlePanelView : MonoBehaviour
     {        
+        [Header("UI 참조")]
         [SerializeField] private Button _chapterPanelButton;
         [SerializeField] private Button _battleStartButton;
 

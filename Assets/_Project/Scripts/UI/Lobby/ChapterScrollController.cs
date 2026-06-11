@@ -10,6 +10,7 @@ namespace SurvivorsLike
     public class ChapterScrollController : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         // ─── [SerializeField] ────────────────────────────────────────────────
+        [Header("UI 참조")]
         [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private Button _btnPrev;
         [SerializeField] private Button _btnNext;

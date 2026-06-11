@@ -17,6 +17,7 @@ namespace SurvivorsLike
     {
         ////////////////////////////////////////////////////////
         #region Dialog
+        [Header("Dialog")]
         [SerializeField] private Transform _dialogLayer;
         [SerializeField] private SystemDialog _dialogPrefab;
         [SerializeField] private SystemUIConfigSO _systemUIConfigSO;

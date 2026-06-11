@@ -8,13 +8,9 @@ namespace SurvivorsLike
 {
     public class LobbyController : MonoBehaviour
     {
-        [Header("탭 버튼 뷰")]
+        [Header("뷰 참조")]
         [SerializeField] private LobbyTabView _tabView;
-
-        [Header("전투 패널 뷰")]
         [SerializeField] private BattlePanelView _battlePanelView;
-
-        [Header("챕터 선택 패널 뷰")]
         [SerializeField] private ChapterSelectPanelView _chapterSelectPanelView;
 
         [Header("아틀라스")]

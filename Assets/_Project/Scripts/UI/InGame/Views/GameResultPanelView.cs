@@ -7,6 +7,7 @@ namespace SurvivorsLike
 {
     public class GameResultPanelView : MonoBehaviour
     {
+        // 결과 확인 버튼 (로비 복귀 등)
         [SerializeField] private Button _confirmButton;
 
         public event Action OnResultConfirmed;

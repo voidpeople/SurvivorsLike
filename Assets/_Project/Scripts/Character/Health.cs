@@ -6,6 +6,7 @@ namespace SurvivorsLike
 {
     public class Health : MonoBehaviour
     {
+        // 초기 HP — Init()에서 덮어쓰므로 인스펙터 값은 디버그 미리보기용
         [SerializeField] float _health;
         public bool IsDead { get; private set; }
 

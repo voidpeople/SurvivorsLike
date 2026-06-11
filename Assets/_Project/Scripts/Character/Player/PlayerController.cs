@@ -19,11 +19,9 @@ namespace SurvivorsLike
     public class PlayerController : MonoBehaviour, ITargetListener, ITargetable, IAlive, ISkillOwner
     {
         // ─── [SerializeField] ────────────────────────────────────────────────
-        [Header("모델 프리팹 링크 루트")]
-        [SerializeField] private Transform _modelRoot;
-
-        [Header("조준 타겟")]
-        [SerializeField] private Transform _aimPoint;
+        [Header("씬 참조")]
+        [SerializeField] private Transform _modelRoot;     // 모델 프리팹이 붙는 루트 트랜스폼
+        [SerializeField] private Transform _aimPoint;      // 피탄 기준점 — null이면 position + Y 0.5f 사용
 
 
         // ─── 컴포넌트 참조 ───────────────────────────────────────────────────

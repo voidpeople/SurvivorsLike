@@ -8,6 +8,7 @@ namespace SurvivorsLike
     //아틀라스르 조회하는 기능은 외부에서 할 것~
     public class ChapterCardView : MonoBehaviour
     {
+        // 챕터 썸네일 이미지 컴포넌트
         [SerializeField] private Image _chapterThumbnailImage;
 
         public void Setup(ChapterDataSO data, int index)

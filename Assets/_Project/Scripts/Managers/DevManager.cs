@@ -10,11 +10,9 @@ namespace SurvivorsLike
     //개발용 매니저~
     public class DevManager : MonoBehaviour
     {
-        [Header("Lobby")]
-
         [Header("InGame")]
-        [SerializeField] private GameObject _managerPrefab;
-        [SerializeField] private int _loadChapterId = 8001;
+        [SerializeField] private GameObject _managerPrefab;    // 부트스트랩 없이 씬 단독 실행 시 주입할 매니저 프리팹
+        [SerializeField] private int _loadChapterId = 8001;    // 단독 실행 시 로드할 챕터 ID
 
 #if UNITY_EDITOR
         private void Awake()

@@ -12,10 +12,11 @@ namespace SurvivorsLike
     //결정은 Presenter에서 한다.
     public class ChapterSelectPanelView : MonoBehaviour
     {
+        [Header("UI 참조")]
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private ChapterScrollController _chapterScrollCtrl;
-        [SerializeField] private Button _selectButton; //챕터 선택 후 나가기
-        [SerializeField] private Button _exitButton;   //그냥 나가기
+        [SerializeField] private Button _selectButton;   // 챕터 선택 확정 버튼
+        [SerializeField] private Button _exitButton;     // 선택 없이 패널 닫기 버튼
 
         public event Action<int> OnFinishScrollChapter;
         public event Action OnSelectChapter;

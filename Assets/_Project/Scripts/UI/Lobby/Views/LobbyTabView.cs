@@ -9,11 +9,9 @@ namespace SurvivorsLike
 
     public class LobbyTabView : MonoBehaviour
     {
-        [Header("탭 버튼")]
-        [SerializeField] private TabButton[] _tabButtons;
-
-        [Header("탭 버튼 패널")]
-        [SerializeField] private GameObject[] _tabPanels;
+        [Header("탭 UI")]
+        [SerializeField] private TabButton[] _tabButtons;     // 탭 버튼 배열 — 인덱스가 LobbyTabType 값과 대응
+        [SerializeField] private GameObject[] _tabPanels;     // 각 탭의 패널 — _tabButtons와 인덱스 동기화 필수
 
         //Presenter가 OnTabClicked을 통해 뷰의 변화를 통보 받는다.
         public event Action<LobbyTabType> OnTabClicked;

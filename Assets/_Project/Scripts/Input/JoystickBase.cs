@@ -8,11 +8,13 @@ namespace SurvivorsLike
     public abstract class JoystickBase : MonoBehaviour,
         IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
+        [Header("UI 참조")]
         [SerializeField] private Canvas _canvas;
         [SerializeField] protected RectTransform _backgroundRT;
         [SerializeField] private RectTransform _handleRT;
 
-        //_handleRT가 _backgroundRT 반지름 안에서 이동할 수 있는 비율 (1.0 = 100%)
+        [Header("설정")]
+        // _handleRT가 _backgroundRT 반지름 안에서 이동할 수 있는 비율 (1.0 = 100%)
         [SerializeField, Range(0.1f, 1f)] private float _handleRangeRatio = 1f;
 
         private Camera _canvasCamera;          //Overlay 모드면 null        
