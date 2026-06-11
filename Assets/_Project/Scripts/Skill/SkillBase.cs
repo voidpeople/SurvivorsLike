@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using static Unity.Cinemachine.RequiredTargetAttribute;
+using static UnityEngine.UI.GridLayoutGroup;
 
 
 namespace SurvivorsLike
@@ -8,6 +9,7 @@ namespace SurvivorsLike
     {
         protected Transform _ownerTrasn;
         protected SkillDataSO _skillData;
+        protected ISkillOwner _owner;
         protected ITargetable _target;
 
         protected int _currentLevel = 1;
@@ -21,11 +23,13 @@ namespace SurvivorsLike
 
 
 
-        public virtual void Init(Transform ownerTrans, SkillDataSO data, int level = 1)
+        public virtual void Init(ISkillOwner owner, SkillDataSO data, int level = 1)
         {
+            Debug.Assert(data != null, $"{nameof(SkillBase)}::Init — owner is null");
             Debug.Assert(data != null, $"{nameof(SkillBase)}::Init — data is null");
 
-            _ownerTrasn = ownerTrans;
+            _owner = owner;
+            _ownerTrasn = owner.Transform;
             _skillData = data;
             _currentLevel = level;
             _cooldownTimer = 0f;

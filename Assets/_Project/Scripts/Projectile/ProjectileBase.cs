@@ -10,8 +10,8 @@ namespace SurvivorsLike
 
     public abstract class ProjectileBase : MonoBehaviour, IPoolable
     {
-        [SerializeField] private float _maxRange = 25f;  //사거리
-        [SerializeField] private float _lifetime = 5f;   //소멸 안전 장치~
+        [SerializeField] private float _maxRange = 35f;  //사거리
+        [SerializeField] private float _lifetime = 10f;   //소멸 안전 장치~
         [SerializeField] private LayerMask _enemyLayer;
 
         Vector3 _moveDir;

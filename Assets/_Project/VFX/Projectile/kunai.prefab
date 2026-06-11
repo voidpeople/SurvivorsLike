@@ -103,8 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423a8667412c366429160608e6620db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.LinearProjectile
-  _maxRange: 25
-  _lifetime: 5
+  _maxRange: 35
+  _lifetime: 10
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 0

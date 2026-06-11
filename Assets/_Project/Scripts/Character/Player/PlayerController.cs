@@ -16,13 +16,10 @@ Player(루트)
 
 namespace SurvivorsLike
 {
-    public class PlayerController : MonoBehaviour, ITargetListener, ITargetable, IAlive
+    public class PlayerController : MonoBehaviour, ITargetListener, ITargetable, IAlive, ISkillOwner
     {
         [Header("모델 프리팹 링크 루트")]
         [SerializeField] private Transform _modelRoot;
-
-        [Header("발사체 스폰 위치")]
-        [SerializeField] private Transform _firePoint;
 
         [Header("조준 타겟")]
         [SerializeField] private Transform _aimPoint;
@@ -42,15 +39,18 @@ namespace SurvivorsLike
         private bool _isPlaying;
         private ITargetable _currentTarget;
         private IAlive _crrrentTargetAlive;
-        
+
+        //총구 머즐 포인트 트랜스폼 설정
+        private Transform _firePoint;
 
         private readonly CompositeDisposable _disposables = new();
 
         public bool IsDead => _health.IsDead;
 
-        #region ITargetable
+        
         public Transform Transform => transform;
 
+        #region ITargetable
         //조준 타겟
         public Vector3 AimPoint
         {
@@ -59,6 +59,10 @@ namespace SurvivorsLike
                 return _aimPoint != null ? _aimPoint.position : transform.position + Vector3.up * 0.5f;
             }
         }
+        #endregion
+
+        #region ISkillOwner
+        public Transform FirePoint => _firePoint;
         #endregion
 
         private void Awake()
@@ -72,6 +76,7 @@ namespace SurvivorsLike
 
             _currentTarget = null;
             _crrrentTargetAlive = null;
+            _firePoint = null;
         }
 
         public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick)

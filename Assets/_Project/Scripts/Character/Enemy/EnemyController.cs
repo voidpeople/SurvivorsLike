@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace SurvivorsLike
 {
-    public class EnemyController : MonoBehaviour, ITargetListener, IPoolable, ITargetable, IAlive
+    public class EnemyController : MonoBehaviour, ITargetListener, IPoolable, ITargetable, IAlive, ISkillOwner
     {
 #if UNITY_EDITOR
         [Header("개발 테스트용")]
@@ -15,9 +15,6 @@ namespace SurvivorsLike
 
         [Header("공격 거리")]
         [SerializeField] private float _attackRange = 1f;
-
-        [Header("발사체 스폰 위치")]
-        [SerializeField] private Transform _firePoint;
 
         [Header("조준 타겟")]
         [SerializeField] private Transform _aimPoint;
@@ -28,6 +25,7 @@ namespace SurvivorsLike
         private Health _health;
         private EnemyFSM _fsm;
         private CancellationTokenSource _cts;
+        private Transform _firePoint;
         private bool _isPlaying;
 
         public EnemyAnimationController AnimCtrl { get; private set; }
@@ -42,9 +40,9 @@ namespace SurvivorsLike
         public bool IsDead => _health.IsDead;
         #endregion
 
-        #region ITargetable
         public Transform Transform => transform;
 
+        #region ITargetable
         //조준 타겟
         public Vector3 AimPoint
         {
@@ -53,7 +51,12 @@ namespace SurvivorsLike
                 return _aimPoint != null ? _aimPoint.position : transform.position + Vector3.up * 0.5f;
             }
         }
+        #endregion        
+
+        #region ISkillOwner
+        public Transform FirePoint => _firePoint;
         #endregion
+
 
         private void Awake()
         {

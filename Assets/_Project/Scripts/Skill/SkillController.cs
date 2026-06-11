@@ -14,6 +14,8 @@ namespace SurvivorsLike
 
         private readonly List<SkillBase> _skillList = new List<SkillBase>(MaxSkillSlot);
 
+        private ISkillOwner _owner;
+
         private bool _isPlaying;
 
         private readonly CompositeDisposable _disposables = new();
@@ -21,6 +23,8 @@ namespace SurvivorsLike
         private void Awake()
         {
             _isPlaying = false;
+            TryGetComponent(out _owner);  
+            Debug.Assert(_owner != null, $"{nameof(SkillController)}::Awake — ISkillOwner is null");
         }
 
         private void Start()
@@ -58,7 +62,7 @@ namespace SurvivorsLike
                 return false;
 
             SkillBase skill = SkillFactory.Create(data);
-            skill.Init(transform, data);
+            skill.Init(_owner, data);
             _skillList.Add(skill);
 
             return true;

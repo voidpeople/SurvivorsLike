@@ -1,4 +1,5 @@
 ﻿using SurvivorsLike;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -11,9 +12,9 @@ namespace SurvivorsLike
     {
         private LinearProjectileSkillDataSO _linearProjectileSkillData;
 
-        public override void Init(Transform ownerTrans, SkillDataSO data, int level = 1)
+        public override void Init(ISkillOwner owner, SkillDataSO data, int level = 1)
         {
-            base.Init(ownerTrans, data, level);
+            base.Init(owner, data, level);
 
             _linearProjectileSkillData = data as LinearProjectileSkillDataSO;
             Debug.Assert(_linearProjectileSkillData != null,
@@ -25,6 +26,16 @@ namespace SurvivorsLike
             _target = target;
         }
 
+        //인라인 명령
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private Vector3 GetSpawnPos(Vector3 dir)
+        {
+            return _owner.FirePoint != null
+                ? _owner.FirePoint.position
+                : _ownerTrasn.position + (Vector3.up * 0.5f) + (dir * 0.2f);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Vector3 GetFireDirection()
         {
             if(null != _target)
@@ -39,15 +50,15 @@ namespace SurvivorsLike
 
         public override void OnUseSkill()
         {            
-            //발사체를 타겟을 향해 발사하는 로직 추가
-            //ProjectileBase projectile = PoolManager.Instance.Get<ProjectileBase>("projectile/kunai");
             ProjectileBase projectile = PoolManager.Instance.Get<ProjectileBase>(_linearProjectileSkillData.PrefabKey);
             if (projectile == null)
             {
                 Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill => Projectile not found. - PrefabKey: {_linearProjectileSkillData.PrefabKey}");
                 return;
             }
-            projectile.Init(_ownerTrasn.position + new Vector3(0f, 0.5f, 0f), GetFireDirection(), _linearProjectileSkillData.GetLevelData(_currentLevel).ProjectileSpeed);
+
+            Vector3 dir = GetFireDirection();
+            projectile.Init(GetSpawnPos(dir), dir, _linearProjectileSkillData.GetLevelData(_currentLevel).ProjectileSpeed);
         }
 
     }
