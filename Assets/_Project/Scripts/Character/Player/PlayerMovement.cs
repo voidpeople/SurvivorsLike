@@ -1,4 +1,4 @@
-using Unity.Android.Gradle.Manifest;
+﻿using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 
@@ -8,7 +8,7 @@ namespace SurvivorsLike
     {
         // ─── [SerializeField] ────────────────────────────────────────────────
         //_moveSpeedMultiplier값 곱셈 전 기본 이동속도 (단위: m/s)
-        [SerializeField] private float _baseMoveSpeed = 5f;
+        [SerializeField] private float _moveSpeed = 5f;
 
 
         // ─── private 필드 ────────────────────────────────────────────────────
@@ -52,6 +52,11 @@ namespace SurvivorsLike
 
 
         // ─── Public Methods ───────────────────────────────────────────────────
+        public void Init(PlayerData data)
+        {
+            _moveSpeed = data.MoveSpeed;
+        }
+
         //이동 활성화/ 비 활성화
         public void SetMove(bool canMove)
         {
@@ -89,7 +94,7 @@ namespace SurvivorsLike
             {
                 Vector2 normalizedInput = _moveDir / inputMagnitude;
                 Vector3 moveDir = GetCameraRelativeMoveDir(normalizedInput);
-                float speed = _baseMoveSpeed * _moveSpeedMultiplier;
+                float speed = _moveSpeed * _moveSpeedMultiplier;
                 // 애니메이터에 전달할 속도 비율 (0~1)
                 NormalizedSpeed = inputMagnitude;
                 horizontalMotion = moveDir * (speed * Time.deltaTime);

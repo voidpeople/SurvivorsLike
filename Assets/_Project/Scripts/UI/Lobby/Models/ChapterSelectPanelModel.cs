@@ -10,7 +10,6 @@ namespace SurvivorsLike
     public class ChapterSelectPanelModel
     {
         public IReadOnlyList<ChapterDataSO> ChapterDataList { get; }
-        private Dictionary<int, ChapterDataSO> _chapterDataDic = new Dictionary<int, ChapterDataSO>();
         //Dictionary<챕터 아이디, 챕터 카드 인덱스>
         private Dictionary<int, int> _chapterCardIndexDic = new Dictionary<int, int>();
 
@@ -20,7 +19,7 @@ namespace SurvivorsLike
         {
             get
             {
-                return _chapterDataDic[SelectedCardIndex];
+                return ChapterDataList[SelectedCardIndex];
             }
         }
 
@@ -55,11 +54,6 @@ namespace SurvivorsLike
 
         private void CreateChapterDics()
         {
-            for (int ii = 0; ii < ChapterDataList.Count; ii++)
-            {
-                _chapterDataDic.Add(ii, ChapterDataList[ii]);
-            }
-
             for (int ii = 0; ii < ChapterDataList.Count; ii++)
             {
                 _chapterCardIndexDic.Add(ChapterDataList[ii].Id, ii);

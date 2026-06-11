@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using R3;
 
 
@@ -125,6 +125,7 @@ namespace SurvivorsLike
             Debug.Assert(joystick != null, $"{nameof(PlayerController)}::Init — joystick is null");
 
             _playerData = data;
+            _movement.Init(data);
             _health.Init(data.Hp);
 
             DataManager.Instance.SkillDataSODic.TryGetValue(data.DefaultSkillId, out SkillDataSO skillData);
