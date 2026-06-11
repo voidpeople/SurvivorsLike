@@ -12,6 +12,8 @@ namespace SurvivorsLike
         private void Awake()
         {
             _ps = GetComponentInChildren<ParticleSystem>();
+            ParticleStoppedBridge bridge = _ps.gameObject.GetComponent<ParticleStoppedBridge>();
+            bridge.Init(this);
         }
 
         // 자연 종료 시 엔진이 자동 호출 — Inspector: Stop Action → Callback 필수

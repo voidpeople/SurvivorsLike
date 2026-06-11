@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 400004}
   - component: {fileID: 19800000}
   - component: {fileID: 19900000}
+  - component: {fileID: 4548698172402835876}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -4938,3 +4939,15 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &4548698172402835876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd7554aec3717d4e8c8b1f71113a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleStoppedBridge

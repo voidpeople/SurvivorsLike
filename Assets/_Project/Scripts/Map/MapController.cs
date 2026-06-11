@@ -41,5 +41,10 @@ namespace SurvivorsLike
         {
             if (_matAssetHandle.IsValid()) Addressables.Release(_matAssetHandle);
         }
+
+        private void OnDestroy()
+        {
+            ReleaseAssets();
+        }
     }
 }

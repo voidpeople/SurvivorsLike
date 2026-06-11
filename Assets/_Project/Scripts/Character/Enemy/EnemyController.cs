@@ -35,6 +35,8 @@ namespace SurvivorsLike
         public EnemyMovement Movement { get; private set; }
         public SkillController SkillCtrl { get; private set; }
         public Transform TargetTransform { get; private set; }
+        public Transform TargetHealth { get; private set; }
+
         public float AttackRange => _attackRange;
         public CancellationToken CTS => _cts.Token;
 
@@ -105,6 +107,7 @@ namespace SurvivorsLike
         private void OnDestroy()
         {
             _health.Died -= OnDied;
+            Movement.OnDestinationReached -= OnDestinationReached;
 
             _cts?.Cancel();   //진행 중인 비동기 작업에 취소 신호 전달
             _cts?.Dispose();  //내부 WaitHandle 등 비관리 리소스 해제
@@ -156,13 +159,10 @@ namespace SurvivorsLike
 
         public void OnDespawn()
         {
-            // 진행 중인 비동기 작업 취소
+            _health.Died -= OnDied;
+            Movement.OnDestinationReached -= OnDestinationReached;
             _cts?.Cancel();
-
-            // R3 구독 전체 해제
             _disposables.Clear();
-
-            // Init()에서 등록한 Health 이벤트 해제 — 중복 누적 방지
             if (TargetTransform != null)
             {
                 if (TargetTransform.TryGetComponent(out Health health))

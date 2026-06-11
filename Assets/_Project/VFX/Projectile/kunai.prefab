@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2069461196483332081}
   - component: {fileID: 8699814197554684173}
   - component: {fileID: 1863355852904558182}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: kunai
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,6 +105,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.LinearProjectile
   _maxRange: 35
   _lifetime: 10
-  _enemyLayer:
+  _targetLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128

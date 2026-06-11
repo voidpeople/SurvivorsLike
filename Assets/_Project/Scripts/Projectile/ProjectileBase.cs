@@ -11,27 +11,29 @@ namespace SurvivorsLike
     public abstract class ProjectileBase : MonoBehaviour, IPoolable
     {
         [Header("설정")]
-        [SerializeField] private float _maxRange = 35f;       // 최대 사거리 (단위: m)
-        [SerializeField] private float _lifetime = 10f;        // 사거리 도달 실패 시 강제 소멸 시간 (안전장치)
-        [SerializeField] private LayerMask _enemyLayer;        // 피격 대상 레이어
+        [SerializeField] private float _maxRange = 35f;       //최대 사거리 (단위: m)
+        [SerializeField] private float _lifetime = 10f;       //사거리 도달 실패 시 강제 소멸 시간 (안전장치)
+        [SerializeField] private LayerMask _targetLayer;      //피격 대상 레이어
 
         Vector3 _moveDir;
         float _moveSpeed;
         float _rangeSqr;
+        float _damage;
 
         Vector3 _spawnPos;
         float _spawnTime;
 
-        // 정적 버퍼: GC 없음
+        //정적 버퍼: GC 없음
         private static readonly RaycastHit[] _hitBuffer = new RaycastHit[5];
 
-        public virtual void Init(Vector3 spawnPos, Vector3 dir, float speed)
+        public virtual void Init(Vector3 spawnPos, Vector3 dir, float speed, float damage)
         {
             _spawnPos = spawnPos;
             transform.SetPositionAndRotation(_spawnPos, Quaternion.LookRotation(dir));
 
             _moveDir = dir;
             _moveSpeed = speed;
+            _damage = damage;
 
             _rangeSqr = _maxRange * _maxRange;
             _spawnTime = Time.time;
@@ -67,16 +69,16 @@ namespace SurvivorsLike
         {
             Vector3 move = _moveDir * _moveSpeed * Time.deltaTime;
 
-            // 충돌 검사
+            //충돌 검사
             int hitCount = Physics.SphereCastNonAlloc(
                 transform.position, 0.3f, _moveDir, _hitBuffer,
-                move.magnitude, _enemyLayer,
+                move.magnitude, _targetLayer,
                 QueryTriggerInteraction.Collide);
 
             if (hitCount > 0)
             {
                 Health health = _hitBuffer[0].collider.GetComponent<Health>();
-                health.TakeDamage(10);
+                health.TakeDamage(_damage);
                 PoolManager.Instance.Return(this);
             }
         }

@@ -133,8 +133,7 @@ namespace SurvivorsLike
             _resultPresenter.Dispose();
             _resultPanelView.Destroy();
 
-            if(PoolManager.Instance != null)
-                PoolManager.Instance.ReleasePool("character/enemy/spiderbot");
+            _mapController.ReleaseAssets();
         }
 
         private void OnDestroy()
