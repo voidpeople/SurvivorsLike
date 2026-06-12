@@ -110,7 +110,7 @@ namespace SurvivorsLike
         // ─── Public Methods ───────────────────────────────────────────────────
         public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick)
         {
-            //Debug.Assert은 배포 빌드에서는 자동 제거됨~
+            //Debug.Assert is automatically stripped in release builds
             Debug.Assert(data != null, $"{nameof(PlayerController)}::Init — data is null");
             Debug.Assert(animController != null, $"{nameof(PlayerController)}::Init — animController is null");
             Debug.Assert(joystick != null, $"{nameof(PlayerController)}::Init — joystick is null");

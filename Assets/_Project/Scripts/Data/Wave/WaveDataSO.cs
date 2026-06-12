@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace SurvivorsLike
 {
@@ -14,8 +15,7 @@ namespace SurvivorsLike
 
     [Serializable]
     public class WaveData
-    {
-        public int Id;
+    {     
         public WaveType Type;
         public int EnemyId;            //EnemyDataSO의 적 ID. 프리팹 직접 참조 금지
         public float StartTime;        //웨이브 시작 게임 시간(초)
@@ -27,10 +27,11 @@ namespace SurvivorsLike
     [CreateAssetMenu(fileName = "WaveDataSO", menuName = "Scriptable/Data/WaveDataSO")]
     public class WaveDataSO : ScriptableObject
     {
-        [Title("챕터 아이디")]
-        public int ChapterId;
+        public int Id;                 //웨이브 아이디
+        public int ChapterId;          //챕터 아이디
 
         [TableList]
         public List<WaveData> WaveDataList;
     }
 }
+

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d84f495ee55a024a8a374e2fed411b7, type: 3}
+  m_Name: WaveData_5001
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.WaveDataSO
+  Id: 5001
+  ChapterId: 1
+  WaveDataList:
+  - Type: 1
+    EnemyId: 2001
+    StartTime: 0
+    EndTime: 60
+    SpawnInterval: 2
+    SpawnCountPerTick: 2
+  - Type: 1
+    EnemyId: 2001
+    StartTime: 60
+    EndTime: 120
+    SpawnInterval: 1.5
+    SpawnCountPerTick: 3
+  - Type: 1
+    EnemyId: 2002
+    StartTime: 45
+    EndTime: 120
+    SpawnInterval: 4
+    SpawnCountPerTick: 1
+  - Type: 2
+    EnemyId: 2002
+    StartTime: 90
+    EndTime: 0
+    SpawnInterval: 0
+    SpawnCountPerTick: 10
+  - Type: 1
+    EnemyId: 2001
+    StartTime: 120
+    EndTime: 170
+    SpawnInterval: 1
+    SpawnCountPerTick: 4
+  - Type: 1
+    EnemyId: 2002
+    StartTime: 120
+    EndTime: 170
+    SpawnInterval: 3
+    SpawnCountPerTick: 2
+  - Type: 2
+    EnemyId: 2003
+    StartTime: 175
+    EndTime: 0
+    SpawnInterval: 0
+    SpawnCountPerTick: 1

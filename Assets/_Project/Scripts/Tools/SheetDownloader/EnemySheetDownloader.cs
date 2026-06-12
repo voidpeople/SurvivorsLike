@@ -43,7 +43,7 @@ namespace SurvivorsLike
         protected override string GetAssetFileName(EnemyDataSO so)
             => $"EnemyData";
 
-        protected EnemyType EnemyType(Dictionary<string, string> r, string k)
+        private EnemyType EnemyType(Dictionary<string, string> r, string k)
         {
             if (r.TryGetValue(k, out var v) == true)
             {
