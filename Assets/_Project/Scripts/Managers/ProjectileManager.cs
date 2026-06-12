@@ -47,8 +47,12 @@ namespace SurvivorsLike
 
         void Update()
         {
+            //이렇게 몰아서 처리 하는게 성능이 좋음~
+            //특히 Physics.SphereCastNonAlloc 이용한 충돌 체크~
             for (int ii = 0; ii < _activeCount; ++ii)
             {
+                //_activeProjectiles[ii].ApplyMovement();
+                //_activeProjectiles[ii].DetectHits();
             }
         }
     }

@@ -144,6 +144,8 @@ namespace SurvivorsLike
             PoolManager.Instance.Return(this);
         }
 
+        //게임을 처음 시작할 떄는 _isPlayer이 필요하고
+        //게임중 리스폰 될 떄는 _isPlayer이 필요 없다.
 
         // ─── Interface Implementations ────────────────────────────────────────
         #region IPoolable
@@ -159,8 +161,10 @@ namespace SurvivorsLike
 
         public void OnDespawn()
         {
+            _isPlaying = false;
             _health.Died -= OnDied;
             Movement.OnDestinationReached -= OnDestinationReached;
+
             _cts?.Cancel();
             _disposables.Clear();
             if (TargetTransform != null)

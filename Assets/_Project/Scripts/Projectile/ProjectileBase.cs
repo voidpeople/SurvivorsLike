@@ -1,7 +1,4 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
+﻿using UnityEngine;
 
 
 namespace SurvivorsLike
@@ -47,29 +44,29 @@ namespace SurvivorsLike
         {
         }
 
-        private void ApplyMovement()
+        private bool ApplyMovement()
         {
-            //이동
             transform.position += _moveDir * _moveSpeed * Time.deltaTime;
 
-            //거리 체크하여 소멸
             if ((transform.position - _spawnPos).sqrMagnitude >= _rangeSqr)
             {
                 PoolManager.Instance.Return(this);
-                return;
+                return false;
             }
 
             if (Time.time - _spawnTime >= _lifetime)
             {
                 PoolManager.Instance.Return(this);
+                return false;
             }
+
+            return true;
         }
 
         private void DetectHits()
         {
             Vector3 move = _moveDir * _moveSpeed * Time.deltaTime;
 
-            //충돌 검사
             int hitCount = Physics.SphereCastNonAlloc(
                 transform.position, 0.3f, _moveDir, _hitBuffer,
                 move.magnitude, _targetLayer,
@@ -78,6 +75,8 @@ namespace SurvivorsLike
             if (hitCount > 0)
             {
                 Health health = _hitBuffer[0].collider.GetComponent<Health>();
+                if (health == null) return;
+
                 health.TakeDamage(_damage);
                 PoolManager.Instance.Return(this);
             }
@@ -85,8 +84,8 @@ namespace SurvivorsLike
 
         protected void Update()
         {
-            ApplyMovement();
-            DetectHits();
+            if (ApplyMovement())
+                DetectHits();
         }
     }
 }
