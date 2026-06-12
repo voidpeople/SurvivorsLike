@@ -35,14 +35,14 @@ namespace SurvivorsLike
         {
             if (string.IsNullOrEmpty(path))
             {
-                Debug.LogWarning("[FolderPath] 경로가 비어 있습니다.");
+                Debug.LogWarning("[FolderPath] Path is empty.");
                 return;
             }
 
             var folder = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path);
             if (folder == null)
             {
-                Debug.LogWarning($"[FolderPath] 폴더를 찾을 수 없습니다: {path}");
+                Debug.LogWarning($"[FolderPath] Folder not found: {path}");
                 return;
             }
 

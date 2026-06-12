@@ -65,7 +65,7 @@ namespace SurvivorsLike
             int index = -1;
             if(_chapterCardIndexDic.TryGetValue(chapterId, out index) == false)
             {
-                Debug.LogError($"존재하지 않는 챕터 아이디 : {chapterId}");
+                Debug.LogError($"Chapter ID does not exist: {chapterId}");
             }
 
             return index;

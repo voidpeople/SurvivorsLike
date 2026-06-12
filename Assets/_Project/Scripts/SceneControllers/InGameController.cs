@@ -63,14 +63,14 @@ namespace SurvivorsLike
 
             if (!DataManager.Instance.EnemyDataDic.TryGetValue(2002, out EnemyData enemyData))
             {
-                Debug.LogError($"{nameof(InGameController)}::InitAsync — EnemyData(2002) 로드 실패");
+                Debug.LogError($"{nameof(InGameController)}::InitAsync — Failed to load EnemyData(2002)");
                 return;
             }
 
             EnemyController enemyCtrl = PoolManager.Instance.Get<EnemyController>(enemyData.PrefabKey);
             if (enemyCtrl == null)
             {
-                Debug.LogError($"{nameof(InGameController)}::InitAsync — EnemyController 풀 취득 실패");
+                Debug.LogError($"{nameof(InGameController)}::InitAsync — Failed to acquire EnemyController from pool");
                 return;
             }
 

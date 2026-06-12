@@ -24,7 +24,7 @@ namespace SurvivorsLike
             Vector3 spawnPos = GetSpawnPosition();
             SpawnPlayerController = await CreatePlayerAsync(spawnPos, ct);
             if (SpawnPlayerController == null)
-                Debug.LogError($"{nameof(PlayerSpawner)}::SpawnAsync — 플레이어 스폰 실패");
+                Debug.LogError($"{nameof(PlayerSpawner)}::SpawnAsync — Failed to spawn player");
         }
 
         private Vector3 GetSpawnPosition()
@@ -51,7 +51,7 @@ namespace SurvivorsLike
             PlayerController playerCtrl = playerObj.GetComponent<PlayerController>();
             if (playerCtrl == null)
             {
-                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — PlayerController 컴포넌트 없음");
+                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — PlayerController component not found");
                 return null;
             }
 
@@ -62,13 +62,13 @@ namespace SurvivorsLike
             PlayerAnimationController aniCtrl= modelObj.GetComponent<PlayerAnimationController>();
             if (aniCtrl == null)
             {
-                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — PlayerAnimationController 컴포넌트 없음");
+                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — PlayerAnimationController component not found");
                 return null;
             }
 
             if(DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData) == false)
             {
-                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — PlayerData(1001) 로드 실패");
+                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — Failed to load PlayerData(1001)");
                 return null;
             }
             playerCtrl.Init(playerData, aniCtrl, _joystick);

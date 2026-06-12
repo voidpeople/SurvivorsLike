@@ -77,7 +77,7 @@ namespace SurvivorsLike
             Sprite s = _lobbyChapterAtlas.GetSprite(chapterData.DisplaySpriteName);
             _battlePanelView.SetChapterPanelButtonImage(s);
 
-            Debug.Log($"챕터 선택 - {chapterData.DisplayName}");
+            Debug.Log($"Chapter selected: {chapterData.DisplayName}");
         }
 
         private void OnGameStart()
@@ -86,7 +86,7 @@ namespace SurvivorsLike
 
             if (!DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData))
             {
-                Debug.LogError($"{nameof(LobbyController)}::OnGameStart — PlayerData(1001) 로드 실패");
+                Debug.LogError($"{nameof(LobbyController)}::OnGameStart — Failed to load PlayerData(1001)");
                 return;
             }
 

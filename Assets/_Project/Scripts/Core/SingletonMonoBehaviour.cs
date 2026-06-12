@@ -29,7 +29,7 @@ namespace SurvivorsLike
 
                     if (_instance == null)
                     {
-                        Debug.LogError($"[Singleton] {typeof(T).Name}가 씬에 존재하지 않음~ 첫 씬에 이 클래스 스크립트가 어태치 된 오브젝트를 배치하세요.");
+                        Debug.LogError($"[Singleton] {typeof(T).Name} does not exist in the scene. Place a GameObject with this script attached in the first scene.");
                     }
                 }
                 return _instance;
@@ -56,7 +56,7 @@ namespace SurvivorsLike
             }
             else if (_instance != this)
             {
-                Debug.LogError($"[Singleton] 중복된 {typeof(T).Name} 인스턴스가 이미 존재하여 이 오브젝트를 파괴함~ (오브젝트명: {gameObject.name})");
+                Debug.LogError($"[Singleton] Duplicate {typeof(T).Name} instance already exists. Destroying this object. (Name: {gameObject.name})");
                 Destroy(gameObject);
             }
         }

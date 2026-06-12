@@ -40,7 +40,7 @@ namespace SurvivorsLike
             ChapterDataSO chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.Id == _loadChapterId);
             if(chapter == null)
             {
-                Debug.LogWarning($"선택한 챕터를 찾을 수 없습니다. : chapterId - {_loadChapterId}");
+                Debug.LogWarning($"Selected chapter not found: chapterId - {_loadChapterId}");
                 chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.Id == 1);
             }
             GameManager.Instance.GameSessionData.Clear();

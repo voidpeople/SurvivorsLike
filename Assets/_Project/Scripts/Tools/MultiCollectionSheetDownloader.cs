@@ -45,7 +45,7 @@ namespace SurvivorsLike
                 SaveAsset(so);
             }
 
-            Debug.Log($"[{GetType().Name}] SO {keyOrder.Count}개 생성 완료");
+            Debug.Log($"[{GetType().Name}] {keyOrder.Count} SOs created");
 #endif
         }
 

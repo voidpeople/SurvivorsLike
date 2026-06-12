@@ -92,7 +92,7 @@ namespace SurvivorsLike
                 }
                 catch (UnityWebRequestException ex)
                 {
-                    Debug.LogWarning($"패치 서버 통신 실패: {ex.Message}");
+                    Debug.LogWarning($"Patch server communication failed: {ex.Message}");
                     return new PatchCheckResult
                     {
                         Status = PatchCheckStatus.NetworkError,
@@ -103,7 +103,7 @@ namespace SurvivorsLike
                 //통신 실패 처리~
                 if (request.result != UnityWebRequest.Result.Success)
                 {
-                    UnityEngine.Debug.LogWarning("패치 서버 통신 실패~");
+                    UnityEngine.Debug.LogWarning("Patch server communication failed.");
                     return new PatchCheckResult
                     {
                         Status = PatchCheckStatus.NetworkError,
@@ -121,7 +121,7 @@ namespace SurvivorsLike
                 }
                 catch (JsonException e)  // Newtonsoft.Json의 파싱 예외만 명확히 잡기
                 {
-                    Debug.LogWarning($"[PatchCheck] JSON 파싱 실패: {e.Message}");
+                    Debug.LogWarning($"[PatchCheck] JSON parse failed: {e.Message}");
                     return new PatchCheckResult
                     {
                         Status = PatchCheckStatus.InvalidResponse,

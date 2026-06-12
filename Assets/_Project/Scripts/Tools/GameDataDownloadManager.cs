@@ -27,7 +27,7 @@ namespace SurvivorsLike
         public void CollectDownloaders()
         {
             _downloaders = GetComponents<SheetDownloaderBase>();
-            Debug.Log($"[GameDataDownloadManager] {_downloaders.Length}개 수집 완료");
+            Debug.Log($"[GameDataDownloadManager] {_downloaders.Length} downloaders collected");
         }
     }
 }

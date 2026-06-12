@@ -28,7 +28,7 @@ namespace SurvivorsLike
                 AsyncOperation op = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
                 if(op == null)
                 {
-                    Debug.LogError($"[SceneLoader] 씬을 찾을 수 없음: {sceneName}");
+                    Debug.LogError($"[SceneLoader] Scene not found: {sceneName}");
                     _isLoading = false;
                     return;
                 }    

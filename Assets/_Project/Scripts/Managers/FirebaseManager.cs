@@ -40,12 +40,12 @@ namespace SurvivorsLike
             DependencyStatus dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask().AttachExternalCancellation(ct);
             if(dependencyStatus == DependencyStatus.Available)
             {
-                Debug.Log("Firebase 초기화 성공!");
+                Debug.Log("Firebase initialization succeeded!");
             }
             else
             {
                 //시스템 오류창 띄우기
-                Debug.LogError($"Firebase 초기화 실패 : {dependencyStatus}");
+                Debug.LogError($"Firebase initialization failed: {dependencyStatus}");
                 return false;
             }
 
@@ -67,7 +67,7 @@ namespace SurvivorsLike
             //이미 로그인 되어 있는지 검사
             if (_auth.CurrentUser != null)
             {
-                Debug.Log($"이미 로그인 되어 있음! : {_auth.CurrentUser.UserId}");
+                Debug.Log($"Already signed in: {_auth.CurrentUser.UserId}");
                 return _auth.CurrentUser.UserId;
             }
 
@@ -76,12 +76,12 @@ namespace SurvivorsLike
                 // 익명 로그인: 이메일/비밀번호 없이 Firebase가 임시계정을 자동 생성해준다.
                 // 같은 기기에서 재실행해도 동일한 UserId가 유지된다
                 AuthResult result = await _auth.SignInAnonymouslyAsync().AsUniTask().AttachExternalCancellation(ct);
-                Debug.Log($"익명 로그인 성공 - UserId : {result.User.UserId}");
+                Debug.Log($"Anonymous sign-in succeeded - UserId: {result.User.UserId}");
                 return result.User.UserId;
             }
             catch (FirebaseException e)
             {
-                Debug.LogError($"익명 로그인 실패 : {e.Message}");
+                Debug.LogError($"Anonymous sign-in failed: {e.Message}");
                 return null;  // null 반환으로 실패 전달
             }
         }
@@ -104,7 +104,7 @@ namespace SurvivorsLike
 
                 if (snapshot.Exists == false)
                 {
-                    Debug.Log("저장 데이터가 없음~ 신규 유저 생성 할 것~");
+                    Debug.Log("No saved data found. Creating new user.");
 
                     var newUserData = new UserData()
                     {
@@ -121,7 +121,7 @@ namespace SurvivorsLike
                     bool isSaved = await SaveUserDataAsync(newUserData, ct);
                     if(isSaved == false)
                     {
-                        Debug.LogError("신규 유저 데이터 서버 저장 실패!");
+                        Debug.LogError("Failed to save new user data to server!");
                         return null;
                     }
 
@@ -137,7 +137,7 @@ namespace SurvivorsLike
             }
             catch (FirebaseException e)
             {
-                Debug.LogError($"Firestore 데이터 로드 실패 (FirebaseException) : {e.Message}");
+                Debug.LogError($"Firestore data load failed (FirebaseException): {e.Message}");
                 return null;
             }
             catch (Exception e)
@@ -170,7 +170,7 @@ namespace SurvivorsLike
 
                 //SetAsync함수를 통해 데이터를 서버에 업로드~
                 await docRef.SetAsync(dicData).AsUniTask().AttachExternalCancellation(ct);;
-                Debug.Log("서버에 유저 데이터 저장 완료~");
+                Debug.Log("User data saved to server.");
                 return true;
             }
             catch (OperationCanceledException)
@@ -179,7 +179,7 @@ namespace SurvivorsLike
             }
             catch (FirebaseException e)
             {
-                Debug.LogError($"Firestore 데이터 저장 실패 (FirebaseException) : {e.Message}");
+                Debug.LogError($"Firestore data save failed (FirebaseException): {e.Message}");
                 return false;
             }
             catch (Exception e)

@@ -22,7 +22,7 @@ namespace SurvivorsLike
             };
 
             if (skill == null)
-                Debug.LogError($"SkillFactory::Create() - 미등록 SkillDataSO 타입: {data.GetType().Name}");
+                Debug.LogError($"SkillFactory::Create() - Unregistered SkillDataSO type: {data.GetType().Name}");
 
             return skill;
         }

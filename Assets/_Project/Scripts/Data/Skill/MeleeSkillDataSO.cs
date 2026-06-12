@@ -33,7 +33,7 @@ namespace SurvivorsLike
             if (levelData != null)
                 return levelData;
 
-            Debug.LogError($"MeleeSkillData 데이터를 찾을 수 없음~ : SkillId - {Id}, Level - {level}");
+            Debug.LogError($"MeleeSkillData not found: SkillId - {Id}, Level - {level}");
             return null;
         }
 

@@ -21,7 +21,7 @@ namespace SurvivorsLike
 
             ApplyDataList(so, dataList);
             SaveAsset(so);
-            Debug.Log($"[{GetType().Name}] SO 1개 생성 완료 (총 {dataList.Count}행)");
+            Debug.Log($"[{GetType().Name}] 1 SO created (total {dataList.Count} rows)");
 #endif
         }
 

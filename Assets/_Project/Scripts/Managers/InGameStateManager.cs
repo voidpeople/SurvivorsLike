@@ -71,7 +71,7 @@ namespace SurvivorsLike
         {
             if (_state.Value != from)
             {
-                Debug.LogWarning($"[InGameStateManager] 잘못된 상태 전이 무시: {_state.Value} → {to} (요구 출발 상태: { from})");
+                Debug.LogWarning($"[InGameStateManager] Invalid state transition ignored: {_state.Value} → {to} (required from state: { from})");
                   return false;
             }
 

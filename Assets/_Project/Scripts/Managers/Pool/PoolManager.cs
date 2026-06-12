@@ -68,7 +68,7 @@ namespace SurvivorsLike
             //MonoBehaviour가 아닌 구현체 + 이미 파괴된 오브젝트(fake-null) 모두 방어
             if (mono == null)
             {
-                Debug.LogError("PoolManager::Return - MonoBehaviour가 아니거나 이미 파괴된 오브젝트~");
+                Debug.LogError("PoolManager::Return - Object is not a MonoBehaviour or has already been destroyed.");
                 return;
             }
 
@@ -87,13 +87,13 @@ namespace SurvivorsLike
                     _iPoolableCacheDic.Remove(obj);
                     _poolKeyDic.Remove(obj);
                     Object.Destroy(obj);
-                    Debug.LogError($"PoolManager::Return - ObjectPool이 존재하지 않는 오브젝트를 반환 하려함~ - PoolKey: {key}, GameObject: {obj.name}");
+                    Debug.LogError($"PoolManager::Return - Attempting to return an object with no existing ObjectPool - PoolKey: {key}, GameObject: {obj.name}");
                 }
             }
             else
             {
                 Object.Destroy(obj);
-                Debug.LogError($"PoolManager::Return - PoolKey가 존재하지 않는 오브젝트를 반환 하려함~ - GameObject: {obj.name}");
+                Debug.LogError($"PoolManager::Return - Attempting to return an object with no registered PoolKey - GameObject: {obj.name}");
             }
         }
 
@@ -109,7 +109,7 @@ namespace SurvivorsLike
         {
             if (_poolDic.TryGetValue(poolKey, out var pool) == false)
             {
-                Debug.LogError($"[PoolManager] PreCreateAsync 실패 — 미등록: {poolKey}");
+                Debug.LogError($"[PoolManager] PreCreateAsync failed — unregistered key: {poolKey}");
                 return;
             }
 
@@ -155,7 +155,7 @@ namespace SurvivorsLike
             {
                 //로드 실패 — 실패한 핸들도 Release가 필요함 (Addressables 계약)
                 Addressables.Release(handle);
-                Debug.LogError($"[PoolManager] 프리팹 로드 실패: {poolKey}\n{e}");
+                Debug.LogError($"[PoolManager] Prefab load failed: {poolKey}\n{e}");
                 return;
             }
 

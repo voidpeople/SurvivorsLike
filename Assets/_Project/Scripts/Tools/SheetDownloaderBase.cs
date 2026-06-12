@@ -73,14 +73,14 @@ namespace SurvivorsLike
 
         private IEnumerator Co_Download()
         {
-            Debug.Log($"[{GetType().Name}] 다운로드 시작...");
+            Debug.Log($"[{GetType().Name}] Download started...");
 
             using var www = UnityWebRequest.Get(BuildUrl());
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"[{GetType().Name}] 다운로드 실패: {www.error}");
+                Debug.LogError($"[{GetType().Name}] Download failed: {www.error}");
                 yield break;
             }
 
@@ -93,7 +93,7 @@ namespace SurvivorsLike
             string[] lines = tsv.Split('\n');
             if (lines.Length < 2)
             {
-                Debug.LogWarning($"[{GetType().Name}] 데이터가 없습니다.");
+                Debug.LogWarning($"[{GetType().Name}] No data available.");
                 return;
             }
 
@@ -120,12 +120,12 @@ namespace SurvivorsLike
 
                 string assetPath = $"{saveFolderPath}/{GetAssetFileName(so)}.asset";
                 AssetDatabase.CreateAsset(so, assetPath);
-                Debug.Log($"[{GetType().Name}] 생성 완료: {assetPath}");
+                Debug.Log($"[{GetType().Name}] Created: {assetPath}");
             }
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log($"[{GetType().Name}] 전체 저장 완료!");
+            Debug.Log($"[{GetType().Name}] All assets saved!");
 #endif
         }
 
@@ -141,7 +141,7 @@ namespace SurvivorsLike
             foreach (var file in Directory.GetFiles(saveFolderPath, "*.asset"))
             {
                 AssetDatabase.DeleteAsset(file);
-                Debug.Log($"[{GetType().Name}] 삭제: {file}");
+                Debug.Log($"[{GetType().Name}] Deleted: {file}");
             }
 #endif
         }

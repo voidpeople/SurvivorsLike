@@ -19,8 +19,8 @@ namespace SurvivorsLike
 
         public void Init(ISkillOwner owner, SkillDataSO defaultSkillData)
         {
-            Debug.Assert(owner != null, $"{nameof(SkillController)}::Init — ISkillOwner is null");
-            Debug.Assert(defaultSkillData != null, $"{nameof(SkillController)}::Init — defaultSkillData is null");
+            Debug.Assert(owner != null, $"{nameof(SkillController)}::Init => ISkillOwner is null");
+            Debug.Assert(defaultSkillData != null, $"{nameof(SkillController)}::Init => defaultSkillData is null");
 
             _owner = owner;
             _skillList.Clear();

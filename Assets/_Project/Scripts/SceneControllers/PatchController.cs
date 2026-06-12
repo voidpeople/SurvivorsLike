@@ -20,7 +20,7 @@ namespace SurvivorsLike
             }
             catch (OperationCanceledException)
             {
-                Debug.Log("PatchController 작업 취소됨");
+                Debug.Log("PatchController operation cancelled");
             }
             catch (Exception e)
             {

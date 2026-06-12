@@ -21,7 +21,7 @@ namespace SurvivorsLike
             }
             catch (OperationCanceledException)
             {
-                Debug.Log("TitleController 작업 취소됨");
+                Debug.Log("TitleController operation cancelled");
             }
             catch (Exception e)
             {

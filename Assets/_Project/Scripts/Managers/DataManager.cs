@@ -86,7 +86,7 @@ namespace SurvivorsLike
 
             if (_chapterDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] ChapterData 로드 실패: {_chapterDataSOListHandle.OperationException}");
+                Debug.LogError($"[DataManager] ChapterData load failed: {_chapterDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -98,7 +98,7 @@ namespace SurvivorsLike
             LinkChapterMapData();
             LinkChapterThumbnails();
 
-            Debug.Log($"[DataManager] ChapterData {_chapterDataSOList.Count}개 로드 완료");
+            Debug.Log($"[DataManager] ChapterData loaded: {_chapterDataSOList.Count} items");
         }
 
         private void LinkChapterThumbnails()
@@ -118,7 +118,7 @@ namespace SurvivorsLike
                 if (MapDataSODic.TryGetValue(charpterData.MapId, out data) == true)
                     charpterData.MapData = data;
                 else
-                    Debug.LogError($"맵 데이터가 존재하지 않습니다. : MapId - {charpterData.MapId}");
+                    Debug.LogError($"Map data not found: MapId - {charpterData.MapId}");
             }
         }
 
@@ -135,7 +135,7 @@ namespace SurvivorsLike
 
             if (_mapDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] MapData 로드 실패: {_mapDataSOListHandle.OperationException}");
+                Debug.LogError($"[DataManager] MapData load failed: {_mapDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -145,7 +145,7 @@ namespace SurvivorsLike
                 _mapDataSODic.Add(mapData.Id, mapData);
             }
 
-            Debug.Log($"[DataManager] MapData {_mapDataSODic.Count}개 로드 완료");
+            Debug.Log($"[DataManager] MapData loaded: {_mapDataSODic.Count} items");
         }
 
         private async UniTask LoadPlayerDataAsync(CancellationToken ct)
@@ -161,7 +161,7 @@ namespace SurvivorsLike
 
             if (_playerDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] MapData 로드 실패: {_playerDataSOListHandle.OperationException}");
+                Debug.LogError($"[DataManager] PlayerData load failed: {_playerDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -175,7 +175,7 @@ namespace SurvivorsLike
                 }
             }
 
-            Debug.Log($"[DataManager] PlayerData {_playerDataDic.Count}개 로드 완료");
+            Debug.Log($"[DataManager] PlayerData loaded: {_playerDataDic.Count} items");
         }
 
         private async UniTask LoadEnemyDataAsync(CancellationToken ct)
@@ -191,7 +191,7 @@ namespace SurvivorsLike
 
             if (_enemyDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] MapData 로드 실패: {_enemyDataSOListHandle.OperationException}");
+                Debug.LogError($"[DataManager] EnemyData load failed: {_enemyDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -205,7 +205,7 @@ namespace SurvivorsLike
                 }
             }
 
-            Debug.Log($"[DataManager] EnemyData {_enemyDataDic.Count}개 로드 완료");
+            Debug.Log($"[DataManager] EnemyData loaded: {_enemyDataDic.Count} items");
         }
 
 
@@ -219,7 +219,7 @@ namespace SurvivorsLike
 
             if (_skillDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] SkillData 로드 실패: {_skillDataSOListHandle.OperationException}");
+                Debug.LogError($"[DataManager] SkillData load failed: {_skillDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -229,7 +229,7 @@ namespace SurvivorsLike
                 _skillDataSODic.Add(skillData.Id, skillData);
             }
 
-            Debug.Log($"[DataManager] SkillData {_skillDataSODic.Count}개 로드 완료");
+            Debug.Log($"[DataManager] SkillData loaded: {_skillDataSODic.Count} items");
         }
 
 

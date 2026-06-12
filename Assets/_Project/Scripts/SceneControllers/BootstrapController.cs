@@ -25,7 +25,7 @@ namespace SurvivorsLike
             }
             catch (OperationCanceledException)
             {
-                Debug.Log("AccountAsync: 작업이 취소되었습니다.");
+                Debug.Log("AccountAsync: operation cancelled.");
                 return;
             }
             catch (Exception e)
@@ -78,9 +78,9 @@ namespace SurvivorsLike
             catch (OperationCanceledException e)
             {
                 // 오브젝트 파괴 등으로 작업이 취소된 경우 조용히 종료 [9, 10]
-                Debug.Log("Bootstrap 작업이 취소되었습니다.");                
+                Debug.Log("Bootstrap operation cancelled.");
 
-                Debug.Log($"취소된 토큰: {e.CancellationToken.GetHashCode()}");
+                Debug.Log($"Cancelled token: {e.CancellationToken.GetHashCode()}");
                 //Debug.LogException(e);
             }
             catch (Exception e)
