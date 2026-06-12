@@ -88,6 +88,8 @@ namespace SurvivorsLike
 
             //3초 후 실행
             await UniTask.Delay(3000, cancellationToken: ct);
+
+
             //이벤트 발송~
             InGameEventBus.OnInGameStart.OnNext(Unit.Default);
         }

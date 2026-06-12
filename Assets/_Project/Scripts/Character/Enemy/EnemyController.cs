@@ -27,7 +27,6 @@ namespace SurvivorsLike
         private EnemyFSM _fsm;
         private CancellationTokenSource _cts;
         private Transform _firePoint;
-        private bool _isPlaying;
 
 
         // ─── Properties ──────────────────────────────────────────────────────
@@ -80,28 +79,13 @@ namespace SurvivorsLike
             _health = health;
 
             CreateFSM();
-
-            _isPlaying = false;
         }
 
         private void Start()
         {
-            InGameEventBus.OnInGameStart
-                .Subscribe(_ => OnGameStart())
-                .AddTo(_disposables);
-        }
-
-        private void Update()
-        {
-            if (_isPlaying == false)
-                return;
-
-#if UNITY_EDITOR
-            if (_fsm != null)
-                _currentStateType = _fsm.CurrentType;
-#endif
-            if (_fsm != null)
-                _fsm.Update();
+            //InGameEventBus.OnInGameStart
+            //    .Subscribe(_ => OnGameStart())
+            //    .AddTo(_disposables);
         }
 
         private void OnDestroy()
@@ -117,6 +101,16 @@ namespace SurvivorsLike
 
 
         // ─── Public Methods ───────────────────────────────────────────────────
+        public void Tick(float deltaTime)
+        {
+#if UNITY_EDITOR
+            if (_fsm != null)
+                _currentStateType = _fsm.CurrentType;
+#endif
+            if (_fsm != null)
+                _fsm.Update();
+        }
+
         //타겟은 플레이어 캐릭터 하나 이므로
         //적 캐릭터가 스폰되자 마자 Init 함수를 통해 타겟이 설정됨~
         public void Init(EnemyData data, Transform targetTrasnform)
@@ -144,9 +138,6 @@ namespace SurvivorsLike
             PoolManager.Instance.Return(this);
         }
 
-        //게임을 처음 시작할 떄는 _isPlayer이 필요하고
-        //게임중 리스폰 될 떄는 _isPlayer이 필요 없다.
-
         // ─── Interface Implementations ────────────────────────────────────────
         #region IPoolable
         public void OnSpawn()
@@ -155,13 +146,10 @@ namespace SurvivorsLike
             _cts?.Cancel();
             _cts?.Dispose();
             _cts = new CancellationTokenSource();
-
-            _isPlaying = false;
         }
 
         public void OnDespawn()
         {
-            _isPlaying = false;
             _health.Died -= OnDied;
             Movement.OnDestinationReached -= OnDestinationReached;
 
@@ -187,10 +175,10 @@ namespace SurvivorsLike
             _fsm.RegisterState(EnemyStateType.Dead, new EnemyDeadState(this, _fsm));
         }
 
-        void OnGameStart()
-        {
-            _isPlaying = true;
-        }
+        //void OnGameStart()
+        //{
+        //    _isPlaying = true;
+        //}
 
         //Enemy 캐릭터가 목표 위치에 도착하면 통보 받는 함수
         private void OnDestinationReached()
