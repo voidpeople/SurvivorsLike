@@ -51,7 +51,7 @@ namespace SurvivorsLike
                     return enemyType;
             }
 
-            Debug.LogError($"EnemySheetDownloader::EnemyType - EnemyType is None.");
+            Debug.LogError($"{nameof(EnemySheetDownloader)}::EnemyType=> EnemyType is None.");
             return SurvivorsLike.EnemyType.None;
         }
     }

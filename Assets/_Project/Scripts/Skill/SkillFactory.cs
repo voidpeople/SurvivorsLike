@@ -10,7 +10,7 @@ namespace SurvivorsLike
         {
             if (data == null)
             {
-                Debug.LogError($"SkillFactory::Create() - data is null!");
+                Debug.LogError($"{nameof(SkillFactory)}::Create=> data is null!");
                 return null;
             }
 
@@ -22,7 +22,7 @@ namespace SurvivorsLike
             };
 
             if (skill == null)
-                Debug.LogError($"SkillFactory::Create() - Unregistered SkillDataSO type: {data.GetType().Name}");
+                Debug.LogError($"{nameof(SkillFactory)}::Create=> Unregistered SkillDataSO type: {data.GetType().Name}");
 
             return skill;
         }

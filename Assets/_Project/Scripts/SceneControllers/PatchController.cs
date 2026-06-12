@@ -20,7 +20,7 @@ namespace SurvivorsLike
             }
             catch (OperationCanceledException)
             {
-                Debug.Log("PatchController operation cancelled");
+                Debug.Log($"{nameof(PatchController)}::Start=> PatchController operation cancelled");
             }
             catch (Exception e)
             {

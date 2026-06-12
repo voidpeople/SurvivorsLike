@@ -19,14 +19,14 @@ namespace SurvivorsLike
 
         private IEnumerator Co_Download()
         {
-            Debug.Log($"[{GetType().Name}] Download started...");
+            Debug.Log($"{GetType().Name}::Co_Download=> Download started...");
 
             using var www = UnityWebRequest.Get(BuildUrl());
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"[{GetType().Name}] Download failed: {www.error}");
+                Debug.LogError($"{GetType().Name}::Co_Download=> Download failed: {www.error}");
                 yield break;
             }
 
@@ -39,7 +39,7 @@ namespace SurvivorsLike
             string[] lines = tsv.Split('\n');
             if (lines.Length < 2)
             {
-                Debug.LogWarning($"[{GetType().Name}] No data available.");
+                Debug.LogWarning($"{GetType().Name}::ApplyTsvToSO=> No data available.");
                 return;
             }
 
@@ -63,7 +63,7 @@ namespace SurvivorsLike
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log($"[{GetType().Name}] All assets saved!");
+            Debug.Log($"{GetType().Name}::ApplyTsvToSO=> All assets saved!");
 #endif
         }
 
@@ -81,7 +81,7 @@ namespace SurvivorsLike
 #if UNITY_EDITOR
             string assetPath = $"{saveFolderPath}/{GetAssetFileName(so)}.asset";
             AssetDatabase.CreateAsset(so, assetPath);
-            Debug.Log($"[{GetType().Name}] Created: {assetPath}");
+            Debug.Log($"{GetType().Name}::SaveAsset=> Created: {assetPath}");
 #endif
         }
 
@@ -92,7 +92,7 @@ namespace SurvivorsLike
             foreach (var file in Directory.GetFiles(saveFolderPath, "*.asset"))
             {
                 AssetDatabase.DeleteAsset(file);
-                Debug.Log($"[{GetType().Name}] Deleted: {file}");
+                Debug.Log($"{GetType().Name}::ClearSaveFolder=> Deleted: {file}");
             }
 #endif
         }

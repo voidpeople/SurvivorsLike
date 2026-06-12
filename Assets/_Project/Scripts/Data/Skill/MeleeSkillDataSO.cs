@@ -33,7 +33,7 @@ namespace SurvivorsLike
             if (levelData != null)
                 return levelData;
 
-            Debug.LogError($"MeleeSkillData not found: SkillId - {Id}, Level - {level}");
+            Debug.LogError($"{nameof(MeleeSkillDataSO)}::GetLevelData=> MeleeSkillData not found: SkillId - {Id}, Level - {level}");
             return null;
         }
 

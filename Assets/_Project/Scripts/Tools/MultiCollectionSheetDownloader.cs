@@ -45,7 +45,7 @@ namespace SurvivorsLike
                 SaveAsset(so);
             }
 
-            Debug.Log($"[{GetType().Name}] {keyOrder.Count} SOs created");
+            Debug.Log($"{GetType().Name}::ProcessRows=> {keyOrder.Count} SOs created");
 #endif
         }
 

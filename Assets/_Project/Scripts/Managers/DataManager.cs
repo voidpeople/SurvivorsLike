@@ -96,7 +96,7 @@ namespace SurvivorsLike
 
             if (_chapterDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] ChapterData load failed: {_chapterDataSOListHandle.OperationException}");
+                Debug.LogError($"{nameof(DataManager)}::LoadChapterDataAsync=> ChapterData load failed: {_chapterDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -108,7 +108,7 @@ namespace SurvivorsLike
             LinkChapterMapData();
             LinkChapterThumbnails();
 
-            Debug.Log($"[DataManager] ChapterData loaded: {_chapterDataSOList.Count} items");
+            Debug.Log($"{nameof(DataManager)}::LoadChapterDataAsync=> ChapterData loaded: {_chapterDataSOList.Count} items");
         }
 
         private void LinkChapterThumbnails()
@@ -128,7 +128,7 @@ namespace SurvivorsLike
                 if (MapDataSODic.TryGetValue(charpterData.MapId, out data) == true)
                     charpterData.MapData = data;
                 else
-                    Debug.LogError($"Map data not found: MapId - {charpterData.MapId}");
+                    Debug.LogError($"{nameof(DataManager)}::LinkChapterMapData=> Map data not found: MapId - {charpterData.MapId}");
             }
         }
 
@@ -145,7 +145,7 @@ namespace SurvivorsLike
 
             if (_mapDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] MapData load failed: {_mapDataSOListHandle.OperationException}");
+                Debug.LogError($"{nameof(DataManager)}::LoadMapDataAsync=> MapData load failed: {_mapDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -155,7 +155,7 @@ namespace SurvivorsLike
                 _mapDataSODic.Add(mapData.Id, mapData);
             }
 
-            Debug.Log($"[DataManager] MapData loaded: {_mapDataSODic.Count} items");
+            Debug.Log($"{nameof(DataManager)}::LoadMapDataAsync=> MapData loaded: {_mapDataSODic.Count} items");
         }
 
         private async UniTask LoadWaveDataAsync(CancellationToken ct)
@@ -171,7 +171,7 @@ namespace SurvivorsLike
 
             if (_waveDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] WaveData load failed: {_waveDataSOListHandle.OperationException}");
+                Debug.LogError($"{nameof(DataManager)}::LoadWaveDataAsync=> WaveData load failed: {_waveDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -181,7 +181,7 @@ namespace SurvivorsLike
                 _waveDataSODic.Add(waveData.Id, waveData);
             }
 
-            Debug.Log($"[DataManager] WaveData loaded: {_waveDataSODic.Count} items");
+            Debug.Log($"{nameof(DataManager)}::LoadWaveDataAsync=> WaveData loaded: {_waveDataSODic.Count} items");
         }
 
         private async UniTask LoadPlayerDataAsync(CancellationToken ct)
@@ -197,7 +197,7 @@ namespace SurvivorsLike
 
             if (_playerDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] PlayerData load failed: {_playerDataSOListHandle.OperationException}");
+                Debug.LogError($"{nameof(DataManager)}::LoadPlayerDataAsync=> PlayerData load failed: {_playerDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -211,7 +211,7 @@ namespace SurvivorsLike
                 }
             }
 
-            Debug.Log($"[DataManager] PlayerData loaded: {_playerDataDic.Count} items");
+            Debug.Log($"{nameof(DataManager)}::LoadPlayerDataAsync=> PlayerData loaded: {_playerDataDic.Count} items");
         }
 
         private async UniTask LoadEnemyDataAsync(CancellationToken ct)
@@ -227,7 +227,7 @@ namespace SurvivorsLike
 
             if (_enemyDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] EnemyData load failed: {_enemyDataSOListHandle.OperationException}");
+                Debug.LogError($"{nameof(DataManager)}::LoadEnemyDataAsync=> EnemyData load failed: {_enemyDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -241,7 +241,7 @@ namespace SurvivorsLike
                 }
             }
 
-            Debug.Log($"[DataManager] EnemyData loaded: {_enemyDataDic.Count} items");
+            Debug.Log($"{nameof(DataManager)}::LoadEnemyDataAsync=> EnemyData loaded: {_enemyDataDic.Count} items");
         }
 
 
@@ -255,7 +255,7 @@ namespace SurvivorsLike
 
             if (_skillDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[DataManager] SkillData load failed: {_skillDataSOListHandle.OperationException}");
+                Debug.LogError($"{nameof(DataManager)}::LoadSkillDataAsync=> SkillData load failed: {_skillDataSOListHandle.OperationException}");
                 return;
             }
 
@@ -265,7 +265,7 @@ namespace SurvivorsLike
                 _skillDataSODic.Add(skillData.Id, skillData);
             }
 
-            Debug.Log($"[DataManager] SkillData loaded: {_skillDataSODic.Count} items");
+            Debug.Log($"{nameof(DataManager)}::LoadSkillDataAsync=> SkillData loaded: {_skillDataSODic.Count} items");
         }
 
 

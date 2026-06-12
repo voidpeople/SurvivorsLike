@@ -77,7 +77,7 @@ namespace SurvivorsLike
             Sprite s = _lobbyChapterAtlas.GetSprite(chapterData.DisplaySpriteName);
             _battlePanelView.SetChapterPanelButtonImage(s);
 
-            Debug.Log($"Chapter selected: {chapterData.DisplayName}");
+            Debug.Log($"{nameof(LobbyController)}::OnSelectChapter=> Chapter selected: {chapterData.DisplayName}");
         }
 
         private void OnGameStart()

@@ -53,7 +53,7 @@ namespace SurvivorsLike
                     return waveType;
             }
 
-            Debug.LogError($"WaveSheetDownloader::WaveType - WaveType is None.");
+            Debug.LogError($"{nameof(WaveSheetDownloader)}::WaveType=> WaveType is None.");
             return SurvivorsLike.WaveType.None;
         }
     }

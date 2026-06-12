@@ -21,7 +21,7 @@ namespace SurvivorsLike
             }
             catch (OperationCanceledException)
             {
-                Debug.Log("TitleController operation cancelled");
+                Debug.Log($"{nameof(TitleController)}::Start=> TitleController operation cancelled");
             }
             catch (Exception e)
             {

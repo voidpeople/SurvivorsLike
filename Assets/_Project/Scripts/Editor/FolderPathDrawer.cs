@@ -35,14 +35,14 @@ namespace SurvivorsLike
         {
             if (string.IsNullOrEmpty(path))
             {
-                Debug.LogWarning("[FolderPath] Path is empty.");
+                Debug.LogWarning($"{nameof(FolderPathDrawer)}::EnterFolder=> Path is empty.");
                 return;
             }
 
             var folder = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path);
             if (folder == null)
             {
-                Debug.LogWarning($"[FolderPath] Folder not found: {path}");
+                Debug.LogWarning($"{nameof(FolderPathDrawer)}::EnterFolder=> Folder not found: {path}");
                 return;
             }
 

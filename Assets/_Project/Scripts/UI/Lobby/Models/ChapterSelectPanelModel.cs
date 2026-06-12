@@ -65,7 +65,7 @@ namespace SurvivorsLike
             int index = -1;
             if(_chapterCardIndexDic.TryGetValue(chapterId, out index) == false)
             {
-                Debug.LogError($"Chapter ID does not exist: {chapterId}");
+                Debug.LogError($"{nameof(ChapterSelectPanelModel)}::GetChapterCardIndex=> Chapter ID does not exist: {chapterId}");
             }
 
             return index;

@@ -40,12 +40,12 @@ namespace SurvivorsLike
             DependencyStatus dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask().AttachExternalCancellation(ct);
             if(dependencyStatus == DependencyStatus.Available)
             {
-                Debug.Log("Firebase initialization succeeded!");
+                Debug.Log($"{nameof(FirebaseManager)}::InitFirebaseAsync=> Firebase initialization succeeded!");
             }
             else
             {
                 //시스템 오류창 띄우기
-                Debug.LogError($"Firebase initialization failed: {dependencyStatus}");
+                Debug.LogError($"{nameof(FirebaseManager)}::InitFirebaseAsync=> Firebase initialization failed: {dependencyStatus}");
                 return false;
             }
 
@@ -67,7 +67,7 @@ namespace SurvivorsLike
             //이미 로그인 되어 있는지 검사
             if (_auth.CurrentUser != null)
             {
-                Debug.Log($"Already signed in: {_auth.CurrentUser.UserId}");
+                Debug.Log($"{nameof(FirebaseManager)}::PlayAsGuestAsync=> Already signed in: {_auth.CurrentUser.UserId}");
                 return _auth.CurrentUser.UserId;
             }
 
@@ -76,12 +76,12 @@ namespace SurvivorsLike
                 // 익명 로그인: 이메일/비밀번호 없이 Firebase가 임시계정을 자동 생성해준다.
                 // 같은 기기에서 재실행해도 동일한 UserId가 유지된다
                 AuthResult result = await _auth.SignInAnonymouslyAsync().AsUniTask().AttachExternalCancellation(ct);
-                Debug.Log($"Anonymous sign-in succeeded - UserId: {result.User.UserId}");
+                Debug.Log($"{nameof(FirebaseManager)}::PlayAsGuestAsync=> Anonymous sign-in succeeded - UserId: {result.User.UserId}");
                 return result.User.UserId;
             }
             catch (FirebaseException e)
             {
-                Debug.LogError($"Anonymous sign-in failed: {e.Message}");
+                Debug.LogError($"{nameof(FirebaseManager)}::PlayAsGuestAsync=> Anonymous sign-in failed: {e.Message}");
                 return null;  // null 반환으로 실패 전달
             }
         }
@@ -104,7 +104,7 @@ namespace SurvivorsLike
 
                 if (snapshot.Exists == false)
                 {
-                    Debug.Log("No saved data found. Creating new user.");
+                    Debug.Log($"{nameof(FirebaseManager)}::LoadUserDataAsync=> No saved data found. Creating new user.");
 
                     var newUserData = new UserData()
                     {
@@ -121,7 +121,7 @@ namespace SurvivorsLike
                     bool isSaved = await SaveUserDataAsync(newUserData, ct);
                     if(isSaved == false)
                     {
-                        Debug.LogError("Failed to save new user data to server!");
+                        Debug.LogError($"{nameof(FirebaseManager)}::LoadUserDataAsync=> Failed to save new user data to server!");
                         return null;
                     }
 
@@ -137,7 +137,7 @@ namespace SurvivorsLike
             }
             catch (FirebaseException e)
             {
-                Debug.LogError($"Firestore data load failed (FirebaseException): {e.Message}");
+                Debug.LogError($"{nameof(FirebaseManager)}::LoadUserDataAsync=> Firestore data load failed (FirebaseException): {e.Message}");
                 return null;
             }
             catch (Exception e)
@@ -170,7 +170,7 @@ namespace SurvivorsLike
 
                 //SetAsync함수를 통해 데이터를 서버에 업로드~
                 await docRef.SetAsync(dicData).AsUniTask().AttachExternalCancellation(ct);;
-                Debug.Log("User data saved to server.");
+                Debug.Log($"{nameof(FirebaseManager)}::SaveUserDataAsync=> User data saved to server.");
                 return true;
             }
             catch (OperationCanceledException)
@@ -179,7 +179,7 @@ namespace SurvivorsLike
             }
             catch (FirebaseException e)
             {
-                Debug.LogError($"Firestore data save failed (FirebaseException): {e.Message}");
+                Debug.LogError($"{nameof(FirebaseManager)}::SaveUserDataAsync=> Firestore data save failed (FirebaseException): {e.Message}");
                 return false;
             }
             catch (Exception e)

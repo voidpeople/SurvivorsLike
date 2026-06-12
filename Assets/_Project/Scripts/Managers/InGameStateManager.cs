@@ -71,7 +71,7 @@ namespace SurvivorsLike
         {
             if (_state.Value != from)
             {
-                Debug.LogWarning($"[InGameStateManager] Invalid state transition ignored: {_state.Value} → {to} (required from state: { from})");
+                Debug.LogWarning($"{nameof(InGameStateManager)}::ChangeState=> Invalid state transition ignored: {_state.Value} → {to} (required from state: {from})");
                   return false;
             }
 

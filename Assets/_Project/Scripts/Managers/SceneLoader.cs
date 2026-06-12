@@ -28,7 +28,7 @@ namespace SurvivorsLike
                 AsyncOperation op = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
                 if(op == null)
                 {
-                    Debug.LogError($"[SceneLoader] Scene not found: {sceneName}");
+                    Debug.LogError($"{nameof(SceneLoader)}::LoadSceneAsync=> Scene not found: {sceneName}");
                     _isLoading = false;
                     return;
                 }    

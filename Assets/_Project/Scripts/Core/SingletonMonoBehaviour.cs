@@ -29,7 +29,7 @@ namespace SurvivorsLike
 
                     if (_instance == null)
                     {
-                        Debug.LogError($"[Singleton] {typeof(T).Name} does not exist in the scene. Place a GameObject with this script attached in the first scene.");
+                        Debug.LogError($"{nameof(SingletonMonoBehaviour<T>)}::Instance=> {typeof(T).Name} does not exist in the scene. Place a GameObject with this script attached in the first scene.");
                     }
                 }
                 return _instance;
@@ -56,7 +56,7 @@ namespace SurvivorsLike
             }
             else if (_instance != this)
             {
-                Debug.LogError($"[Singleton] Duplicate {typeof(T).Name} instance already exists. Destroying this object. (Name: {gameObject.name})");
+                Debug.LogError($"{nameof(SingletonMonoBehaviour<T>)}::Awake=> Duplicate {typeof(T).Name} instance already exists. Destroying this object. (Name: {gameObject.name})");
                 Destroy(gameObject);
             }
         }

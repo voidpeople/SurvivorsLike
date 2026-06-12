@@ -21,7 +21,7 @@ namespace SurvivorsLike
 
             ApplyDataList(so, dataList);
             SaveAsset(so);
-            Debug.Log($"[{GetType().Name}] 1 SO created (total {dataList.Count} rows)");
+            Debug.Log($"{GetType().Name}::ProcessRows=> 1 SO created (total {dataList.Count} rows)");
 #endif
         }
 
