@@ -13,6 +13,8 @@ namespace SurvivorsLike
         //프로그램이 종료중 인지?
         private static bool _applicationQuitting = false;
 
+        protected virtual bool UseDontDestroyOnLoad => true;  //기본값 true (기존 동작 유지)
+
         public static T Instance
         {
             get
@@ -47,7 +49,9 @@ namespace SurvivorsLike
                 if (transform.parent != null)
                     transform.parent = null;
 
-                DontDestroyOnLoad(gameObject);
+                if(UseDontDestroyOnLoad)
+                    DontDestroyOnLoad(gameObject);
+
                 ChildAwake();
             }
             else if (_instance != this)

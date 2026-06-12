@@ -11,6 +11,8 @@ namespace SurvivorsLike
         private readonly ProjectileBase[] _activeProjectiles = new ProjectileBase[MaxProjectiles];
         private int _activeCount;
 
+        protected override bool UseDontDestroyOnLoad => false;
+
         protected override void ChildAwake()
         {
             _activeCount = 0;
