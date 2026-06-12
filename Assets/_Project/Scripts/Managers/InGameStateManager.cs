@@ -1,5 +1,4 @@
 ﻿using R3;
-using SurvivorsLike;
 using UnityEngine;
 
 
@@ -10,11 +9,11 @@ namespace SurvivorsLike
         Ready,
         Playing,
         Paused,
-        GameOver,
+        StageFail,
         StageClear
     }
 
-    public class InGameStateManager : SingletonMonoBehaviour<GameManager>
+    public class InGameStateManager : SingletonMonoBehaviour<InGameStateManager>
     {
         private readonly ReactiveProperty<InGameState> _state = new(InGameState.Ready);
         private readonly CompositeDisposable _disposables = new();
@@ -27,9 +26,11 @@ namespace SurvivorsLike
 
         protected override bool UseDontDestroyOnLoad => false;
 
-        // ─── Unity Lifecycle ─────────────────────────────────────────────────
         private void Start()
         {
+            InGameEventBus.OnPlayerDied
+                .Subscribe(_ => FailStage())
+                .AddTo(_disposables);
         }
 
         protected override void OnDestroy()
@@ -48,29 +49,30 @@ namespace SurvivorsLike
         }
 
 
-        public void StartGame() => ChangeState(InGameState.Playing, from: InGameState.Ready);
+        public void StartBattle() => ChangeState(from: InGameState.Ready, to: InGameState.Playing);
 
         public void PauseGame()
         {
-            if (ChangeState(InGameState.Paused, from: InGameState.Playing))
+            if (ChangeState(from: InGameState.Playing, to: InGameState.Paused))
                 Time.timeScale = 0f;
         }
 
         public void ResumeGame()
         {
-            if (ChangeState(InGameState.Playing, from: InGameState.Paused))
+            if (ChangeState(from: InGameState.Paused, to: InGameState.Playing))
                 Time.timeScale = 1f;
         }
 
-        public void EndGame() => ChangeState(InGameState.GameOver, from: InGameState.Playing);
-        public void ClearStage() => ChangeState(InGameState.StageClear, from: InGameState.Playing);
+        public void ClearStage() => ChangeState(from: InGameState.Playing, to: InGameState.StageClear);
+        public void FailStage() => ChangeState(from: InGameState.Playing, to: InGameState.StageFail);
 
-        private bool ChangeState(InGameState to, InGameState from)
+
+        private bool ChangeState(InGameState from, InGameState to)
         {
             if (_state.Value != from)
             {
-                Debug.LogWarning($"[InGameStateManager] 잘못된 상태 전이 무시: {_state.Value} → {to} (요구 출발 상태: {from})");
-                return false;
+                Debug.LogWarning($"[InGameStateManager] 잘못된 상태 전이 무시: {_state.Value} → {to} (요구 출발 상태: { from})");
+                  return false;
             }
 
             _state.Value = to;

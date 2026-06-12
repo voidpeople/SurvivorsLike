@@ -47,6 +47,9 @@ namespace SurvivorsLike
 
         void Update()
         {
+            if (!InGameStateManager.Instance.IsPlaying)
+                return;
+
             float dt = Time.deltaTime;
             for (int ii = 0; ii < _activeCount; ++ii)
             {
