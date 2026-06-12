@@ -21,6 +21,7 @@ namespace SurvivorsLike
 
         private const string ChapterDataLabel = "ChapterData";
         private const string MapDataLabel = "MapData";
+        private const string WaveDataLabel = "WaveData";
         private const string PlayerDataLabel = "PlayerData";
         private const string EnemyDataLabel = "EnemyData";
         private const string SkillDataLabel = "SkillData";
@@ -39,6 +40,14 @@ namespace SurvivorsLike
         private readonly Dictionary<int, MapDataSO> _mapDataSODic = new();
 
         public IReadOnlyDictionary<int, MapDataSO> MapDataSODic => _mapDataSODic;
+        #endregion
+
+        #region WaveData
+        private AsyncOperationHandle<IList<WaveDataSO>> _waveDataSOListHandle;
+        //Dictionary<웨이브 아이디, WaveDataSO>
+        private readonly Dictionary<int, WaveDataSO> _waveDataSODic = new();
+
+        public IReadOnlyDictionary<int, WaveDataSO> WaveDataSODic => _waveDataSODic;
         #endregion
 
         #region PlayerData
@@ -67,10 +76,11 @@ namespace SurvivorsLike
         {
             ReleaseDataSOListHandle();
             await LoadMapDataAsync(ct);
+            await LoadWaveDataAsync(ct);
             await LoadChapterDataAsync(ct);
             await LoadPlayerDataAsync(ct);
             await LoadEnemyDataAsync(ct);
-            await LoadSkillDataAsync(ct);
+            await LoadSkillDataAsync(ct);            
         }
 
         private async UniTask LoadChapterDataAsync(CancellationToken ct)
@@ -146,6 +156,32 @@ namespace SurvivorsLike
             }
 
             Debug.Log($"[DataManager] MapData loaded: {_mapDataSODic.Count} items");
+        }
+
+        private async UniTask LoadWaveDataAsync(CancellationToken ct)
+        {
+            //어드레서블 어셋을 비동기 로드 시작
+            _waveDataSOListHandle = Addressables.LoadAssetsAsync<WaveDataSO>(WaveDataLabel, null);
+
+            //.Net의 기본 Task을 성능 최적화를 위해 AsUniTask()함수를 이용해 UniTask로 변환하여 작업을 진행한다.
+            //그리고 AttachExternalCancellation()함수를 통해 해당 비동기 작업이 취소 될 수 있도록
+            //CancellationToken을 등록한다.
+            await _waveDataSOListHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            ct.ThrowIfCancellationRequested();
+
+            if (_waveDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"[DataManager] WaveData load failed: {_waveDataSOListHandle.OperationException}");
+                return;
+            }
+
+            _waveDataSODic.Clear();
+            foreach (var waveData in _waveDataSOListHandle.Result)
+            {
+                _waveDataSODic.Add(waveData.Id, waveData);
+            }
+
+            Debug.Log($"[DataManager] WaveData loaded: {_waveDataSODic.Count} items");
         }
 
         private async UniTask LoadPlayerDataAsync(CancellationToken ct)

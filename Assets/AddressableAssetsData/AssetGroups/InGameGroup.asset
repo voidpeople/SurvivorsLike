@@ -51,6 +51,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - GroundMaterial
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d57ad28fbe466a0479c581c24ff0f10e
+    m_Address: Assets/_Project/Data/Wave
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WaveData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb111b0d85eaf7741a055447cd25a608
     m_Address: character/player/robotkyle
     m_ReadOnly: 0
