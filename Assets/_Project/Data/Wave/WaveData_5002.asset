@@ -10,80 +10,56 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d84f495ee55a024a8a374e2fed411b7, type: 3}
-  m_Name: WaveData_5101
+  m_Name: WaveData_5002
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.WaveDataSO
-  Id: 5101
-  ChapterId: 3
+  Id: 5002
+  ChapterId: 2
   WaveDataList:
   - Type: 1
     EnemyId: 2001
     StartTime: 0
     EndTime: 60
-    SpawnInterval: 1.5
-    SpawnCountPerTick: 3
-  - Type: 1
-    EnemyId: 2002
-    StartTime: 0
-    EndTime: 90
-    SpawnInterval: 5
-    SpawnCountPerTick: 1
+    SpawnInterval: 1.8
+    SpawnCountPerTick: 2
   - Type: 1
     EnemyId: 2001
     StartTime: 60
-    EndTime: 150
-    SpawnInterval: 1
-    SpawnCountPerTick: 4
+    EndTime: 120
+    SpawnInterval: 1.2
+    SpawnCountPerTick: 3
+  - Type: 1
+    EnemyId: 2002
+    StartTime: 30
+    EndTime: 120
+    SpawnInterval: 4
+    SpawnCountPerTick: 1
   - Type: 2
     EnemyId: 2002
     StartTime: 75
     EndTime: 0
     SpawnInterval: 0
-    SpawnCountPerTick: 12
+    SpawnCountPerTick: 10
+  - Type: 1
+    EnemyId: 2001
+    StartTime: 120
+    EndTime: 200
+    SpawnInterval: 1
+    SpawnCountPerTick: 4
   - Type: 1
     EnemyId: 2002
-    StartTime: 90
-    EndTime: 180
+    StartTime: 120
+    EndTime: 200
     SpawnInterval: 3
     SpawnCountPerTick: 2
   - Type: 2
-    EnemyId: 2003
+    EnemyId: 2001
     StartTime: 150
     EndTime: 0
     SpawnInterval: 0
-    SpawnCountPerTick: 1
-  - Type: 1
-    EnemyId: 2001
-    StartTime: 150
-    EndTime: 240
-    SpawnInterval: 0.8
-    SpawnCountPerTick: 5
-  - Type: 1
-    EnemyId: 2002
-    StartTime: 180
-    EndTime: 240
-    SpawnInterval: 2.5
-    SpawnCountPerTick: 3
-  - Type: 2
-    EnemyId: 2001
-    StartTime: 210
-    EndTime: 0
-    SpawnInterval: 0
-    SpawnCountPerTick: 20
-  - Type: 1
-    EnemyId: 2001
-    StartTime: 240
-    EndTime: 290
-    SpawnInterval: 0.7
-    SpawnCountPerTick: 6
-  - Type: 1
-    EnemyId: 2002
-    StartTime: 240
-    EndTime: 290
-    SpawnInterval: 2
-    SpawnCountPerTick: 3
+    SpawnCountPerTick: 15
   - Type: 2
     EnemyId: 2003
-    StartTime: 295
+    StartTime: 205
     EndTime: 0
     SpawnInterval: 0
     SpawnCountPerTick: 1
