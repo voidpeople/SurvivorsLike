@@ -3,7 +3,7 @@
 
 namespace SurvivorsLike
 {
-    public class EnemyManager : SingletonMonoBehaviour<PopupManager>
+    public class EnemyManager : SingletonMonoBehaviour<EnemyManager>
     {
         private const int MaxEnemys = 350;
         private readonly EnemyController[] _activeEnemys = new EnemyController[MaxEnemys];
