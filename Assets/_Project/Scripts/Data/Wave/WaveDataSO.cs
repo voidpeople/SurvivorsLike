@@ -18,9 +18,9 @@ namespace SurvivorsLike
     {     
         public WaveType Type;
         public int EnemyId;            //EnemyDataSO의 적 ID. 프리팹 직접 참조 금지
-        public float StartTime;        //웨이브 시작 게임 시간(초)
-        public float EndTime;          //종료 시간(초). OneShot은 무시
-        public float SpawnInterval;    //반복 스폰 간격(초)
+        public float StartTime;        //웨이브 시작 게임 시간(초) 
+        public float EndTime;          //종료 시간(초). OneShot은 무시 (값이 0인 부분은 그 웨이브 시간대에 적 캐릭터를 StartTime에 한번만 스폰하기 때문~)
+        public float SpawnInterval;    //반복 스폰 간격(초) (값이 0인 부분은 그 웨이브 시간대에 적 캐릭터를 StartTime에 한번만 스폰하기 때문~)
         public int SpawnCountPerTick;  //한 번에 스폰할 마리 수
     }
 
