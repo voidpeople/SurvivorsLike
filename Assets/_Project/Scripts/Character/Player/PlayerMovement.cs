@@ -44,7 +44,7 @@ namespace SurvivorsLike
             _camTrans = Camera.main.transform;
         }
 
-        private void Update()
+        public void Tick(float deltaTime)
         {
             ApplyMovement();
             ApplyRotation();

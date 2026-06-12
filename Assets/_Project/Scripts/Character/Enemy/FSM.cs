@@ -1,4 +1,4 @@
-using SurvivorsLike;
+﻿using SurvivorsLike;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -61,7 +61,7 @@ namespace SurvivorsLike
             _currentState.Enter();
         }
 
-        public void Update()
+        public void Tick(float deltaTime)
         {
             _currentState?.Update();
         }

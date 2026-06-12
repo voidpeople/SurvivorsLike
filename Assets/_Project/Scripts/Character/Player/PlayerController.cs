@@ -25,10 +25,10 @@ namespace SurvivorsLike
 
 
         // ─── 컴포넌트 참조 ───────────────────────────────────────────────────
+        private SkillController _skillController = new();
         private PlayerAnimationController _animationController;
         private PlayerMovement _movement;
-        private TargetFinder _targetFinder;
-        private SkillController _skillController;
+        private TargetFinder _targetFinder;        
         private Health _health;
         private JoystickBase _joystick;
 
@@ -73,7 +73,6 @@ namespace SurvivorsLike
         {
             TryGetComponent(out _movement);
             TryGetComponent(out _targetFinder);
-            TryGetComponent(out _skillController);
             TryGetComponent(out _health);
 
             _isPlaying = false;
@@ -88,27 +87,18 @@ namespace SurvivorsLike
             if (_isPlaying == false)
                 return;
 
-            if (_target == null)
-            {
-                _targetFinder.Finding(50f);
-                Transform targetTrans = _targetFinder.GetNearestTarget();
-                if (targetTrans != null)
-                {                    
-                    targetTrans.TryGetComponent(out _targetHealth);
-                    _targetHealth.Died += OnTargetDied;
-
-                    targetTrans.TryGetComponent(out _target);
-                    if (_target != null)
-                    {
-                        _skillController.SetTarget(_target);
-                    }
-                    //Debug.Log($"{Time.deltaTime} - {targetTrans.gameObject.name}");
-                }
-            }
+            float dt = Time.deltaTime;
 
             _movement.SetMove(_joystick.IsPressed);
             _movement.SetInputDirection(_joystick.InputValue);
+            _movement.Tick(dt);
+
+            UpdateTargeting();
+
+            _skillController.Tick(Time.deltaTime);
+
             _animationController.SetSpeed(_movement.AnimatorSpeed);
+            
         }
 
         private void OnDestroy()
@@ -130,16 +120,35 @@ namespace SurvivorsLike
             _health.Init(data.Hp);
 
             DataManager.Instance.SkillDataSODic.TryGetValue(data.DefaultSkillId, out SkillDataSO skillData);
-            _skillController.Init(skillData);
+            _skillController.Init(this, skillData);
 
             _animationController = animController;
             _joystick = joystick;
 
-
-            InGameEventBus.OnInGameStart
-                .Take(1)
-                .Subscribe(_ => OnGameStart())
+            InGameEventBus.OnStartBattle
+                .Subscribe(_ => OnStartBattle())
                 .AddTo(_disposables);
+        }
+
+        private void UpdateTargeting()
+        {
+            if (_target != null)
+                return;
+
+            _targetFinder.Finding(50f);
+            Transform targetTrans = _targetFinder.GetNearestTarget();
+            if (targetTrans == null)
+                return;
+
+            //치명 2 수정: 전부 확보한 뒤에만 커밋 — 부분 성공 상태 차단
+            if (targetTrans.TryGetComponent(out ITargetable target) == false ||
+                targetTrans.TryGetComponent(out Health targetHealth) == false)
+                return;
+
+            _target = target;
+            _targetHealth = targetHealth;
+            _targetHealth.Died += OnTargetDied;
+            _skillController.SetTarget(_target);
         }
 
 
@@ -157,7 +166,7 @@ namespace SurvivorsLike
 
 
         // ─── Private Methods ──────────────────────────────────────────────────
-        void OnGameStart()
+        void OnStartBattle()
         {
             _isPlaying = true;
         }

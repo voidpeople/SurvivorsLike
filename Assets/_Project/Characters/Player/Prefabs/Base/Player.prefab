@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 4086151460294996864}
   - component: {fileID: 97567971251449411}
   - component: {fileID: 7063929355543409026}
-  - component: {fileID: 4433363240797705836}
   - component: {fileID: 5641668939952678026}
   - component: {fileID: 6601682045853072993}
   - component: {fileID: 3903842794369316465}
@@ -110,7 +109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerController
   _modelRoot: {fileID: 5523103103264878769}
-  _firePoint: {fileID: 0}
   _aimPoint: {fileID: 6706324370120283756}
 --- !u!114 &7063929355543409026
 MonoBehaviour:
@@ -124,19 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f4e3d7f5690414e810f93bc4d329d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerMovement
-  _baseMoveSpeed: 5
---- !u!114 &4433363240797705836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7047003210136080283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bb1ae32e00949c469b83e8f695b5e5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SkillController
+  _moveSpeed: 5
 --- !u!114 &5641668939952678026
 MonoBehaviour:
   m_ObjectHideFlags: 0

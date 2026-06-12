@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9120480108201786303}
   - component: {fileID: 1840583509881203262}
   - component: {fileID: 5058403979184871992}
-  - component: {fileID: 1708601440385514216}
   - component: {fileID: 843104059867104930}
   - component: {fileID: 7190566350381184012}
   - component: {fileID: 5437200879967169959}
@@ -55,7 +54,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   _currentStateType: 0
   _attackRange: 1
-  _firePoint: {fileID: 0}
   _aimPoint: {fileID: 5887982795469111769}
 --- !u!114 &5058403979184871992
 MonoBehaviour:
@@ -72,18 +70,6 @@ MonoBehaviour:
   _moveSpeed: 3
   _rotateSpeed: 10
   _stoppingDistance: 0.5
---- !u!114 &1708601440385514216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7229551025161841568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bb1ae32e00949c469b83e8f695b5e5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SkillController
 --- !u!114 &843104059867104930
 MonoBehaviour:
   m_ObjectHideFlags: 0

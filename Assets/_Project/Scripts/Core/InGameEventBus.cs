@@ -14,6 +14,8 @@ namespace SurvivorsLike
         //Subject<T> - 이벤트를 발행하고 구독도 받을 수 있는 이벤트 채널 객체
         //Unit - void와 같은 타입으로 전달할 데이터가 없을 때 사용
 
+        public static readonly Subject<Unit> OnStartBattle = new Subject<Unit>();
+
         //플레이어가 죽을 경우 이벤트~
         //발행 시점: 플레이어 HP가 0이 되거나 생존 시간이 초과될 때
         //구독 대상: 게임오버 UI, 결과 화면 전환, 적 스폰 중단 등

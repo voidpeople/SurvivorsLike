@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SurvivorsLike
 {
-    public class SkillController : MonoBehaviour
+    public class SkillController
     {
         //8개의 스킬 슬롯
         private const int MaxSkillSlot = 8;
@@ -16,29 +16,13 @@ namespace SurvivorsLike
 
         private ISkillOwner _owner;
 
-        private bool _isPlaying;
 
-        private readonly CompositeDisposable _disposables = new();
-
-        private void Awake()
+        public void Init(ISkillOwner owner, SkillDataSO defaultSkillData)
         {
-            _isPlaying = false;
-            TryGetComponent(out _owner);  
-            Debug.Assert(_owner != null, $"{nameof(SkillController)}::Awake — ISkillOwner is null");
-        }
-
-        private void Start()
-        {
-            InGameEventBus.OnInGameStart
-                .Take(1)
-                .Subscribe(_ => OnGameStart())
-                .AddTo(_disposables);
-        }
-
-        public void Init(SkillDataSO defaultSkillData)
-        {
+            Debug.Assert(owner != null, $"{nameof(SkillController)}::Init — ISkillOwner is null");
             Debug.Assert(defaultSkillData != null, $"{nameof(SkillController)}::Init — defaultSkillData is null");
 
+            _owner = owner;
             _skillList.Clear();
             AddSkill(defaultSkillData);
         }
@@ -81,28 +65,14 @@ namespace SurvivorsLike
             }
         }
 
-        private void Update()
+        public  void Tick(float deltaTime)
         {
-            if (_isPlaying == false)
-                return;
-
-            float dt = Time.deltaTime;
             int count = _skillList.Count;
             for(int ii = 0; ii < count; ++ii)
             {
-                _skillList[ii].Tick(dt);
+                _skillList[ii].Tick(deltaTime);
                 _skillList[ii].TryUseSkill();
             }
-        }
-
-        void OnGameStart()
-        {
-            _isPlaying = true;
-        }
-
-        private void OnDestroy()
-        {
-            _disposables.Dispose();
         }
     }
 }

@@ -16,6 +16,24 @@ namespace SurvivorsLike
             _activeCount = 0;
         }
 
+        void Update()
+        {
+            if (!InGameStateManager.Instance.IsPlaying)
+                return;
+
+            float dt = Time.deltaTime;
+            for (int ii = 0; ii < _activeCount; ++ii)
+            {
+                _activeEnemys[ii].Tick(dt);
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            Destroy();
+            base.OnDestroy();
+        }
+
         public void Register(EnemyController p)
         {
             if (_activeCount >= MaxEnemys)
@@ -37,23 +55,11 @@ namespace SurvivorsLike
             }
         }
 
-        public void Clear()
+        public void Destroy()
         {
             for (int ii = 0; ii < _activeCount; ++ii)
             {
                 _activeEnemys[ii] = null;
-            }
-        }
-
-        void Update()
-        {
-            if (!InGameStateManager.Instance.IsPlaying)
-                return;
-
-            float dt = Time.deltaTime;
-            for (int ii = 0; ii < _activeCount; ++ii)
-            {
-                _activeEnemys[ii].Tick(dt);
             }
         }
     }

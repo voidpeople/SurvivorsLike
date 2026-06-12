@@ -20,7 +20,7 @@ namespace SurvivorsLike
 
 
         // ─── private 필드 ────────────────────────────────────────────────────
-        private readonly CompositeDisposable _disposables = new();
+        //private readonly CompositeDisposable _disposables = new();
 
         private EnemyData _enemyData;
         private Health _health;
@@ -30,9 +30,9 @@ namespace SurvivorsLike
 
 
         // ─── Properties ──────────────────────────────────────────────────────
+        private SkillController _skillController = new();
         public EnemyAnimationController AnimCtrl { get; private set; }
         public EnemyMovement Movement { get; private set; }
-        public SkillController SkillCtrl { get; private set; }
         public Transform TargetTransform { get; private set; }
         public Transform TargetHealth { get; private set; }
 
@@ -73,19 +73,10 @@ namespace SurvivorsLike
             Movement = movement;
             Movement.OnDestinationReached += OnDestinationReached;
 
-            TryGetComponent(out SkillController skillCtrl);
-            SkillCtrl = skillCtrl;
             TryGetComponent(out Health health);
             _health = health;
 
             CreateFSM();
-        }
-
-        private void Start()
-        {
-            //InGameEventBus.OnInGameStart
-            //    .Subscribe(_ => OnGameStart())
-            //    .AddTo(_disposables);
         }
 
         private void OnDestroy()
@@ -96,7 +87,7 @@ namespace SurvivorsLike
             _cts?.Cancel();   //진행 중인 비동기 작업에 취소 신호 전달
             _cts?.Dispose();  //내부 WaitHandle 등 비관리 리소스 해제
             _cts = null;
-            _disposables.Dispose();
+            //_disposables.Dispose();
         }
 
 
@@ -108,7 +99,10 @@ namespace SurvivorsLike
                 _currentStateType = _fsm.CurrentType;
 #endif
             if (_fsm != null)
-                _fsm.Update();
+                _fsm.Tick(deltaTime);
+
+            if (_skillController != null)
+                _skillController.Tick(deltaTime);
         }
 
         //타겟은 플레이어 캐릭터 하나 이므로
@@ -154,7 +148,7 @@ namespace SurvivorsLike
             Movement.OnDestinationReached -= OnDestinationReached;
 
             _cts?.Cancel();
-            _disposables.Clear();
+            //_disposables.Clear();
             if (TargetTransform != null)
             {
                 if (TargetTransform.TryGetComponent(out Health health))
@@ -174,11 +168,6 @@ namespace SurvivorsLike
             _fsm.RegisterState(EnemyStateType.Attack, new EnemyAttackState(this, _fsm));
             _fsm.RegisterState(EnemyStateType.Dead, new EnemyDeadState(this, _fsm));
         }
-
-        //void OnGameStart()
-        //{
-        //    _isPlaying = true;
-        //}
 
         //Enemy 캐릭터가 목표 위치에 도착하면 통보 받는 함수
         private void OnDestinationReached()
