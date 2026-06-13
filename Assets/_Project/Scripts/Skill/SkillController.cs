@@ -19,7 +19,7 @@ namespace SurvivorsLike
 
         public void Init(ISkillOwner owner, SkillDataSO defaultSkillData)
         {
-            Debug.Assert(owner != null, $"{nameof(SkillController)}::Init => ISkillOwner is null");
+            Debug.Assert(owner != null, $"{nameof(SkillController)}::Init=> ISkillOwner is null");
             Debug.Assert(defaultSkillData != null, $"{nameof(SkillController)}::Init => defaultSkillData is null");
 
             _owner = owner;
@@ -46,6 +46,13 @@ namespace SurvivorsLike
                 return false;
 
             SkillBase skill = SkillFactory.Create(data);
+            Debug.Assert(skill != null, $"{nameof(SkillController)}::AddSkill=> Unregistered type: {data?.GetType().Name}");
+
+            if (skill == null)
+            {
+                Debug.LogError($"{nameof(SkillController)}::AddSkill=> Skill creation failed: {data?.name} ({data?.GetType().Name})");
+                return false;
+            }
             skill.Init(_owner, data);
             _skillList.Add(skill);
 

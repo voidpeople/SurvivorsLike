@@ -1,5 +1,4 @@
-﻿using Unity.Android.Gradle.Manifest;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace SurvivorsLike
@@ -41,6 +40,7 @@ namespace SurvivorsLike
             // 같은 GameObject의 CharacterController를 1회 캐싱
             TryGetComponent(out _characterCtrl);
 
+            Debug.Assert(Camera.main != null, $"{nameof(PlayerMovement)}::Awake — Camera.main is null");
             _camTrans = Camera.main.transform;
         }
 
