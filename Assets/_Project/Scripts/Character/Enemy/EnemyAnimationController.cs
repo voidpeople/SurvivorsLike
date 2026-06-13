@@ -29,5 +29,11 @@ namespace SurvivorsLike
         {
             _animator.SetBool(IsAttackHash, isAttack);
         }
+
+        public void Spawn()
+        {
+            _animator.SetFloat(SpeedHash, 0f);
+            _animator.SetBool(IsAttackHash, false);
+        }
     }
 }

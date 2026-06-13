@@ -76,7 +76,6 @@ namespace SurvivorsLike
 
             enemyCtrl.transform.SetPositionAndRotation(new Vector3(0f, 0f, 20f), Quaternion.identity);
             enemyCtrl.Init(enemyData, _playerSpawner.SpawnPlayerController.transform);
-            EnemyManager.Instance.Register(enemyCtrl);
 
             await PoolManager.Instance.CreatePoolAsync("vfx/explosion/explosion01", 100, 300, ct);
             await PoolManager.Instance.PreCreateAsync("vfx/explosion/explosion01", 1, 10, ct);

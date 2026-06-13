@@ -101,5 +101,11 @@ namespace SurvivorsLike
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotateSpeed * Time.deltaTime);
         }
+
+        public void Despawn()
+        {
+            _isMoving = false;
+            _destination = _transform.position;   // 잔여 목적지 제거 (재스폰 첫 프레임 오작동 방지)
+        }
     }
 }

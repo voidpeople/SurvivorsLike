@@ -88,5 +88,11 @@ namespace SurvivorsLike
             //UnsafeUtility.As은 Burst API이지만 제네릭 로직에서 GC와 Boxing 문제 없이 사용 가능하다.
             return UnsafeUtility.As<TStateType, int>(ref type);
         }
+
+        public void Despawn()
+        {
+            _currentState?.Exit();
+            _currentState = null;
+        }
     }
 }

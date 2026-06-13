@@ -62,13 +62,16 @@ namespace SurvivorsLike
 
         private void OnDestroy()
         {
+            if (EnemyManager.HasInstance)
+                EnemyManager.Instance.UnRegister(this);
+
             _health.Died -= OnDied;
             Movement.OnDestinationReached -= OnDestinationReached;
+            ClearTarget();
 
             _cts?.Cancel();   //진행 중인 비동기 작업에 취소 신호 전달
             _cts?.Dispose();  //내부 WaitHandle 등 비관리 리소스 해제
             _cts = null;
-            //_disposables.Dispose();
         }
 
 
@@ -104,32 +107,26 @@ namespace SurvivorsLike
         public void OnTargetDied()
         {
             _fsm.OnTargetDied();
-
-            if (TargetTransform != null)
-            {
-                if(TargetTransform.TryGetComponent(out Health targetHealth))
-                    targetHealth.Died -= OnTargetDied;
-                TargetTransform = null;
-            }            
+            ClearTarget();
         }
 
         public void OnSpawn()
         {
-            // 재사용 시 CTS 갱신 — Awake()는 최초 1회만 실행되므로 여기서 처리
             _cts?.Cancel();
             _cts?.Dispose();
-            _cts = new CancellationTokenSource();       
+            _cts = new CancellationTokenSource();
+
+            _animCtrl.Spawn();        
+            EnemyManager.Instance.Register(this);
         }
 
         public void OnDespawn()
         {
-            if (TargetTransform != null)
-            {
-                if (TargetTransform.TryGetComponent(out Health targetHealth))
-                    targetHealth.Died -= OnTargetDied;
-                TargetTransform = null;
-            }
+            EnemyManager.Instance.UnRegister(this);
 
+            ClearTarget();            
+            _fsm.Despawn();           
+            Movement.Despawn();       
             _cts?.Cancel();
         }
 
@@ -157,6 +154,17 @@ namespace SurvivorsLike
         private void OnDied()
         {
             _fsm.ChangeState(EnemyStateType.Dead);
+        }
+
+        private void ClearTarget()
+        {
+            if (TargetTransform == null)
+                return;
+
+            if (TargetTransform.TryGetComponent(out Health targetHealth))
+                targetHealth.Died -= OnTargetDied;
+
+            TargetTransform = null;
         }
     }
 }

@@ -15,6 +15,8 @@ namespace SurvivorsLike
 
         protected virtual bool UseDontDestroyOnLoad => true;  //기본값 true (기존 동작 유지)
 
+        public static bool HasInstance => (_instance != null);
+
         public static T Instance
         {
             get
