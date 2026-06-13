@@ -13,7 +13,7 @@ namespace SurvivorsLike
         public float PickupRange; //경험치 젬 자동 픽업 반경
     }
 
-    [CreateAssetMenu(fileName = "PlayerDataSO", menuName = "Scriptable/Data/PlayerDataSO")]
+    [CreateAssetMenu(fileName = "PlayerDataSO", menuName = "SurvivorsLike/Data/PlayerDataSO")]
     public class PlayerDataSO : ScriptableObject
     {
         //[TableList]은 Tri-Inspector의 명령어

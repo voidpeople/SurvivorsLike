@@ -24,7 +24,7 @@ namespace SurvivorsLike
         public int SpawnCountPerTick;  //한 번에 스폰할 마리 수
     }
 
-    [CreateAssetMenu(fileName = "WaveDataSO", menuName = "Scriptable/Data/WaveDataSO")]
+    [CreateAssetMenu(fileName = "WaveDataSO", menuName = "SurvivorsLike/Data/WaveDataSO")]
     public class WaveDataSO : ScriptableObject
     {
         public int Id;                 //웨이브 아이디

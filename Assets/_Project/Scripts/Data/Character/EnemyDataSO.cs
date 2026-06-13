@@ -17,7 +17,7 @@ namespace SurvivorsLike
         public float KnockbackResistance; //넉백 효과 저항 (0 ~ 1.0)
     }
 
-    [CreateAssetMenu(fileName = "EnemyDataSO", menuName = "Scriptable/Data/EnemyDataSO")]
+    [CreateAssetMenu(fileName = "EnemyDataSO", menuName = "SurvivorsLike/Data/EnemyDataSO")]
     public class EnemyDataSO : ScriptableObject
     {
         //[TableList]은 Tri-Inspector의 명령어
