@@ -283,6 +283,12 @@ namespace SurvivorsLike
                 _mapDataSODic.Clear();
             }
 
+            if (_waveDataSOListHandle.IsValid() == true)
+            {
+                Addressables.Release(_waveDataSOListHandle);
+                _waveDataSODic.Clear();
+            }
+
             if (_playerDataSOListHandle.IsValid() == true)
             {
                 Addressables.Release(_playerDataSOListHandle);

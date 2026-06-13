@@ -3,7 +3,7 @@
 
 namespace SurvivorsLike
 {
-    public class EnemySpawner : MonoBehaviour
+    public class WaveSystemController : MonoBehaviour
     {
 
     }
