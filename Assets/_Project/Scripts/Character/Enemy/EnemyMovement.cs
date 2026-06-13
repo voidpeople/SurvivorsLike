@@ -101,6 +101,5 @@ namespace SurvivorsLike
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotateSpeed * Time.deltaTime);
         }
-
     }
 }

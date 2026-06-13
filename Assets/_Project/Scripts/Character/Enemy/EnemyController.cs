@@ -8,66 +8,46 @@ namespace SurvivorsLike
 {
     public class EnemyController : MonoBehaviour, IPoolable, IAlive, ISkillOwner, ITargetListener, ITargetable 
     {
-        // ─── [SerializeField] ────────────────────────────────────────────────
 #if UNITY_EDITOR
         [Header("개발 테스트용")]
         [SerializeField] private EnemyStateType _currentStateType;
 #endif
 
         [Header("씬 참조")]
-        [SerializeField] private float _attackRange = 1f;     // 공격 판정 반지름 (단위: m)
+        [SerializeField] private EnemyAnimationController _animCtrl;
         [SerializeField] private Transform _aimPoint;          // 피탄 기준점 — null이면 position + Y 0.5f 사용
 
+        [Header("설정값")]
+        [SerializeField] private float _attackRange = 1f;     // 공격 판정 반지름 (단위: m)
 
-        // ─── private 필드 ────────────────────────────────────────────────────
-        //private readonly CompositeDisposable _disposables = new();
 
-        private EnemyData _enemyData;
         private Health _health;
-        private EnemyFSM _fsm;
-        private CancellationTokenSource _cts;
+        private readonly SkillController _skillController = new();
+        private EnemyFSM _fsm;        
+        private EnemyData _enemyData;
         private Transform _firePoint;
 
 
-        // ─── Properties ──────────────────────────────────────────────────────
-        private SkillController _skillController = new();
-        public EnemyAnimationController AnimCtrl { get; private set; }
+        public EnemyAnimationController AnimCtrl => _animCtrl;
         public EnemyMovement Movement { get; private set; }
+
         public Transform TargetTransform { get; private set; }
-        public Transform TargetHealth { get; private set; }
+        public bool IsDead => _health.IsDead;                  // IAlive
 
         public float AttackRange => _attackRange;
+
+        public Transform Transform => transform;               // ITargetable
+        public Vector3 AimPoint => _aimPoint != null ? _aimPoint.position : transform.position + Vector3.up * 0.5f;  // ITargetable (조준 타겟)
+        public Transform FirePoint => _firePoint;              // ISkillOwner
+
+        // 비동기 토큰
+        private CancellationTokenSource _cts;
         public CancellationToken CTS => _cts.Token;
 
-        #region IAlive
-        public bool IsDead => _health.IsDead;
-        #endregion
-
-        #region ITargetable
-        public Transform Transform => transform;
-
-        //조준 타겟
-        public Vector3 AimPoint
-        {
-            get
-            {
-                return _aimPoint != null ? _aimPoint.position : transform.position + Vector3.up * 0.5f;
-            }
-        }
-        #endregion
-
-        #region ISkillOwner
-        public Transform FirePoint => _firePoint;
-        #endregion
-
-
-        // ─── Unity Lifecycle ─────────────────────────────────────────────────
         private void Awake()
         {
             _cts?.Dispose();
             _cts = new CancellationTokenSource();
-
-            AnimCtrl = GetComponentInChildren<EnemyAnimationController>();
 
             TryGetComponent(out EnemyMovement movement);
             Movement = movement;
@@ -75,6 +55,7 @@ namespace SurvivorsLike
 
             TryGetComponent(out Health health);
             _health = health;
+            _health.Died += OnDied;
 
             CreateFSM();
         }
@@ -91,7 +72,6 @@ namespace SurvivorsLike
         }
 
 
-        // ─── Public Methods ───────────────────────────────────────────────────
         public void Tick(float deltaTime)
         {
 #if UNITY_EDITOR
@@ -111,8 +91,7 @@ namespace SurvivorsLike
         {
             _enemyData = data;
             Movement.Init(data);
-            _health.Init(data.Hp);
-            _health.Died += OnDied;
+            _health.Init(data.Hp);            
 
             TargetTransform = targetTrasnform;
             _fsm.Init(EnemyStateType.Idle);
@@ -125,6 +104,33 @@ namespace SurvivorsLike
         public void OnTargetDied()
         {
             _fsm.OnTargetDied();
+
+            if (TargetTransform != null)
+            {
+                if(TargetTransform.TryGetComponent(out Health targetHealth))
+                    targetHealth.Died -= OnTargetDied;
+                TargetTransform = null;
+            }            
+        }
+
+        public void OnSpawn()
+        {
+            // 재사용 시 CTS 갱신 — Awake()는 최초 1회만 실행되므로 여기서 처리
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = new CancellationTokenSource();       
+        }
+
+        public void OnDespawn()
+        {
+            if (TargetTransform != null)
+            {
+                if (TargetTransform.TryGetComponent(out Health targetHealth))
+                    targetHealth.Died -= OnTargetDied;
+                TargetTransform = null;
+            }
+
+            _cts?.Cancel();
         }
 
         public void ReturnToPool()
@@ -132,34 +138,7 @@ namespace SurvivorsLike
             PoolManager.Instance.Return(this);
         }
 
-        // ─── Interface Implementations ────────────────────────────────────────
-        #region IPoolable
-        public void OnSpawn()
-        {
-            // 재사용 시 CTS 갱신 — Awake()는 최초 1회만 실행되므로 여기서 처리
-            _cts?.Cancel();
-            _cts?.Dispose();
-            _cts = new CancellationTokenSource();
-        }
 
-        public void OnDespawn()
-        {
-            _health.Died -= OnDied;
-            Movement.OnDestinationReached -= OnDestinationReached;
-
-            _cts?.Cancel();
-            //_disposables.Clear();
-            if (TargetTransform != null)
-            {
-                if (TargetTransform.TryGetComponent(out Health health))
-                    health.Died -= OnTargetDied;
-                TargetTransform = null;
-            }
-        }
-        #endregion
-
-
-        // ─── Private Methods ──────────────────────────────────────────────────
         private void CreateFSM()
         {
             _fsm = new EnemyFSM();

@@ -5,5 +5,6 @@ namespace SurvivorsLike
     {
         void OnSpawn();
         void OnDespawn();
+        void ReturnToPool();
     }
 }

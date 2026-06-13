@@ -36,13 +36,20 @@ namespace SurvivorsLike
             _spawnTime = Time.time;
         }
 
+        #region IPoolable
+        public void OnSpawn()
+        {
+        }
+
         public void OnDespawn()
         {
         }
 
-        public void OnSpawn()
+        public void ReturnToPool()
         {
+            PoolManager.Instance.Return(this);
         }
+        #endregion
 
         private bool ApplyMovement()
         {
@@ -50,13 +57,13 @@ namespace SurvivorsLike
 
             if ((transform.position - _spawnPos).sqrMagnitude >= _rangeSqr)
             {
-                PoolManager.Instance.Return(this);
+                ReturnToPool();
                 return false;
             }
 
             if (Time.time - _spawnTime >= _lifetime)
             {
-                PoolManager.Instance.Return(this);
+                ReturnToPool();
                 return false;
             }
 
@@ -78,7 +85,7 @@ namespace SurvivorsLike
                 if (health == null) return;
 
                 health.TakeDamage(_damage);
-                PoolManager.Instance.Return(this);
+                ReturnToPool();
             }
         }
 
@@ -87,5 +94,6 @@ namespace SurvivorsLike
             if (ApplyMovement())
                 DetectHits();
         }
+
     }
 }
