@@ -565,7 +565,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1116820285}
-  - component: {fileID: 1116820284}
   - component: {fileID: 1116820283}
   - component: {fileID: 1116820286}
   m_Layer: 0
@@ -587,18 +586,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28f8ff83d3f98e9429b26ff5b1367e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.ProjectileManager
---- !u!114 &1116820284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116820282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82d65fa0d6f7a374aac304cd7dda25ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.EnemyManager
 --- !u!4 &1116820285
 Transform:
   m_ObjectHideFlags: 0
@@ -635,6 +622,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1596719565}
+  - component: {fileID: 1596719569}
+  - component: {fileID: 1596719568}
+  - component: {fileID: 1596719567}
+  - component: {fileID: 1596719566}
   m_Layer: 0
   m_Name: WaveSystem
   m_TagString: Untagged
@@ -657,6 +648,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1596719566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596719564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98955ddc95ba54c419e668599ebb10dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.EnemySpawner
+--- !u!114 &1596719567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596719564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d65fa0d6f7a374aac304cd7dda25ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.EnemyManager
+--- !u!114 &1596719568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596719564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b66890c39781bd4c813ad0b8689b989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.WaveManager
+--- !u!114 &1596719569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596719564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47d55a1950769542832721ee2e3f177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.WaveSystemController
 --- !u!1 &1644530798
 GameObject:
   m_ObjectHideFlags: 0
