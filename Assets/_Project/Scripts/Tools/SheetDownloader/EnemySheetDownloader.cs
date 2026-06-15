@@ -25,6 +25,8 @@ namespace SurvivorsLike
                 DefaultSkillId = Int(row, "DefaultSkillId"),
                 IconKey = Str(row, "IconKey"),
                 PrefabKey = Str(row, "PrefabKey"),
+                PoolInitSize = Int(row, "PoolInitSize"),
+                PoolMaxSize = Int(row, "PoolMaxSize"),
                 Type = EnemyType(row, "Type"),
                 DetectionRange = Float(row, "DetectionRange"),
                 Armor = Float(row, "Armor"),

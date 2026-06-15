@@ -20,6 +20,8 @@ MonoBehaviour:
     DefaultSkillId: 4001
     IconKey: icon_slime
     PrefabKey: enemy_slime
+    PoolInitSize: 100
+    PoolMaxSize: 300
     Type: 1
     DetectionRange: 15
     Armor: 0
@@ -33,6 +35,8 @@ MonoBehaviour:
     DefaultSkillId: 4002
     IconKey: icon_goblin
     PrefabKey: character/enemy/spiderbot
+    PoolInitSize: 100
+    PoolMaxSize: 300
     Type: 1
     DetectionRange: 20
     Armor: 0
@@ -46,6 +50,8 @@ MonoBehaviour:
     DefaultSkillId: 4003
     IconKey: icon_orc_boss
     PrefabKey: enemy_orc_boss
+    PoolInitSize: 1
+    PoolMaxSize: 1
     Type: 1
     DetectionRange: 25
     Armor: 10

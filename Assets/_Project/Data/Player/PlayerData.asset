@@ -20,6 +20,8 @@ MonoBehaviour:
     DefaultSkillId: 3001
     IconKey: icon_player_default
     PrefabKey: character/player/robotkyle
+    PoolInitSize: 0
+    PoolMaxSize: 0
     HpRegen: 1
     PickupRange: 2.5
   - Id: 1002
@@ -29,6 +31,8 @@ MonoBehaviour:
     DefaultSkillId: 3002
     IconKey: icon_player_ranger
     PrefabKey: player_ranger
+    PoolInitSize: 0
+    PoolMaxSize: 0
     HpRegen: 0.8
     PickupRange: 2.5
   - Id: 1003
@@ -38,5 +42,7 @@ MonoBehaviour:
     DefaultSkillId: 3003
     IconKey: icon_player_tanker
     PrefabKey: player_tanker
+    PoolInitSize: 0
+    PoolMaxSize: 0
     HpRegen: 1.5
     PickupRange: 3

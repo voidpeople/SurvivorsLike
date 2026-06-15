@@ -177,7 +177,7 @@ namespace SurvivorsLike
                 },
                 //이중 Return을 에디터에서 예외로 검출 (에디터 전용 체크 — 빌드 성능 영향 없음)
                 collectionCheck: true,
-                //풀의 인스턴스 생성 후 생성하여 채워야 할 오브젝트 갯수
+                //풀의 인스턴스 생성 후 기본 메모리 예약
                 defaultCapacity: defaultCapacity,
                 //풀이 보유할 수 있는 최대 오브젝트의 수 (이 사이즈를 초과하는 오브젝트는 자동으로 Destroy가 된다.)
                 maxSize: maxSize);
