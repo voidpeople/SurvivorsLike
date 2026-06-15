@@ -9,5 +9,10 @@ namespace SurvivorsLike
         {
 
         }
+
+        public void StartWave()
+        {
+
+        }
     }
 }

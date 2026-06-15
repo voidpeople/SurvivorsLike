@@ -17,6 +17,8 @@ namespace SurvivorsLike
 
         private readonly List<EnemyData> _createdPoolEnemyDatas = new();
 
+        public void StartBattle() => _waveMgr.StartWave();
+
         public async UniTask InitAsync(WaveDataSO data, Transform playerTrans, CancellationToken ct)
         {
             //이번 챕터에서 등장하는 적들의 프리팹 키만 수집
@@ -62,6 +64,20 @@ namespace SurvivorsLike
                     Debug.LogError($"{nameof(WaveSystemController)}=> EnemyId does not exist. - EnemyId: {wave.EnemyId}");
             }
             return enemyDatas;
+        }
+
+        private void OnDestroy()
+        {
+            if (!PoolManager.HasInstance)
+                return;
+
+            foreach (EnemyData enemy in _createdPoolEnemyDatas)
+            {
+                PoolManager.Instance.ReleasePool(enemy.PrefabKey);
+            }
+
+            //탕탕 특공대는 인게임 씬에서 로비로 나가게 되면 풀링한 객체들을 소멸 하는가?
+            _createdPoolEnemyDatas.Clear();
         }
     }
 }
