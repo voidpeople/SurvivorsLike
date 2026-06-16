@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using R3;
 
 
@@ -18,42 +18,37 @@ namespace SurvivorsLike
 {
     public class PlayerController : MonoBehaviour, IAlive, ISkillOwner, ITargetListener, ITargetable
     {
-        // ─── [SerializeField] ────────────────────────────────────────────────
+        // ─── Inspector (직렬화 필드) ──────────────────────────────────────────
         [Header("씬 참조")]
         [SerializeField] private Transform _modelRoot;     // 모델 프리팹이 붙는 루트 트랜스폼
         [SerializeField] private Transform _aimPoint;      // 피탄 기준점 — null이면 position + Y 0.5f 사용
 
-
-        // ─── 컴포넌트 참조 ───────────────────────────────────────────────────
+        // ─── Components / Systems (캐싱 참조) ─────────────────────────────────
+        private PlayerMovement _movement;
+        private TargetFinder _targetFinder;
+        private Health _health;
         private SkillController _skillController = new();
         private PlayerAnimationController _animationController;
-        private PlayerMovement _movement;
-        private TargetFinder _targetFinder;        
-        private Health _health;
         private JoystickBase _joystick;
 
-
-        // ─── 런타임 데이터 ───────────────────────────────────────────────────
-        PlayerData _playerData;
-
+        // ─── Runtime State (런타임 상태) ──────────────────────────────────────
+        private PlayerData _playerData;
         private bool _isPlaying;
         private ITargetable _target;
         private Health _targetHealth;
+        private Transform _firePoint;                      // 총구 머즐 포인트 트랜스폼
 
-        //총구 머즐 포인트 트랜스폼 설정
-        private Transform _firePoint;
-
+        // ─── Disposables ──────────────────────────────────────────────────────
         private readonly CompositeDisposable _disposables = new();
 
 
-        // ─── Properties ──────────────────────────────────────────────────────
+        // ─── Properties (인터페이스 구현 포함) ────────────────────────────────
+        public Transform Transform => transform;           // ISkillOwner, ITargetable
         public Transform ModelRoot => _modelRoot;
-        public bool IsDead => _health.IsDead;
+        public Transform FirePoint => _firePoint;          // ISkillOwner
+        public bool IsDead => _health.IsDead;              // IAlive
 
-        #region ITargetable
-        public Transform Transform => transform;
-
-        //조준 타겟
+        // ITargetable — 조준 타겟
         public Vector3 AimPoint
         {
             get
@@ -61,11 +56,6 @@ namespace SurvivorsLike
                 return _aimPoint != null ? _aimPoint.position : transform.position + Vector3.up * 0.5f;
             }
         }
-        #endregion
-
-        #region ISkillOwner
-        public Transform FirePoint => _firePoint;
-        #endregion
 
 
         // ─── Unity Lifecycle ─────────────────────────────────────────────────
@@ -104,7 +94,7 @@ namespace SurvivorsLike
             _skillController.Tick(Time.deltaTime);
 
             _animationController.SetSpeed(_movement.AnimatorSpeed);
-            
+
         }
 
         private void OnDestroy()
@@ -113,7 +103,7 @@ namespace SurvivorsLike
         }
 
 
-        // ─── Public Methods ───────────────────────────────────────────────────
+        // ─── Public API ──────────────────────────────────────────────────────
         public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick)
         {
             //Debug.Assert is automatically stripped in release builds
@@ -132,6 +122,8 @@ namespace SurvivorsLike
             _joystick = joystick;
         }
 
+
+        // ─── Private Logic ───────────────────────────────────────────────────
         private void UpdateTargeting()
         {
             if (_target != null)
@@ -154,8 +146,8 @@ namespace SurvivorsLike
         }
 
 
-        // ─── Interface Implementations ────────────────────────────────────────
-        #region ITargetListener
+        // ─── Event Handlers / Callbacks ──────────────────────────────────────
+        // ITargetListener
         public void OnTargetDied()
         {
             _targetHealth.Died -= OnTargetDied;
@@ -164,11 +156,9 @@ namespace SurvivorsLike
             _targetHealth = null;
             _skillController.SetTarget(null);
         }
-        #endregion
 
-
-        // ─── Private Methods ──────────────────────────────────────────────────
-        void OnStartBattle()
+        // InGameState.Playing 진입 콜백
+        private void OnStartBattle()
         {
             _isPlaying = true;
         }
