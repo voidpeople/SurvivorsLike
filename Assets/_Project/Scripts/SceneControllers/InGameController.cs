@@ -12,9 +12,10 @@ namespace SurvivorsLike
     {
         [Header("게임플레이")]
         [SerializeField] private PlayerSpawner _playerSpawner;
-        [SerializeField] private CameraController _cameraController;
-        [SerializeField] private MapController _mapController;
-
+        [SerializeField] private CameraController _cameraCtrl;
+        [SerializeField] private MapController _mapCtrl;
+        [SerializeField] private WaveSystemController _waveSystemCtrl;
+        
 
         [Header("결과창")]
         [SerializeField] private Canvas _resultPanelCanvas;
@@ -54,35 +55,35 @@ namespace SurvivorsLike
                 await _devManager.PrepareInGameAsync(ct);
             }
 #endif           
+            GameSessionData sessionData = GameManager.Instance.GameSessionData;
 
-            MapDataSO mapData = GameManager.Instance.GameSessionData.ChapterData.MapData;
             // 모든 시스템 병렬 로드 — 각 시스템이 자신의 에셋만 책임
             await UniTask.WhenAll(
-                _mapController.LoadAssetsAsync(mapData, ct)
+                _mapCtrl.LoadAssetsAsync(sessionData.ChapterData.MapData, ct)
             );
-            await _mapController.SetupMapAsync(mapData, ct);
+            await _mapCtrl.SetupMapAsync(sessionData.ChapterData.MapData, ct);
 
             await _playerSpawner.SpawnAsync(ct);
-            _cameraController.SetTarget(_playerSpawner.SpawnPlayerController.transform);
+            _cameraCtrl.SetTarget(_playerSpawner.SpawnPlayerController.transform);
 
             await PoolManager.Instance.CreatePoolAsync("character/enemy/spiderbot", 100, 300, ct);
             await PoolManager.Instance.PreCreateAsync("character/enemy/spiderbot", 1, 10, ct);
 
-            if (!DataManager.Instance.EnemyDataDic.TryGetValue(2002, out EnemyData enemyData))
-            {
-                Debug.LogError($"{nameof(InGameController)}::InitAsync — Failed to load EnemyData(2002)");
-                return;
-            }
+            //if (!DataManager.Instance.EnemyDataDic.TryGetValue(2002, out EnemyData enemyData))
+            //{
+            //    Debug.LogError($"{nameof(InGameController)}::InitAsync — Failed to load EnemyData(2002)");
+            //    return;
+            //}
 
-            EnemyController enemyCtrl = PoolManager.Instance.Get<EnemyController>(enemyData.PrefabKey);
-            if (enemyCtrl == null)
-            {
-                Debug.LogError($"{nameof(InGameController)}::InitAsync — Failed to acquire EnemyController from pool");
-                return;
-            }
+            //EnemyController enemyCtrl = PoolManager.Instance.Get<EnemyController>(enemyData.PrefabKey);
+            //if (enemyCtrl == null)
+            //{
+            //    Debug.LogError($"{nameof(InGameController)}::InitAsync — Failed to acquire EnemyController from pool");
+            //    return;
+            //}
 
-            enemyCtrl.transform.SetPositionAndRotation(new Vector3(0f, 0f, 20f), Quaternion.identity);
-            enemyCtrl.Init(enemyData, _playerSpawner.SpawnPlayerController.transform);
+            //enemyCtrl.transform.SetPositionAndRotation(new Vector3(0f, 0f, 20f), Quaternion.identity);
+            //enemyCtrl.Init(enemyData, _playerSpawner.SpawnPlayerController.transform);
 
             await PoolManager.Instance.CreatePoolAsync("vfx/explosion/explosion01", 100, 300, ct);
             await PoolManager.Instance.PreCreateAsync("vfx/explosion/explosion01", 1, 10, ct);
@@ -90,6 +91,14 @@ namespace SurvivorsLike
             //플레이어 캐릭터 스킬 프리팹들 로드
             await PoolManager.Instance.CreatePoolAsync("projectile/kunai", 50, 100, ct);
             await PoolManager.Instance.PreCreateAsync("projectile/kunai", 50, 10, ct);
+
+            if(!DataManager.Instance.WaveDataSODic.TryGetValue(sessionData.ChapterData.WaveId, out WaveDataSO waveDta))
+            {
+                Debug.LogError($"{nameof(InGameController)}::InitAsync=> Failed to load WaveDataSO. - WaveId: {sessionData.ChapterData.WaveId})");
+                return;
+            }
+
+            await _waveSystemCtrl.InitAsync(waveDta, _playerSpawner.SpawnPlayerController.transform, ct);
 
             InitResultPanelAsync(ct);
 
@@ -146,7 +155,7 @@ namespace SurvivorsLike
         {
             _resultPresenter.Dispose();
             _resultPanelView.Destroy();
-            _mapController.ReleaseAssets();
+            _mapCtrl.ReleaseAssets();
 
             _disposables.Dispose();
         }

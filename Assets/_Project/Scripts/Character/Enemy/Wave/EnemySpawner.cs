@@ -11,34 +11,41 @@ namespace SurvivorsLike
         [SerializeField] private float _minSpawnRadius = 12f;
         [SerializeField] private float _maxSpawnRadius = 16f;
 
-        private Transform _player;
-        private EnemyManager _enemyManager;
+        [Title("최대 적 캐릭터 마리 수")]
+        [SerializeField] private int _maxEnemyCount = 300;
+
+        private Transform _playerTrans;
+        private EnemyManager _enemyMgr;
 
         public void Init(Transform playerTrans, EnemyManager enemyMgr)
         {
-
+            _playerTrans = playerTrans;
+            _enemyMgr = enemyMgr;
         }
 
-        public void Spawn(EnemyData data)
+        public void Spawn(EnemyData data, int count)
         {
-            GameObject enemyObj = PoolManager.Instance.Get(data.PrefabKey);
-            if (enemyObj == null)
+            for (int ii = 0; ii < count; ++ii)
             {
-                Debug.LogError($"{nameof(EnemySpawner)}=> PrefabKey does not exist. - PrefabKey: {data.PrefabKey}");
-                return;
+                if (_enemyMgr.ActiveCount >= _maxEnemyCount)
+                    return; //상한 도달 — 이번 틱 스폰 포기 (프레임 보호)
+
+                EnemyController enemyCtrl = PoolManager.Instance.Get<EnemyController>(data.PrefabKey);
+                if (enemyCtrl == null)
+                {
+                    Debug.LogError($"{nameof(EnemySpawner)}=> PrefabKey does not exist. - PrefabKey: {data.PrefabKey}");
+                    return;
+                }
+
+                enemyCtrl.Init(data, GetRandomRingPosition(), _playerTrans, _enemyMgr);
             }
-
-            enemyObj.transform.position = GetRandomRingPosition();
-            if (enemyObj.TryGetComponent(out ITickable tickable))
-                _enemyManager.Register(tickable);
-
         }
         private Vector3 GetRandomRingPosition()
         {
             //랜덤 방향 × 랜덤 반지름 = 도넛 영역의 한 점 (3D 탑뷰 기준 XZ 평면)
             Vector2 dir = Random.insideUnitCircle.normalized;
             float radius = Random.Range(_minSpawnRadius, _maxSpawnRadius);
-            return _player.position + new Vector3(dir.x, 0f, dir.y) * radius;
+            return _playerTrans.position + new Vector3(dir.x, 0f, dir.y) * radius;
         }
     }
 }

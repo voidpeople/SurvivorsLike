@@ -26,6 +26,7 @@ namespace SurvivorsLike
         private EnemyFSM _fsm;        
         private EnemyData _enemyData;
         private Transform _firePoint;
+        private EnemyManager _enemyMgr;
 
 
         public EnemyAnimationController AnimCtrl => _animCtrl;
@@ -62,8 +63,8 @@ namespace SurvivorsLike
 
         private void OnDestroy()
         {
-            if (EnemyManager.HasInstance)
-                EnemyManager.Instance.UnRegister(this);
+            //if (EnemyManager.HasInstance)
+            //    EnemyManager.Instance.UnRegister(this);
 
             _health.Died -= OnDied;
             Movement.OnDestinationReached -= OnDestinationReached;
@@ -90,17 +91,22 @@ namespace SurvivorsLike
 
         //타겟은 플레이어 캐릭터 하나 이므로
         //적 캐릭터가 스폰되자 마자 Init 함수를 통해 타겟이 설정됨~
-        public void Init(EnemyData data, Transform targetTrasnform)
+        public void Init(EnemyData data, Vector3 spawnPos, Transform targetTrans, EnemyManager enemyMgr)
         {
             _enemyData = data;
             Movement.Init(data);
-            _health.Init(data.Hp);            
+            _health.Init(data.Hp);
 
-            TargetTransform = targetTrasnform;
+            transform.position = spawnPos;
+
+            TargetTransform = targetTrans;
             _fsm.Init(EnemyStateType.Idle);
 
             TargetTransform.TryGetComponent(out Health targetHealth);
             targetHealth.Died += OnTargetDied;
+
+            _enemyMgr = enemyMgr;
+            _enemyMgr?.Register(this);
         }
 
         //타겟이 죽으면 통보 받는 함수
@@ -116,13 +122,13 @@ namespace SurvivorsLike
             _cts?.Dispose();
             _cts = new CancellationTokenSource();
 
-            _animCtrl.Spawn();        
-            EnemyManager.Instance.Register(this);
+            _animCtrl.Spawn();
+            //_enemyMgr.Register(this);
         }
 
         public void OnDespawn()
         {
-            EnemyManager.Instance.UnRegister(this);
+            _enemyMgr?.UnRegister(this);
 
             ClearTarget();            
             _fsm.Despawn();           

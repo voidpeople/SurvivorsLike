@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: WaveData_5003
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.WaveDataSO
   Id: 5003
-  ChapterId: 3
   WaveDataList:
   - Type: 1
     EnemyId: 2001

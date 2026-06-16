@@ -93,7 +93,7 @@ namespace SurvivorsLike
                 return;
             }
 
-            _spawner.Spawn(enemyData);
+            _spawner.Spawn(enemyData, data.SpawnCountPerTick);
         }
     }
 }

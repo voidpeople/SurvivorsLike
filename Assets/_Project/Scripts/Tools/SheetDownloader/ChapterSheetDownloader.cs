@@ -14,6 +14,7 @@ namespace SurvivorsLike
             so.DisplayName = Str(row, "DisplayName");
             so.DisplaySpriteName = Str(row, "DisplaySpriteName");
             so.MapId = Int(row, "MapId");
+            so.WaveId = Int(row, "WaveId");
             so.RecommendedCP = Int(row, "RecommendedCP");
             so.EnergyCost = Int(row, "EnergyCost", 5);
             so.DurationSec = Float(row, "DurationSec", 900f);

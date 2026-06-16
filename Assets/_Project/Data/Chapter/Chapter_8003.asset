@@ -16,6 +16,7 @@ MonoBehaviour:
   DisplayName: "\uBD95\uAD34\uB41C \uACF5\uC7A5"
   DisplaySpriteName: lobby_chapter03
   MapId: 10003
+  WaveId: 5001
   RecommendedCP: 1200
   EnergyCost: 5
   DurationSec: 900

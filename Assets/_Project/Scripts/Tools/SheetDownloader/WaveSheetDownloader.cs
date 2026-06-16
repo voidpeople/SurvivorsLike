@@ -20,7 +20,6 @@ namespace SurvivorsLike
         {
             var so = ScriptableObject.CreateInstance<WaveDataSO>();
             so.Id = Int(firstRow, "Id");
-            so.ChapterId = Int(firstRow, "ChapterId"); ;
             return so;
         }
 

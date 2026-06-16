@@ -660,6 +660,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98955ddc95ba54c419e668599ebb10dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.EnemySpawner
+  _minSpawnRadius: 12
+  _maxSpawnRadius: 16
+  _maxEnemyCount: 300
 --- !u!114 &1596719567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -729,8 +732,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InGameController
   _playerSpawner: {fileID: 333383181}
-  _cameraController: {fileID: 4389492048316241047}
-  _mapController: {fileID: 933019015}
+  _cameraCtrl: {fileID: 4389492048316241047}
+  _mapCtrl: {fileID: 933019015}
+  _waveSystemCtrl: {fileID: 1596719569}
   _resultPanelCanvas: {fileID: 2080003469}
   _resultPanelView: {fileID: 1062681915}
   _devManager: {fileID: 228903195}

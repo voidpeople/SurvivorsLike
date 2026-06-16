@@ -13,16 +13,15 @@ MonoBehaviour:
   m_Name: WaveData_5001
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.WaveDataSO
   Id: 5001
-  ChapterId: 1
   WaveDataList:
   - Type: 1
-    EnemyId: 2001
+    EnemyId: 2002
     StartTime: 0
     EndTime: 60
     SpawnInterval: 2
     SpawnCountPerTick: 2
   - Type: 1
-    EnemyId: 2001
+    EnemyId: 2002
     StartTime: 60
     EndTime: 120
     SpawnInterval: 1.5
@@ -40,7 +39,7 @@ MonoBehaviour:
     SpawnInterval: 0
     SpawnCountPerTick: 10
   - Type: 1
-    EnemyId: 2001
+    EnemyId: 2002
     StartTime: 120
     EndTime: 170
     SpawnInterval: 1
@@ -52,7 +51,7 @@ MonoBehaviour:
     SpawnInterval: 3
     SpawnCountPerTick: 2
   - Type: 2
-    EnemyId: 2003
+    EnemyId: 2002
     StartTime: 175
     EndTime: 0
     SpawnInterval: 0

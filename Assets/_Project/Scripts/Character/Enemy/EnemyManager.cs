@@ -3,15 +3,14 @@
 
 namespace SurvivorsLike
 {
-    public class EnemyManager : SingletonMonoBehaviour<EnemyManager>
+    public class EnemyManager : MonoBehaviour
     {
         private const int MaxEnemys = 350;
         private readonly ITickable[] _activeEnemys = new ITickable[MaxEnemys];
         private int _activeCount;
+        public int ActiveCount => _activeCount;
 
-        protected override bool UseDontDestroyOnLoad => false;
-
-        protected override void ChildAwake()
+        private void Awake()
         {
             _activeCount = 0;
         }
@@ -28,10 +27,9 @@ namespace SurvivorsLike
             }
         }
 
-        protected override void OnDestroy()
+        protected void OnDestroy()
         {
             Destroy();
-            base.OnDestroy();
         }
 
         public void Register(ITickable enemy)

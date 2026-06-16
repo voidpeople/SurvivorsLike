@@ -11,6 +11,7 @@ namespace SurvivorsLike
         public string DisplayName;       //"버려진 도시"
         public string DisplaySpriteName; //UI애 출력 될 스프라이트 이름
         public int MapId;                //맵 아이디
+        public int WaveId;               //웨이브 데이터 아이디 
 
         [Header("전투 조건")]
         public int RecommendedCP;        //권장 전투력
