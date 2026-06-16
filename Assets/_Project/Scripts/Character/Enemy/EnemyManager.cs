@@ -6,7 +6,7 @@ namespace SurvivorsLike
     public class EnemyManager : SingletonMonoBehaviour<EnemyManager>
     {
         private const int MaxEnemys = 350;
-        private readonly EnemyController[] _activeEnemys = new EnemyController[MaxEnemys];
+        private readonly ITickable[] _activeEnemys = new ITickable[MaxEnemys];
         private int _activeCount;
 
         protected override bool UseDontDestroyOnLoad => false;
@@ -34,19 +34,19 @@ namespace SurvivorsLike
             base.OnDestroy();
         }
 
-        public void Register(EnemyController p)
+        public void Register(ITickable enemy)
         {
             if (_activeCount >= MaxEnemys)
                 return;
 
-            _activeEnemys[_activeCount++] = p;
+            _activeEnemys[_activeCount++] = enemy;
         }
 
-        public void UnRegister(EnemyController p)
+        public void UnRegister(ITickable enemy)
         {
             for (int ii = 0; ii < _activeCount; ++ii)
             {
-                if (_activeEnemys[ii] == p)
+                if (_activeEnemys[ii] == enemy)
                 {
                     _activeEnemys[ii] = _activeEnemys[--_activeCount];
                     _activeEnemys[_activeCount] = null;

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace SurvivorsLike
 {
-    public class EnemyController : MonoBehaviour, IPoolable, IAlive, ISkillOwner, ITargetListener, ITargetable 
+    public class EnemyController : MonoBehaviour, IPoolable, IAlive, ITickable, ISkillOwner, ITargetListener, ITargetable 
     {
 #if UNITY_EDITOR
         [Header("개발 테스트용")]
