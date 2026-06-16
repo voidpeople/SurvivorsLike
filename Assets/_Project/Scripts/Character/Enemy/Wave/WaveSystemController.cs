@@ -13,9 +13,9 @@ namespace SurvivorsLike
     {
 
         [Title("컴포넌트")]
+        [SerializeField] private WaveManager _waveMgr;        
         [SerializeField] private EnemySpawner _spawner;
         [SerializeField] private EnemyManager _enemyMgr;
-        [SerializeField] private WaveManager _waveMgr;
 
         private readonly List<EnemyData> _createdPoolEnemyDatas = new();
 
@@ -48,8 +48,8 @@ namespace SurvivorsLike
             }
 
             //스포너와 웨이브 매니저 초기화
-            _spawner.Init(playerTrans, _enemyMgr);
             _waveMgr.Init(data, _spawner);
+            _spawner.Init(playerTrans, _enemyMgr);            
         }
 
         private static (int poolInitSize, int poolMaxSize) GetPoolSize(EnemyData data)

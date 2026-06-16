@@ -624,8 +624,8 @@ GameObject:
   - component: {fileID: 1596719565}
   - component: {fileID: 1596719569}
   - component: {fileID: 1596719568}
-  - component: {fileID: 1596719567}
   - component: {fileID: 1596719566}
+  - component: {fileID: 1596719567}
   m_Layer: 0
   m_Name: WaveSystem
   m_TagString: Untagged
@@ -696,6 +696,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47d55a1950769542832721ee2e3f177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.WaveSystemController
+  _waveMgr: {fileID: 1596719568}
+  _spawner: {fileID: 1596719566}
+  _enemyMgr: {fileID: 1596719567}
 --- !u!1 &1644530798
 GameObject:
   m_ObjectHideFlags: 0
