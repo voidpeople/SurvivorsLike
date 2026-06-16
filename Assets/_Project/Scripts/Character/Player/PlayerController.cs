@@ -80,6 +80,12 @@ namespace SurvivorsLike
             _target = null;
             _targetHealth = null;
             _firePoint = null;
+
+            InGameStateManager.Instance.State
+                .Where(s => s == InGameState.Playing)
+                .Take(1)                                  // 첫 진입만
+                .Subscribe(_ => OnStartBattle())
+                .AddTo(_disposables);
         }
 
         private void Update()
@@ -124,10 +130,6 @@ namespace SurvivorsLike
 
             _animationController = animController;
             _joystick = joystick;
-
-            InGameEventBus.OnStartBattle
-                .Subscribe(_ => OnStartBattle())
-                .AddTo(_disposables);
         }
 
         private void UpdateTargeting()

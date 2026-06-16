@@ -26,8 +26,15 @@ namespace SurvivorsLike
         private GameResultPanelModel _resultModel;
         private GameResultPanelPresenter _resultPresenter;
 
+        private readonly CompositeDisposable _disposables = new();
+
         private void Awake()
         {
+            InGameStateManager.Instance.State
+                .Where(s => s == InGameState.StageClear || s == InGameState.StageFail)
+                .Take(1)                                   // 결과창은 1번만 (중복 차단)
+                .Subscribe(OnStageFinished)
+                .AddTo(_disposables);
         }
 
         private async UniTaskVoid Start()
@@ -105,19 +112,25 @@ namespace SurvivorsLike
             HideGameResultPanel();
         }
 
-        //스테이지 종료 콜백
-        private void OnStageCleared()
+
+        public void OnAllWavesCleared()
         {
-            ShowGameResultPanel();
+            InGameStateManager.Instance.ClearStage();
         }
 
         // EnemyBase.OnDead() → 이 메서드 호출로 패배 처리
         public void OnPlayerDead()
         {
-            ShowGameResultPanel();
+            InGameStateManager.Instance.FailStage();
         }
 
-        private void ShowGameResultPanel()
+        private void OnStageFinished(InGameState state)
+        {
+            bool isClear = (state == InGameState.StageClear);
+            ShowGameResultPanel(isClear);
+        }
+
+        private void ShowGameResultPanel(bool isClear)
         {
             _resultPanelCanvas.gameObject.SetActive(true);
             _resultPresenter.Show();
@@ -133,8 +146,9 @@ namespace SurvivorsLike
         {
             _resultPresenter.Dispose();
             _resultPanelView.Destroy();
-
             _mapController.ReleaseAssets();
+
+            _disposables.Dispose();
         }
 
         private void OnDestroy()
