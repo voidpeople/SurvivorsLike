@@ -1,4 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
+using R3;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using TriInspector;
@@ -16,6 +18,17 @@ namespace SurvivorsLike
         [SerializeField] private WaveManager _waveMgr;
 
         private readonly List<EnemyData> _createdPoolEnemyDatas = new();
+
+        private readonly CompositeDisposable _disposables = new();
+
+        public void Awake()
+        {
+            InGameStateManager.Instance.State
+                .Where(s => s == InGameState.Playing)
+                .Take(1)                                  // 첫 진입만
+                .Subscribe(_ => StartBattle())
+                .AddTo(_disposables);
+        }
 
         public void StartBattle() => _waveMgr.StartWave();
 
@@ -78,6 +91,8 @@ namespace SurvivorsLike
 
             //탕탕 특공대는 인게임 씬에서 로비로 나가게 되면 풀링한 객체들을 소멸 하는가?
             _createdPoolEnemyDatas.Clear();
+
+            _disposables.Dispose();
         }
     }
 }

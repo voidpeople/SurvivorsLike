@@ -14,11 +14,15 @@ namespace SurvivorsLike
         //Subject<T> - 이벤트를 발행하고 구독도 받을 수 있는 이벤트 채널 객체
         //Unit - void와 같은 타입으로 전달할 데이터가 없을 때 사용
 
-        public static readonly Subject<Unit> OnStartBattle = new Subject<Unit>();
-
-        //플레이어가 죽을 경우 이벤트~
-        //발행 시점: 플레이어 HP가 0이 되거나 생존 시간이 초과될 때
-        //구독 대상: 게임오버 UI, 결과 화면 전환, 적 스폰 중단 등
-        public static readonly Subject<Unit> OnPlayerDied = new Subject<Unit>();
+        //아무 값도 필요 없다면 Subject<Unit>
+        //int 값이 필요 하다면 Subject<int>
+        //여러 값이 필요 하다면 Subject<struct>        
+        public static readonly Subject<int> OnLevelUp = new();          //새 레벨
+        public static readonly Subject<int> OnSkillUp = new();          //스킬 업그레이드
+        public static readonly Subject<int> OnKillCountChanged = new(); //누적 킬(집계)
+        public static readonly Subject<int> OnExpChanged = new();       //경험치 갱신
+        public static readonly Subject<int> OnGoldChanged = new();      //골드량 갱신
+        public static readonly Subject<int> OnBossSpawned = new();      //보스 스폰 이벤트
+        public static readonly Subject<int> OnBossDefeated = new();     //보스 클리어 이벤트
     }
 }

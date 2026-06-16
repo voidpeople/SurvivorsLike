@@ -91,7 +91,6 @@ namespace SurvivorsLike
 
             //이벤트 발송~
             InGameStateManager.Instance.StartBattle();
-            InGameEventBus.OnStartBattle.OnNext(Unit.Default);
         }
 
         private void InitResultPanelAsync(CancellationToken ct)

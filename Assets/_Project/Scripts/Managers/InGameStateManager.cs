@@ -26,13 +26,6 @@ namespace SurvivorsLike
 
         protected override bool UseDontDestroyOnLoad => false;
 
-        private void Start()
-        {
-            InGameEventBus.OnPlayerDied
-                .Subscribe(_ => FailStage())
-                .AddTo(_disposables);
-        }
-
         protected override void OnDestroy()
         {
             Time.timeScale = 1f;   //Paused 중 씬 전환 대비 — 전역 값만은 수동 복구 필요
@@ -50,7 +43,6 @@ namespace SurvivorsLike
 
 
         public void StartBattle() => ChangeState(from: InGameState.Ready, to: InGameState.Playing);
-
         public void PauseGame()
         {
             if (ChangeState(from: InGameState.Playing, to: InGameState.Paused))
@@ -64,8 +56,8 @@ namespace SurvivorsLike
         }
 
         public void ClearStage() => ChangeState(from: InGameState.Playing, to: InGameState.StageClear);
-        public void FailStage() => ChangeState(from: InGameState.Playing, to: InGameState.StageFail);
 
+        public void FailStage() => ChangeState(from: InGameState.Playing, to: InGameState.StageFail);
 
         private bool ChangeState(InGameState from, InGameState to)
         {
