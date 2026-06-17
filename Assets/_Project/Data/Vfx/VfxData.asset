@@ -15,7 +15,7 @@ MonoBehaviour:
   VfxDataList:
   - Id: 13001
     Type: 3
-    PrefabKey: 
+    PrefabKey: vfx/explosion/explosion01
     LifeTime: 1.5
     Scale: 1
     PoolInit: 50

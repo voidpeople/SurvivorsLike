@@ -25,7 +25,7 @@ namespace SurvivorsLike
                 DefaultSkillId = Int(row, "DefaultSkillId"),
                 IconKey = Str(row, "IconKey"),
                 PrefabKey = Str(row, "PrefabKey"),
-                DeathVfxId = Str(row, "Name"),
+                DeathVfxId = Str(row, "DeathVfxId"),
 
                 PoolInitSize = Int(row, "PoolInitSize"),
                 PoolMaxSize = Int(row, "PoolMaxSize"),
