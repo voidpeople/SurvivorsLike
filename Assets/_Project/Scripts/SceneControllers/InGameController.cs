@@ -88,6 +88,19 @@ namespace SurvivorsLike
             InGameStateManager.Instance.StartBattle();
         }
 
+        private async UniTask CreatePlayerAssetsPool(GameSessionData sessionData, CancellationToken ct)
+        {
+            if (!DataManager.Instance.SkillDataSODic.TryGetValue(sessionData.PlayerData.DefaultSkillId, out SkillDataSO skillDataSO))
+            {
+                Debug.LogError($"{nameof(InGameController)}::CreatePlayerAssetsPool=> Failed to load DefaultSkillId. - DefaultSkillId: {sessionData.PlayerData.DefaultSkillId})");
+                return;
+            }
+
+            ////쿠나이를 발사하는 스킬일 경우 몇개의 풀링이 필요할까?
+            //await PoolManager.Instance.CreatePoolAsync(skillDataSO.PrefabKey, skillDataSO., 100, ct);
+            //await PoolManager.Instance.PreCreateAsync(skillDataSO.PrefabKey, 50, 10, ct);
+        }
+
         private async UniTask CreateEnemyAssetsPool(GameSessionData sessionData, CancellationToken ct)
         {
             if (!DataManager.Instance.WaveDataSODic.TryGetValue(sessionData.ChapterData.WaveId, out WaveDataSO waveDataSO))

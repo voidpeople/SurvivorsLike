@@ -9,6 +9,9 @@ namespace SurvivorsLike
     [Serializable]
     public class EnemyData : CharacterData
     {
+        public int PoolInitSize; //풀링 버퍼에 초기 생성한 마릿 수
+        public int PoolMaxSize;  //풀링 버퍼에 최대 생성 가능한 마릿 수
+
         public EnemyType Type;            //Normal/Elite/Boss
         public float DetectionRange;      //적(플레이어) 감지 거리
         public float Armor;               //기본 방어력
