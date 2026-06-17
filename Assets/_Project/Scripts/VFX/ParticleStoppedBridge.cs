@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class ParticleStoppedBridge : MonoBehaviour
 {
-    private PoolableParticle _owner;
+    private ParticleEffect _owner;
 
-    public void Init(PoolableParticle owner)
+    public void Init(ParticleEffect owner)
     {
         _owner = owner;
     }

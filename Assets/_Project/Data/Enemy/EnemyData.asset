@@ -20,6 +20,7 @@ MonoBehaviour:
     DefaultSkillId: 4001
     IconKey: icon_slime
     PrefabKey: enemy_slime
+    DeathVfxId: "\uC2AC\uB77C\uC784"
     PoolInitSize: 100
     PoolMaxSize: 300
     Type: 1
@@ -35,6 +36,7 @@ MonoBehaviour:
     DefaultSkillId: 4002
     IconKey: icon_goblin
     PrefabKey: character/enemy/spiderbot
+    DeathVfxId: "\uC2A4\uD30C\uC774\uB354 \uBD07"
     PoolInitSize: 100
     PoolMaxSize: 300
     Type: 1
@@ -50,6 +52,7 @@ MonoBehaviour:
     DefaultSkillId: 4003
     IconKey: icon_orc_boss
     PrefabKey: enemy_orc_boss
+    DeathVfxId: "\uC624\uD06C\uBCF4\uC2A4"
     PoolInitSize: 1
     PoolMaxSize: 1
     Type: 1

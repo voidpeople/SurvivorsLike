@@ -66,25 +66,6 @@ namespace SurvivorsLike
             await _playerSpawner.SpawnAsync(ct);
             _cameraCtrl.SetTarget(_playerSpawner.SpawnPlayerController.transform);
 
-            await PoolManager.Instance.CreatePoolAsync("character/enemy/spiderbot", 100, 300, ct);
-            await PoolManager.Instance.PreCreateAsync("character/enemy/spiderbot", 1, 10, ct);
-
-            //if (!DataManager.Instance.EnemyDataDic.TryGetValue(2002, out EnemyData enemyData))
-            //{
-            //    Debug.LogError($"{nameof(InGameController)}::InitAsync — Failed to load EnemyData(2002)");
-            //    return;
-            //}
-
-            //EnemyController enemyCtrl = PoolManager.Instance.Get<EnemyController>(enemyData.PrefabKey);
-            //if (enemyCtrl == null)
-            //{
-            //    Debug.LogError($"{nameof(InGameController)}::InitAsync — Failed to acquire EnemyController from pool");
-            //    return;
-            //}
-
-            //enemyCtrl.transform.SetPositionAndRotation(new Vector3(0f, 0f, 20f), Quaternion.identity);
-            //enemyCtrl.Init(enemyData, _playerSpawner.SpawnPlayerController.transform);
-
             await PoolManager.Instance.CreatePoolAsync("vfx/explosion/explosion01", 100, 300, ct);
             await PoolManager.Instance.PreCreateAsync("vfx/explosion/explosion01", 1, 10, ct);
 

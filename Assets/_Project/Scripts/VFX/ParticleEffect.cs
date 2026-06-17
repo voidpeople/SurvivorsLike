@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SurvivorsLike
 {
-    public class PoolableParticle : MonoBehaviour, IPoolable
+    public class ParticleEffect : MonoBehaviour, IPoolable
     {
         private ParticleSystem _ps;
         

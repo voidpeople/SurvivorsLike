@@ -25,6 +25,8 @@ namespace SurvivorsLike
                 DefaultSkillId = Int(row, "DefaultSkillId"),
                 IconKey = Str(row, "IconKey"),
                 PrefabKey = Str(row, "PrefabKey"),
+                DeathVfxId = Str(row, "Name"),
+
                 PoolInitSize = Int(row, "PoolInitSize"),
                 PoolMaxSize = Int(row, "PoolMaxSize"),
                 Type = EnemyType(row, "Type"),
@@ -32,7 +34,7 @@ namespace SurvivorsLike
                 Armor = Float(row, "Armor"),
                 ExpReward = Int(row, "ExpReward"),
                 DropGold = Int(row, "DropGold"),
-                KnockbackResistance = Float(row, "KnockbackResistance"),
+                KnockbackResistance = Float(row, "KnockbackResistance"),                
             };
         }
 

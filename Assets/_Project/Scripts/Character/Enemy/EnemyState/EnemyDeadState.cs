@@ -17,7 +17,7 @@ namespace SurvivorsLike
             _ctrl.Movement.Stop();
             _ctrl.AnimCtrl.PlayIdle();
 
-            PoolableParticle particleObj = PoolManager.Instance.Get<PoolableParticle>("vfx/explosion/explosion01");
+            ParticleEffect particleObj = PoolManager.Instance.Get<ParticleEffect>("vfx/explosion/explosion01");
             Vector3 pos = _ctrl.transform.position;
             pos.y = 1f;
             particleObj.Play(pos);
