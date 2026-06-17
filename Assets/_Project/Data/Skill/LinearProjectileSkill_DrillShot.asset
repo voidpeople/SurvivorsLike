@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: DrillShot
   RequiresTarget: 0
   IconKey: icon/drill
-  PrefabKey: skill/drill
+  ProjectileId: 5002
   LevelDataList:
   - Level: 1
     Damage: 35

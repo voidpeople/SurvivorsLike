@@ -10,6 +10,13 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace SurvivorsLike
 {
+    public enum PoolAssetType
+    {
+        Projectile,
+        Vfx,
+        Sfx
+    }
+
     public class PoolManager : SingletonMonoBehaviour<PoolManager>
     {
         // ─── private 필드 ────────────────────────────────────────────────────
@@ -182,6 +189,38 @@ namespace SurvivorsLike
                 //풀이 보유할 수 있는 최대 오브젝트의 수 (이 사이즈를 초과하는 오브젝트는 자동으로 Destroy가 된다.)
                 maxSize: maxSize);
             _poolDic.Add(poolKey, newPool);
+        }
+
+        public async UniTask CreateAsync(List<PoolAssetRef> list, CancellationToken ct = default)
+        {
+            for(int ii = 0; ii < list.Count; ++ii)
+            {
+                switch (list[ii].Type)
+                {
+                    case PoolAssetType.Projectile:
+                        if (DataManager.Instance.ProjectileDataDic.TryGetValue(list[ii].Id, out ProjectileData projectileData))
+                        {
+                            await CreatePoolAsync(projectileData.PrefabKey, projectileData.PoolInitSize, projectileData.PoolMaxSize, ct);
+                            await PreCreateAsync(projectileData.PrefabKey, projectileData.PoolInitSize, ct: ct);
+                        }
+                        else
+                        {
+                            Debug.LogError($"{nameof(PoolManager)}::CreateAsync=> ProjectileData does not exist. - list[ii].Id: {list[ii].Id})");
+                        }
+                        break;
+                    case PoolAssetType.Vfx:
+                        if (DataManager.Instance.VfxDataDic.TryGetValue(list[ii].Id, out VfxData vfxData))
+                        {
+                            await CreatePoolAsync(vfxData.PrefabKey, vfxData.PoolInitSize, vfxData.PoolMaxSize, ct);
+                            await PreCreateAsync(vfxData.PrefabKey, vfxData.PoolInitSize, ct: ct);
+                        }
+                        else
+                        {
+                            Debug.LogError($"{nameof(PoolManager)}::CreateAsync=> VfxData does not exist. - list[ii].Id: {list[ii].Id})");
+                        }
+                        break;
+                }
+            }
         }
 
         // ─── Private Methods ──────────────────────────────────────────────────

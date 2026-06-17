@@ -20,8 +20,9 @@ namespace SurvivorsLike
             so.Id = Int(firstRow, "Id");    
             so.Name = Str(firstRow, "Name");
             so.RequiresTarget = Bool(firstRow, "RequiresTarget");
-            so.PrefabKey = Str(firstRow, "PrefabKey");  
-            so.IconKey = Str(firstRow, "IconKey");   
+            so.IconKey = Str(firstRow, "IconKey");
+
+            so.ProjectileId = Int(firstRow, "ProjectileId");
             return so;
         }
 

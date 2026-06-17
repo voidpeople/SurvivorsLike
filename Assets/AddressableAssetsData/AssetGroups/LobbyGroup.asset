@@ -39,6 +39,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PlayerData
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4c48278afd43e540b1fec4dc5cc06dd
+    m_Address: Assets/_Project/Data/Projectile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ProjectileData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e26030eb395dfa9438402f8581d84f12
     m_Address: Assets/_Project/Data/Chapter
     m_ReadOnly: 0

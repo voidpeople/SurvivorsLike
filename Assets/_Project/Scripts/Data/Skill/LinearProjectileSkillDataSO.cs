@@ -22,6 +22,8 @@ namespace SurvivorsLike
     [CreateAssetMenu(fileName = "LinearProjectileSkillDataSO", menuName = "SurvivorsLike/Data/LinearProjectileSkillDataSO")]
     public class LinearProjectileSkillDataSO : SkillDataSO
     {
+        public int ProjectileId;
+
         //[TableList]은 Tri-Inspector의 명령어
         //역할: List<T> 를 Unity Inspector에서 테이블 형태로 표시
         [TableList]
@@ -44,6 +46,11 @@ namespace SurvivorsLike
                 return data.Cooldown;
 
             return 0f;
+        }
+
+        public override void CollectPoolAssetRef(List<PoolAssetRef> list)
+        {
+            list.Add(new PoolAssetRef(PoolAssetType.Projectile, ProjectileId));
         }
     }
 }

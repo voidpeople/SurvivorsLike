@@ -26,6 +26,8 @@ namespace SurvivorsLike
         private const string EnemyDataLabel = "EnemyData";
         private const string SkillDataLabel = "SkillData";
         private const string VfxDataLabel = "VfxData";
+        private const string ProjectileDataLabel = "ProjectileData";
+        
 
 
         private AsyncOperationHandle<IList<ChapterDataSO>> _chapterDataSOListHandle;
@@ -72,12 +74,20 @@ namespace SurvivorsLike
         public IReadOnlyDictionary<int, SkillDataSO> SkillDataSODic => _skillDataSODic;
         #endregion
 
+        #region ProjectileData
+        private AsyncOperationHandle<IList<ProjectileDataSO>> _projectileDataSOListHandle;
+        //Dictionary<아이디, ProjectileData>
+        private readonly Dictionary<int, ProjectileData> _projectileDataDic = new();
+        public IReadOnlyDictionary<int, ProjectileData> ProjectileDataDic => _projectileDataDic;
+        #endregion
+
         #region VfxData
         private AsyncOperationHandle<IList<VfxDataSO>> _vfxDataSOListHandle;
-        //Dictionary<적 캐릭터 아이디, VfxData>
+        //Dictionary<아이디, VfxData>
         private readonly Dictionary<int, VfxData> _vfxDataDic = new();
         public IReadOnlyDictionary<int, VfxData> VfxDataDic => _vfxDataDic;
         #endregion
+
 
 
         public async UniTask InitAsync(CancellationToken ct)
@@ -89,7 +99,8 @@ namespace SurvivorsLike
             await LoadPlayerDataAsync(ct);
             await LoadEnemyDataAsync(ct);
             await LoadSkillDataAsync(ct);
-            await LoadVfxDataAsync(ct);
+            await LoadProjectileDataAsync(ct);
+            await LoadVfxDataAsync(ct);            
         }
 
         private async UniTask LoadChapterDataAsync(CancellationToken ct)
@@ -277,6 +288,36 @@ namespace SurvivorsLike
             Debug.Log($"{nameof(DataManager)}::LoadSkillDataAsync=> SkillData loaded: {_skillDataSODic.Count} items");
         }
 
+        private async UniTask LoadProjectileDataAsync(CancellationToken ct)
+        {
+            //어드레서블 어셋을 비동기 로드 시작
+            _projectileDataSOListHandle = Addressables.LoadAssetsAsync<ProjectileDataSO>(ProjectileDataLabel, true);
+
+            //.Net의 기본 Task을 성능 최적화를 위해 AsUniTask()함수를 이용해 UniTask로 변환하여 작업을 진행한다.
+            //그리고 AttachExternalCancellation()함수를 통해 해당 비동기 작업이 취소 될 수 있도록
+            //CancellationToken을 등록한다.
+            await _projectileDataSOListHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            ct.ThrowIfCancellationRequested();
+
+            if (_projectileDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"{nameof(DataManager)}::LoadProjectileDataAsync=> ProjectileData load failed: {_projectileDataSOListHandle.OperationException}");
+                return;
+            }
+
+            _projectileDataDic.Clear();
+            foreach (var projectileDataSOList in _projectileDataSOListHandle.Result)
+            {
+                List<ProjectileData> projectileDataList = projectileDataSOList.ProjectileDataList;
+                foreach (var projectileData in projectileDataList)
+                {
+                    _projectileDataDic.Add(projectileData.Id, projectileData);
+                }
+            }
+
+            Debug.Log($"{nameof(DataManager)}::LoadProjectileDataAsync=> ProjectileData loaded: {_projectileDataDic.Count} items");
+        }
+
         private async UniTask LoadVfxDataAsync(CancellationToken ct)
         {
             //어드레서블 어셋을 비동기 로드 시작
@@ -343,6 +384,12 @@ namespace SurvivorsLike
             {
                 Addressables.Release(_skillDataSOListHandle);
                 _skillDataSODic.Clear();
+            }
+
+            if (_projectileDataSOListHandle.IsValid() == true)
+            {
+                Addressables.Release(_projectileDataSOListHandle);
+                _projectileDataDic.Clear();
             }
 
             if (_vfxDataSOListHandle.IsValid() == true)

@@ -1,9 +1,11 @@
 ﻿using Cysharp.Threading.Tasks;
+using NUnit.Framework;
+using R3;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using R3;
 
 
 namespace SurvivorsLike
@@ -66,11 +68,8 @@ namespace SurvivorsLike
             await _playerSpawner.SpawnAsync(ct);
             _cameraCtrl.SetTarget(_playerSpawner.SpawnPlayerController.transform);
 
-            //플레이어 캐릭터 스킬 프리팹들 로드
-            await PoolManager.Instance.CreatePoolAsync("projectile/kunai", 50, 100, ct);
-            await PoolManager.Instance.PreCreateAsync("projectile/kunai", 50, 10, ct);
-
-            if(!DataManager.Instance.WaveDataSODic.TryGetValue(sessionData.ChapterData.WaveId, out WaveDataSO waveDta))
+            await CreatePlayerAssetPoolAsync(sessionData, ct);
+            if (!DataManager.Instance.WaveDataSODic.TryGetValue(sessionData.ChapterData.WaveId, out WaveDataSO waveDta))
             {
                 Debug.LogError($"{nameof(InGameController)}::InitAsync=> Failed to load WaveDataSO. - WaveId: {sessionData.ChapterData.WaveId})");
                 return;
@@ -88,17 +87,18 @@ namespace SurvivorsLike
             InGameStateManager.Instance.StartBattle();
         }
 
-        private async UniTask CreatePlayerAssetsPool(GameSessionData sessionData, CancellationToken ct)
+        private async UniTask CreatePlayerAssetPoolAsync(GameSessionData sessionData, CancellationToken ct)
         {
             if (!DataManager.Instance.SkillDataSODic.TryGetValue(sessionData.PlayerData.DefaultSkillId, out SkillDataSO skillDataSO))
             {
-                Debug.LogError($"{nameof(InGameController)}::CreatePlayerAssetsPool=> Failed to load DefaultSkillId. - DefaultSkillId: {sessionData.PlayerData.DefaultSkillId})");
+                Debug.LogError($"{nameof(InGameController)}::CreatePlayerAssetsPool=> DefaultSkillId does not exist. - DefaultSkillId: {sessionData.PlayerData.DefaultSkillId})");
                 return;
             }
 
-            ////쿠나이를 발사하는 스킬일 경우 몇개의 풀링이 필요할까?
-            //await PoolManager.Instance.CreatePoolAsync(skillDataSO.PrefabKey, skillDataSO., 100, ct);
-            //await PoolManager.Instance.PreCreateAsync(skillDataSO.PrefabKey, 50, 10, ct);
+            List<PoolAssetRef> poolAssetRefList = new List<PoolAssetRef>();
+            skillDataSO.CollectPoolAssetRef(poolAssetRefList);
+
+            await PoolManager.Instance.CreateAsync(poolAssetRefList, ct);
         }
 
         private async UniTask CreateEnemyAssetsPool(GameSessionData sessionData, CancellationToken ct)

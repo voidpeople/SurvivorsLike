@@ -45,5 +45,10 @@ namespace SurvivorsLike
 
             return 0f;
         }
+
+        public override void CollectPoolAssetRef(List<PoolAssetRef> list)
+        {
+
+        }
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Kunai
   RequiresTarget: 1
   IconKey: icon/kunai
-  PrefabKey: projectile/kunai
+  ProjectileId: 5001
   LevelDataList:
   - Level: 1
     Damage: 20

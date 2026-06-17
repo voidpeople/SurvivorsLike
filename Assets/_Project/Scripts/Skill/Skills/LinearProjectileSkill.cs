@@ -49,11 +49,18 @@ namespace SurvivorsLike
         }
 
         public override void OnUseSkill()
-        {            
-            ProjectileBase projectile = PoolManager.Instance.Get<ProjectileBase>(_linearProjectileSkillData.PrefabKey);
+        {
+            DataManager.Instance.ProjectileDataDic.TryGetValue(_linearProjectileSkillData.ProjectileId, out ProjectileData projectileData);
+            if (projectileData == null)
+            {
+                Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill => Projectile not found. - ProjectileId: {_linearProjectileSkillData.ProjectileId}");
+                return;
+            }
+
+            ProjectileBase projectile = PoolManager.Instance.Get<ProjectileBase>(projectileData.PrefabKey);
             if (projectile == null)
             {
-                Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill => Projectile not found. - PrefabKey: {_linearProjectileSkillData.PrefabKey}");
+                Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill => Projectile not found. - PrefabKey: {projectileData.PrefabKey}");
                 return;
             }
 
