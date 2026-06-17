@@ -89,7 +89,7 @@ namespace SurvivorsLike
         {
             if (!DataManager.Instance.EnemyDataDic.TryGetValue(data.EnemyId, out EnemyData enemyData))
             {
-                Debug.LogError($"{nameof(WaveManager)}=> EnemyId does not exist. - EnemyId: {data.EnemyId}");
+                Debug.LogError($"{nameof(WaveManager)}::SpawnEnemy=> EnemyData does not exist. - EnemyId: {data.EnemyId}");
                 return;
             }
 

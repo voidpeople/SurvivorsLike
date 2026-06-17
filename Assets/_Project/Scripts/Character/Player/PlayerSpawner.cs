@@ -51,7 +51,7 @@ namespace SurvivorsLike
             PlayerController playerCtrl = playerObj.GetComponent<PlayerController>();
             if (playerCtrl == null)
             {
-                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — PlayerController component not found");
+                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync=> PlayerController component not found");
                 return null;
             }
 
@@ -62,13 +62,13 @@ namespace SurvivorsLike
             PlayerAnimationController aniCtrl= modelObj.GetComponent<PlayerAnimationController>();
             if (aniCtrl == null)
             {
-                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — PlayerAnimationController component not found");
+                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync=> PlayerAnimationController component not found");
                 return null;
             }
 
             if(DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData) == false)
             {
-                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync — Failed to load PlayerData(1001)");
+                Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync=> PlayerData does not exist. - PlayerID: {1001}");
                 return null;
             }
             playerCtrl.Init(playerData, aniCtrl, _joystick);

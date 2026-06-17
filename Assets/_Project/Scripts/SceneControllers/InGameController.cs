@@ -71,7 +71,7 @@ namespace SurvivorsLike
             await CreatePlayerAssetPoolAsync(sessionData, ct);
             if (!DataManager.Instance.WaveDataSODic.TryGetValue(sessionData.ChapterData.WaveId, out WaveDataSO waveDta))
             {
-                Debug.LogError($"{nameof(InGameController)}::InitAsync=> Failed to load WaveDataSO. - WaveId: {sessionData.ChapterData.WaveId})");
+                Debug.LogError($"{nameof(InGameController)}::InitAsync=> WaveDataSO does not exist. - WaveId: {sessionData.ChapterData.WaveId})");
                 return;
             }
             await _waveSystemCtrl.InitAsync(waveDta, _playerSpawner.SpawnPlayerController.transform, ct);
@@ -91,7 +91,7 @@ namespace SurvivorsLike
         {
             if (!DataManager.Instance.SkillDataSODic.TryGetValue(sessionData.PlayerData.DefaultSkillId, out SkillDataSO skillDataSO))
             {
-                Debug.LogError($"{nameof(InGameController)}::CreatePlayerAssetsPool=> DefaultSkillId does not exist. - DefaultSkillId: {sessionData.PlayerData.DefaultSkillId})");
+                Debug.LogError($"{nameof(InGameController)}::CreatePlayerAssetsPool=> SkillDataSO does not exist. - DefaultSkillId: {sessionData.PlayerData.DefaultSkillId})");
                 return;
             }
 
@@ -105,7 +105,7 @@ namespace SurvivorsLike
         {
             if (!DataManager.Instance.WaveDataSODic.TryGetValue(sessionData.ChapterData.WaveId, out WaveDataSO waveDataSO))
             {
-                Debug.LogError($"{nameof(InGameController)}::CreateAssetsPool=> Failed to load WaveDataSO. - WaveId: {sessionData.ChapterData.WaveId})");
+                Debug.LogError($"{nameof(InGameController)}::CreateEnemyAssetsPool=> WaveDataSO does not exist. - WaveId: {sessionData.ChapterData.WaveId})");
                 return;
             }
 
@@ -113,7 +113,7 @@ namespace SurvivorsLike
             {                
                 if (!DataManager.Instance.EnemyDataDic.TryGetValue(waveDataSO.WaveDataList[ii].EnemyId, out EnemyData enemyData))
                 {
-                    Debug.LogError($"{nameof(InGameController)}::CreateAssetsPool=> Failed to load EnemyData. - EnemyId: {waveDataSO.WaveDataList[ii].EnemyId})");
+                    Debug.LogError($"{nameof(InGameController)}::CreateEnemyAssetsPool=> EnemyData does not exist. - EnemyId: {waveDataSO.WaveDataList[ii].EnemyId})");
                     continue;
                 }
 
@@ -122,7 +122,7 @@ namespace SurvivorsLike
 
                 if (!DataManager.Instance.VfxDataDic.TryGetValue(enemyData.DeathVfxId, out VfxData vfxData))
                 {
-                    Debug.LogError($"{nameof(InGameController)}::CreateAssetsPool=> Failed to load DeathVfxId. - DeathVfxId: {enemyData.DeathVfxId})");
+                    Debug.LogError($"{nameof(InGameController)}::CreateEnemyAssetsPool=> VfxData does not exist. - DeathVfxId: {enemyData.DeathVfxId})");
                     continue;
                 }
                 await PoolManager.Instance.CreatePoolAsync(vfxData.PrefabKey, vfxData.PoolInitSize, vfxData.PoolMaxSize, ct);

@@ -74,7 +74,7 @@ namespace SurvivorsLike
                 if (DataManager.Instance.EnemyDataDic.TryGetValue(wave.EnemyId, out EnemyData enemyData))
                     enemyDatas.Add(enemyData);
                 else
-                    Debug.LogError($"{nameof(WaveSystemController)}=> EnemyId does not exist. - EnemyId: {wave.EnemyId}");
+                    Debug.LogError($"{nameof(WaveSystemController)}::CollectEnemyDatas=> EnemyData does not exist. - EnemyId: {wave.EnemyId}");
             }
             return enemyDatas;
         }

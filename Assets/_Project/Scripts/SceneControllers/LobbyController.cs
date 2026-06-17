@@ -86,7 +86,7 @@ namespace SurvivorsLike
 
             if (!DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData))
             {
-                Debug.LogError($"{nameof(LobbyController)}::OnGameStart — Failed to load PlayerData(1001)");
+                Debug.LogError($"{nameof(LobbyController)}::OnGameStart=> PlayerData does not exist. - PlayerId: {1001}");
                 return;
             }
 

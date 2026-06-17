@@ -53,14 +53,14 @@ namespace SurvivorsLike
             DataManager.Instance.ProjectileDataDic.TryGetValue(_linearProjectileSkillData.ProjectileId, out ProjectileData projectileData);
             if (projectileData == null)
             {
-                Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill => Projectile not found. - ProjectileId: {_linearProjectileSkillData.ProjectileId}");
+                Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill=> ProjectileData does not exist. - ProjectileId: {_linearProjectileSkillData.ProjectileId}");
                 return;
             }
 
             ProjectileBase projectile = PoolManager.Instance.Get<ProjectileBase>(projectileData.PrefabKey);
             if (projectile == null)
             {
-                Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill => Projectile not found. - PrefabKey: {projectileData.PrefabKey}");
+                Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill=> Projectile not found. - PrefabKey: {projectileData.PrefabKey}");
                 return;
             }
 
