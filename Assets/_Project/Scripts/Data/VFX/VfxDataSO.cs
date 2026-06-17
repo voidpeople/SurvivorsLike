@@ -26,8 +26,8 @@ namespace SurvivorsLike
         public string PrefabKey;
         public float LifeTime;
         public float Scale;
-        public int PoolInit;
-        public int PoolMax;
+        public int PoolInitSize;
+        public int PoolMaxSize;
         public int SfxId;          //사운드 아이디        
     }
 

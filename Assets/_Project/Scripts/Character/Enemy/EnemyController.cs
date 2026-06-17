@@ -24,11 +24,10 @@ namespace SurvivorsLike
         private Health _health;
         private readonly SkillController _skillController = new();
         private EnemyFSM _fsm;        
-        private EnemyData _enemyData;
         private Transform _firePoint;
         private EnemyManager _enemyMgr;
 
-
+        public EnemyData EnemyData { get; private set; }
         public EnemyAnimationController AnimCtrl => _animCtrl;
         public EnemyMovement Movement { get; private set; }
 
@@ -93,7 +92,7 @@ namespace SurvivorsLike
         //적 캐릭터가 스폰되자 마자 Init 함수를 통해 타겟이 설정됨~
         public void Init(EnemyData data, Vector3 spawnPos, Transform targetTrans, EnemyManager enemyMgr)
         {
-            _enemyData = data;
+            EnemyData = data;
             Movement.Init(data);
             _health.Init(data.Hp);
 

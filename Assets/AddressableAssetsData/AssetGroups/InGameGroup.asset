@@ -36,8 +36,7 @@ MonoBehaviour:
   - m_GUID: 9735f8d05f7a75a409c0cdec9ddd75b2
     m_Address: vfx/explosion/explosion01
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - VFX
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a25542156318b5a4e839c11e7f61f581
     m_Address: mat/ground/orange

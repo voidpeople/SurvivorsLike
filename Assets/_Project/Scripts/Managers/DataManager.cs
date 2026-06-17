@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace SurvivorsLike
         private const string PlayerDataLabel = "PlayerData";
         private const string EnemyDataLabel = "EnemyData";
         private const string SkillDataLabel = "SkillData";
+        private const string VfxDataLabel = "VfxData";
 
 
         private AsyncOperationHandle<IList<ChapterDataSO>> _chapterDataSOListHandle;
@@ -70,6 +72,13 @@ namespace SurvivorsLike
         public IReadOnlyDictionary<int, SkillDataSO> SkillDataSODic => _skillDataSODic;
         #endregion
 
+        #region VfxData
+        private AsyncOperationHandle<IList<VfxDataSO>> _vfxDataSOListHandle;
+        //Dictionary<적 캐릭터 아이디, VfxData>
+        private readonly Dictionary<int, VfxData> _vfxDataDic = new();
+        public IReadOnlyDictionary<int, VfxData> VfxDataDic => _vfxDataDic;
+        #endregion
+
 
         public async UniTask InitAsync(CancellationToken ct)
         {
@@ -79,7 +88,8 @@ namespace SurvivorsLike
             await LoadChapterDataAsync(ct);
             await LoadPlayerDataAsync(ct);
             await LoadEnemyDataAsync(ct);
-            await LoadSkillDataAsync(ct);            
+            await LoadSkillDataAsync(ct);
+            await LoadVfxDataAsync(ct);
         }
 
         private async UniTask LoadChapterDataAsync(CancellationToken ct)
@@ -267,6 +277,35 @@ namespace SurvivorsLike
             Debug.Log($"{nameof(DataManager)}::LoadSkillDataAsync=> SkillData loaded: {_skillDataSODic.Count} items");
         }
 
+        private async UniTask LoadVfxDataAsync(CancellationToken ct)
+        {
+            //어드레서블 어셋을 비동기 로드 시작
+            _vfxDataSOListHandle = Addressables.LoadAssetsAsync<VfxDataSO>(VfxDataLabel, true);
+
+            //.Net의 기본 Task을 성능 최적화를 위해 AsUniTask()함수를 이용해 UniTask로 변환하여 작업을 진행한다.
+            //그리고 AttachExternalCancellation()함수를 통해 해당 비동기 작업이 취소 될 수 있도록
+            //CancellationToken을 등록한다.
+            await _vfxDataSOListHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            ct.ThrowIfCancellationRequested();
+
+            if (_vfxDataSOListHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"{nameof(DataManager)}::LoadVfxDataAsync=> VfxData load failed: {_vfxDataSOListHandle.OperationException}");
+                return;
+            }
+
+            _vfxDataDic.Clear();
+            foreach (var vfxDataSOList in _vfxDataSOListHandle.Result)
+            {
+                List<VfxData> vfxDataList = vfxDataSOList.VfxDataList;
+                foreach (var vfxData in vfxDataList)
+                {
+                    _vfxDataDic.Add(vfxData.Id, vfxData);
+                }
+            }
+
+            Debug.Log($"{nameof(DataManager)}::LoadVfxDataAsync=> VfxData loaded: {_vfxDataDic.Count} items");
+        }
 
         private void ReleaseDataSOListHandle()
         {
@@ -304,6 +343,12 @@ namespace SurvivorsLike
             {
                 Addressables.Release(_skillDataSOListHandle);
                 _skillDataSODic.Clear();
+            }
+
+            if (_vfxDataSOListHandle.IsValid() == true)
+            {
+                Addressables.Release(_vfxDataSOListHandle);
+                _vfxDataDic.Clear();
             }
         }
 

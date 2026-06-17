@@ -18,6 +18,6 @@ MonoBehaviour:
     PrefabKey: vfx/explosion/explosion01
     LifeTime: 1.5
     Scale: 1
-    PoolInit: 50
-    PoolMax: 150
+    PoolInitSize: 50
+    PoolMaxSize: 150
     SfxId: 14001

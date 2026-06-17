@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - EnemyData
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6424b9918db3a044ba5789516e26dea1
+    m_Address: Assets/_Project/Data/VFX
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - VfxData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 89ce22b947a9905448898bd24587cc33
     m_Address: Assets/_Project/Data/Player
     m_ReadOnly: 0

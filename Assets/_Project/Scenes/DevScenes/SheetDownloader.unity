@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 198747369}
   - component: {fileID: 198747368}
   - component: {fileID: 198747370}
+  - component: {fileID: 198747371}
   m_Layer: 0
   m_Name: GameDataDownloadManager
   m_TagString: Untagged
@@ -193,6 +194,7 @@ MonoBehaviour:
   - {fileID: 198747369}
   - {fileID: 198747368}
   - {fileID: 198747370}
+  - {fileID: 198747371}
 --- !u!114 &198747366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +274,22 @@ MonoBehaviour:
   sheetName: WaveData
   sheetGid: 1349634384
   saveFolderPath: Assets/_Project/Data/Wave
+  spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
+--- !u!114 &198747371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198747361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03b7fbf1f4f1b548be05eb762c92bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.VfxSheetDownloader
+  sheetName: VfxData
+  sheetGid: 1120140130
+  saveFolderPath: Assets/_Project/Data/Vfx
   spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
 --- !u!1 &320198488
 GameObject:

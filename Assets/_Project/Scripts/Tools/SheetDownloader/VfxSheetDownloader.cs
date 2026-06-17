@@ -25,8 +25,8 @@ namespace SurvivorsLike
                 PrefabKey = Str(row, "PrefabKey"),
                 LifeTime = Float(row, "LifeTime"),
                 Scale = Float(row, "Scale"),
-                PoolInit = Int(row, "PoolInit"),
-                PoolMax = Int(row, "PoolMax"),
+                PoolInitSize = Int(row, "PoolInitSize"),
+                PoolMaxSize = Int(row, "PoolMaxSize"),
                 SfxId = Int(row, "SfxId"),              
             };
         }

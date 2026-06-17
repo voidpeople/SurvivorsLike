@@ -66,9 +66,6 @@ namespace SurvivorsLike
             await _playerSpawner.SpawnAsync(ct);
             _cameraCtrl.SetTarget(_playerSpawner.SpawnPlayerController.transform);
 
-            await PoolManager.Instance.CreatePoolAsync("vfx/explosion/explosion01", 100, 300, ct);
-            await PoolManager.Instance.PreCreateAsync("vfx/explosion/explosion01", 1, 10, ct);
-
             //플레이어 캐릭터 스킬 프리팹들 로드
             await PoolManager.Instance.CreatePoolAsync("projectile/kunai", 50, 100, ct);
             await PoolManager.Instance.PreCreateAsync("projectile/kunai", 50, 10, ct);
@@ -78,8 +75,9 @@ namespace SurvivorsLike
                 Debug.LogError($"{nameof(InGameController)}::InitAsync=> Failed to load WaveDataSO. - WaveId: {sessionData.ChapterData.WaveId})");
                 return;
             }
-
             await _waveSystemCtrl.InitAsync(waveDta, _playerSpawner.SpawnPlayerController.transform, ct);
+
+            await CreateEnemyAssetsPool(sessionData, ct);
 
             InitResultPanelAsync(ct);
 
@@ -88,6 +86,35 @@ namespace SurvivorsLike
 
             //이벤트 발송~
             InGameStateManager.Instance.StartBattle();
+        }
+
+        private async UniTask CreateEnemyAssetsPool(GameSessionData sessionData, CancellationToken ct)
+        {
+            if (!DataManager.Instance.WaveDataSODic.TryGetValue(sessionData.ChapterData.WaveId, out WaveDataSO waveDataSO))
+            {
+                Debug.LogError($"{nameof(InGameController)}::CreateAssetsPool=> Failed to load WaveDataSO. - WaveId: {sessionData.ChapterData.WaveId})");
+                return;
+            }
+
+            for(int ii = 0; ii < waveDataSO.WaveDataList.Count; ++ii)
+            {                
+                if (!DataManager.Instance.EnemyDataDic.TryGetValue(waveDataSO.WaveDataList[ii].EnemyId, out EnemyData enemyData))
+                {
+                    Debug.LogError($"{nameof(InGameController)}::CreateAssetsPool=> Failed to load EnemyData. - EnemyId: {waveDataSO.WaveDataList[ii].EnemyId})");
+                    continue;
+                }
+
+                await PoolManager.Instance.CreatePoolAsync(enemyData.PrefabKey, enemyData.PoolInitSize, enemyData.PoolMaxSize, ct);
+                await PoolManager.Instance.PreCreateAsync(enemyData.PrefabKey, enemyData.PoolInitSize, ct: ct);
+
+                if (!DataManager.Instance.VfxDataDic.TryGetValue(enemyData.DeathVfxId, out VfxData vfxData))
+                {
+                    Debug.LogError($"{nameof(InGameController)}::CreateAssetsPool=> Failed to load DeathVfxId. - DeathVfxId: {enemyData.DeathVfxId})");
+                    continue;
+                }
+                await PoolManager.Instance.CreatePoolAsync(vfxData.PrefabKey, vfxData.PoolInitSize, vfxData.PoolMaxSize, ct);
+                await PoolManager.Instance.PreCreateAsync(vfxData.PrefabKey, vfxData.PoolInitSize, ct: ct);
+            }
         }
 
         private void InitResultPanelAsync(CancellationToken ct)
