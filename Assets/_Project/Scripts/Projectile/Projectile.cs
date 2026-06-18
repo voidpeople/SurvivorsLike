@@ -3,8 +3,6 @@
 
 namespace SurvivorsLike
 {
-    //TODO: 추후에 스폰된 Projectile 오브젝트들을 ProjectManager에 등록하여 이동와 충돌 체크를 for루프에서 일괄 처리하게 구현 할 것~
-
     public class Projectile : MonoBehaviour, ITickable, IPoolable
     {
         [Header("설정")]
@@ -23,12 +21,17 @@ namespace SurvivorsLike
 
         private ProjectileManager _projectileMgr;
 
+        private Vector3 _prevPos; //Hit 검사 중 터널링 방지 목적
+        private static readonly Collider[] _results = new Collider[5];
+
         //정적 버퍼: GC 없음
-        private static readonly RaycastHit[] _hitBuffer = new RaycastHit[5];
+        //private static readonly RaycastHit[] _hitBuffer = new RaycastHit[5];
 
         public virtual void Init(Vector3 spawnPos, Vector3 dir, float speed, float damage, float collisionRadius, ProjectileManager projectileMgr)
         {
             _spawnPos = spawnPos;
+            _prevPos = spawnPos;
+
             transform.SetPositionAndRotation(_spawnPos, Quaternion.LookRotation(dir));
 
             _moveDir = dir;
@@ -40,7 +43,7 @@ namespace SurvivorsLike
             _spawnTime = Time.time;
 
             _projectileMgr = projectileMgr;
-            _projectileMgr.Register(this);
+            _projectileMgr.Register(this);            
         }
 
         #region IPoolable
@@ -80,25 +83,45 @@ namespace SurvivorsLike
 
         public void DetectHits()
         {
-            Vector3 move = _moveDir * _moveSpeed * Time.deltaTime;
+            //이전→현재 경로를 캡슐로 검사 = 터널링 방지된 Overlap
+            //Capsule을 _prevPos위치 부터 transform.position 위치까지 늘려서 겹칩을 검사함~
+            //따라서 터널링을 방지할 수 있음~
+            int count = Physics.OverlapCapsuleNonAlloc(
+                _prevPos, transform.position, _collisionRadius,
+                _results, _targetLayer, QueryTriggerInteraction.Collide);
 
-            int hitCount = Physics.SphereCastNonAlloc(
-                transform.position, _collisionRadius, _moveDir, _hitBuffer,
-                move.magnitude, _targetLayer,
-                QueryTriggerInteraction.Collide);
+            Health firstHit = null;
+            float bestSqr = float.MaxValue;
 
-            if (hitCount > 0)
+            for (int ii = 0; ii < count; ++ii)
             {
-                Health health = _hitBuffer[0].collider.GetComponent<Health>();
-                if (health == null) return;
+                if (!_results[ii].TryGetComponent(out Health health))
+                    continue;
 
-                health.TakeDamage(_damage);
+                //여러개의 컬라이더들을 가져올 수 있으므로 그중에서 _prevPos 위치와
+                //가장 가까운 걸 첫 번째 타겟으로 삼는다.
+                //콜라이더 표면 최 근접점
+                Vector3 closest = _results[ii].ClosestPoint(_prevPos);
+
+                float dSqr = (closest - _prevPos).sqrMagnitude;
+                if (dSqr < bestSqr)
+                {
+                    bestSqr = dSqr;
+                    firstHit = health;
+                }
+            }
+
+            if (firstHit != null)
+            {
+                firstHit.TakeDamage(_damage);
                 ReturnToPool();
             }
         }
 
         void ITickable.Tick(float deltaTime)
         {
+            _prevPos = transform.position;
+
             if (ApplyMovement())
                 DetectHits();
         }

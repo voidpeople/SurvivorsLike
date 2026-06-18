@@ -26,6 +26,7 @@ namespace SurvivorsLike
                 PrefabKey = Str(row, "PrefabKey"),
                 HpRegen = Float(row, "HpRegen"),
                 PickupRange = Float(row, "PickupRange"),
+                ContactDamageInterval = Float(row, "ContactDamageInterval"),
             };
         }
 

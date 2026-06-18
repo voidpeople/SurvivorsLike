@@ -24,7 +24,7 @@ MonoBehaviour:
     PoolInitSize: 100
     PoolMaxSize: 300
     Type: 1
-    DetectionRange: 15
+    ContactDamage: 10
     Armor: 0
     ExpReward: 5
     DropGold: 1
@@ -40,7 +40,7 @@ MonoBehaviour:
     PoolInitSize: 100
     PoolMaxSize: 300
     Type: 1
-    DetectionRange: 20
+    ContactDamage: 10
     Armor: 0
     ExpReward: 10
     DropGold: 2
@@ -56,7 +56,7 @@ MonoBehaviour:
     PoolInitSize: 1
     PoolMaxSize: 1
     Type: 1
-    DetectionRange: 25
+    ContactDamage: 10
     Armor: 10
     ExpReward: 100
     DropGold: 30

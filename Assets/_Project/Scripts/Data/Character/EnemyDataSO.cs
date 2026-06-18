@@ -11,9 +11,9 @@ namespace SurvivorsLike
     {
         public int PoolInitSize; //풀링 버퍼에 초기 생성한 마릿 수
         public int PoolMaxSize;  //풀링 버퍼에 최대 생성 가능한 마릿 수
-
+        
         public EnemyType Type;            //Normal/Elite/Boss
-        public float DetectionRange;      //적(플레이어) 감지 거리
+        public float ContactDamage;       //플레이어와 접촉시 플레이어에게 줄 데미지 값
         public float Armor;               //기본 방어력
         public int ExpReward;             //죽으면 주는 경험치
         public int DropGold;              //죽을 떄 드롭하는 골드양

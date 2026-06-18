@@ -11,6 +11,7 @@ namespace SurvivorsLike
     {
         public float HpRegen;     //초당 기본 체력 회복량
         public float PickupRange; //경험치 젬 자동 픽업 반경
+        public float ContactDamageInterval; //적 캐릭터와 접촉시 데미지를 받는 시간 간격
     }
 
     [CreateAssetMenu(fileName = "PlayerDataSO", menuName = "SurvivorsLike/Data/PlayerDataSO")]

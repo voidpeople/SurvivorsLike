@@ -23,6 +23,7 @@ MonoBehaviour:
     DeathVfxId: 0
     HpRegen: 1
     PickupRange: 2.5
+    ContactDamageInterval: 1
   - Id: 1002
     Name: "\uB808\uC778\uC800"
     Hp: 90
@@ -33,6 +34,7 @@ MonoBehaviour:
     DeathVfxId: 0
     HpRegen: 0.8
     PickupRange: 2.5
+    ContactDamageInterval: 1
   - Id: 1003
     Name: "\uD0F1\uCEE4"
     Hp: 130
@@ -43,3 +45,4 @@ MonoBehaviour:
     DeathVfxId: 0
     HpRegen: 1.5
     PickupRange: 3
+    ContactDamageInterval: 1

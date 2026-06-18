@@ -28,7 +28,7 @@ namespace SurvivorsLike
             {
                 IsDead = true;
                 Died?.Invoke();
-            }
+            }            
         }
     }
 }

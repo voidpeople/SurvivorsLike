@@ -19,7 +19,11 @@ namespace SurvivorsLike
 
         public void Finding(float radius)
         {
-            _hitCount = Physics.OverlapSphereNonAlloc(transform.position, radius, _findedColliderBuffer, _enemyLayer);
+            _hitCount = Physics.OverlapSphereNonAlloc(
+                transform.position,
+                radius,
+                _findedColliderBuffer,
+                _enemyLayer);
         }
 
         //탐지한 컬라이더들 중에서 가장 가까운 컬라이더 찾아서 Transform을 반환하기

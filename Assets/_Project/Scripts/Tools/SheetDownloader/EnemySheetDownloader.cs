@@ -30,7 +30,7 @@ namespace SurvivorsLike
                 PoolInitSize = Int(row, "PoolInitSize"),
                 PoolMaxSize = Int(row, "PoolMaxSize"),
                 Type = EnemyType(row, "Type"),
-                DetectionRange = Float(row, "DetectionRange"),
+                ContactDamage = Float(row, "ContactDamage"),
                 Armor = Float(row, "Armor"),
                 ExpReward = Int(row, "ExpReward"),
                 DropGold = Int(row, "DropGold"),

@@ -1223,7 +1223,6 @@ GameObject:
   - component: {fileID: 1114260476483171701}
   - component: {fileID: 5615815007780928290}
   - component: {fileID: 2667955802213349926}
-  - component: {fileID: 3807664989218078219}
   - component: {fileID: 2655578330019511266}
   m_Layer: 6
   m_Name: RobotKyle
@@ -1284,18 +1283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a87019ac1cb2a418e8080b9b044e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
---- !u!114 &3807664989218078219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3862277631971027947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2562b7236fd276941b2207b78bf149f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerVFX
 --- !u!114 &2655578330019511266
 MonoBehaviour:
   m_ObjectHideFlags: 0

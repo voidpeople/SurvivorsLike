@@ -29,11 +29,12 @@ namespace SurvivorsLike
         private Health _health;
         private SkillController _skillController = new();
         private PlayerAnimationController _animationController;
+        private PlayerContactDamageController _playerContactDamageCtrl;
         private JoystickBase _joystick;
 
         // ─── Runtime State (런타임 상태) ──────────────────────────────────────
         private PlayerData _playerData;
-        private bool _isPlaying;
+        private bool _isRunning;
         private ITargetable _target;
         private Health _targetHealth;
         private Transform _firePoint;                      // 총구 머즐 포인트 트랜스폼
@@ -64,8 +65,9 @@ namespace SurvivorsLike
             TryGetComponent(out _movement);
             TryGetComponent(out _targetFinder);
             TryGetComponent(out _health);
+            TryGetComponent(out _playerContactDamageCtrl);
 
-            _isPlaying = false;
+            _isRunning = false;
 
             _target = null;
             _targetHealth = null;
@@ -73,14 +75,14 @@ namespace SurvivorsLike
 
             InGameStateManager.Instance.State
                 .Where(s => s == InGameState.Playing)
-                .Take(1)                                  // 첫 진입만
+                .Take(1)  //첫 진입만
                 .Subscribe(_ => OnStartBattle())
                 .AddTo(_disposables);
         }
 
         private void Update()
         {
-            if (_isPlaying == false)
+            if (_isRunning == false)
                 return;
 
             float dt = Time.deltaTime;
@@ -91,10 +93,9 @@ namespace SurvivorsLike
 
             UpdateTargeting();
 
-            _skillController.Tick(Time.deltaTime);
-
+            _skillController.Tick(dt);          
+            _playerContactDamageCtrl.Tick(dt);  //이동 후 위치 기준 접촉 검사
             _animationController.SetSpeed(_movement.AnimatorSpeed);
-
         }
 
         private void OnDestroy()
@@ -125,6 +126,7 @@ namespace SurvivorsLike
                 return;
             }
             _skillController.Init(this, skillData, projectileMgr);
+            _playerContactDamageCtrl.Init(_health, _playerData.ContactDamageInterval);
         }
 
 
@@ -165,7 +167,7 @@ namespace SurvivorsLike
         // InGameState.Playing 진입 콜백
         private void OnStartBattle()
         {
-            _isPlaying = true;
+            _isRunning = true;
         }
     }
 }

@@ -69,6 +69,7 @@ namespace SurvivorsLike
             OnDestinationReached?.Invoke();
         }
 
+        //TODO: Spatial Grid (공간 분할)을 통해 서로 겹치지 않게 이동 구현 할것~
         private void ApplyMovement()
         {
             Vector3 currentPos = _transform.position;
