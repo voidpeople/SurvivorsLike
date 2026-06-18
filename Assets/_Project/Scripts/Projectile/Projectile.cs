@@ -5,7 +5,7 @@ namespace SurvivorsLike
 {
     //TODO: 추후에 스폰된 Projectile 오브젝트들을 ProjectManager에 등록하여 이동와 충돌 체크를 for루프에서 일괄 처리하게 구현 할 것~
 
-    public abstract class ProjectileBase : MonoBehaviour, IPoolable
+    public class Projectile : MonoBehaviour, IPoolable
     {
         [Header("설정")]
         [SerializeField] private float _maxRange = 35f;       //최대 사거리 (단위: m)

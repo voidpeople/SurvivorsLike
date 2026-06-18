@@ -57,7 +57,7 @@ namespace SurvivorsLike
                 return;
             }
 
-            ProjectileBase projectile = PoolManager.Instance.Get<ProjectileBase>(projectileData.PrefabKey);
+            Projectile projectile = PoolManager.Instance.Get<Projectile>(projectileData.PrefabKey);
             if (projectile == null)
             {
                 Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill=> Projectile not found. - PrefabKey: {projectileData.PrefabKey}");

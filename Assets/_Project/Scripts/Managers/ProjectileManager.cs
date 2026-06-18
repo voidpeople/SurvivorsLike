@@ -8,7 +8,7 @@ namespace SurvivorsLike
     public class ProjectileManager : SingletonMonoBehaviour<ProjectileManager>
     {
         private const int MaxProjectiles = 256;
-        private readonly ProjectileBase[] _activeProjectiles = new ProjectileBase[MaxProjectiles];
+        private readonly Projectile[] _activeProjectiles = new Projectile[MaxProjectiles];
         private int _activeCount;
 
         protected override bool UseDontDestroyOnLoad => false;
@@ -18,7 +18,7 @@ namespace SurvivorsLike
             _activeCount = 0;
         }
 
-        public void Register(ProjectileBase p)
+        public void Register(Projectile p)
         {
             if(_activeCount >= MaxProjectiles)
                 return;
@@ -26,7 +26,7 @@ namespace SurvivorsLike
             _activeProjectiles[_activeCount++] = p;
         }
 
-        public void UnRegister(ProjectileBase p)
+        public void UnRegister(Projectile p)
         {
             for(int ii = 0; ii < _activeCount; ++ii)
             {
