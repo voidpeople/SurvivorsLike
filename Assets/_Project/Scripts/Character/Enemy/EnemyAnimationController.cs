@@ -13,6 +13,7 @@ namespace SurvivorsLike
         protected virtual void Awake()
         {
             TryGetComponent(out _animator);
+            Debug.Assert(_animator != null, $"{nameof(EnemyAnimationController)}::Awake=> Animator not found");
         }
 
         public void PlayIdle()

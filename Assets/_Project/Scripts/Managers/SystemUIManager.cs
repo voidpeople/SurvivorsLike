@@ -117,6 +117,9 @@ namespace SurvivorsLike
         #region Common
         protected override void ChildAwake()
         {
+            Debug.Assert(_dialogLayer     != null, $"{nameof(SystemUIManager)}::ChildAwake=> _dialogLayer is null");
+            Debug.Assert(_dialogPrefab    != null, $"{nameof(SystemUIManager)}::ChildAwake=> _dialogPrefab is null");
+            Debug.Assert(_systemUIConfigSO != null, $"{nameof(SystemUIManager)}::ChildAwake=> _systemUIConfigSO is null");
             InitPDialogPool();
         }
 

@@ -13,6 +13,7 @@ namespace SurvivorsLike
         protected virtual void Awake()
         {
             TryGetComponent(out _animator);  // 같은 오브젝트, 1회 캐싱
+            Debug.Assert(_animator != null, $"{nameof(PlayerAnimationController)}::Awake=> Animator not found");
         }
 
         public void SetSpeed(float speed)

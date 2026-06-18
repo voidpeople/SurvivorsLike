@@ -23,6 +23,7 @@ namespace SurvivorsLike
 
         private void Awake()
         {
+            Debug.Assert(_camera != null, $"{nameof(CameraController)}::Awake=> _camera is null");
             ApplySettings();
         }
 

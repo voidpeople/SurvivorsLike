@@ -28,6 +28,11 @@ namespace SurvivorsLike
         //현재 선택된 챕터 아이디를 서버 DB에 저장
         public async UniTask<bool> SaveSelectedChapterIdAsync(int selectedChapterId, CancellationToken ct)
         {
+            if (UserData == null)
+            {
+                Debug.LogError($"{nameof(UserDataManager)}::SaveSelectedChapterIdAsync=> UserData is null");
+                return false;
+            }
             UserData.SelectedChapterId = selectedChapterId;
             return await FirebaseManager.Instance.SaveUserDataAsync(UserData, ct);
         }

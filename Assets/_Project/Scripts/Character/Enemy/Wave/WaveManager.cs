@@ -17,6 +17,9 @@ namespace SurvivorsLike
 
         public void Init(WaveDataSO data, EnemySpawner spawn)
         {
+            Debug.Assert(data  != null, $"{nameof(WaveManager)}::Init=> data is null");
+            Debug.Assert(spawn != null, $"{nameof(WaveManager)}::Init=> spawn is null");
+
             _waveData = data;
             _spawner = spawn;
 

@@ -19,6 +19,9 @@ namespace SurvivorsLike
 
         public void Init(Transform playerTrans, EnemyManager enemyMgr)
         {
+            Debug.Assert(playerTrans != null, $"{nameof(EnemySpawner)}::Init=> playerTrans is null");
+            Debug.Assert(enemyMgr   != null, $"{nameof(EnemySpawner)}::Init=> enemyMgr is null");
+
             _playerTrans = playerTrans;
             _enemyMgr = enemyMgr;
         }

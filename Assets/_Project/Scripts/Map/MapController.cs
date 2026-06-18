@@ -17,6 +17,8 @@ namespace SurvivorsLike
 
         public async UniTask LoadAssetsAsync(MapDataSO mapData, CancellationToken ct)
         {
+            Debug.Assert(mapData != null, $"{nameof(MapController)}::LoadAssetsAsync=> mapData is null");
+
             await UniTask.WhenAll(
                 LoadMaterialAsync(mapData.GroundMaterialKey, ct)
             );

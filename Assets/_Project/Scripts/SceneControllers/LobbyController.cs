@@ -75,6 +75,9 @@ namespace SurvivorsLike
         private void OnSelectChapter(ChapterDataSO chapterData)
         {
             Sprite s = _lobbyChapterAtlas.GetSprite(chapterData.DisplaySpriteName);
+            if (s == null)
+                Debug.LogError($"{nameof(LobbyController)}::OnSelectChapter=> Sprite not found in atlas. - DisplaySpriteName: {chapterData.DisplaySpriteName}");
+
             _battlePanelView.SetChapterPanelButtonImage(s);
 
             Debug.Log($"{nameof(LobbyController)}::OnSelectChapter=> Chapter selected: {chapterData.DisplayName}");

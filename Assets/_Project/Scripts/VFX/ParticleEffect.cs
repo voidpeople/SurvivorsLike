@@ -12,7 +12,10 @@ namespace SurvivorsLike
         private void Awake()
         {
             _ps = GetComponentInChildren<ParticleSystem>();
+            Debug.Assert(_ps != null, $"{nameof(ParticleEffect)}::Awake=> ParticleSystem not found in children");
+
             ParticleStoppedBridge bridge = _ps.gameObject.GetComponent<ParticleStoppedBridge>();
+            Debug.Assert(bridge != null, $"{nameof(ParticleEffect)}::Awake=> ParticleStoppedBridge not found");
             bridge.Init(this);
         }
 

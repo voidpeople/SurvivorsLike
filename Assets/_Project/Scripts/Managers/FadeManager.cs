@@ -13,8 +13,10 @@ namespace SurvivorsLike
         [SerializeField] private Canvas _fadeCanvas;
         [SerializeField] private Image _fadeImage;
 
-        private void Awake()
+        protected override void ChildAwake()
         {
+            Debug.Assert(_fadeCanvas != null, $"{nameof(FadeManager)}::ChildAwake=> _fadeCanvas is null");
+            Debug.Assert(_fadeImage  != null, $"{nameof(FadeManager)}::ChildAwake=> _fadeImage is null");
             _fadeCanvas.gameObject.SetActive(false);
         }
 

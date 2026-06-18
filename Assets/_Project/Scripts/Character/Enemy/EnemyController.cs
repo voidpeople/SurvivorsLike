@@ -51,11 +51,15 @@ namespace SurvivorsLike
 
             TryGetComponent(out EnemyMovement movement);
             Movement = movement;
+            Debug.Assert(Movement != null, $"{nameof(EnemyController)}::Awake=> EnemyMovement not found");
             Movement.OnDestinationReached += OnDestinationReached;
 
             TryGetComponent(out Health health);
             _health = health;
+            Debug.Assert(_health != null, $"{nameof(EnemyController)}::Awake=> Health not found");
             _health.Died += OnDied;
+
+            Debug.Assert(_animCtrl != null, $"{nameof(EnemyController)}::Awake=> _animCtrl is null");
 
             CreateFSM();
         }
@@ -92,6 +96,9 @@ namespace SurvivorsLike
         //적 캐릭터가 스폰되자 마자 Init 함수를 통해 타겟이 설정됨~
         public void Init(EnemyData data, Vector3 spawnPos, Transform targetTrans, EnemyManager enemyMgr)
         {
+            Debug.Assert(data != null,       $"{nameof(EnemyController)}::Init=> data is null");
+            Debug.Assert(targetTrans != null, $"{nameof(EnemyController)}::Init=> targetTrans is null");
+
             EnemyData = data;
             Movement.Init(data);
             _health.Init(data.Hp);
@@ -101,7 +108,11 @@ namespace SurvivorsLike
             TargetTransform = targetTrans;
             _fsm.Init(EnemyStateType.Idle);
 
-            TargetTransform.TryGetComponent(out Health targetHealth);
+            if (!TargetTransform.TryGetComponent(out Health targetHealth))
+            {
+                Debug.LogError($"{nameof(EnemyController)}::Init=> Health not found on TargetTransform");
+                return;
+            }
             targetHealth.Died += OnTargetDied;
 
             _enemyMgr = enemyMgr;

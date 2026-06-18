@@ -23,6 +23,10 @@ namespace SurvivorsLike
 
         public void Awake()
         {
+            Debug.Assert(_waveMgr  != null, $"{nameof(WaveSystemController)}::Awake=> _waveMgr is null");
+            Debug.Assert(_spawner  != null, $"{nameof(WaveSystemController)}::Awake=> _spawner is null");
+            Debug.Assert(_enemyMgr != null, $"{nameof(WaveSystemController)}::Awake=> _enemyMgr is null");
+
             InGameStateManager.Instance.State
                 .Where(s => s == InGameState.Playing)
                 .Take(1)                                  // 첫 진입만
@@ -34,6 +38,9 @@ namespace SurvivorsLike
 
         public async UniTask InitAsync(WaveDataSO data, Transform playerTrans, CancellationToken ct)
         {
+            Debug.Assert(data        != null, $"{nameof(WaveSystemController)}::InitAsync=> data is null");
+            Debug.Assert(playerTrans != null, $"{nameof(WaveSystemController)}::InitAsync=> playerTrans is null");
+
             //이번 챕터에서 등장하는 적들의 프리팹 키만 수집
             HashSet<EnemyData> enemyDatas = CollectEnemyDatas(data);
 
