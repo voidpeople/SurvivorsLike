@@ -11,6 +11,12 @@ namespace SurvivorsLike
     public class LinearProjectileSkill : SkillBase
     {
         private LinearProjectileSkillDataSO _linearProjectileSkillData;
+        private ProjectileManager _projectileMgr;
+
+        public LinearProjectileSkill(ProjectileManager projectileMgr)
+        {
+            _projectileMgr = projectileMgr;
+        }
 
         public override void Init(ISkillOwner owner, SkillDataSO data, int level = 1)
         {
@@ -66,7 +72,7 @@ namespace SurvivorsLike
 
             LinearProjectileSkillLevelData data = _linearProjectileSkillData.GetLevelData(_currentLevel);
             Vector3 dir = GetFireDirection();
-            projectile.Init(GetSpawnPos(dir), dir, data.ProjectileSpeed, data.Damage);
+            projectile.Init(GetSpawnPos(dir), dir, data.ProjectileSpeed, data.Damage, _projectileMgr);
         }
 
     }

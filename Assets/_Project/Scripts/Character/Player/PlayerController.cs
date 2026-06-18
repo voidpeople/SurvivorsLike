@@ -21,7 +21,7 @@ namespace SurvivorsLike
         // ─── Inspector (직렬화 필드) ──────────────────────────────────────────
         [Header("씬 참조")]
         [SerializeField] private Transform _modelRoot;     // 모델 프리팹이 붙는 루트 트랜스폼
-        [SerializeField] private Transform _aimPoint;      // 피탄 기준점 — null이면 position + Y 0.5f 사용
+        [SerializeField] private Transform _aimPoint;      // 피탄 기준점 — null이면 position + Y 0.5f 사용        
 
         // ─── Components / Systems (캐싱 참조) ─────────────────────────────────
         private PlayerMovement _movement;
@@ -104,22 +104,27 @@ namespace SurvivorsLike
 
 
         // ─── Public API ──────────────────────────────────────────────────────
-        public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick)
+        public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick, ProjectileManager projectileMgr)
         {
             //Debug.Assert is automatically stripped in release builds
             Debug.Assert(data != null, $"{nameof(PlayerController)}::Init=> data is null");
             Debug.Assert(animController != null, $"{nameof(PlayerController)}::Init=> animController is null");
             Debug.Assert(joystick != null, $"{nameof(PlayerController)}::Init=> joystick is null");
+            Debug.Assert(projectileMgr != null, $"{nameof(PlayerController)}::Init=> projectileMgr is null");
 
             _playerData = data;
             _movement.Init(data);
             _health.Init(data.Hp);
 
-            DataManager.Instance.SkillDataSODic.TryGetValue(data.DefaultSkillId, out SkillDataSO skillData);
-            _skillController.Init(this, skillData);
-
             _animationController = animController;
             _joystick = joystick;
+
+            if(!DataManager.Instance.SkillDataSODic.TryGetValue(data.DefaultSkillId, out SkillDataSO skillData))
+            {
+                Debug.LogError($"{nameof(PlayerController)}::Init=> SkillDataSO does not exist. - DefaultSkillId: {data.DefaultSkillId}");
+                return;
+            }
+            _skillController.Init(this, skillData, projectileMgr);
         }
 
 

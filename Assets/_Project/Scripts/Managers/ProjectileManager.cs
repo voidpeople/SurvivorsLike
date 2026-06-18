@@ -5,20 +5,18 @@ using UnityEngine;
 
 namespace SurvivorsLike
 {
-    public class ProjectileManager : SingletonMonoBehaviour<ProjectileManager>
+    public class ProjectileManager : MonoBehaviour
     {
         private const int MaxProjectiles = 256;
-        private readonly Projectile[] _activeProjectiles = new Projectile[MaxProjectiles];
+        private readonly ITickable[] _activeProjectiles = new Projectile[MaxProjectiles];
         private int _activeCount;
 
-        protected override bool UseDontDestroyOnLoad => false;
-
-        protected override void ChildAwake()
+        private void Awake()
         {
             _activeCount = 0;
         }
 
-        public void Register(Projectile p)
+        public void Register(ITickable p)
         {
             if(_activeCount >= MaxProjectiles)
                 return;
@@ -26,7 +24,7 @@ namespace SurvivorsLike
             _activeProjectiles[_activeCount++] = p;
         }
 
-        public void UnRegister(Projectile p)
+        public void UnRegister(ITickable p)
         {
             for(int ii = 0; ii < _activeCount; ++ii)
             {
@@ -49,13 +47,27 @@ namespace SurvivorsLike
 
         void Update()
         {
-            //이렇게 몰아서 처리 하는게 성능이 좋음~
-            //특히 Physics.SphereCastNonAlloc 이용한 충돌 체크~
+            if (!InGameStateManager.Instance.IsPlaying)
+                return;
+
+            float dt = Time.deltaTime;
             for (int ii = 0; ii < _activeCount; ++ii)
             {
-                //_activeProjectiles[ii].ApplyMovement();
-                //_activeProjectiles[ii].DetectHits();
+                _activeProjectiles[ii].Tick(dt);
             }
+        }
+
+        public void Destroy()
+        {
+            for (int ii = 0; ii < _activeCount; ++ii)
+            {
+                _activeProjectiles[ii] = null;
+            }
+        }
+
+        protected void OnDestroy()
+        {
+            Destroy();
         }
     }
 }

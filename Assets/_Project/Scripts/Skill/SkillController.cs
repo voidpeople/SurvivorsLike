@@ -1,6 +1,4 @@
-﻿using R3;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -16,15 +14,20 @@ namespace SurvivorsLike
 
         private ISkillOwner _owner;
 
+        private ProjectileManager _projectileMgr;
 
-        public void Init(ISkillOwner owner, SkillDataSO defaultSkillData)
+
+        public void Init(ISkillOwner owner, SkillDataSO defaultSkillData, ProjectileManager projectileMgr)
         {
             Debug.Assert(owner != null, $"{nameof(SkillController)}::Init=> ISkillOwner is null");
             Debug.Assert(defaultSkillData != null, $"{nameof(SkillController)}::Init=> defaultSkillData is null");
+            Debug.Assert(projectileMgr != null, $"{nameof(SkillController)}::Init=> ProjectileManager is null");
 
             _owner = owner;
+            _projectileMgr = projectileMgr;
             _skillList.Clear();
             AddSkill(defaultSkillData);
+            
         }
 
         public void SetTarget(ITargetable target)
@@ -45,7 +48,7 @@ namespace SurvivorsLike
             if (_skillList.Count >= MaxSkillSlot)
                 return false;
 
-            SkillBase skill = SkillFactory.Create(data);
+            SkillBase skill = SkillFactory.Create(data, _projectileMgr);
             Debug.Assert(skill != null, $"{nameof(SkillController)}::AddSkill=> Unregistered type: {data?.GetType().Name}");
 
             if (skill == null)

@@ -13,6 +13,7 @@ namespace SurvivorsLike
         [Header("참조")]
         [SerializeField] private string _playerBaseAddressKey = "character/player/player_base";  // 플레이어 베이스 프리팹 어드레서블 키
         [SerializeField] private JoystickBase _joystick;
+        [SerializeField] private ProjectileManager _projectileMgr;
 
         public PlayerController SpawnPlayerController { get; private set; }
 
@@ -71,7 +72,7 @@ namespace SurvivorsLike
                 Debug.LogError($"{nameof(PlayerSpawner)}::CreatePlayerAsync=> PlayerData does not exist. - PlayerID: {1001}");
                 return null;
             }
-            playerCtrl.Init(playerData, aniCtrl, _joystick);
+            playerCtrl.Init(playerData, aniCtrl, _joystick, _projectileMgr);
 
             return playerCtrl;
         }
