@@ -24,7 +24,7 @@ namespace SurvivorsLike
             Vector3 spawnPos = GetSpawnPosition();
             SpawnPlayerController = await CreatePlayerAsync(spawnPos, ct);
             if (SpawnPlayerController == null)
-                Debug.LogError($"{nameof(PlayerSpawner)}::SpawnAsync — Failed to spawn player");
+                Debug.LogError($"{nameof(PlayerSpawner)}::SpawnAsync=> Failed to spawn player");
         }
 
         private Vector3 GetSpawnPosition()

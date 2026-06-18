@@ -29,7 +29,7 @@ namespace SurvivorsLike
 
         public void Init(EnemyData data)
         {
-            Debug.Assert(data != null, $"{nameof(EnemyMovement)}::Init — data is null");
+            Debug.Assert(data != null, $"{nameof(EnemyMovement)}::Init=> data is null");
 
             _moveSpeed = data.MoveSpeed;
         }

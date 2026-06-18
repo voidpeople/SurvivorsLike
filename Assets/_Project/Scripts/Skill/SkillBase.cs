@@ -24,8 +24,8 @@ namespace SurvivorsLike
 
         public virtual void Init(ISkillOwner owner, SkillDataSO data, int level = 1)
         {
-            Debug.Assert(owner != null, $"{nameof(SkillBase)}::Init — owner is null");
-            Debug.Assert(data != null, $"{nameof(SkillBase)}::Init — data is null");
+            Debug.Assert(owner != null, $"{nameof(SkillBase)}::Init=> owner is null");
+            Debug.Assert(data != null, $"{nameof(SkillBase)}::Init=> data is null");
 
             _owner = owner;
             _skillData = data;

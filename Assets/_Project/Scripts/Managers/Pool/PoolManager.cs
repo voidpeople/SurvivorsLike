@@ -49,7 +49,7 @@ namespace SurvivorsLike
         {
             if (_poolDic.TryGetValue(poolKey, out var pool) == false)
             {
-                Debug.LogError($"{nameof(PoolManager)}::Get => Unregistered key: {poolKey}");
+                Debug.LogError($"{nameof(PoolManager)}::Get=> Unregistered key: {poolKey}");
                 return null;
             }
 

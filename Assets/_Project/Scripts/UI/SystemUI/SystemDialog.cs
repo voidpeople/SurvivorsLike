@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using TMPro;
 using TriInspector;
 using UnityEngine;
@@ -31,7 +31,7 @@ namespace SurvivorsLike
 
         public void Init(SystemUIConfigSO systemUIConfigSO)
         {
-            Debug.Assert(systemUIConfigSO != null, $"{nameof(SystemDialog)}::Init — systemUIConfigSO is null");
+            Debug.Assert(systemUIConfigSO != null, $"{nameof(SystemDialog)}::Init=> systemUIConfigSO is null");
 
             _systemUIConfigSO = systemUIConfigSO;
         }

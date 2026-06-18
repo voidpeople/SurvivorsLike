@@ -91,7 +91,7 @@ namespace SurvivorsLike
         {
             if (!DataManager.Instance.SkillDataSODic.TryGetValue(sessionData.PlayerData.DefaultSkillId, out SkillDataSO skillDataSO))
             {
-                Debug.LogError($"{nameof(InGameController)}::CreatePlayerAssetsPool=> SkillDataSO does not exist. - DefaultSkillId: {sessionData.PlayerData.DefaultSkillId})");
+                Debug.LogError($"{nameof(InGameController)}::CreatePlayerAssetPoolAsync=> SkillDataSO does not exist. - DefaultSkillId: {sessionData.PlayerData.DefaultSkillId})");
                 return;
             }
 

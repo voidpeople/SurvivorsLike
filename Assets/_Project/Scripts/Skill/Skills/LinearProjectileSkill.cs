@@ -18,7 +18,7 @@ namespace SurvivorsLike
 
             _linearProjectileSkillData = data as LinearProjectileSkillDataSO;
             Debug.Assert(_linearProjectileSkillData != null,
-                $"{nameof(LinearProjectileSkill)}::Init — data를 LinearProjectileSkillDataSO로 캐스팅 실패");
+                $"{nameof(LinearProjectileSkill)}::Init=> data를 LinearProjectileSkillDataSO로 캐스팅 실패");
         }
 
         public override void SetTarget(ITargetable target)

@@ -18,7 +18,7 @@ namespace SurvivorsLike
         public void Init(Sprite currentChapterThumbnailSprite)
         {
             Debug.Assert(currentChapterThumbnailSprite != null,
-                $"{nameof(BattlePanelView)}::Init — currentChapterThumbnailSprite is null");
+                $"{nameof(BattlePanelView)}::Init=> currentChapterThumbnailSprite is null");
 
             _chapterPanelButton.image.sprite = currentChapterThumbnailSprite;
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using R3;
 
 
@@ -107,9 +107,9 @@ namespace SurvivorsLike
         public void Init(PlayerData data, PlayerAnimationController animController, JoystickBase joystick)
         {
             //Debug.Assert is automatically stripped in release builds
-            Debug.Assert(data != null, $"{nameof(PlayerController)}::Init — data is null");
-            Debug.Assert(animController != null, $"{nameof(PlayerController)}::Init — animController is null");
-            Debug.Assert(joystick != null, $"{nameof(PlayerController)}::Init — joystick is null");
+            Debug.Assert(data != null, $"{nameof(PlayerController)}::Init=> data is null");
+            Debug.Assert(animController != null, $"{nameof(PlayerController)}::Init=> animController is null");
+            Debug.Assert(joystick != null, $"{nameof(PlayerController)}::Init=> joystick is null");
 
             _playerData = data;
             _movement.Init(data);

@@ -20,7 +20,7 @@ namespace SurvivorsLike
         public void Init(ISkillOwner owner, SkillDataSO defaultSkillData)
         {
             Debug.Assert(owner != null, $"{nameof(SkillController)}::Init=> ISkillOwner is null");
-            Debug.Assert(defaultSkillData != null, $"{nameof(SkillController)}::Init => defaultSkillData is null");
+            Debug.Assert(defaultSkillData != null, $"{nameof(SkillController)}::Init=> defaultSkillData is null");
 
             _owner = owner;
             _skillList.Clear();
@@ -29,7 +29,7 @@ namespace SurvivorsLike
 
         public void SetTarget(ITargetable target)
         {
-            //Debug.Assert(target != null, $"{nameof(SkillController)}::SetTarget — target is null.");
+            //Debug.Assert(target != null, $"{nameof(SkillController)}::SetTarget=> target is null.");
 
             int count = _skillList.Count;
             for (int ii = 0; ii < count; ++ii)
