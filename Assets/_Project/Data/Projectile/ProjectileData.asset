@@ -18,7 +18,6 @@ MonoBehaviour:
     PoolInitSize: 30
     PoolMaxSize: 80
     MoveType: 1
-    Speed: 12
     ColliderRadius: 0.3
     LifeTime: 5
     HitVfxId: 0

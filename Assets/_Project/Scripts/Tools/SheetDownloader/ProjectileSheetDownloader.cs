@@ -25,7 +25,6 @@ namespace SurvivorsLike
                 PoolInitSize = Int(row, "PoolInitSize"),
                 PoolMaxSize = Int(row, "PoolMaxSize"),
                 MoveType = ProjectileMoveType(row, "MoveType"),
-                Speed = Float(row, "Speed"),
                 ColliderRadius = Float(row, "ColliderRadius"),
                 LifeTime = Float(row, "LifeTime"),
                 HitVfxId = Int(row, "HitVfxId"),

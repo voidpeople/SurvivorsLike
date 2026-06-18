@@ -16,6 +16,7 @@ namespace SurvivorsLike
         private float _moveSpeed;
         private float _rangeSqr;
         private float _damage;
+        private float _collisionRadius;
 
         private Vector3 _spawnPos;
         private float _spawnTime;
@@ -25,7 +26,7 @@ namespace SurvivorsLike
         //정적 버퍼: GC 없음
         private static readonly RaycastHit[] _hitBuffer = new RaycastHit[5];
 
-        public virtual void Init(Vector3 spawnPos, Vector3 dir, float speed, float damage, ProjectileManager projectileMgr)
+        public virtual void Init(Vector3 spawnPos, Vector3 dir, float speed, float damage, float collisionRadius, ProjectileManager projectileMgr)
         {
             _spawnPos = spawnPos;
             transform.SetPositionAndRotation(_spawnPos, Quaternion.LookRotation(dir));
@@ -33,6 +34,7 @@ namespace SurvivorsLike
             _moveDir = dir;
             _moveSpeed = speed;
             _damage = damage;
+            _collisionRadius = collisionRadius;
 
             _rangeSqr = _maxRange * _maxRange;
             _spawnTime = Time.time;
@@ -76,12 +78,12 @@ namespace SurvivorsLike
             return true;
         }
 
-        private void DetectHits()
+        public void DetectHits()
         {
             Vector3 move = _moveDir * _moveSpeed * Time.deltaTime;
 
             int hitCount = Physics.SphereCastNonAlloc(
-                transform.position, 0.3f, _moveDir, _hitBuffer,
+                transform.position, _collisionRadius, _moveDir, _hitBuffer,
                 move.magnitude, _targetLayer,
                 QueryTriggerInteraction.Collide);
 

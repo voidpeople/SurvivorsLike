@@ -70,9 +70,9 @@ namespace SurvivorsLike
                 return;
             }
 
-            LinearProjectileSkillLevelData data = _linearProjectileSkillData.GetLevelData(_currentLevel);
+            LinearProjectileSkillLevelData skillData = _linearProjectileSkillData.GetLevelData(_currentLevel);
             Vector3 dir = GetFireDirection();
-            projectile.Init(GetSpawnPos(dir), dir, data.ProjectileSpeed, data.Damage, _projectileMgr);
+            projectile.Init(GetSpawnPos(dir), dir, skillData.ProjectileSpeed, skillData.Damage, projectileData.ColliderRadius, _projectileMgr);
         }
 
     }

@@ -39,7 +39,6 @@ namespace SurvivorsLike
         public int PoolInitSize;
         public int PoolMaxSize;
         public ProjectileMoveType MoveType;
-        public float Speed;
         public float ColliderRadius; //충돌 체크 반지름
         public float LifeTime;
         public int HitVfxId;   //hit 이펙트 아이디

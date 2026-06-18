@@ -11,6 +11,8 @@ namespace SurvivorsLike
         private readonly ITickable[] _activeProjectiles = new Projectile[MaxProjectiles];
         private int _activeCount;
 
+        private static readonly RaycastHit[] _hitBuffer = new RaycastHit[5];
+
         private void Awake()
         {
             _activeCount = 0;
@@ -44,7 +46,7 @@ namespace SurvivorsLike
                 _activeProjectiles[ii] = null;
             }
         }
-
+ 
         void Update()
         {
             if (!InGameStateManager.Instance.IsPlaying)
