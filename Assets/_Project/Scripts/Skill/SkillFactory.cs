@@ -6,7 +6,7 @@ namespace SurvivorsLike
 {
     public static class SkillFactory
     {
-        public static SkillBase Create(SkillDataSO data, ProjectileManager projectileMgr)
+        public static SkillBase Create(SkillDataSO data, ProjectileManager projectileMgr, ITargetProvider targetProvider)
         {
             if (data == null)
             {
@@ -17,7 +17,7 @@ namespace SurvivorsLike
             SkillBase skill = data switch
             {
                 MeleeSkillDataSO => new MeleeSkill(),
-                LinearProjectileSkillDataSO => new LinearProjectileSkill(projectileMgr),
+                LinearProjectileSkillDataSO => new LinearProjectileSkill(projectileMgr, targetProvider),
                 _ => null
             };
 

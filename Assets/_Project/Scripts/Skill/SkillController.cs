@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Configuration;
 using UnityEngine;
 
 
@@ -16,31 +17,21 @@ namespace SurvivorsLike
 
         private ProjectileManager _projectileMgr;
 
+        private ITargetProvider _targetProvider;
 
-        public void Init(ISkillOwner owner, SkillDataSO defaultSkillData, ProjectileManager projectileMgr)
+        public void Init(ISkillOwner owner, SkillDataSO defaultSkillData, ProjectileManager projectileMgr, ITargetProvider targetProvider)
         {
-            Debug.Assert(owner != null, $"{nameof(SkillController)}::Init=> ISkillOwner is null");
+            Debug.Assert(owner != null, $"{nameof(SkillController)}::Init=> owner is null");
             Debug.Assert(defaultSkillData != null, $"{nameof(SkillController)}::Init=> defaultSkillData is null");
-            Debug.Assert(projectileMgr != null, $"{nameof(SkillController)}::Init=> ProjectileManager is null");
+            Debug.Assert(projectileMgr != null, $"{nameof(SkillController)}::Init=> projectileMgr is null");
+            Debug.Assert(targetProvider != null, $"{nameof(SkillController)}::Init=> targetProvider is null");
 
             _owner = owner;
             _projectileMgr = projectileMgr;
+            _targetProvider = targetProvider;
             _skillList.Clear();
             AddSkill(defaultSkillData);
             
-        }
-
-        public void SetTarget(ITargetable target)
-        {
-            //Debug.Assert(target != null, $"{nameof(SkillController)}::SetTarget=> target is null.");
-
-            int count = _skillList.Count;
-            for (int ii = 0; ii < count; ++ii)
-            {
-                //타겟의 위치 정보가 필요한 스킬
-                //타겟의 위치 정보가 필요 없는 스킬
-                _skillList[ii].SetTarget(target);
-            }
         }
 
         public bool AddSkill(SkillDataSO data)
@@ -48,7 +39,7 @@ namespace SurvivorsLike
             if (_skillList.Count >= MaxSkillSlot)
                 return false;
 
-            SkillBase skill = SkillFactory.Create(data, _projectileMgr);
+            SkillBase skill = SkillFactory.Create(data, _projectileMgr, _targetProvider);
             Debug.Assert(skill != null, $"{nameof(SkillController)}::AddSkill=> Unregistered type: {data?.GetType().Name}");
 
             if (skill == null)
@@ -81,7 +72,6 @@ namespace SurvivorsLike
             for(int ii = 0; ii < count; ++ii)
             {
                 _skillList[ii].Tick(deltaTime);
-                _skillList[ii].TryUseSkill();
             }
         }
     }

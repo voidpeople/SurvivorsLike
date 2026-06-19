@@ -3,7 +3,7 @@
 
 namespace SurvivorsLike
 {
-    public class TargetFinder : MonoBehaviour
+    public class TargetFinder : MonoBehaviour, ITargetProvider
     {
         [Header("감지 설정")]
         [SerializeField] private LayerMask _enemyLayer;
@@ -26,36 +26,38 @@ namespace SurvivorsLike
                 _enemyLayer);
         }
 
-        //탐지한 컬라이더들 중에서 가장 가까운 컬라이더 찾아서 Transform을 반환하기
-        public Transform GetNearestTarget()
+        //가장 가까운 적 하나를 반환
+        ITargetable ITargetProvider.GetNearest()
         {
-            Transform nearestTarget = null;
+            Collider nearestTarget = null;
             float minDistSqr = float.MaxValue;
             Vector3 finderPos = transform.position;
 
-            for(int ii = 0; ii < _hitCount; ++ii)
+            for (int ii = 0; ii < _hitCount; ++ii)
             {
                 //사망 상태의 캐릭터는 열외~
                 if (_findedColliderBuffer[ii].TryGetComponent<IAlive>(out IAlive alive) && alive.IsDead)
                     continue;
 
                 float distSqr = (_findedColliderBuffer[ii].transform.position - finderPos).sqrMagnitude;
-                if(distSqr < minDistSqr)
+                if (distSqr < minDistSqr)
                 {
                     minDistSqr = distSqr;
-                    nearestTarget = _findedColliderBuffer[ii].transform;
+                    nearestTarget = _findedColliderBuffer[ii];
                 }
             }
 
-            return nearestTarget;
+            if (nearestTarget.TryGetComponent(out ITargetable targetable))
+                return targetable;
+            else
+                return null;
         }
 
+        //TODO: 추후 영영 스킬에 필요할 경우 구현~
         //일정 범위 안의 모든 적들을 타겟으로 반환~
-        public int GetInRangeTargets(float radius, Transform[] results)
+        int ITargetProvider.GetInRange(float radius, ITargetable[] results)
         {
-            int count = 0;
-
-            return count;
+            throw new System.NotImplementedException();
         }
     }
 }

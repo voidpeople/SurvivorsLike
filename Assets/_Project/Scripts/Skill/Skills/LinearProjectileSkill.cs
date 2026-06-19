@@ -12,10 +12,13 @@ namespace SurvivorsLike
     {
         private LinearProjectileSkillDataSO _linearProjectileSkillData;
         private ProjectileManager _projectileMgr;
+        private ITargetProvider _targetProvider;
+        protected ITargetable _target;
 
-        public LinearProjectileSkill(ProjectileManager projectileMgr)
+        public LinearProjectileSkill(ProjectileManager projectileMgr, ITargetProvider targetProvider)
         {
             _projectileMgr = projectileMgr;
+            _targetProvider = targetProvider;
         }
 
         public override void Init(ISkillOwner owner, SkillDataSO data, int level = 1)
@@ -25,11 +28,6 @@ namespace SurvivorsLike
             _linearProjectileSkillData = data as LinearProjectileSkillDataSO;
             Debug.Assert(_linearProjectileSkillData != null,
                 $"{nameof(LinearProjectileSkill)}::Init=> data를 LinearProjectileSkillDataSO로 캐스팅 실패");
-        }
-
-        public override void SetTarget(ITargetable target)
-        {
-            _target = target;
         }
 
         //인라인 명령
@@ -52,6 +50,30 @@ namespace SurvivorsLike
             }
 
             return _owner.Transform.forward;
+        }
+
+
+        protected override bool TryUseSkill()
+        {
+            //타겟이 필요한 LinearProjectile 스킬
+            //타겟이 필요 없는 LinearProjectile 스킬
+
+            if (IsReady == false)
+                return false;
+
+            
+            //타겟이 필요한 스킬인데 타겟이 없다면 함수 종료~
+            if (_skillData.RequiresTarget == true)
+            {
+                _target = _targetProvider.GetNearest();
+                if (_target == null)
+                    return false;
+            }
+
+            OnUseSkill();
+            _cooldownTimer = GetCurrentLevelCooldown();
+
+            return true;
         }
 
         public override void OnUseSkill()

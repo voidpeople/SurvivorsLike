@@ -9,10 +9,9 @@ namespace SurvivorsLike
     {
         protected SkillDataSO _skillData;
         protected ISkillOwner _owner;
-        protected ITargetable _target;
 
         protected int _currentLevel = 1;
-        private float _cooldownTimer;
+        protected float _cooldownTimer;
         
 
         //사용 가능 여부
@@ -33,25 +32,18 @@ namespace SurvivorsLike
             _cooldownTimer = 0f;
         }
 
-        public virtual void SetTarget(ITargetable target)
-        {
-            //Debug.Assert(target != null, $"{nameof(SkillBase)}::SetTarget — target is null.");
-            _target = target;
-        }
-
         public void Tick(float deltaTime)
         {
             if(_cooldownTimer > 0f)
             {
                 _cooldownTimer -= deltaTime;
             }
+
+            TryUseSkill();
         }
 
-        public virtual bool TryUseSkill()
+        protected virtual bool TryUseSkill()
         {
-            if ((_skillData.RequiresTarget == true) && (_target == null))
-                return false;
-
             if (IsReady == false)
                 return false;
 
@@ -64,7 +56,7 @@ namespace SurvivorsLike
         //파생 클래스에서 구현~
         public abstract void OnUseSkill();
 
-        private float GetCurrentLevelCooldown()
+        protected float GetCurrentLevelCooldown()
         {
             return _skillData.GetCooldown(_currentLevel);
         }

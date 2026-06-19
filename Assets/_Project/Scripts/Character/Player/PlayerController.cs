@@ -16,7 +16,7 @@ Player(루트)
 
 namespace SurvivorsLike
 {
-    public class PlayerController : MonoBehaviour, IAlive, ISkillOwner, ITargetListener, ITargetable
+    public class PlayerController : MonoBehaviour, IAlive, ISkillOwner, ITargetable
     {
         // ─── Inspector (직렬화 필드) ──────────────────────────────────────────
         [Header("씬 참조")]
@@ -35,9 +35,7 @@ namespace SurvivorsLike
         // ─── Runtime State (런타임 상태) ──────────────────────────────────────
         private PlayerData _playerData;
         private bool _isRunning;
-        private ITargetable _target;
-        private Health _targetHealth;
-        private Transform _firePoint;                      // 총구 머즐 포인트 트랜스폼
+        private Transform _firePoint;  // 총구 머즐 포인트 트랜스폼
 
         // ─── Disposables ──────────────────────────────────────────────────────
         private readonly CompositeDisposable _disposables = new();
@@ -68,9 +66,6 @@ namespace SurvivorsLike
             TryGetComponent(out _playerContactDamageCtrl);
 
             _isRunning = false;
-
-            _target = null;
-            _targetHealth = null;
             _firePoint = null;
 
             InGameStateManager.Instance.State
@@ -91,7 +86,7 @@ namespace SurvivorsLike
             _movement.SetInputDirection(_joystick.InputValue);
             _movement.Tick(dt);
 
-            UpdateTargeting();
+            _targetFinder.Finding(50f);
 
             _skillController.Tick(dt);          
             _playerContactDamageCtrl.Tick(dt);  //이동 후 위치 기준 접촉 검사
@@ -125,45 +120,12 @@ namespace SurvivorsLike
                 Debug.LogError($"{nameof(PlayerController)}::Init=> SkillDataSO does not exist. - DefaultSkillId: {data.DefaultSkillId}");
                 return;
             }
-            _skillController.Init(this, skillData, projectileMgr);
+            _skillController.Init(this, skillData, projectileMgr, _targetFinder);
             _playerContactDamageCtrl.Init(_health, _playerData.ContactDamageInterval);
         }
 
 
         // ─── Private Logic ───────────────────────────────────────────────────
-        private void UpdateTargeting()
-        {
-            if (_target != null)
-                return;
-
-            _targetFinder.Finding(50f);
-            Transform targetTrans = _targetFinder.GetNearestTarget();
-            if (targetTrans == null)
-                return;
-
-            //치명 2 수정: 전부 확보한 뒤에만 커밋 — 부분 성공 상태 차단
-            if (targetTrans.TryGetComponent(out ITargetable target) == false ||
-                targetTrans.TryGetComponent(out Health targetHealth) == false)
-                return;
-
-            _target = target;
-            _targetHealth = targetHealth;
-            _targetHealth.Died += OnTargetDied;
-            _skillController.SetTarget(_target);
-        }
-
-
-        // ─── Event Handlers / Callbacks ──────────────────────────────────────
-        // ITargetListener
-        public void OnTargetDied()
-        {
-            _targetHealth.Died -= OnTargetDied;
-
-            _target = null;
-            _targetHealth = null;
-            _skillController.SetTarget(null);
-        }
-
         // InGameState.Playing 진입 콜백
         private void OnStartBattle()
         {
