@@ -15,12 +15,6 @@ MonoBehaviour:
   m_GroupName: InGameGroup
   m_GUID: 6d9072307abd8a641adf83c1a7208e27
   m_SerializeEntries:
-  - m_GUID: 26016ef301a84e4448bf0529125721fb
-    m_Address: mat/ground/blue3
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GroundMaterial
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 35196f0a50c90ce40be88ff38d84bb67
     m_Address: projectile/kunai_1
     m_ReadOnly: 0
@@ -43,17 +37,20 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a25542156318b5a4e839c11e7f61f581
+  - m_GUID: a05dad26a441f6d4fa915db7024fa402
+    m_Address: mat/ground/purple
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: abc0c1503516bad4b8b7114aa0a4c671
     m_Address: mat/ground/orange
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GroundMaterial
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d278da4e7eea5b54cb8db164d6e31014
+  - m_GUID: bb47cc64e21dcbf49b638684cb1d2a4b
     m_Address: mat/ground/green
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GroundMaterial
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d57ad28fbe466a0479c581c24ff0f10e
     m_Address: Assets/_Project/Data/Wave
