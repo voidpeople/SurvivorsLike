@@ -21,6 +21,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - GroundMaterial
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 35196f0a50c90ce40be88ff38d84bb67
+    m_Address: projectile/kunai_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 404f7a0811a63484198c9260b923205a
     m_Address: character/player/player_base
     m_ReadOnly: 0
@@ -61,11 +66,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - PlayerPrefab
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ec8897d3208a9984f85277d575b4f98c
-    m_Address: projectile/kunai
-    m_ReadOnly: 0
-    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ce1e3262b4e8f419e19b8a78f907e4, type: 2}

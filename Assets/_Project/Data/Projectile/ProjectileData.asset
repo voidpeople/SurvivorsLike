@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.ProjectileDataSO
   ProjectileDataList:
   - Id: 5001
-    PrefabKey: projectile/kunai
+    PrefabKey: projectile/kunai_1
     PoolInitSize: 30
     PoolMaxSize: 80
     MoveType: 1
