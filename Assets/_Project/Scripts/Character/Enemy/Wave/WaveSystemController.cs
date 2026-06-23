@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using NUnit.Framework;
 using R3;
 using System;
 using System.Collections.Generic;
@@ -88,7 +89,7 @@ namespace SurvivorsLike
 
         private void OnDestroy()
         {
-            if (!PoolManager.HasInstance)
+            if (PoolManager.Instance == null)
                 return;
 
             foreach (EnemyData enemy in _createdPoolEnemyDatas)
