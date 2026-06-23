@@ -26,11 +26,10 @@ MonoBehaviour:
     m_SerializedLabels:
     - PlayerPrefab
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4ff385545d434f44ca5725d08d5cebb9
-    m_Address: character/enemy/spiderbot
+  - m_GUID: 7c5334f48d3c5984db15ef5f396610ac
+    m_Address: character/enemy/quadshell
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - EnemyPrefab
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9735f8d05f7a75a409c0cdec9ddd75b2
     m_Address: vfx/explosion/explosion01

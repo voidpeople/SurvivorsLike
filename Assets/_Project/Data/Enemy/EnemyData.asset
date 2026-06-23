@@ -35,7 +35,7 @@ MonoBehaviour:
     MoveSpeed: 2.5
     DefaultSkillId: 4002
     IconKey: icon_spiderbot
-    PrefabKey: character/enemy/spiderbot
+    PrefabKey: character/enemy/quadshell
     DeathVfxId: 13001
     PoolInitSize: 100
     PoolMaxSize: 300
