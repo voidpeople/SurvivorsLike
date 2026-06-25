@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 198747370}
   - component: {fileID: 198747371}
   - component: {fileID: 198747372}
+  - component: {fileID: 198747373}
   m_Layer: 0
   m_Name: GameDataDownloadManager
   m_TagString: Untagged
@@ -197,6 +198,7 @@ MonoBehaviour:
   - {fileID: 198747370}
   - {fileID: 198747371}
   - {fileID: 198747372}
+  - {fileID: 198747373}
 --- !u!114 &198747366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +310,22 @@ MonoBehaviour:
   sheetName: ProjectileData
   sheetGid: 1028591912
   saveFolderPath: Assets/_Project/Data/Projectile
+  spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
+--- !u!114 &198747373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198747361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2624394cb554a4a90b41a327ea64f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.InGamePlayerLevelSheetDownloader
+  sheetName: InGamePlayerLevelData
+  sheetGid: 164686697
+  saveFolderPath: Assets/_Project/Data/InGamePlayerLevel
   spreadsheetId: 1LHwKC_vGQ577d8Uy7hpc-UVRnHYrvAofJg3PDbFtXlE
 --- !u!1 &320198488
 GameObject:
