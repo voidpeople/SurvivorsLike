@@ -15,7 +15,7 @@ namespace SurvivorsLike
 
     public class DataManager : SingletonMonoBehaviour<DataManager>
     {
-        #region ChapterData
+        
         [Header("아틀라스")]
         [SerializeField] private SpriteAtlas _lobbyChapterAtlas;
 
@@ -23,13 +23,15 @@ namespace SurvivorsLike
         private const string MapDataLabel = "MapData";
         private const string WaveDataLabel = "WaveData";
         private const string PlayerDataLabel = "PlayerData";
+        private const string InGamePlayerLevelDataLabel = "InGamePlayerLevelData";
         private const string EnemyDataLabel = "EnemyData";
         private const string SkillDataLabel = "SkillData";
         private const string VfxDataLabel = "VfxData";
         private const string ProjectileDataLabel = "ProjectileData";
-        
 
 
+
+        #region ChapterData
         private AsyncOperationHandle<IList<ChapterDataSO>> _chapterDataSOListHandle;
         private readonly List<ChapterDataSO> _chapterDataSOList = new();
 
@@ -58,6 +60,13 @@ namespace SurvivorsLike
         //Dictionary<플레이어 캐릭터 아이디, PlayerData>
         private readonly Dictionary<int, PlayerData> _playerDataDic = new();
         public IReadOnlyDictionary<int, PlayerData> PlayerDataDic => _playerDataDic;
+        #endregion
+
+        #region InGamePlayerLevelData
+        private AsyncOperationHandle<InGamePlayerLevelDataSO> _inGamePlayerLevelDataSOHandle;
+        //Dictionary<플레이어 레벨, InGamePlayerLevelData>
+        private InGamePlayerLevelDataSO _inGamePlayerLevelDataSO;
+        public InGamePlayerLevelDataSO InGamePlayerLevelDataSO => _inGamePlayerLevelDataSO;
         #endregion
 
         #region EnemyData
@@ -232,6 +241,27 @@ namespace SurvivorsLike
             }
 
             Debug.Log($"{nameof(DataManager)}::LoadPlayerDataAsync=> PlayerData loaded: {_playerDataDic.Count} items");
+        }
+
+        private async UniTask LoadInGamePlayerLevelDataAsync(CancellationToken ct)
+        {
+            //어드레서블 어셋을 비동기 로드 시작
+            _inGamePlayerLevelDataSOHandle = Addressables.LoadAssetAsync<InGamePlayerLevelDataSO>(InGamePlayerLevelDataLabel);
+
+            //.Net의 기본 Task을 성능 최적화를 위해 AsUniTask()함수를 이용해 UniTask로 변환하여 작업을 진행한다.
+            //그리고 AttachExternalCancellation()함수를 통해 해당 비동기 작업이 취소 될 수 있도록
+            //CancellationToken을 등록한다.
+            await _inGamePlayerLevelDataSOHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            ct.ThrowIfCancellationRequested();
+
+            if (_inGamePlayerLevelDataSOHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"{nameof(DataManager)}::LoadInGamePlayerLevelDataAsync=> InGamePlayerLevelData load failed: {_inGamePlayerLevelDataSOHandle.OperationException}");
+                return;
+            }
+            _inGamePlayerLevelDataSO = _inGamePlayerLevelDataSOHandle.Result;
+
+            Debug.Log($"{nameof(DataManager)}::LoadInGamePlayerLevelDataAsync=> InGamePlayerLevelData loaded.");
         }
 
         private async UniTask LoadEnemyDataAsync(CancellationToken ct)

@@ -18,7 +18,7 @@ namespace SurvivorsLike
             return new InGamePlayerLevelData
             {
                 Level = Int(row, "Level"),
-                XpRequiredPerLevel = Int(row, "XpRequiredPerLevel"),
+                ExpRequiredPerLevel = Int(row, "ExpRequiredPerLevel"),
             };
         }
 

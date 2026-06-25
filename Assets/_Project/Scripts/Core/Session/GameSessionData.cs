@@ -7,7 +7,6 @@ namespace SurvivorsLike
     {
         public ChapterDataSO ChapterData { get; private set; }
         public PlayerData PlayerData { get; private set; }
-        public PlayerLevelSystem LevelSystem { get; private set; }
 
         public void Init(ChapterDataSO chapterdata, PlayerData playerData)
         {
@@ -16,15 +15,12 @@ namespace SurvivorsLike
 
             ChapterData = chapterdata;
             PlayerData  = playerData;
-
-            LevelSystem = new PlayerLevelSystem();
         }
 
         public void Clear()
         {
             ChapterData = null;
             PlayerData = null;
-            LevelSystem = null;
         }
     }
 }

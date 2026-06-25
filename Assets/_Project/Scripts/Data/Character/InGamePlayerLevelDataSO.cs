@@ -11,7 +11,7 @@ namespace SurvivorsLike
     public class InGamePlayerLevelData
     {
         public int Level;
-        public int XpRequiredPerLevel;  //레벨 당 필요 경험치
+        public int ExpRequiredPerLevel;  //레벨 당 필요 경험치
     }
 
     //쿠나이, 드릴샷...
@@ -31,6 +31,14 @@ namespace SurvivorsLike
 
             Debug.LogError($"{nameof(InGamePlayerLevelData)}::GetLevelData => InGamePlayerLevelData not found. - Level: {level}");
             return null;
+        }
+
+        public int MaxLevel
+        {
+            get
+            {
+                return LevelDataList.Count > 0 ? LevelDataList[LevelDataList.Count - 1].Level : 0;
+            }
         }
     }
 }
