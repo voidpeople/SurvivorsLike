@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1840583509881203262}
   - component: {fileID: 5058403979184871992}
   - component: {fileID: 843104059867104930}
-  - component: {fileID: 5437200879967169959}
   - component: {fileID: 3977812782000855077}
   - component: {fileID: 6239092509358364019}
   m_Layer: 7
@@ -53,8 +52,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   _currentStateType: 0
   _animCtrl: {fileID: 0}
-  _attackRange: 1
   _aimPoint: {fileID: 5887982795469111769}
+  _attackRange: 1
 --- !u!114 &5058403979184871992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,18 +82,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _health: 0
---- !u!114 &5437200879967169959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7229551025161841568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7194945047e788948ac16392f03cb39c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyVFX
 --- !u!135 &3977812782000855077
 SphereCollider:
   m_ObjectHideFlags: 0

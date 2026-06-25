@@ -37,7 +37,7 @@ namespace SurvivorsLike
         {
             get
             {
-                return LevelDataList.Count > 0 ? LevelDataList[LevelDataList.Count - 1].Level : 0;
+                return LevelDataList.Count > 0 ? LevelDataList[LevelDataList.Count - 1].Level : 1;
             }
         }
     }

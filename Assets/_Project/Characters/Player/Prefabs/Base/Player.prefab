@@ -45,8 +45,8 @@ GameObject:
   - component: {fileID: 7063929355543409026}
   - component: {fileID: 5641668939952678026}
   - component: {fileID: 6601682045853072993}
-  - component: {fileID: 2549844659199693674}
   - component: {fileID: 2310621258226779168}
+  - component: {fileID: 2883572175350379325}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -152,18 +152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _health: 0
---- !u!114 &2549844659199693674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7047003210136080283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2562b7236fd276941b2207b78bf149f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerVFX
 --- !u!114 &2310621258226779168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +165,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerContactDamageController
   _collisionRadius: 0.8
+--- !u!114 &2883572175350379325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047003210136080283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffaae95c06699c44a50dae5b8e4bb84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerLevelSystem
 --- !u!1 &9017513555632534207
 GameObject:
   m_ObjectHideFlags: 0
