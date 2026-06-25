@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b79dcdae66f7bf644b1eb4e64a1819d8, type: 3}
+  m_Name: InGamePlayerLevelData
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.InGamePlayerLevelDataSO
+  LevelDataList:
+  - Level: 1
+    XpRequiredPerLevel: 4
+  - Level: 2
+    XpRequiredPerLevel: 8
+  - Level: 3
+    XpRequiredPerLevel: 12
+  - Level: 4
+    XpRequiredPerLevel: 16
+  - Level: 5
+    XpRequiredPerLevel: 20
+  - Level: 6
+    XpRequiredPerLevel: 25
+  - Level: 7
+    XpRequiredPerLevel: 30
+  - Level: 8
+    XpRequiredPerLevel: 36
+  - Level: 9
+    XpRequiredPerLevel: 42
+  - Level: 10
+    XpRequiredPerLevel: 49
+  - Level: 11
+    XpRequiredPerLevel: 56
+  - Level: 12
+    XpRequiredPerLevel: 64
+  - Level: 13
+    XpRequiredPerLevel: 72
+  - Level: 14
+    XpRequiredPerLevel: 81
+  - Level: 15
+    XpRequiredPerLevel: 90
+  - Level: 16
+    XpRequiredPerLevel: 100
+  - Level: 17
+    XpRequiredPerLevel: 110
+  - Level: 18
+    XpRequiredPerLevel: 121
+  - Level: 19
+    XpRequiredPerLevel: 132
+  - Level: 20
+    XpRequiredPerLevel: 144
+  - Level: 21
+    XpRequiredPerLevel: 156
+  - Level: 22
+    XpRequiredPerLevel: 169
+  - Level: 23
+    XpRequiredPerLevel: 182
+  - Level: 24
+    XpRequiredPerLevel: 196
+  - Level: 25
+    XpRequiredPerLevel: 210
+  - Level: 26
+    XpRequiredPerLevel: 225
+  - Level: 27
+    XpRequiredPerLevel: 240
+  - Level: 28
+    XpRequiredPerLevel: 256
+  - Level: 29
+    XpRequiredPerLevel: 272
