@@ -106,6 +106,7 @@ namespace SurvivorsLike
             await LoadWaveDataAsync(ct);
             await LoadChapterDataAsync(ct);
             await LoadPlayerDataAsync(ct);
+            await LoadInGamePlayerLevelDataAsync(ct);
             await LoadEnemyDataAsync(ct);
             await LoadSkillDataAsync(ct);
             await LoadProjectileDataAsync(ct);
