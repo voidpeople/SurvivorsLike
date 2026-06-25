@@ -15,7 +15,6 @@ namespace SurvivorsLike
 
         public ReadOnlyReactiveProperty<int> Level => _level;
         public ReadOnlyReactiveProperty<int> CurrentExp => _currentExp;
-        public ReadOnlyReactiveProperty<int> RequiredExp => _requiredExp;
         public Observable<int> OnLevelUp => _onLevelUp;
 
 
@@ -46,12 +45,13 @@ namespace SurvivorsLike
             TryLevelUp();
         }
 
-        public void TryLevelUp()
+        private void TryLevelUp()
         {
             while((_level.Value < _levelData.MaxLevel)
                && (_currentExp.Value >= _requiredExp.Value))
             {
                 _currentExp.Value -= _requiredExp.Value;
+                _level.Value++;
                 _requiredExp.Value = _levelData.GetRequiredExp(_level.Value);
                 //레벨업 구독 이벤트 발행
                 _onLevelUp.OnNext(_level.Value);

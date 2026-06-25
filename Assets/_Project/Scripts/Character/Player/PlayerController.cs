@@ -30,6 +30,7 @@ namespace SurvivorsLike
         private SkillController _skillController = new();
         private PlayerAnimationController _animationController;
         private PlayerContactDamageController _playerContactDamageCtrl;
+        private PlayerLevelSystem _playerLevelSystem;
         private JoystickBase _joystick;
 
         // ─── Runtime State (런타임 상태) ──────────────────────────────────────
@@ -64,6 +65,7 @@ namespace SurvivorsLike
             TryGetComponent(out _targetFinder);
             TryGetComponent(out _health);
             TryGetComponent(out _playerContactDamageCtrl);
+            TryGetComponent(out _playerLevelSystem);            
 
             _isRunning = false;
             _firePoint = null;
@@ -122,6 +124,13 @@ namespace SurvivorsLike
             }
             _skillController.Init(this, skillData, projectileMgr, _targetFinder);
             _playerContactDamageCtrl.Init(_health, _playerData.ContactDamageInterval);
+
+            if (DataManager.Instance.InGamePlayerLevelDataSO == null)
+            {
+                Debug.LogError($"{nameof(PlayerController)}::Init=> InGamePlayerLevelDataSO is null.");
+                return;
+            }
+            _playerLevelSystem.Init(DataManager.Instance.InGamePlayerLevelDataSO);
         }
 
 
