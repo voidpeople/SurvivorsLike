@@ -23,14 +23,14 @@ namespace SurvivorsLike
         [TableList]
         public List<InGamePlayerLevelData> LevelDataList;
 
-        public InGamePlayerLevelData GetLevelData(int level)
+        public int GetRequiredExp(int level)
         {
             InGamePlayerLevelData levelData = LevelDataList.FirstOrDefault(d => d.Level == level);
             if (levelData != null)
-                return levelData;
+                return levelData.ExpRequiredPerLevel;
 
-            Debug.LogError($"{nameof(InGamePlayerLevelData)}::GetLevelData => InGamePlayerLevelData not found. - Level: {level}");
-            return null;
+            Debug.LogError($"{nameof(InGamePlayerLevelData)}::GetRequiredExp => InGamePlayerLevelData not found. - Level: {level}");
+            return 0;
         }
 
         public int MaxLevel
