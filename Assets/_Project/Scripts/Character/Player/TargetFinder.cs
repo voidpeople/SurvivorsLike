@@ -47,6 +47,9 @@ namespace SurvivorsLike
                 }
             }
 
+            if (nearestTarget == null)
+                return null;
+
             if (nearestTarget.TryGetComponent(out ITargetable targetable))
                 return targetable;
             else

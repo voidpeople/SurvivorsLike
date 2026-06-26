@@ -39,8 +39,7 @@ namespace SurvivorsLike
         private Transform _firePoint;  // 총구 머즐 포인트 트랜스폼
 
         // ─── Disposables ──────────────────────────────────────────────────────
-        private readonly CompositeDisposable _disposables = new();
-
+        private readonly CompositeDisposable _disposables = new();        
 
         // ─── Properties (인터페이스 구현 포함) ────────────────────────────────
         public Transform Transform => transform;           // ISkillOwner, ITargetable
@@ -56,6 +55,8 @@ namespace SurvivorsLike
                 return _aimPoint != null ? _aimPoint.position : transform.position + Vector3.up * 0.5f;
             }
         }
+
+        public PlayerLevelSystem LevelSystem => _playerLevelSystem;
 
 
         // ─── Unity Lifecycle ─────────────────────────────────────────────────

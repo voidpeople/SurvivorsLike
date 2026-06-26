@@ -17,7 +17,8 @@ namespace SurvivorsLike
         [SerializeField] private CameraController _cameraCtrl;
         [SerializeField] private MapController _mapCtrl;
         [SerializeField] private WaveSystemController _waveSystemCtrl;
-        
+        [SerializeField] private EnemyManager _enemyManager;
+
 
         [Header("결과창")]
         [SerializeField] private Canvas _resultPanelCanvas;
@@ -28,6 +29,9 @@ namespace SurvivorsLike
 
         private GameResultPanelModel _resultModel;
         private GameResultPanelPresenter _resultPresenter;
+
+        private PlayerLevelSystem _playerLevelSystem;
+        
 
         private readonly CompositeDisposable _disposables = new();
 
@@ -57,7 +61,7 @@ namespace SurvivorsLike
                 await _devManager.PrepareInGameAsync(ct);
             }
 #endif           
-            GameSessionData sessionData = GameManager.Instance.GameSessionData;
+            GameSessionData sessionData = GameManager.Instance.GameSessionData;            
 
             // 모든 시스템 병렬 로드 — 각 시스템이 자신의 에셋만 책임
             await UniTask.WhenAll(
@@ -67,6 +71,7 @@ namespace SurvivorsLike
 
             await _playerSpawner.SpawnAsync(ct);
             _cameraCtrl.SetTarget(_playerSpawner.SpawnPlayerController.transform);
+            _playerLevelSystem = _playerSpawner.SpawnPlayerController.LevelSystem;
 
             await CreatePlayerAssetPoolAsync(sessionData, ct);
             if (!DataManager.Instance.WaveDataSODic.TryGetValue(sessionData.ChapterData.WaveId, out WaveDataSO waveDta))
@@ -77,6 +82,8 @@ namespace SurvivorsLike
             await _waveSystemCtrl.InitAsync(waveDta, _playerSpawner.SpawnPlayerController.transform, ct);
 
             await CreateEnemyAssetsPool(sessionData, ct);
+
+            _enemyManager.OnEnemyKilled += OnEnemyKilled;
 
             InitResultPanelAsync(ct);
 
@@ -160,6 +167,11 @@ namespace SurvivorsLike
             ShowGameResultPanel(isClear);
         }
 
+        private void OnEnemyKilled(EnemyKilledEvent evt)
+        {
+            _playerLevelSystem.AddExp(evt.ExpReward);
+        }
+
         private void ShowGameResultPanel(bool isClear)
         {
             _resultPanelCanvas.gameObject.SetActive(true);
@@ -174,6 +186,8 @@ namespace SurvivorsLike
 
         private void Destroy()
         {
+            _enemyManager.OnEnemyKilled -= OnEnemyKilled;
+
             _resultPresenter.Dispose();
             _resultPanelView.Destroy();
             _mapCtrl.ReleaseAssets();

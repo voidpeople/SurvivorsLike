@@ -169,6 +169,12 @@ namespace SurvivorsLike
 
         private void OnDied()
         {
+            _enemyMgr.NotifyKilled(
+                new EnemyKilledEvent(
+                    EnemyData.Type,
+                    transform.position,
+                    EnemyData.ExpReward));
+
             _fsm.ChangeState(EnemyStateType.Dead);
         }
 

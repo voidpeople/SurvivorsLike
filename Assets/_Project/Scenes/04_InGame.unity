@@ -892,6 +892,7 @@ MonoBehaviour:
   _cameraCtrl: {fileID: 4389492048316241047}
   _mapCtrl: {fileID: 933019015}
   _waveSystemCtrl: {fileID: 1596719569}
+  _enemyManager: {fileID: 1596719567}
   _resultPanelCanvas: {fileID: 2080003469}
   _resultPanelView: {fileID: 1062681915}
   _devManager: {fileID: 228903195}

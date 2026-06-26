@@ -1,14 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace SurvivorsLike
-{
+{   
     public class EnemyManager : MonoBehaviour
     {
         private const int MaxEnemys = 350;
         private readonly ITickable[] _activeEnemys = new ITickable[MaxEnemys];
         private int _activeCount;
         public int ActiveCount => _activeCount;
+
+        public event Action<EnemyKilledEvent> OnEnemyKilled;
 
         private void Awake()
         {
@@ -59,6 +62,12 @@ namespace SurvivorsLike
             {
                 _activeEnemys[ii] = null;
             }
+        }
+
+        //적 캐릭터 사망시~
+        public void NotifyKilled(in EnemyKilledEvent evt)
+        {
+            OnEnemyKilled?.Invoke(evt);
         }
     }
 }

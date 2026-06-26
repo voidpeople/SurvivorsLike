@@ -43,6 +43,8 @@ namespace SurvivorsLike
 
             //레벨업이 가능하다면 시도~
             TryLevelUp();
+
+            //Debug.Log($"===> CurrentExp: {_currentExp.Value}, Level: {_level.Value}");
         }
 
         private void TryLevelUp()
