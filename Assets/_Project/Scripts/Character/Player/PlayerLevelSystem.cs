@@ -15,6 +15,7 @@ namespace SurvivorsLike
 
         public ReadOnlyReactiveProperty<int> Level => _level;
         public ReadOnlyReactiveProperty<int> CurrentExp => _currentExp;
+        public ReadOnlyReactiveProperty<int> RequiredExp => _requiredExp;
         public Observable<int> OnLevelUp => _onLevelUp;
 
 

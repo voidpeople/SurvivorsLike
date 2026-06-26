@@ -18,6 +18,7 @@ namespace SurvivorsLike
         [SerializeField] private MapController _mapCtrl;
         [SerializeField] private WaveSystemController _waveSystemCtrl;
         [SerializeField] private EnemyManager _enemyManager;
+        [SerializeField] private InGameHudController _hudCtrl;
 
 
         [Header("결과창")]
@@ -72,6 +73,7 @@ namespace SurvivorsLike
             await _playerSpawner.SpawnAsync(ct);
             _cameraCtrl.SetTarget(_playerSpawner.SpawnPlayerController.transform);
             _playerLevelSystem = _playerSpawner.SpawnPlayerController.LevelSystem;
+            _hudCtrl.Init(_playerLevelSystem);
 
             await CreatePlayerAssetPoolAsync(sessionData, ct);
             if (!DataManager.Instance.WaveDataSODic.TryGetValue(sessionData.ChapterData.WaveId, out WaveDataSO waveDta))
@@ -83,7 +85,7 @@ namespace SurvivorsLike
 
             await CreateEnemyAssetsPool(sessionData, ct);
 
-            _enemyManager.OnEnemyKilled += OnEnemyKilled;
+            _enemyManager.OnEnemyKilled += OnEnemyKilled;            
 
             InitResultPanelAsync(ct);
 

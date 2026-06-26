@@ -742,6 +742,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1578614831}
+  - component: {fileID: 1578614832}
   m_Layer: 0
   m_Name: ExpBar
   m_TagString: Untagged
@@ -770,6 +771,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 18}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &1578614832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578614830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3c81e35b3f33c44bd33913353fc74b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.ExpBarView
+  _expBar: {fileID: 1787223812}
 --- !u!1 &1596719564
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,6 +907,7 @@ MonoBehaviour:
   _mapCtrl: {fileID: 933019015}
   _waveSystemCtrl: {fileID: 1596719569}
   _enemyManager: {fileID: 1596719567}
+  _hudCtrl: {fileID: 1688780188}
   _resultPanelCanvas: {fileID: 2080003469}
   _resultPanelView: {fileID: 1062681915}
   _devManager: {fileID: 228903195}
@@ -923,6 +938,7 @@ GameObject:
   - component: {fileID: 1688780186}
   - component: {fileID: 1688780185}
   - component: {fileID: 1688780184}
+  - component: {fileID: 1688780188}
   m_Layer: 5
   m_Name: Canvas_HUD
   m_TagString: Untagged
@@ -987,8 +1003,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1013,6 +1029,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1688780188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688780183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bc81b969f8cb9469db8c75a40261b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.InGameHudController
+  _expBarView: {fileID: 1578614832}
 --- !u!1 &1787223810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,7 +1453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2846111908762085725, guid: df0a55185f474494f88179698c092816, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6118907532034734890, guid: df0a55185f474494f88179698c092816, type: 3}
       propertyPath: m_Name
