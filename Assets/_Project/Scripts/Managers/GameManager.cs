@@ -49,8 +49,14 @@ namespace SurvivorsLike
             return SceneLoader.Instance.LoadSceneAsync(sceneName, ct: ct);
         }
 
-        public void PauseGame() => Time.timeScale = 0f;
-        public void ResumeGame() => Time.timeScale = 1f;
+        public void PauseGame()
+        {
+            Time.timeScale = 0f;
+        }
+        public void ResumeGame()
+        {
+            Time.timeScale = 1f;
+        }
 
         public PatchCheckResult PatchCheckResultData { get; private set; }
         public void SetPatchResult(PatchCheckResult result)

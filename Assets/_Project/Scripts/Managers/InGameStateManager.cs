@@ -39,8 +39,16 @@ namespace SurvivorsLike
         {
             if (pauseStatus && _state.Value == InGameState.Playing)
                 PauseGame();
+
+            if (!pauseStatus && _state.Value == InGameState.Paused)
+                ResumeGame();
         }
 
+        private void OnAp (bool pauseStatus)
+        {
+            if (pauseStatus && _state.Value == InGameState.Playing)
+                PauseGame();
+        }
 
         public void StartBattle() => ChangeState(from: InGameState.Ready, to: InGameState.Playing);
         public void PauseGame()
