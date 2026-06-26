@@ -20,8 +20,8 @@ MonoBehaviour:
   LevelDataList:
   - Level: 1
     Damage: 20
-    Cooldown: 0.1
-    ProjectileSpeed: 30
+    Cooldown: 0.8
+    ProjectileSpeed: 12
     ProjectileCount: 1
     PierceCount: 0
   - Level: 2

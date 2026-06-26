@@ -21,7 +21,7 @@ namespace SurvivorsLike
                 levelSystem.CurrentExp,
                 levelSystem.RequiredExp,
                 (cur, req) => req > 0 ? (float)cur / req : 0f)
-                .Subscribe(ratio => _view.SetExpRatio(ratio)) //ratio은 "(cur, req) => req > 0 ? (float)cur / req : 0f)"의 계산값~
+                .Subscribe(ratio => _view.SetValues(levelSystem.Level.CurrentValue, ratio)) //ratio은 "(cur, req) => req > 0 ? (float)cur / req : 0f)"의 계산값~
                 .AddTo(_disposables);
         }
 

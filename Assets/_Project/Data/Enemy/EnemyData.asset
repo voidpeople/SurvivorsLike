@@ -42,7 +42,7 @@ MonoBehaviour:
     Type: 1
     ContactDamage: 10
     Armor: 0
-    ExpReward: 10
+    ExpReward: 5
     DropGold: 2
     KnockbackResistance: 0.2
   - Id: 2003
