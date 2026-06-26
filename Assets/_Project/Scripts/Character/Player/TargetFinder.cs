@@ -47,13 +47,13 @@ namespace SurvivorsLike
                 }
             }
 
-            if (nearestTarget == null)
-                return null;
+            if (nearestTarget != null)
+            {
+                if (nearestTarget.TryGetComponent(out ITargetable targetable))
+                    return targetable;
+            }
 
-            if (nearestTarget.TryGetComponent(out ITargetable targetable))
-                return targetable;
-            else
-                return null;
+            return null;
         }
 
         //TODO: 추후 영영 스킬에 필요할 경우 구현~
