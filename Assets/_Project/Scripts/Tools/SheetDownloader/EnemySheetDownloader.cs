@@ -32,7 +32,7 @@ namespace SurvivorsLike
                 Type = EnemyType(row, "Type"),
                 ContactDamage = Float(row, "ContactDamage"),
                 Armor = Float(row, "Armor"),
-                ExpReward = Int(row, "ExpReward"),
+                DropGemType = GemType(row, "DropGemType"),
                 DropGold = Int(row, "DropGold"),
                 KnockbackResistance = Float(row, "KnockbackResistance"),                
             };
@@ -57,6 +57,18 @@ namespace SurvivorsLike
 
             Debug.LogError($"{nameof(EnemySheetDownloader)}::EnemyType=> EnemyType is None.");
             return SurvivorsLike.EnemyType.None;
+        }
+
+        private GemType GemType(Dictionary<string, string> r, string k)
+        {
+            if (r.TryGetValue(k, out var v) == true)
+            {
+                if (Enum.TryParse<GemType>(v, true, out SurvivorsLike.GemType gemType) == true)
+                    return gemType;
+            }
+
+            Debug.LogError($"{nameof(EnemySheetDownloader)}::GemType=> GemType is None.");
+            return SurvivorsLike.GemType.None;
         }
     }
 }
