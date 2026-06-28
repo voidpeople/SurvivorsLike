@@ -63,6 +63,21 @@ MonoBehaviour:
     m_SerializedLabels:
     - PlayerPrefab
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 892b0de660e721f46ba9f00bd9794ab4
+    m_Address: item/exp_gem_green
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79edb3f1e6c77ff4da118ad3aec3e94b
+    m_Address: item/exp_gem_blue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40edc539f6d58454997fc0d7781c21d0
+    m_Address: item/exp_gem_yellow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ce1e3262b4e8f419e19b8a78f907e4, type: 2}
   m_SchemaSet:

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 5f8ec3731694a1542ac3f066278d0146
   m_currentHash:
     serializedVersion: 2
-    Hash: 87b628d2b50eb90694bd5cf815457279
+    Hash: 7676871ad3b2fec5a55ba9671fe7ed41
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -118,6 +118,7 @@ MonoBehaviour:
     - VfxData
     - ProjectileData
     - InGamePlayerLevelData
+    - GemData
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 27695b5ebf6981f468f27870c475b0b9, type: 2}

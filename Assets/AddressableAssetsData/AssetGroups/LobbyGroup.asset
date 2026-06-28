@@ -57,6 +57,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - ChapterData
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3caf045a69fa644f945a33f3a43239b
+    m_Address: Assets/_Project/Data/Item/Gem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GemData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fe0592a308c363a4bb173a7b7d78b62f
     m_Address: Assets/_Project/Data/Skill
     m_ReadOnly: 0
