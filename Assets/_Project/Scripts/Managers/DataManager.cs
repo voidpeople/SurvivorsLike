@@ -28,6 +28,7 @@ namespace SurvivorsLike
         private const string SkillDataLabel = "SkillData";
         private const string VfxDataLabel = "VfxData";
         private const string ProjectileDataLabel = "ProjectileData";
+        private const string GemDataLabel = "GemData";
 
 
 
@@ -97,6 +98,12 @@ namespace SurvivorsLike
         public IReadOnlyDictionary<int, VfxData> VfxDataDic => _vfxDataDic;
         #endregion
 
+        #region GemData
+        private AsyncOperationHandle<GemDataSO> _gemDataSOHandle;
+        private GemDataSO _gemDataSO;
+        public GemDataSO GemDataSO => _gemDataSO;
+        #endregion
+
 
 
         public async UniTask InitAsync(CancellationToken ct)
@@ -110,7 +117,8 @@ namespace SurvivorsLike
             await LoadEnemyDataAsync(ct);
             await LoadSkillDataAsync(ct);
             await LoadProjectileDataAsync(ct);
-            await LoadVfxDataAsync(ct);            
+            await LoadVfxDataAsync(ct);
+            await LoadGemDataAsync(ct);
         }
 
         private async UniTask LoadChapterDataAsync(CancellationToken ct)
@@ -379,6 +387,23 @@ namespace SurvivorsLike
             Debug.Log($"{nameof(DataManager)}::LoadVfxDataAsync=> VfxData loaded: {_vfxDataDic.Count} items");
         }
 
+        private async UniTask LoadGemDataAsync(CancellationToken ct)
+        {
+            _gemDataSOHandle = Addressables.LoadAssetAsync<GemDataSO>(GemDataLabel);
+
+            await _gemDataSOHandle.Task.AsUniTask().AttachExternalCancellation(ct);
+            ct.ThrowIfCancellationRequested();
+
+            if (_gemDataSOHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"{nameof(DataManager)}::LoadGemDataAsync=> GemData load failed: {_gemDataSOHandle.OperationException}");
+                return;
+            }
+            _gemDataSO = _gemDataSOHandle.Result;
+
+            Debug.Log($"{nameof(DataManager)}::LoadGemDataAsync=> GemData loaded.");
+        }
+
         private void ReleaseDataSOListHandle()
         {
             if(_chapterDataSOListHandle.IsValid() == true)
@@ -427,6 +452,12 @@ namespace SurvivorsLike
             {
                 Addressables.Release(_vfxDataSOListHandle);
                 _vfxDataDic.Clear();
+            }
+
+            if (_gemDataSOHandle.IsValid() == true)
+            {
+                Addressables.Release(_gemDataSOHandle);
+                _gemDataSO = null;
             }
         }
 
