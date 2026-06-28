@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace SurvivorsLike
@@ -47,7 +47,7 @@ namespace SurvivorsLike
             // 기본값: 자석 없음 — 플레이어 콜라이더 반경에 접촉하면 즉시 픽업
             float collectRadius = DefaultCollectRadius;
             if (playerTransform.TryGetComponent(out CharacterController cc))
-                collectRadius = cc.radius;
+                collectRadius = cc.radius * 2f;
 
             SetMagnetParameters(
                 attractRadius:  0f,
@@ -99,8 +99,8 @@ namespace SurvivorsLike
             if (gem == null)
                 return;
 
-            pos.y = 0.5f;  // 바닥에서 살짝 띄움
-            gem.Setup(pos, data.ExpReward);
+            pos.y = 0.4f;  // 바닥에서 살짝 띄움
+            gem.Init(pos, data.ExpReward);
             _activeGems[_activeCount++] = gem;
         }
 

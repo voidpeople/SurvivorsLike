@@ -123,3 +123,7 @@ Assets/StreamingAssets/google-services-desktop.json.meta
 /.vscode
 Assets/_Creepy_Cat/
 Assets/_Creepy_Cat.meta
+
+# Screenshots
+/Assets/Screenshots/
+/Assets/Screenshots.meta

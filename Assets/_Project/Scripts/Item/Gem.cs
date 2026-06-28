@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SurvivorsLike
 {
@@ -16,7 +16,7 @@ namespace SurvivorsLike
         public bool    IsAttracting => _isAttracting;
 
         // GemManager가 풀에서 꺼낸 직후 초기화
-        public void Setup(Vector3 pos, int expValue)
+        public void Init(Vector3 pos, int expValue)
         {
             transform.position = pos;
             _expValue          = expValue;
