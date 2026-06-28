@@ -173,7 +173,7 @@ namespace SurvivorsLike
                 new EnemyKilledEvent(
                     EnemyData.Type,
                     transform.position,
-                    EnemyData.ExpReward));
+                    EnemyData.DropGemType));
 
             _fsm.ChangeState(EnemyStateType.Dead);
         }

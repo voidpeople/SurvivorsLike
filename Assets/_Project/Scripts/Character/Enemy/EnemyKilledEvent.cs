@@ -7,13 +7,13 @@ namespace SurvivorsLike
     {
         public readonly EnemyType Type;
         public readonly Vector3 Position;
-        public readonly int ExpReward;
+        public readonly GemType DropGemType;
 
-        public EnemyKilledEvent(EnemyType type, Vector3 pos, int exp)
+        public EnemyKilledEvent(EnemyType type, Vector3 pos, GemType gemType)
         {
             Type = type;
             Position = pos;
-            ExpReward = exp;
+            DropGemType = gemType;
         }
     }
 }

@@ -26,7 +26,7 @@ MonoBehaviour:
     Type: 1
     ContactDamage: 10
     Armor: 0
-    ExpReward: 5
+    DropGemType: 0
     DropGold: 1
     KnockbackResistance: 0
   - Id: 2002
@@ -42,7 +42,7 @@ MonoBehaviour:
     Type: 1
     ContactDamage: 10
     Armor: 0
-    ExpReward: 5
+    DropGemType: 0
     DropGold: 2
     KnockbackResistance: 0.2
   - Id: 2003
@@ -58,6 +58,6 @@ MonoBehaviour:
     Type: 1
     ContactDamage: 10
     Armor: 10
-    ExpReward: 100
+    DropGemType: 2
     DropGold: 30
     KnockbackResistance: 0.8

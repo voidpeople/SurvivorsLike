@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -7,21 +8,34 @@ namespace SurvivorsLike
     public class ExpBarView : MonoBehaviour
     {
         [SerializeField] private Image _expBar;
+        [SerializeField] private TextMeshProUGUI _levelText;
 
         [Header("채워지는 연출")]
         [SerializeField] private float _fillSpeed = 1.5f;        // 기본 속도(비율/초)
         [SerializeField] private float _catchUpPerLevel = 1.0f;  // 밀린 레벨당 가속 계수
         [SerializeField] private int _snapThreshold = 8;       // 이 이상 밀리면 연출 생략(스냅)
 
-        private int _displayedLevel =1;
+        private int _displayedLevel = 1;
         private int _targetLevel = 1;
         private float _displayedRatio;
         private float _targetRatio;
+
+        private void Awake()
+        {
+            UpdateLevelText();
+        }
 
         public void SetValues(int level, float ratio)
         {
             _targetLevel = level;
             _targetRatio = Mathf.Clamp01(ratio);
+
+            if (_targetLevel - _displayedLevel >= _snapThreshold)
+            {
+                _displayedLevel = _targetLevel;
+                _displayedRatio = _targetRatio;
+                UpdateLevelText();
+            }
         }
 
         private void Update()
@@ -35,6 +49,7 @@ namespace SurvivorsLike
                 {
                     _displayedLevel++;
                     _displayedRatio = 0f;
+                    UpdateLevelText();
                 }
             }
             else
@@ -46,6 +61,12 @@ namespace SurvivorsLike
                 _displayedRatio = Mathf.MoveTowards(_displayedRatio, _targetRatio, _fillSpeed * Time.deltaTime);
             }
             _expBar.fillAmount = _displayedRatio;
+        }
+
+        private void UpdateLevelText()
+        {
+            if (_levelText != null)
+                _levelText.SetText("LV.{0}", (float)_displayedLevel);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace SurvivorsLike
         [SerializeField] private MapController _mapCtrl;
         [SerializeField] private WaveSystemController _waveSystemCtrl;
         [SerializeField] private EnemyManager _enemyManager;
+        [SerializeField] private GemManager _gemManager;
         [SerializeField] private InGameHudController _hudCtrl;
 
 
@@ -85,7 +86,12 @@ namespace SurvivorsLike
 
             await CreateEnemyAssetsPool(sessionData, ct);
 
-            _enemyManager.OnEnemyKilled += OnEnemyKilled;            
+            await CreateGemPoolAsync(ct);
+            _gemManager.Init(
+                _playerSpawner.SpawnPlayerController.transform,
+                _playerLevelSystem,
+                DataManager.Instance.GemDataSO);
+            _enemyManager.OnEnemyKilled += _gemManager.HandleEnemyKilled;
 
             InitResultPanelAsync(ct);
 
@@ -108,6 +114,23 @@ namespace SurvivorsLike
             skillDataSO.CollectPoolAssetRef(poolAssetRefList);
 
             await PoolManager.Instance.CreateAsync(poolAssetRefList, ct);
+        }
+
+        private async UniTask CreateGemPoolAsync(CancellationToken ct)
+        {
+            GemDataSO gemDataSO = DataManager.Instance.GemDataSO;
+            if (gemDataSO == null || gemDataSO.DataList == null)
+            {
+                Debug.LogError($"{nameof(InGameController)}::CreateGemPoolAsync=> GemDataSO is null or empty");
+                return;
+            }
+
+            for (int ii = 0; ii < gemDataSO.DataList.Count; ++ii)
+            {
+                GemData data = gemDataSO.DataList[ii];
+                await PoolManager.Instance.CreatePoolAsync(data.PrefabKey, data.PoolInitSize, data.PoolMaxSize, ct);
+                await PoolManager.Instance.PreCreateAsync(data.PrefabKey, data.PoolInitSize, ct: ct);
+            }
         }
 
         private async UniTask CreateEnemyAssetsPool(GameSessionData sessionData, CancellationToken ct)
@@ -169,11 +192,6 @@ namespace SurvivorsLike
             ShowGameResultPanel(isClear);
         }
 
-        private void OnEnemyKilled(EnemyKilledEvent evt)
-        {
-            _playerLevelSystem.AddExp(evt.ExpReward);
-        }
-
         private void ShowGameResultPanel(bool isClear)
         {
             _resultPanelCanvas.gameObject.SetActive(true);
@@ -188,7 +206,8 @@ namespace SurvivorsLike
 
         private void Destroy()
         {
-            _enemyManager.OnEnemyKilled -= OnEnemyKilled;
+            _enemyManager.OnEnemyKilled -= _gemManager.HandleEnemyKilled;
+            _gemManager.Clear();
 
             _resultPresenter.Dispose();
             _resultPanelView.Destroy();
