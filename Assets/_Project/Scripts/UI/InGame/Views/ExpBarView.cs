@@ -22,6 +22,7 @@ namespace SurvivorsLike
 
         private void Awake()
         {
+            _expBar.fillAmount = _displayedRatio;
             UpdateLevelText();
         }
 

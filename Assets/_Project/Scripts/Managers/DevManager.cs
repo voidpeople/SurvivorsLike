@@ -37,14 +37,23 @@ namespace SurvivorsLike
         {
             await DataManager.Instance.InitAsync(ct);
 
-            ChapterDataSO chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.Id == _loadChapterId);
-            if(chapter == null)
+            ChapterDataSO chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault(c => c.Id == _loadChapterId);
+            if (chapter == null)
             {
-                Debug.LogWarning($"{nameof(DevManager)}::PrepareInGameAsync=> Selected chapter not found: chapterId - {_loadChapterId}");
-                chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault<ChapterDataSO>(c => c.Id == 1);
+                Debug.LogWarning($"{nameof(DevManager)}::PrepareInGameAsync=> Chapter not found (id={_loadChapterId}). Using first available.");
+                chapter = DataManager.Instance.ChapterDataSOList.FirstOrDefault();
             }
+            if (chapter == null)
+            {
+                Debug.LogError($"{nameof(DevManager)}::PrepareInGameAsync=> No chapter data available. Check Addressables labels.");
+                return;
+            }
+
             if (!DataManager.Instance.PlayerDataDic.TryGetValue(1001, out PlayerData playerData))
-                Debug.LogError($"{nameof(DevManager)}::PrepareInGameAsync=> PlayerData does not exist. - PlayerId: 1001");
+            {
+                Debug.LogError($"{nameof(DevManager)}::PrepareInGameAsync=> PlayerData not found. - PlayerId: 1001");
+                return;
+            }
 
             GameManager.Instance.CreateGameSessionData(chapter, playerData);
         }
