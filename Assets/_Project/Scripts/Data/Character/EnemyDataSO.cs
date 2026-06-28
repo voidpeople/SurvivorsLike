@@ -15,7 +15,7 @@ namespace SurvivorsLike
         public EnemyType Type;            //Normal/Elite/Boss
         public float ContactDamage;       //플레이어와 접촉시 플레이어에게 줄 데미지 값
         public float Armor;               //기본 방어력
-        public int ExpReward;             //죽으면 주는 경험치
+        public GemType DropGemType;       //사망시 드롭 젬 타입
         public int DropGold;              //죽을 떄 드롭하는 골드양
         public float KnockbackResistance; //넉백 효과 저항 (0 ~ 1.0)        
     }
