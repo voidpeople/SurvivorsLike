@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 3305492862691259233}
   - component: {fileID: 1573493116739108311}
   m_Layer: 5
-  m_Name: BadgeLabel
+  m_Name: StatusLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -914,6 +914,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d52f412c5f4c141ba202aa3e7b911c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.SkillCardView
+  _iconImage: {fileID: 2264161541742272948}
+  _nameLabel: {fileID: 6959591449302106578}
+  _descLabel: {fileID: 1870936945830212514}
+  _statusLabel: {fileID: 7936281612510178485}
+  _statusImage: {fileID: 4624561081837207771}
+  _button: {fileID: 6013469433285740099}
 --- !u!1 &2432623250666921773
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,7 +933,7 @@ GameObject:
   - component: {fileID: 2625955060838078490}
   - component: {fileID: 7850449241317929902}
   m_Layer: 5
-  m_Name: LevelBadge
+  m_Name: LevelStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1256,7 +1262,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3772441484955033981}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1282,6 +1288,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655f690ec2cfc4744881a4949293b0f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.SkillSelectionView
+  _cards:
+  - {fileID: 1723456443257893328}
+  - {fileID: 4627447894630409811}
+  - {fileID: 625352886231380951}
 --- !u!1 &4009766720337489404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,7 +1728,7 @@ GameObject:
   - component: {fileID: 2435720046745590154}
   - component: {fileID: 7936281612510178485}
   m_Layer: 5
-  m_Name: BadgeLabel
+  m_Name: StatusLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2249,6 +2259,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d52f412c5f4c141ba202aa3e7b911c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.SkillCardView
+  _iconImage: {fileID: 939585297427965532}
+  _nameLabel: {fileID: 1511295979545851157}
+  _descLabel: {fileID: 23295105330619143}
+  _statusLabel: {fileID: 1523356463588030166}
+  _statusImage: {fileID: 2625955060838078490}
+  _button: {fileID: 6105505351736049559}
 --- !u!1 &6929991270567362647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2474,7 +2490,7 @@ GameObject:
   - component: {fileID: 4624561081837207771}
   - component: {fileID: 2555864937457209627}
   m_Layer: 5
-  m_Name: LevelBadge
+  m_Name: LevelStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2804,6 +2820,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d52f412c5f4c141ba202aa3e7b911c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.SkillCardView
+  _iconImage: {fileID: 391525524289431589}
+  _nameLabel: {fileID: 5918902058709902201}
+  _descLabel: {fileID: 8483742184113120268}
+  _statusLabel: {fileID: 1573493116739108311}
+  _statusImage: {fileID: 8175154490937438189}
+  _button: {fileID: 3704119488029374474}
 --- !u!1 &7820273584679108324
 GameObject:
   m_ObjectHideFlags: 0
@@ -2892,7 +2914,7 @@ GameObject:
   - component: {fileID: 8175154490937438189}
   - component: {fileID: 1828705895101304496}
   m_Layer: 5
-  m_Name: LevelBadge
+  m_Name: LevelStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2994,7 +3016,7 @@ GameObject:
   - component: {fileID: 8661591556151115561}
   - component: {fileID: 1523356463588030166}
   m_Layer: 5
-  m_Name: BadgeLabel
+  m_Name: StatusLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
