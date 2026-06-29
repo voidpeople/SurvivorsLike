@@ -1,5 +1,4 @@
-﻿using SurvivorsLike;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace SurvivorsLike

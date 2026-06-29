@@ -1,5 +1,4 @@
-﻿using SurvivorsLike;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using UnityEngine;
 
 

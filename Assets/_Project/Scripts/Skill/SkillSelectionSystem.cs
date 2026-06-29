@@ -3,7 +3,7 @@
 
 namespace SurvivorsLike
 {
-    public class BossController : EnemyController
+    public class SkillSelectionSystem
     {
 
     }

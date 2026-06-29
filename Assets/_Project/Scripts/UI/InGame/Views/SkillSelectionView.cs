@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 
-
 namespace SurvivorsLike
 {
-    public class BossController : EnemyController
+    public class SkillSelectionView : MonoBehaviour
     {
 
     }

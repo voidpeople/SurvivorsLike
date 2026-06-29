@@ -1,18 +1,20 @@
-﻿using SurvivorsLike;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ParticleStoppedBridge : MonoBehaviour
+namespace SurvivorsLike
 {
-    private ParticleEffect _owner;
-
-    public void Init(ParticleEffect owner)
+    public class ParticleStoppedBridge : MonoBehaviour
     {
-        _owner = owner;
-    }
+        private ParticleEffect _owner;
 
-    private void OnParticleSystemStopped()
-    {
-        if(_owner != null)
-            _owner.ReturnToPool();
+        public void Init(ParticleEffect owner)
+        {
+            _owner = owner;
+        }
+
+        private void OnParticleSystemStopped()
+        {
+            if (_owner != null)
+                _owner.ReturnToPool();
+        }
     }
 }

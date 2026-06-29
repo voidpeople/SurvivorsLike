@@ -9,6 +9,7 @@ namespace SurvivorsLike
         Ready,
         Playing,
         Paused,
+        LevelingUp,
         StageFail,
         StageClear
     }
@@ -44,12 +45,6 @@ namespace SurvivorsLike
                 ResumeGame();
         }
 
-        private void OnAp (bool pauseStatus)
-        {
-            if (pauseStatus && _state.Value == InGameState.Playing)
-                PauseGame();
-        }
-
         public void StartBattle() => ChangeState(from: InGameState.Ready, to: InGameState.Playing);
         public void PauseGame()
         {
@@ -60,6 +55,18 @@ namespace SurvivorsLike
         public void ResumeGame()
         {
             if (ChangeState(from: InGameState.Paused, to: InGameState.Playing))
+                Time.timeScale = 1f;
+        }
+
+        public void EnterLevelingUp()
+        {
+            if (ChangeState(from: InGameState.Playing, to: InGameState.LevelingUp))
+                Time.timeScale = 0f;
+        }
+
+        public void ExitLevelingUp()
+        {
+            if (ChangeState(from: InGameState.LevelingUp, to: InGameState.Playing))
                 Time.timeScale = 1f;
         }
 
