@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e2d9a96848461242983b519d53b201b
+    m_Address: projectile/drill
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 404f7a0811a63484198c9260b923205a
     m_Address: character/player/player_base
     m_ReadOnly: 0

@@ -43,3 +43,15 @@ MonoBehaviour:
     ProjectileSpeed: 12
     ProjectileCount: 1
     PierceCount: 1
+  - Level: 4
+    Damage: 95
+    Cooldown: 2.8
+    ProjectileSpeed: 13
+    ProjectileCount: 1
+    PierceCount: 2
+  - Level: 5
+    Damage: 125
+    Cooldown: 2.5
+    ProjectileSpeed: 14
+    ProjectileCount: 1
+    PierceCount: 3

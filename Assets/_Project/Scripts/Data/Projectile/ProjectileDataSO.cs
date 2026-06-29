@@ -40,10 +40,11 @@ namespace SurvivorsLike
         public int PoolMaxSize;
         public ProjectileMoveType MoveType;
         public float ColliderRadius; //충돌 체크 반지름
+        public float MaxRange;
         public float LifeTime;
         public int HitVfxId;   //hit 이펙트 아이디
         public int HitSfxId;   //hit 사운드
-        public int TrailVfxId; //퀘적 이펙트 아이디       
+        public int TrailVfxId; //퀘적 이펙트 아이디        
     }
 
     [CreateAssetMenu(fileName = "ProjectileDataSO", menuName = "SurvivorsLike/Data/ProjectileDataSO")]

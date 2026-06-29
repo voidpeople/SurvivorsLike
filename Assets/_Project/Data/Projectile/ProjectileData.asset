@@ -19,6 +19,29 @@ MonoBehaviour:
     PoolMaxSize: 80
     MoveType: 1
     ColliderRadius: 0.3
+    MaxRange: 10
+    LifeTime: 5
+    HitVfxId: 0
+    HitSfxId: 0
+    TrailVfxId: 0
+  - Id: 5002
+    PrefabKey: projectile/drill
+    PoolInitSize: 10
+    PoolMaxSize: 30
+    MoveType: 1
+    ColliderRadius: 0.25
+    MaxRange: 20
+    LifeTime: 8
+    HitVfxId: 0
+    HitSfxId: 0
+    TrailVfxId: 0
+  - Id: 5003
+    PrefabKey: projectile/bullet
+    PoolInitSize: 20
+    PoolMaxSize: 60
+    MoveType: 1
+    ColliderRadius: 0.2
+    MaxRange: 15
     LifeTime: 5
     HitVfxId: 0
     HitSfxId: 0
