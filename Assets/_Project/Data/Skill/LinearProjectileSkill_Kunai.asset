@@ -14,14 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.LinearProjectileSkillDataSO
   Id: 3001
   Name: Kunai
-  RequiresTarget: 1
+  DisplayName: "\uCFE0\uB098\uC774"
+  Description: "\uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\uC744 \uC790\uB3D9\uC73C\uB85C
+    \uC870\uC900\uD574 \uCFE0\uB098\uC774\uB97C \uC5F0\uC18D \uD22C\uCC99\uD55C\uB2E4.
+    \uAC15\uD654\uD560\uC218\uB85D \uD22C\uCC99 \uC218\uC640 \uACF5\uACA9 \uC18D\uB3C4\uAC00
+    \uC99D\uAC00\uD558\uBA70, \uB3CC\uD30C \uD6C4\uC5D0\uB294 \uAD00\uD1B5\uACFC
+    \uCD08\uACE0\uC18D \uC790\uB3D9 \uC870\uC900\uC73C\uB85C \uBCF4\uC2A4\uC804 \uCD5C\uAC15\uC758
+    \uD654\uB825\uC744 \uBC1C\uD718\uD55C\uB2E4."
   IconKey: icon/kunai
+  RequiresTarget: 1
   ProjectileId: 5001
   LevelDataList:
   - Level: 1
     Damage: 20
-    Cooldown: 0.1
-    ProjectileSpeed: 100
+    Cooldown: 0.8
+    ProjectileSpeed: 12
     ProjectileCount: 1
     PierceCount: 0
   - Level: 2

@@ -19,8 +19,10 @@ namespace SurvivorsLike
             var so = ScriptableObject.CreateInstance<LinearProjectileSkillDataSO>();
             so.Id = Int(firstRow, "Id");    
             so.Name = Str(firstRow, "Name");
-            so.RequiresTarget = Bool(firstRow, "RequiresTarget");
+            so.DisplayName = Str(firstRow, "DisplayName");
+            so.Description = Str(firstRow, "Description");
             so.IconKey = Str(firstRow, "IconKey");
+            so.RequiresTarget = Bool(firstRow, "RequiresTarget");
 
             so.ProjectileId = Int(firstRow, "ProjectileId");
             return so;
