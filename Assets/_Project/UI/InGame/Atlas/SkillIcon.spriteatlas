@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SkillIcon
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 4
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 4
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 40f7f1dcfea8cc84aacc46b87507ed09, type: 3}
+    - {fileID: 2800000, guid: 3e8009af59aace947a5772c529d12216, type: 3}
+    - {fileID: 2800000, guid: a090fa77071b00e489089137e39cf554, type: 3}
+    - {fileID: 2800000, guid: 9873dddfeec86914594a0c2c96394cae, type: 3}
+    - {fileID: 2800000, guid: 4ca1202f53c13d042a2efe1cf6f575a8, type: 3}
+    - {fileID: 2800000, guid: 78a4a5e188ef42042860e274944ede46, type: 3}
+    - {fileID: 2800000, guid: 2f4df1bda4087e44bab789646fcdb21b, type: 3}
+    - {fileID: 2800000, guid: ab1bc6453471ae4468d20d9e11de8243, type: 3}
+    - {fileID: 2800000, guid: cca39e0653fc61c4f94d1d42155c448c, type: 3}
+    - {fileID: 2800000, guid: fbd8ef3afcf525743b14cd9ae0e5d23b, type: 3}
+    - {fileID: 2800000, guid: 174030572c2d2eb4a83e55fcd3040e36, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 78a4a5e188ef42042860e274944ede46: 21300000
+    - ab1bc6453471ae4468d20d9e11de8243: 21300000
+    - cca39e0653fc61c4f94d1d42155c448c: 21300000
+    - 174030572c2d2eb4a83e55fcd3040e36: 21300000
+    - a090fa77071b00e489089137e39cf554: 21300000
+    - fbd8ef3afcf525743b14cd9ae0e5d23b: 21300000
+    - 40f7f1dcfea8cc84aacc46b87507ed09: 21300000
+    - 2f4df1bda4087e44bab789646fcdb21b: 21300000
+    - 4ca1202f53c13d042a2efe1cf6f575a8: 21300000
+    - 3e8009af59aace947a5772c529d12216: 21300000
+    - 9873dddfeec86914594a0c2c96394cae: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 78a4a5e188ef42042860e274944ede46, type: 3}
+  - {fileID: 21300000, guid: ab1bc6453471ae4468d20d9e11de8243, type: 3}
+  - {fileID: 21300000, guid: cca39e0653fc61c4f94d1d42155c448c, type: 3}
+  - {fileID: 21300000, guid: 174030572c2d2eb4a83e55fcd3040e36, type: 3}
+  - {fileID: 21300000, guid: a090fa77071b00e489089137e39cf554, type: 3}
+  - {fileID: 21300000, guid: fbd8ef3afcf525743b14cd9ae0e5d23b, type: 3}
+  - {fileID: 21300000, guid: 40f7f1dcfea8cc84aacc46b87507ed09, type: 3}
+  - {fileID: 21300000, guid: 2f4df1bda4087e44bab789646fcdb21b, type: 3}
+  - {fileID: 21300000, guid: 4ca1202f53c13d042a2efe1cf6f575a8, type: 3}
+  - {fileID: 21300000, guid: 3e8009af59aace947a5772c529d12216, type: 3}
+  - {fileID: 21300000, guid: 9873dddfeec86914594a0c2c96394cae, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Icon_Laser
+  - Icon_Orbital
+  - Icon_StickyProjectile
+  - Icon_Trap
+  - Icon_Aura
+  - Icon_Summon
+  - Icon_Kunai
+  - Icon_Melee
+  - Icon_BouncingProjectile
+  - Icon_Area
+  - Icon_Boomerang
+  m_RenderDataMap: {}
+  m_Tag: SkillIcon
+  m_IsVariant: 0
