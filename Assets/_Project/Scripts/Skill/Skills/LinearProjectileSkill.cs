@@ -9,6 +9,8 @@ namespace SurvivorsLike
     //샷건, 권총 - 바라보는 방향 공격
     public class LinearProjectileSkill : SkillBase
     {
+        private const float PROJECTILE_SIDE_OFFSET = 0.15f;
+
         private LinearProjectileSkillDataSO _linearProjectileSkillData;
         private ProjectileManager _projectileMgr;
         private ITargetProvider _targetProvider;
@@ -84,16 +86,28 @@ namespace SurvivorsLike
                 return;
             }
 
-            Projectile projectile = PoolManager.Instance.Get<Projectile>(projectileData.PrefabKey);
-            if (projectile == null)
-            {
-                Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill=> Projectile not found. - PrefabKey: {projectileData.PrefabKey}");
-                return;
-            }
-
             LinearProjectileSkillLevelData skillData = _linearProjectileSkillData.GetLevelData(_currentLevel);
-            Vector3 dir = GetFireDirection();
-            projectile.Init(GetSpawnPos(dir), dir, skillData.ProjectileSpeed, skillData.Damage, projectileData.ColliderRadius, _projectileMgr);
+            Vector3 baseDir  = GetFireDirection();
+            Vector3 spawnPos = GetSpawnPos(baseDir);
+            Vector3 right    = Vector3.Cross(Vector3.up, baseDir).normalized;
+
+            int   count       = skillData.ProjectileCount;
+            float startOffset = -(count - 1) * PROJECTILE_SIDE_OFFSET * 0.5f;
+
+            for (int ii = 0; ii < count; ii++)
+            {
+                Projectile projectile = PoolManager.Instance.Get<Projectile>(projectileData.PrefabKey);
+                if (projectile == null)
+                {
+                    Debug.LogError($"{nameof(LinearProjectileSkill)}::OnUseSkill=> Projectile not found. - PrefabKey: {projectileData.PrefabKey}");
+                    return;
+                }
+
+                //발사 방향을 기준으로 좌에서 우로 약간씩 오프셋을 주어 발사체를 발사함~
+                //연속 발사시 발사체가 겹치는 것을 방지~
+                Vector3 offsetPos = spawnPos + right * (startOffset + PROJECTILE_SIDE_OFFSET * ii);
+                projectile.Init(offsetPos, baseDir, skillData.ProjectileSpeed, skillData.Damage, projectileData.ColliderRadius, _projectileMgr);
+            }
         }
 
     }

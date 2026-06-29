@@ -78,5 +78,5 @@ SpriteAtlas:
   - lobby_chapter03
   - lobby_chapter01
   m_RenderDataMap: {}
-  m_Tag: LobbyChapter
+  m_Tag: Chapter
   m_IsVariant: 0

@@ -106,5 +106,5 @@ SpriteAtlas:
   - lobby_tab_battle_normal
   - lobby_tab_evolution.selected
   m_RenderDataMap: {}
-  m_Tag: LobbyCommon
+  m_Tag: Lobby
   m_IsVariant: 0

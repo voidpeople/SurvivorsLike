@@ -4,7 +4,7 @@ namespace SurvivorsLike
 {
     public class SkillSelectionView : MonoBehaviour
     {
-        [SerializeField] private SkillCardView[] _cards;  // 인스펙터에서 3개 연결
+        [SerializeField] private SkillCardView[] _cards;  //인스펙터에서 3개 연결
 
         public SkillCardView[] Cards => _cards;
 

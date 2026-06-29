@@ -21,30 +21,32 @@ SpriteAtlas:
       crunchedCompression: 0
       sRGB: 1
     platformSettings:
-    - serializedVersion: 3
-      buildTarget: Android
-      maxTextureSize: 2048
-      resizeAlgorithm: 0
-      textureFormat: 50
-      textureCompression: 1
-      compressionQuality: 50
-      crunchedCompression: 0
-      allowsAlphaSplitting: 0
-      overridden: 1
-      androidETC2FallbackOverride: 0
-      forceMaximumCompressionQuality_BC6H_BC7: 0
-    - serializedVersion: 3
-      buildTarget: iPhone
-      maxTextureSize: 2048
-      resizeAlgorithm: 0
-      textureFormat: 50
-      textureCompression: 1
-      compressionQuality: 50
-      crunchedCompression: 0
-      allowsAlphaSplitting: 0
-      overridden: 1
-      androidETC2FallbackOverride: 0
-      forceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 4
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 4
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
       padding: 4
@@ -64,5 +66,5 @@ SpriteAtlas:
   m_PackedSprites: []
   m_PackedSpriteNamesToIndex: []
   m_RenderDataMap: {}
-  m_Tag: New Sprite Atlas
+  m_Tag: InGame
   m_IsVariant: 0
