@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8ceeeb672e27cc4185ec47c77bd1e48
+    m_Address: projectile/bullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 404f7a0811a63484198c9260b923205a
     m_Address: character/player/player_base
     m_ReadOnly: 0
