@@ -106,7 +106,7 @@ namespace SurvivorsLike
                 //발사 방향을 기준으로 좌에서 우로 약간씩 오프셋을 주어 발사체를 발사함~
                 //연속 발사시 발사체가 겹치는 것을 방지~
                 Vector3 offsetPos = spawnPos + right * (startOffset + PROJECTILE_SIDE_OFFSET * ii);
-                projectile.Init(offsetPos, baseDir, skillData.ProjectileSpeed, skillData.Damage, projectileData.ColliderRadius, _projectileMgr);
+                projectile.Init(offsetPos, baseDir, projectileData.ColliderRadius, skillData, _projectileMgr);
             }
         }
 

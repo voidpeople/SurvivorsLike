@@ -46,3 +46,14 @@ MonoBehaviour:
     HitVfxId: 0
     HitSfxId: 0
     TrailVfxId: 0
+  - Id: 5004
+    PrefabKey: projectile/spear
+    PoolInitSize: 10
+    PoolMaxSize: 30
+    MoveType: 1
+    ColliderRadius: 0.25
+    MaxRange: 20
+    LifeTime: 8
+    HitVfxId: 0
+    HitSfxId: 0
+    TrailVfxId: 0

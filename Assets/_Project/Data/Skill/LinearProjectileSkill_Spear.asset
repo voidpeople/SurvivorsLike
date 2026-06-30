@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb2f776f38b0ce4cb002cacf2878e8e, type: 3}
+  m_Name: LinearProjectileSkill_Spear
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.LinearProjectileSkillDataSO
+  Id: 3004
+  Name: Spear
+  DisplayName: "\uC2A4\uD53C\uC5B4"
+  Description: "\uB0A0\uCE74\uB85C\uC6B4 \uC2A4\uD53C\uC5B4\uC744 \uBC1C\uC0AC\uD574
+    \uC801\uC744 \uC5F0\uC18D\uC73C\uB85C \uAD00\uD1B5\uD55C\uB2E4."
+  IconKey: icon/spear
+  RequiresTarget: 1
+  ProjectileId: 5004
+  LevelDataList:
+  - Level: 1
+    Damage: 35
+    Cooldown: 3.5
+    ProjectileSpeed: 10
+    ProjectileCount: 1
+    PierceCount: 1
+  - Level: 2
+    Damage: 50
+    Cooldown: 3.2
+    ProjectileSpeed: 11
+    ProjectileCount: 1
+    PierceCount: 2
+  - Level: 3
+    Damage: 70
+    Cooldown: 3
+    ProjectileSpeed: 12
+    ProjectileCount: 1
+    PierceCount: 3
+  - Level: 4
+    Damage: 95
+    Cooldown: 2.8
+    ProjectileSpeed: 13
+    ProjectileCount: 1
+    PierceCount: 4
+  - Level: 5
+    Damage: 125
+    Cooldown: 2.5
+    ProjectileSpeed: 14
+    ProjectileCount: 1
+    PierceCount: 5
