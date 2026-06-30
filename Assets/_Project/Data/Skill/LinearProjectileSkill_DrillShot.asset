@@ -26,32 +26,32 @@ MonoBehaviour:
   ProjectileId: 5002
   LevelDataList:
   - Level: 1
-    Damage: 35
-    Cooldown: 3.5
+    Damage: 25
+    Cooldown: 2.5
     ProjectileSpeed: 10
     ProjectileCount: 1
-    PierceCount: 0
+    PierceCount: 1
   - Level: 2
-    Damage: 50
-    Cooldown: 3.2
+    Damage: 35
+    Cooldown: 2.3
     ProjectileSpeed: 11
     ProjectileCount: 1
-    PierceCount: 0
+    PierceCount: 2
   - Level: 3
-    Damage: 70
-    Cooldown: 3
+    Damage: 48
+    Cooldown: 2.1
     ProjectileSpeed: 12
     ProjectileCount: 1
-    PierceCount: 0
+    PierceCount: 3
   - Level: 4
-    Damage: 95
-    Cooldown: 2.8
+    Damage: 65
+    Cooldown: 2
     ProjectileSpeed: 13
     ProjectileCount: 1
-    PierceCount: 0
+    PierceCount: 4
   - Level: 5
-    Damage: 125
-    Cooldown: 2.5
+    Damage: 65
+    Cooldown: 1.8
     ProjectileSpeed: 14
-    ProjectileCount: 1
-    PierceCount: 0
+    ProjectileCount: 2
+    PierceCount: 4
