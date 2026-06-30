@@ -10,17 +10,18 @@ namespace SurvivorsLike
         [SerializeField] private float _lifetime = 10f;       //사거리 도달 실패 시 강제 소멸 시간 (안전장치)
         [SerializeField] protected LayerMask _targetLayer;      //피격 대상 레이어
 
-        private Vector3 _moveDir;
-        private float _moveSpeed;
-        private float _rangeSqr;    
+        protected Vector3 _moveDir;
+        protected float _moveSpeed;
+        private float _rangeSqr;
+        protected float _damage;
+        protected float _collisionRadius;
 
         private Vector3 _spawnPos;
         private float _spawnTime;
 
         private ProjectileManager _projectileMgr;
 
-        protected float _damage;
-        protected float _collisionRadius;
+
         protected Vector3 _prevPos; //Hit 검사 중 터널링 방지 목적
         protected static readonly Collider[] _overlapResults = new Collider[5];
 
@@ -64,7 +65,7 @@ namespace SurvivorsLike
         }
         #endregion
 
-        private bool ApplyMovement()
+        protected virtual bool ApplyMovement()
         {
             transform.position += _moveDir * _moveSpeed * Time.deltaTime;
 

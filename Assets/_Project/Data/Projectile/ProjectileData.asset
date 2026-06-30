@@ -20,6 +20,7 @@ MonoBehaviour:
     MoveType: 1
     ColliderRadius: 0.3
     MaxRange: 10
+    BounceCount: 0
     LifeTime: 5
     HitVfxId: 0
     HitSfxId: 0
@@ -31,6 +32,7 @@ MonoBehaviour:
     MoveType: 1
     ColliderRadius: 0.25
     MaxRange: 20
+    BounceCount: 5
     LifeTime: 8
     HitVfxId: 0
     HitSfxId: 0
@@ -42,6 +44,7 @@ MonoBehaviour:
     MoveType: 1
     ColliderRadius: 0.2
     MaxRange: 15
+    BounceCount: 0
     LifeTime: 5
     HitVfxId: 0
     HitSfxId: 0
@@ -53,6 +56,7 @@ MonoBehaviour:
     MoveType: 1
     ColliderRadius: 0.25
     MaxRange: 20
+    BounceCount: 0
     LifeTime: 8
     HitVfxId: 0
     HitSfxId: 0

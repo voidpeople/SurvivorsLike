@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace SurvivorsLike
 {
-    //관통 스킬
+    //관통 스킬 (스피어)
     public class PiercingProjectile : Projectile
     {
-        private int _pierceCount;
+        protected int _pierceCount;
 
         private readonly HashSet<Health> _prevSet = new(16);
         private readonly HashSet<Health> _enterBuffer = new(16);

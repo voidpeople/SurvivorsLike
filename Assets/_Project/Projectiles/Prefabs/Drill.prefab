@@ -663,7 +663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6161108817768047944}
-  - component: {fileID: -3159335753947885905}
+  - component: {fileID: -1496794999001538077}
   m_Layer: 8
   m_Name: Drill
   m_TagString: Untagged
@@ -688,7 +688,7 @@ Transform:
   - {fileID: 3487998032224043259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3159335753947885905
+--- !u!114 &-1496794999001538077
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -697,9 +697,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2611773437647504040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e94e894924e0a9b4e8493e9b476e03b1, type: 3}
+  m_Script: {fileID: 11500000, guid: f52ad5ed0876598469e6d74b02144b10, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PiercingProjectile
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.BouncingProjectile
   _maxRange: 35
   _lifetime: 10
   _targetLayer:
