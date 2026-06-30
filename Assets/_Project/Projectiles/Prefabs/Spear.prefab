@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2503055060253620770}
   - component: {fileID: 4634302879122689161}
   m_Layer: 8
-  m_Name: Drill_Body
+  m_Name: Spear_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 322192482535682233}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.12, z: 0.1}
+  m_LocalPosition: {x: 0, y: -0, z: -0.2875}
+  m_LocalScale: {x: 0.1, y: 0.7, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6161108817768047944}
@@ -681,7 +681,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4608949116462748957}
@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 8026950758945292860}
   - component: {fileID: 4912417207715080804}
   m_Layer: 8
-  m_Name: Drill_Tip
+  m_Name: Spear_Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

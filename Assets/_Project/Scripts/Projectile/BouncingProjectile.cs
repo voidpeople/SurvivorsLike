@@ -5,19 +5,14 @@
 namespace SurvivorsLike
 {
     //관통 스킬 (관통창)
-    public class BouncingProjectile : Projectile
+    public class BouncingProjectile : PiercingProjectile
     {
-        private int _pierceCount;
+        private int _bounceCount;
 
-        public override void Init(Vector3 spawnPos, Vector3 dir, float collisionRadius, LinearProjectileSkillLevelData skillData, ProjectileManager projectileMgr)
+        public override void Init(Vector3 spawnPos, Vector3 dir, ProjectileData projectileData, LinearProjectileSkillLevelData skillData, ProjectileManager projectileMgr)
         {
-            base.Init(spawnPos, dir, collisionRadius, skillData, projectileMgr);
-            _pierceCount = skillData.PierceCount;
-        }
-
-        public override void DetectHits()
-        {
-
+            base.Init(spawnPos, dir, projectileData, skillData, projectileMgr);
+            _bounceCount = projectileData.BounceCount;
         }
     }
 }

@@ -12,9 +12,9 @@ namespace SurvivorsLike
         private readonly HashSet<Health> _enterBuffer = new(16);
         private readonly HashSet<Health> _exitBuffer = new(16);
 
-        public override void Init(Vector3 spawnPos, Vector3 dir, float collisionRadius, LinearProjectileSkillLevelData skillData, ProjectileManager projectileMgr)
+        public override void Init(Vector3 spawnPos, Vector3 dir, ProjectileData projectileData, LinearProjectileSkillLevelData skillData, ProjectileManager projectileMgr)
         {
-            base.Init(spawnPos, dir, collisionRadius, skillData, projectileMgr);
+            base.Init(spawnPos, dir, projectileData, skillData, projectileMgr);
             _pierceCount = skillData.PierceCount;
 
             _prevSet.Clear();

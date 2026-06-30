@@ -27,6 +27,7 @@ namespace SurvivorsLike
                 MoveType = ProjectileMoveType(row, "MoveType"),
                 ColliderRadius = Float(row, "ColliderRadius"),
                 MaxRange = Float(row, "MaxRange"),
+                BounceCount = Int(row, "BounceCount"),
                 LifeTime = Float(row, "LifeTime"),
                 HitVfxId = Int(row, "HitVfxId"),
                 HitSfxId = Int(row, "HitSfxId"),

@@ -29,7 +29,7 @@ namespace SurvivorsLike
 
         
         //public virtual void Init(Vector3 spawnPos, Vector3 dir, float speed, float damage, float collisionRadius, int pierceCount, ProjectileManager projectileMgr)
-        public virtual void Init(Vector3 spawnPos, Vector3 dir, float collisionRadius, LinearProjectileSkillLevelData skillData, ProjectileManager projectileMgr)
+        public virtual void Init(Vector3 spawnPos, Vector3 dir, ProjectileData projectileData, LinearProjectileSkillLevelData skillData, ProjectileManager projectileMgr)
         {
             _spawnPos = spawnPos;
             _prevPos = spawnPos;
@@ -39,7 +39,7 @@ namespace SurvivorsLike
             _moveDir = dir;
             _moveSpeed = skillData.ProjectileSpeed;
             _damage = skillData.Damage;
-            _collisionRadius = collisionRadius;
+            _collisionRadius = projectileData.ColliderRadius;
 
             _rangeSqr = _maxRange * _maxRange;
             _spawnTime = Time.time;
