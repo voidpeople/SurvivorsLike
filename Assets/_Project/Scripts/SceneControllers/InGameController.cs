@@ -21,6 +21,8 @@ namespace SurvivorsLike
         [SerializeField] private GemManager _gemManager;
         [SerializeField] private InGameHudController _hudCtrl;
 
+        [Header("스킬 선택")]
+        [SerializeField] private SkillSelectionView _skillSelectionView;
 
         [Header("결과창")]
         [SerializeField] private Canvas _resultPanelCanvas;
@@ -33,7 +35,7 @@ namespace SurvivorsLike
         private GameResultPanelPresenter _resultPresenter;
 
         private PlayerLevelSystem _playerLevelSystem;
-        
+        private SkillSelectionPresenter _skillSelectionPresenter;
 
         private readonly CompositeDisposable _disposables = new();
 
@@ -92,6 +94,10 @@ namespace SurvivorsLike
                 _playerLevelSystem,
                 DataManager.Instance.GemDataSO);
             _enemyManager.OnEnemyKilled += _gemManager.HandleEnemyKilled;
+
+            _skillSelectionPresenter = new SkillSelectionPresenter(
+                _playerLevelSystem,
+                _skillSelectionView);
 
             InitResultPanelAsync(ct);
 
@@ -209,6 +215,7 @@ namespace SurvivorsLike
             _enemyManager.OnEnemyKilled -= _gemManager.HandleEnemyKilled;
             _gemManager.Clear();
 
+            _skillSelectionPresenter.Dispose();
             _resultPresenter.Dispose();
             _resultPanelView.Destroy();
             _mapCtrl.ReleaseAssets();

@@ -1034,6 +1034,7 @@ MonoBehaviour:
   _enemyManager: {fileID: 1596719567}
   _gemManager: {fileID: 178615789}
   _hudCtrl: {fileID: 1688780188}
+  _skillSelectionView: {fileID: 4012220830325105417}
   _resultPanelCanvas: {fileID: 2080003469}
   _resultPanelView: {fileID: 1062681915}
   _devManager: {fileID: 228903195}
@@ -1993,6 +1994,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a734c442aef96674bb59562e12a57efe, type: 3}
+--- !u!114 &4012220830325105417 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8281844069109301000, guid: a734c442aef96674bb59562e12a57efe, type: 3}
+  m_PrefabInstance: {fileID: 4012220830325105416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655f690ec2cfc4744881a4949293b0f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.SkillSelectionView
 --- !u!1001 &4389492048316241046
 PrefabInstance:
   m_ObjectHideFlags: 0

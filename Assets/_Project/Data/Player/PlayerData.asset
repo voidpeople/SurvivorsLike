@@ -17,7 +17,7 @@ MonoBehaviour:
     Name: RobotKyle
     Hp: 100
     MoveSpeed: 4.5
-    DefaultSkillId: 3002
+    DefaultSkillId: 3001
     IconKey: icon_player_default
     PrefabKey: character/player/robotkyle
     DeathVfxId: 0
