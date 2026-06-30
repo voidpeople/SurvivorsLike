@@ -19,6 +19,7 @@ namespace SurvivorsLike
         [SerializeField] private EnemyManager _enemyMgr;
 
         private readonly List<EnemyData> _createdPoolEnemyDatas = new();
+        private readonly List<VfxData> _createdPoolVfxDatas = new();
 
         private readonly CompositeDisposable _disposables = new();
 
@@ -46,13 +47,22 @@ namespace SurvivorsLike
             HashSet<EnemyData> enemyDatas = CollectEnemyDatas(data);
 
             //풀 생성(어드레서블 로드) + 인스턴스 프리웜
-            foreach(EnemyData enemy in enemyDatas)
+            foreach(EnemyData enemyData in enemyDatas)
             {
-                (int poolInitSize, int poolMaxSize) = GetPoolSize(enemy);
+                (int poolInitSize, int poolMaxSize) = GetPoolSize(enemyData);
 
-                await PoolManager.Instance.CreatePoolAsync(enemy.PrefabKey, poolInitSize, poolMaxSize, ct);
-                await PoolManager.Instance.PreCreateAsync(enemy.PrefabKey, poolInitSize, ct: ct);
-                _createdPoolEnemyDatas.Add(enemy);
+                await PoolManager.Instance.CreatePoolAsync(enemyData.PrefabKey, poolInitSize, poolMaxSize, ct);
+                await PoolManager.Instance.PreCreateAsync(enemyData.PrefabKey, poolInitSize, ct: ct);
+                _createdPoolEnemyDatas.Add(enemyData);
+
+                if (!DataManager.Instance.VfxDataDic.TryGetValue(enemyData.DeathVfxId, out VfxData vfxData))
+                {
+                    Debug.LogError($"{nameof(WaveSystemController)}::InitAsync=> VfxData does not exist. - DeathVfxId: {enemyData.DeathVfxId})");
+                    continue;
+                }
+                await PoolManager.Instance.CreatePoolAsync(vfxData.PrefabKey, vfxData.PoolInitSize, vfxData.PoolMaxSize, ct);
+                await PoolManager.Instance.PreCreateAsync(vfxData.PrefabKey, vfxData.PoolInitSize, ct: ct);
+                _createdPoolVfxDatas.Add(vfxData);
             }
 
             //스포너와 웨이브 매니저 초기화
@@ -95,6 +105,11 @@ namespace SurvivorsLike
             foreach (EnemyData enemy in _createdPoolEnemyDatas)
             {
                 PoolManager.Instance.ReleasePool(enemy.PrefabKey);
+            }
+
+            foreach (VfxData vfx in _createdPoolVfxDatas)
+            {
+                PoolManager.Instance.ReleasePool(vfx.PrefabKey);
             }
 
             //탕탕 특공대는 인게임 씬에서 로비로 나가게 되면 풀링한 객체들을 소멸 하는가?

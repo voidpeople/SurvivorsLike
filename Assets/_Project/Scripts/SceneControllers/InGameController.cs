@@ -86,8 +86,6 @@ namespace SurvivorsLike
             }
             await _waveSystemCtrl.InitAsync(waveDta, _playerSpawner.SpawnPlayerController.transform, ct);
 
-            await CreateEnemyAssetsPool(sessionData, ct);
-
             await CreateGemPoolAsync(ct);
             _gemManager.Init(
                 _playerSpawner.SpawnPlayerController.transform,
@@ -136,35 +134,6 @@ namespace SurvivorsLike
                 GemData data = gemDataSO.DataList[ii];
                 await PoolManager.Instance.CreatePoolAsync(data.PrefabKey, data.PoolInitSize, data.PoolMaxSize, ct);
                 await PoolManager.Instance.PreCreateAsync(data.PrefabKey, data.PoolInitSize, ct: ct);
-            }
-        }
-
-        private async UniTask CreateEnemyAssetsPool(GameSessionData sessionData, CancellationToken ct)
-        {
-            if (!DataManager.Instance.WaveDataSODic.TryGetValue(sessionData.ChapterData.WaveId, out WaveDataSO waveDataSO))
-            {
-                Debug.LogError($"{nameof(InGameController)}::CreateEnemyAssetsPool=> WaveDataSO does not exist. - WaveId: {sessionData.ChapterData.WaveId})");
-                return;
-            }
-
-            for(int ii = 0; ii < waveDataSO.WaveDataList.Count; ++ii)
-            {                
-                if (!DataManager.Instance.EnemyDataDic.TryGetValue(waveDataSO.WaveDataList[ii].EnemyId, out EnemyData enemyData))
-                {
-                    Debug.LogError($"{nameof(InGameController)}::CreateEnemyAssetsPool=> EnemyData does not exist. - EnemyId: {waveDataSO.WaveDataList[ii].EnemyId})");
-                    continue;
-                }
-
-                await PoolManager.Instance.CreatePoolAsync(enemyData.PrefabKey, enemyData.PoolInitSize, enemyData.PoolMaxSize, ct);
-                await PoolManager.Instance.PreCreateAsync(enemyData.PrefabKey, enemyData.PoolInitSize, ct: ct);
-
-                if (!DataManager.Instance.VfxDataDic.TryGetValue(enemyData.DeathVfxId, out VfxData vfxData))
-                {
-                    Debug.LogError($"{nameof(InGameController)}::CreateEnemyAssetsPool=> VfxData does not exist. - DeathVfxId: {enemyData.DeathVfxId})");
-                    continue;
-                }
-                await PoolManager.Instance.CreatePoolAsync(vfxData.PrefabKey, vfxData.PoolInitSize, vfxData.PoolMaxSize, ct);
-                await PoolManager.Instance.PreCreateAsync(vfxData.PrefabKey, vfxData.PoolInitSize, ct: ct);
             }
         }
 
