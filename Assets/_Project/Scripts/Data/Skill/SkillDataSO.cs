@@ -26,6 +26,7 @@ namespace SurvivorsLike
         public string Description;
         public string IconKey;      //UI 상의 스킬 아이콘 스프라이트 이름
         public bool RequiresTarget; //타겟이 필요한 스킬이면 TRUE
+        public abstract int MaxLevel { get; }
 
         public abstract float GetCooldown(int level);
         public abstract void CollectPoolAssetRef(List<PoolAssetRef> list);

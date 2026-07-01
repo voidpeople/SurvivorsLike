@@ -18,6 +18,7 @@ namespace SurvivorsLike
         public bool IsReady => (_cooldownTimer <= 0f);
 
         public int SkillId => _skillData.Id;
+        public int CurrentLevel => _currentLevel;
 
 
 

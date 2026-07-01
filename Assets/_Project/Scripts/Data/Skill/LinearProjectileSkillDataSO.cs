@@ -29,6 +29,8 @@ namespace SurvivorsLike
         [TableList]
         public List<LinearProjectileSkillLevelData> LevelDataList;
 
+        public override int MaxLevel { get { return LevelDataList.Count; } }
+
         public LinearProjectileSkillLevelData GetLevelData(int level)
         {
             LinearProjectileSkillLevelData levelData = LevelDataList.FirstOrDefault(d => d.Level == level);
@@ -38,6 +40,7 @@ namespace SurvivorsLike
             Debug.LogError($"{nameof(LinearProjectileSkillDataSO)}::GetLevelData => LinearProjectileSkillLevelData not found. - SkillId: {Id}, Level: {level}");
             return null;
         }
+
 
         public override float GetCooldown(int level)
         {

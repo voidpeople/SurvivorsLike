@@ -26,6 +26,9 @@ namespace SurvivorsLike
         [TableList]
         public List<MeleeSkillData> LevelDataList;
 
+        public override int MaxLevel { get { return LevelDataList.Count; } }
+
+
         public MeleeSkillData GetLevelData(int level)
         {
             MeleeSkillData levelData = LevelDataList.FirstOrDefault(d => d.Level == level);
