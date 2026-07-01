@@ -1,4 +1,5 @@
 ﻿using R3;
+using System.Linq;
 using UnityEngine;
 
 
@@ -7,20 +8,18 @@ namespace SurvivorsLike
     public class SkillSelectionPresenter
     {
         private readonly PlayerLevelSystem _levelSystem;
+        private readonly SkillController _skillController;
         private readonly SkillSelectionView _view;
+
         private readonly CompositeDisposable _disposables = new();
 
-        // 가짜 데이터 — 나중에 SkillSelectionSystem으로 교체
-        private static readonly SkillOptionData[] _fakeOptions = new[]
-        {
-            new SkillOptionData(1001, "쿠나이", "", "직선으로 날아가는 쿠나이", false, 1),
-            new SkillOptionData(1002, "근접 공격", "", "주변 적을 공격한다", false, 1),
-            new SkillOptionData(1001, "쿠나이", "", "직선으로 날아가는 쿠나이", true,  2),
-        };
-
-        public SkillSelectionPresenter(PlayerLevelSystem levelSystem, SkillSelectionView view)
+        public SkillSelectionPresenter(
+            PlayerLevelSystem levelSystem,
+            SkillController skillController,
+            SkillSelectionView view)
         {
             _levelSystem = levelSystem;
+            _skillController = skillController;
             _view = view;
 
             _levelSystem.OnLevelUp
@@ -30,29 +29,46 @@ namespace SurvivorsLike
 
         private void OnLevelUp()
         {
+            SkillOptionData[] optionDatas = SkillSelectionSystem.GetOptions(
+                _skillController.OwnedSkills,
+                DataManager.Instance.SkillDataSODic,
+                _skillController.IsSlotFull);
+
             InGameStateManager.Instance.EnterLevelingUp();
-            _view.Show(_fakeOptions);
+            _view.Show(optionDatas);
             RegisterCardButtons();
         }
 
-        private void OnCardSelected()
+        private void OnCardSelected(SkillOptionData option)
         {
             UnregisterCardButtons();
             _view.Hide();
+
             InGameStateManager.Instance.ExitLevelingUp();
-            Debug.Log("=== 스킬 선택됨 (가짜) ===");
+
+            if (option.IsUpgrade)
+                _skillController.UpgradeSkill(option.SkillId, option.NextLevel);
+            else
+                _skillController.AddSkill(DataManager.Instance.SkillDataSODic[option.SkillId]);
         }
 
         private void RegisterCardButtons()
         {
-            foreach (var card in _view.Cards)
-                card.Button.onClick.AddListener(OnCardSelected);
+            SkillOptionData[] options = _view.CurrentOptions; // View에서 현재 옵션 보관
+            for (int ii = 0; ii < _view.Cards.Length; ++ii)
+            {
+                int captured = ii;
+                _view.Cards[captured].Button.onClick.AddListener(
+                    () => OnCardSelected(options[captured]));
+            }
         }
 
         private void UnregisterCardButtons()
         {
             foreach (var card in _view.Cards)
-                card.Button.onClick.RemoveListener(OnCardSelected);
+            {
+                card.Button.onClick.RemoveAllListeners();
+            }
         }
 
         public void Dispose() => _disposables.Dispose();

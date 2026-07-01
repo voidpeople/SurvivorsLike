@@ -95,6 +95,7 @@ namespace SurvivorsLike
 
             _skillSelectionPresenter = new SkillSelectionPresenter(
                 _playerLevelSystem,
+                _playerSpawner.SpawnPlayerController.SkillCtrl,
                 _skillSelectionView);
 
             InitResultPanelAsync(ct);
@@ -108,14 +109,11 @@ namespace SurvivorsLike
 
         private async UniTask CreatePlayerAssetPoolAsync(GameSessionData sessionData, CancellationToken ct)
         {
-            if (!DataManager.Instance.SkillDataSODic.TryGetValue(sessionData.PlayerData.DefaultSkillId, out SkillDataSO skillDataSO))
-            {
-                Debug.LogError($"{nameof(InGameController)}::CreatePlayerAssetPoolAsync=> SkillDataSO does not exist. - DefaultSkillId: {sessionData.PlayerData.DefaultSkillId})");
-                return;
-            }
-
             List<PoolAssetRef> poolAssetRefList = new List<PoolAssetRef>();
-            skillDataSO.CollectPoolAssetRef(poolAssetRefList);
+            foreach (SkillDataSO skillData in DataManager.Instance.SkillDataSODic.Values)
+            {
+                skillData.CollectPoolAssetRef(poolAssetRefList);
+            }
 
             await PoolManager.Instance.CreateAsync(poolAssetRefList, ct);
         }

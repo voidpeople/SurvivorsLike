@@ -57,7 +57,7 @@ namespace SurvivorsLike
         }
 
         public PlayerLevelSystem LevelSystem => _playerLevelSystem;
-
+        public SkillController SkillCtrl => _skillController;
 
         // ─── Unity Lifecycle ─────────────────────────────────────────────────
         private void Awake()

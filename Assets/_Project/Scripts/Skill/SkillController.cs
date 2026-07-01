@@ -9,7 +9,8 @@ namespace SurvivorsLike
     public class SkillController
     {
         //8개의 스킬 슬롯
-        private const int MaxSkillSlot = 8;
+        //private const int MaxSkillSlot = 8;
+        private const int MaxSkillSlot = 3;
 
         private readonly List<SkillBase> _skillList = new List<SkillBase>(MaxSkillSlot);
 
@@ -18,6 +19,10 @@ namespace SurvivorsLike
         private ProjectileManager _projectileMgr;
 
         private ITargetProvider _targetProvider;
+
+        public IReadOnlyList<SkillBase> OwnedSkills => _skillList;
+        public bool IsSlotFull => _skillList.Count >= MaxSkillSlot;
+
 
         public void Init(ISkillOwner owner, SkillDataSO defaultSkillData, ProjectileManager projectileMgr, ITargetProvider targetProvider)
         {
