@@ -1,5 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-using NUnit.Framework;
 using R3;
 using System;
 using System.Collections.Generic;
@@ -20,6 +19,9 @@ namespace SurvivorsLike
 
         private readonly List<EnemyData> _createdPoolEnemyDatas = new();
         private readonly List<VfxData> _createdPoolVfxDatas = new();
+
+        //모든 웨이브를 클리어 하면 이벤트 발송
+        public event Action OnAllWaveCleared;
 
         private readonly CompositeDisposable _disposables = new();
 
@@ -67,8 +69,24 @@ namespace SurvivorsLike
 
             //스포너와 웨이브 매니저 초기화
             _waveMgr.Init(data, _spawner);
-            _spawner.Init(playerTrans, _enemyMgr);            
+            _spawner.Init(playerTrans, _enemyMgr);
+
+            UpdateAsync(ct).Forget();
         }
+
+        private async UniTaskVoid UpdateAsync(CancellationToken ct)
+        {
+            while (!ct.IsCancellationRequested)
+            {
+                if (_waveMgr.IsAllWavesSpawned && _enemyMgr.ActiveCount == 0)
+                {
+                    OnAllWaveCleared?.Invoke();
+                    return;
+                }
+                await UniTask.Delay(200, cancellationToken: ct);
+            }
+        }
+
 
         private static (int poolInitSize, int poolMaxSize) GetPoolSize(EnemyData data)
         {

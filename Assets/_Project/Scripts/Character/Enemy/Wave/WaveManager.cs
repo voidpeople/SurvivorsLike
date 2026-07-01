@@ -1,6 +1,9 @@
-﻿using UnityEditor.Localization.Plugins.XLIFF.V12;
+﻿using System;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEditor.Overlays;
 using UnityEngine;
+using UnityEngine.Splines;
+using UnityEngine.UIElements;
 
 
 namespace SurvivorsLike
@@ -14,6 +17,31 @@ namespace SurvivorsLike
         private float[] _nextSpawnTimes;
         private bool[] _isOneShotSpawn;
         private bool _isRunning;
+
+        struct LastWaveData
+        {
+            public readonly WaveType WaveType;
+            public readonly float LastWaveTime;
+            public readonly int IsOneShotSpawnArrayIndex;
+
+            public LastWaveData(WaveType type, float waveTime, int isOneShotSpawnArrayIndex)
+            {
+                WaveType = type;
+                LastWaveTime = waveTime;
+                IsOneShotSpawnArrayIndex = isOneShotSpawnArrayIndex;
+            }
+        }
+        LastWaveData _lastWaveData;
+
+        public bool IsAllWavesSpawned
+        {
+            get
+            {
+                return (_lastWaveData.WaveType == WaveType.OneShot)
+                    ? (_isOneShotSpawn[_lastWaveData.IsOneShotSpawnArrayIndex])
+                    : (_currentTime > _lastWaveData.LastWaveTime);
+            }
+        }
 
         public void Init(WaveDataSO data, EnemySpawner spawn)
         {
@@ -38,6 +66,34 @@ namespace SurvivorsLike
                         $"- WaveDataSO.Id: {data.Id}, List Index: {ii}, SpawnInterval: {wave.SpawnInterval}");
                 }
             }
+
+            _lastWaveData = GetLastWaveData(data);
+        }
+
+        private LastWaveData GetLastWaveData(WaveDataSO data)
+        {
+            WaveType waveType = WaveType.None;
+            float lastWaveTime = 0f;
+            int IsOneShotSpawnArrayIndex = 0;
+
+            int count = data.WaveDataList.Count;
+            for (int ii = 0; ii < count; ++ii)
+            {
+                WaveData waveData = data.WaveDataList[ii];
+                if (lastWaveTime < waveData.StartTime)
+                {
+                    lastWaveTime = waveData.StartTime;
+                    if (lastWaveTime < waveData.EndTime)
+                    {
+                        lastWaveTime = waveData.EndTime;
+                    }
+
+                    waveType = waveData.Type;
+                    IsOneShotSpawnArrayIndex = ii;
+                }
+            }
+
+            return new LastWaveData(waveType, lastWaveTime, IsOneShotSpawnArrayIndex);
         }
 
         public void StartWave() => _isRunning = true;
@@ -68,19 +124,27 @@ namespace SurvivorsLike
         //일반몹 반복 스폰
         private void UpdateRepeatWave(WaveData data, int index)
         {
+            //현재 시간이 WaveData의 스폰 시간 범위 밖에 있으면 함수 종료
             if (_currentTime < data.StartTime || _currentTime > data.EndTime)
                 return;
 
+            //현재 시간이 다음 스폰 시간에 도달하지 못했으면 함수 종료
             if (_currentTime < _nextSpawnTimes[index])
                 return;
 
+            //현재 시간이 해당 웨이브의 스폰 시간 범위 안에 있으며
+            //스폰 할 시간에 도달 했으므로 적 캐릭터 스폰
             SpawnEnemy(data);
+
+            //다음 스폰 시간 계산하여 저장~
             _nextSpawnTimes[index] = _currentTime + data.SpawnInterval;
         }
 
         //보스, 엘리트 몹을 특정 시간대에 한번만 스폰~
         private void UpdateOneShotWave(WaveData data, int index)
         {
+            //이미 보스나 엘리트 캐릭터를 스폰 했다면 함수 종료~
+            //현재 시간이 웨이브 시간에 도달하지 못했다면 함수 종료~
             if (_isOneShotSpawn[index] || _currentTime < data.StartTime)
                 return;
                         
@@ -96,6 +160,7 @@ namespace SurvivorsLike
                 return;
             }
 
+            //data.SpawnCountPerTick - 1틱 마다 스폰한 적 캐릭터 마리수
             _spawner.Spawn(enemyData, data.SpawnCountPerTick);
         }
     }

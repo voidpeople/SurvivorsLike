@@ -100,7 +100,7 @@ namespace SurvivorsLike
             Debug.Assert(targetTrans != null, $"{nameof(EnemyController)}::Init=> targetTrans is null");
 
             EnemyData = data;
-            Movement.Init(data);
+            Movement.Init(data, targetTrans);
             _health.Init(data.Hp);
 
             transform.position = spawnPos;

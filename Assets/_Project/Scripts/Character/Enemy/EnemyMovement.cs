@@ -7,46 +7,55 @@ namespace SurvivorsLike
     public class EnemyMovement : MonoBehaviour
     {       
         [Header("이동 설정")]
-        [SerializeField] private float _moveSpeed = 3f;
-        [SerializeField] private float _rotateSpeed = 10f;
-        [SerializeField] private float _stoppingDistance = 0.5f;   // 목표 위치 도달 판정 거리 (단위: m)
+        [SerializeField] private float _moveSpeed        = 3f;
+        [SerializeField] private float _rotateSpeed      = 10f;
+        [SerializeField] private float _stoppingDistance = 0.5f;
+
+        [Header("분리 설정")]
+        [SerializeField] private float _separationRadius = 0.8f;
+        [SerializeField] private float _separationForce  = 4f;
 
         private Transform _transform;
-        private Vector3 _destination;
-        private float _sqrStoppingDistance;
-        private bool _isMoving;
+        private Transform _separationTarget;
+        private Vector3   _destination;
+        private float     _sqrStoppingDistance;
+        private float     _sqrSeparationRadius;
+        private bool      _isMoving;
 
         //목표 위치에 도착하면 이벤트 발송
         public event Action OnDestinationReached;
 
         private void Awake()
         {
-            //성능 최적화를 위해 캐싱
-            _transform = transform;
+            _transform           = transform;
             _sqrStoppingDistance = _stoppingDistance * _stoppingDistance;
-            _isMoving = false;
+            _sqrSeparationRadius = _separationRadius * _separationRadius;
+            _isMoving            = false;
         }
 
-        public void Init(EnemyData data)
+        public void Init(EnemyData data, Transform separationTarget)
         {
             Debug.Assert(data != null, $"{nameof(EnemyMovement)}::Init=> data is null");
 
-            _moveSpeed = data.MoveSpeed;
+            _moveSpeed        = data.MoveSpeed;
+            _separationTarget = separationTarget;
         }
 
         private void Update()
         {
-            if (_isMoving == false)
-                return;
+            if (_isMoving)
+            {
+                RotateToTarget();
+                ApplyMovement();
+            }
 
-            RotateToTarget();
-            ApplyMovement();
+            ApplySeparation();
         }
 
-        //에디터의 인스펙터에서 변수 값 수정하면 즉시 반영
         private void OnValidate()
         {
             _sqrStoppingDistance = _stoppingDistance * _stoppingDistance;
+            _sqrSeparationRadius = _separationRadius * _separationRadius;
         }
 
         //private void SetMoveSpeed(float speed)
@@ -67,6 +76,26 @@ namespace SurvivorsLike
 
             _isMoving = false;
             OnDestinationReached?.Invoke();
+        }
+
+        private void ApplySeparation()
+        {
+            if (_separationTarget == null)
+                return;
+
+            Vector3 toSelf = _transform.position - _separationTarget.position;
+            toSelf.y = 0f;
+            float distSqr = toSelf.sqrMagnitude;
+
+            if (distSqr >= _sqrSeparationRadius || distSqr < 0.0001f)
+                return;
+
+            float dist     = Mathf.Sqrt(distSqr);
+            float strength = (1f - dist / _separationRadius) * _separationForce;
+
+            Vector3 newPos = _transform.position + (toSelf / dist) * (strength * Time.deltaTime);
+            newPos.y       = _transform.position.y;
+            _transform.position = newPos;
         }
 
         //TODO: Spatial Grid (공간 분할)을 통해 서로 겹치지 않게 이동 구현 할것~
@@ -105,8 +134,9 @@ namespace SurvivorsLike
 
         public void Despawn()
         {
-            _isMoving = false;
-            _destination = _transform.position;   // 잔여 목적지 제거 (재스폰 첫 프레임 오작동 방지)
+            _isMoving         = false;
+            _destination      = _transform.position;
+            _separationTarget = null;
         }
     }
 }
