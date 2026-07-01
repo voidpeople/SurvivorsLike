@@ -85,6 +85,7 @@ namespace SurvivorsLike
                 return;
             }
             await _waveSystemCtrl.InitAsync(waveDta, _playerSpawner.SpawnPlayerController.transform, ct);
+            _waveSystemCtrl.OnAllWavesCleared += OnAllWavesCleared;
 
             await CreateGemPoolAsync(ct);
             _gemManager.Init(
@@ -152,6 +153,7 @@ namespace SurvivorsLike
         public void OnAllWavesCleared()
         {
             InGameStateManager.Instance.ClearStage();
+            _resultPresenter.Show();
         }
 
         // EnemyBase.OnDead() → 이 메서드 호출로 패배 처리

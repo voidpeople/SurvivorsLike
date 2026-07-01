@@ -21,7 +21,7 @@ namespace SurvivorsLike
         private readonly List<VfxData> _createdPoolVfxDatas = new();
 
         //모든 웨이브를 클리어 하면 이벤트 발송
-        public event Action OnAllWaveCleared;
+        public event Action OnAllWavesCleared;
 
         private readonly CompositeDisposable _disposables = new();
 
@@ -80,7 +80,7 @@ namespace SurvivorsLike
             {
                 if (_waveMgr.IsAllWavesSpawned && _enemyMgr.ActiveCount == 0)
                 {
-                    OnAllWaveCleared?.Invoke();
+                    OnAllWavesCleared?.Invoke();
                     return;
                 }
                 await UniTask.Delay(200, cancellationToken: ct);

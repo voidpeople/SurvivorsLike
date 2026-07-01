@@ -54,6 +54,12 @@ namespace SurvivorsLike
             }
 
             GameObject obj = pool.Get();
+            if (obj == null)
+            {
+                Debug.LogError($"{nameof(PoolManager)}::Get=> Pooled object was destroyed externally. key: {poolKey}");
+                return null;
+            }
+
             //OnSpawn은 진짜 스폰 경로에서만 호출됨 — 프리웜(PreCreateAsync)은 이 메서드를 거치지 않음
             _iPoolableCacheDic[obj].OnSpawn();
             return obj;
@@ -227,7 +233,7 @@ namespace SurvivorsLike
         //생성 로직 단일화 — createFunc(풀 부족 시)와 PreCreateAsync(프리웜)가 공유
         private GameObject CreateInstance(string poolKey)
         {
-            GameObject obj = Object.Instantiate(_prefabDic[poolKey]);
+            GameObject obj = Object.Instantiate(_prefabDic[poolKey], transform);
             IPoolable poolable = obj.GetComponent<IPoolable>();
             if (poolable == null)
             {
