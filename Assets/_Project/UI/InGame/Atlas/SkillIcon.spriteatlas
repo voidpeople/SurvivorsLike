@@ -69,6 +69,9 @@ SpriteAtlas:
     - {fileID: 2800000, guid: cca39e0653fc61c4f94d1d42155c448c, type: 3}
     - {fileID: 2800000, guid: fbd8ef3afcf525743b14cd9ae0e5d23b, type: 3}
     - {fileID: 2800000, guid: 174030572c2d2eb4a83e55fcd3040e36, type: 3}
+    - {fileID: 2800000, guid: 9d799f87ea854f6992571f6686e99787, type: 3}
+    - {fileID: 2800000, guid: 6d4ab1c7f7d64ac68e4c5e9ff6ede2d1, type: 3}
+    - {fileID: 2800000, guid: 6d73f3fbf8f54e41a91126a69212f0b9, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -78,7 +81,10 @@ SpriteAtlas:
     - cca39e0653fc61c4f94d1d42155c448c: 21300000
     - 174030572c2d2eb4a83e55fcd3040e36: 21300000
     - a090fa77071b00e489089137e39cf554: 21300000
+    - 9d799f87ea854f6992571f6686e99787: 21300000
+    - 6d4ab1c7f7d64ac68e4c5e9ff6ede2d1: 21300000
     - fbd8ef3afcf525743b14cd9ae0e5d23b: 21300000
+    - 6d73f3fbf8f54e41a91126a69212f0b9: 21300000
     - 40f7f1dcfea8cc84aacc46b87507ed09: 21300000
     - 2f4df1bda4087e44bab789646fcdb21b: 21300000
     - 4ca1202f53c13d042a2efe1cf6f575a8: 21300000
@@ -91,7 +97,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cca39e0653fc61c4f94d1d42155c448c, type: 3}
   - {fileID: 21300000, guid: 174030572c2d2eb4a83e55fcd3040e36, type: 3}
   - {fileID: 21300000, guid: a090fa77071b00e489089137e39cf554, type: 3}
+  - {fileID: 21300000, guid: 9d799f87ea854f6992571f6686e99787, type: 3}
+  - {fileID: 21300000, guid: 6d4ab1c7f7d64ac68e4c5e9ff6ede2d1, type: 3}
   - {fileID: 21300000, guid: fbd8ef3afcf525743b14cd9ae0e5d23b, type: 3}
+  - {fileID: 21300000, guid: 6d73f3fbf8f54e41a91126a69212f0b9, type: 3}
   - {fileID: 21300000, guid: 40f7f1dcfea8cc84aacc46b87507ed09, type: 3}
   - {fileID: 21300000, guid: 2f4df1bda4087e44bab789646fcdb21b, type: 3}
   - {fileID: 21300000, guid: 4ca1202f53c13d042a2efe1cf6f575a8, type: 3}
@@ -103,7 +112,10 @@ SpriteAtlas:
   - Icon_StickyProjectile
   - Icon_Trap
   - Icon_Aura
+  - Icon_DrillShot
+  - Icon_Spear
   - Icon_Summon
+  - Icon_Pistol
   - Icon_Kunai
   - Icon_Melee
   - Icon_BouncingProjectile

@@ -21,7 +21,7 @@ MonoBehaviour:
     \uC99D\uAC00\uD558\uBA70, \uB3CC\uD30C \uD6C4\uC5D0\uB294 \uAD00\uD1B5\uACFC
     \uCD08\uACE0\uC18D \uC790\uB3D9 \uC870\uC900\uC73C\uB85C \uBCF4\uC2A4\uC804 \uCD5C\uAC15\uC758
     \uD654\uB825\uC744 \uBC1C\uD718\uD55C\uB2E4."
-  IconKey: icon/kunai
+  IconKey: Icon_Kunai
   RequiresTarget: 1
   ProjectileId: 5001
   LevelDataList:

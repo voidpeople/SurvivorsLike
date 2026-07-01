@@ -96,7 +96,8 @@ namespace SurvivorsLike
             _skillSelectionPresenter = new SkillSelectionPresenter(
                 _playerLevelSystem,
                 _playerSpawner.SpawnPlayerController.SkillCtrl,
-                _skillSelectionView);
+                _skillSelectionView,
+                ct);
 
             InitResultPanelAsync(ct);
 

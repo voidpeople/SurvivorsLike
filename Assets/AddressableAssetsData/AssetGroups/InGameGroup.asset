@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: InGameGroup
   m_GUID: 6d9072307abd8a641adf83c1a7208e27
   m_SerializeEntries:
+  - m_GUID: 041b57747f27b5343bab1b99fdab483c
+    m_Address: atlas/skillicon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 35196f0a50c90ce40be88ff38d84bb67
     m_Address: projectile/kunai_1
     m_ReadOnly: 0

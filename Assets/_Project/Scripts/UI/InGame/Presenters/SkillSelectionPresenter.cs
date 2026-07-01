@@ -1,6 +1,6 @@
-﻿using R3;
-using System.Linq;
-using UnityEngine;
+using Cysharp.Threading.Tasks;
+using R3;
+using System.Threading;
 
 
 namespace SurvivorsLike
@@ -10,32 +10,38 @@ namespace SurvivorsLike
         private readonly PlayerLevelSystem _levelSystem;
         private readonly SkillController _skillController;
         private readonly SkillSelectionView _view;
+        private readonly CancellationToken _ct;
 
         private readonly CompositeDisposable _disposables = new();
 
         public SkillSelectionPresenter(
             PlayerLevelSystem levelSystem,
             SkillController skillController,
-            SkillSelectionView view)
+            SkillSelectionView view,
+            CancellationToken ct)
         {
             _levelSystem = levelSystem;
             _skillController = skillController;
             _view = view;
+            _ct = ct;
 
             _levelSystem.OnLevelUp
-                .Subscribe(_ => OnLevelUp())
+                .Subscribe(_ => OnLevelUpAsync().Forget())
                 .AddTo(_disposables);
         }
 
-        private void OnLevelUp()
+        private async UniTaskVoid OnLevelUpAsync()
         {
             SkillOptionData[] optionDatas = SkillSelectionSystem.GetOptions(
                 _skillController.OwnedSkills,
                 DataManager.Instance.SkillDataSODic,
                 _skillController.IsSlotFull);
 
+            if (optionDatas.Length == 0)
+                return;
+
             InGameStateManager.Instance.EnterLevelingUp();
-            _view.Show(optionDatas);
+            await _view.ShowAsync(optionDatas, _ct);
             RegisterCardButtons();
         }
 
@@ -43,7 +49,6 @@ namespace SurvivorsLike
         {
             UnregisterCardButtons();
             _view.Hide();
-
             InGameStateManager.Instance.ExitLevelingUp();
 
             if (option.IsUpgrade)
@@ -54,7 +59,7 @@ namespace SurvivorsLike
 
         private void RegisterCardButtons()
         {
-            SkillOptionData[] options = _view.CurrentOptions; // View에서 현재 옵션 보관
+            SkillOptionData[] options = _view.CurrentOptions;
             for (int ii = 0; ii < _view.Cards.Length; ++ii)
             {
                 int captured = ii;
@@ -66,9 +71,7 @@ namespace SurvivorsLike
         private void UnregisterCardButtons()
         {
             foreach (var card in _view.Cards)
-            {
                 card.Button.onClick.RemoveAllListeners();
-            }
         }
 
         public void Dispose() => _disposables.Dispose();

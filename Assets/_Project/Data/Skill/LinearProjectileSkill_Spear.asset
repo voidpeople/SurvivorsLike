@@ -17,7 +17,7 @@ MonoBehaviour:
   DisplayName: "\uC2A4\uD53C\uC5B4"
   Description: "\uB0A0\uCE74\uB85C\uC6B4 \uC2A4\uD53C\uC5B4\uC744 \uBC1C\uC0AC\uD574
     \uC801\uC744 \uC5F0\uC18D\uC73C\uB85C \uAD00\uD1B5\uD55C\uB2E4."
-  IconKey: icon/spear
+  IconKey: Icon_Spear
   RequiresTarget: 1
   ProjectileId: 5004
   LevelDataList:

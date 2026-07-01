@@ -21,7 +21,7 @@ MonoBehaviour:
     \uB3CC\uD30C \uD6C4\uC5D0\uB294 \uB2E8 \uD558\uB098\uC758 \uB4DC\uB9B4\uC774
     \uBE5B\uC758 \uC18D\uB3C4\uB85C \uC804\uC7A5\uC744 \uB204\uBE44\uBA70 \uB9C9\uB300\uD55C
     \uC9C0\uC18D \uD53C\uD574\uB97C \uC785\uD78C\uB2E4."
-  IconKey: icon/drill
+  IconKey: Icon_DrillShot
   RequiresTarget: 1
   ProjectileId: 5002
   LevelDataList:

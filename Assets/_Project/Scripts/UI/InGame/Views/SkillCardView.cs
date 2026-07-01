@@ -1,5 +1,6 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 
@@ -19,16 +20,15 @@ namespace SurvivorsLike
 
         public Button Button => _button;
 
-        public void Init(SkillOptionData option)
+        public void Init(SkillOptionData optionData, SpriteAtlas atlas)
         {
-            _nameLabel.text = option.SkillName;
-            _descLabel.text = option.Description;
-            _statusLabel.text = option.IsUpgrade
-                ? $"Lv {option.NextLevel - 1}  →  {option.NextLevel}"
+            _nameLabel.text = optionData.SkillName;
+            _descLabel.text = optionData.Description;
+            _statusLabel.text = optionData.IsUpgrade
+                ? $"Lv {optionData.NextLevel - 1}  →  {optionData.NextLevel}"
                 : "NEW!";
-            _statusImage.color = option.IsUpgrade ? _colorUpgrade : _colorNew;
-
-            // 아이콘 로드는 Addressables로 비동기 처리
+            _statusImage.color = optionData.IsUpgrade ? _colorUpgrade : _colorNew;
+            _iconImage.sprite = atlas.GetSprite(optionData.IconName);
         }
     }
 }
