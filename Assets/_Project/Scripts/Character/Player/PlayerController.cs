@@ -27,8 +27,8 @@ namespace SurvivorsLike
         private PlayerMovement _movement;
         private TargetFinder _targetFinder;
         private Health _health;
-        private SkillController _skillController = new();
-        private PlayerAnimationController _animationController;
+        private SkillController _skillCtrl = new();
+        private PlayerAnimationController _animationCtrl;
         private PlayerContactDamageController _playerContactDamageCtrl;
         private PlayerLevelSystem _playerLevelSystem;
         private JoystickBase _joystick;
@@ -57,7 +57,7 @@ namespace SurvivorsLike
         }
 
         public PlayerLevelSystem LevelSystem => _playerLevelSystem;
-        public SkillController SkillCtrl => _skillController;
+        public SkillController SkillCtrl => _skillCtrl;
 
         // ─── Unity Lifecycle ─────────────────────────────────────────────────
         private void Awake()
@@ -91,9 +91,9 @@ namespace SurvivorsLike
 
             _targetFinder.Finding(50f);
 
-            _skillController.Tick(dt);          
+            _skillCtrl.Tick(dt);          
             _playerContactDamageCtrl.Tick(dt);  //이동 후 위치 기준 접촉 검사
-            _animationController.SetSpeed(_movement.AnimatorSpeed);
+            _animationCtrl.SetSpeed(_movement.AnimatorSpeed);
         }
 
         private void OnDestroy()
@@ -114,8 +114,9 @@ namespace SurvivorsLike
             _playerData = data;
             _movement.Init(data);
             _health.Init(data.Hp);
+            _health.Died += OnDied;
 
-            _animationController = animController;
+            _animationCtrl = animController;
             _joystick = joystick;
 
             if(!DataManager.Instance.SkillDataSODic.TryGetValue(data.DefaultSkillId, out SkillDataSO skillData))
@@ -123,7 +124,7 @@ namespace SurvivorsLike
                 Debug.LogError($"{nameof(PlayerController)}::Init=> SkillDataSO does not exist. - DefaultSkillId: {data.DefaultSkillId}");
                 return;
             }
-            _skillController.Init(this, skillData, projectileMgr, _targetFinder);
+            _skillCtrl.Init(this, skillData, projectileMgr, _targetFinder);
             _playerContactDamageCtrl.Init(_health, _playerData.ContactDamageInterval);
 
             if (DataManager.Instance.InGamePlayerLevelDataSO == null)
@@ -140,6 +141,11 @@ namespace SurvivorsLike
         private void OnStartBattle()
         {
             _isRunning = true;
+        }
+
+        private void OnDied()
+        {
+            _animationCtrl.SetDead();
         }
     }
 }
