@@ -38,11 +38,13 @@ namespace SurvivorsLike
         //모바일 필수 — 백그라운드 전환 시 자동 일시정지~
         private void OnApplicationPause(bool pauseStatus)
         {
+#if !UNITY_EDITOR
             if (pauseStatus && _state.Value == InGameState.Playing)
                 PauseGame();
 
             if (!pauseStatus && _state.Value == InGameState.Paused)
                 ResumeGame();
+#endif
         }
 
         public void StartBattle() => ChangeState(from: InGameState.Ready, to: InGameState.Playing);

@@ -17,9 +17,6 @@ namespace SurvivorsLike
         [SerializeField] private EnemySpawner _spawner;
         [SerializeField] private EnemyManager _enemyMgr;
 
-        private readonly List<EnemyData> _createdPoolEnemyDatas = new();
-        private readonly List<VfxData> _createdPoolVfxDatas = new();
-
         //모든 웨이브를 클리어 하면 이벤트 발송
         public event Action OnAllWavesCleared;
 
@@ -55,7 +52,6 @@ namespace SurvivorsLike
 
                 await PoolManager.Instance.CreatePoolAsync(enemyData.PrefabKey, poolInitSize, poolMaxSize, ct);
                 await PoolManager.Instance.PreCreateAsync(enemyData.PrefabKey, poolInitSize, ct: ct);
-                _createdPoolEnemyDatas.Add(enemyData);
 
                 if (!DataManager.Instance.VfxDataDic.TryGetValue(enemyData.DeathVfxId, out VfxData vfxData))
                 {
@@ -64,7 +60,6 @@ namespace SurvivorsLike
                 }
                 await PoolManager.Instance.CreatePoolAsync(vfxData.PrefabKey, vfxData.PoolInitSize, vfxData.PoolMaxSize, ct);
                 await PoolManager.Instance.PreCreateAsync(vfxData.PrefabKey, vfxData.PoolInitSize, ct: ct);
-                _createdPoolVfxDatas.Add(vfxData);
             }
 
             //스포너와 웨이브 매니저 초기화
@@ -117,22 +112,6 @@ namespace SurvivorsLike
 
         private void OnDestroy()
         {
-            if (PoolManager.Instance == null)
-                return;
-
-            foreach (EnemyData enemy in _createdPoolEnemyDatas)
-            {
-                PoolManager.Instance.ReleasePool(enemy.PrefabKey);
-            }
-
-            foreach (VfxData vfx in _createdPoolVfxDatas)
-            {
-                PoolManager.Instance.ReleasePool(vfx.PrefabKey);
-            }
-
-            //탕탕 특공대는 인게임 씬에서 로비로 나가게 되면 풀링한 객체들을 소멸 하는가?
-            _createdPoolEnemyDatas.Clear();
-
             _disposables.Dispose();
         }
     }

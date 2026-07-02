@@ -183,7 +183,6 @@ namespace SurvivorsLike
         private void Destroy()
         {
             _enemyManager.OnEnemyKilled -= _gemManager.HandleEnemyKilled;
-            _gemManager.Clear();
 
             _skillSelectionPresenter.Dispose();
             _resultPresenter.Dispose();

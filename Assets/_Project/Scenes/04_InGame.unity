@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &178615788
+--- !u!1 &84599524
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,37 +127,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 178615790}
-  - component: {fileID: 178615789}
+  - component: {fileID: 84599526}
+  - component: {fileID: 84599525}
   m_Layer: 0
-  m_Name: GemManager
+  m_Name: PoolManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &178615789
+--- !u!114 &84599525
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 178615788}
+  m_GameObject: {fileID: 84599524}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd2c14844a68634a9a27ae00a80b6ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 9521068e8021516479f86beb15f6e999, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.GemManager
---- !u!4 &178615790
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PoolManager
+--- !u!4 &84599526
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 178615788}
+  m_GameObject: {fileID: 84599524}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: -0}
+  m_LocalPosition: {x: 540, y: 960, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -367,7 +367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.PlayerSpawner
   _playerBaseAddressKey: character/player/player_base
   _joystick: {fileID: 8056769512457833248}
-  _projectileMgr: {fileID: 635890460}
+  _projectileMgr: {fileID: 1116820283}
 --- !u!4 &333383182
 Transform:
   m_ObjectHideFlags: 0
@@ -378,50 +378,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &635890459
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 635890461}
-  - component: {fileID: 635890460}
-  m_Layer: 0
-  m_Name: ProjectileManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &635890460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635890459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28f8ff83d3f98e9429b26ff5b1367e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.ProjectileManager
---- !u!4 &635890461
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635890459}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.02027, y: -0, z: 12.54027}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -805,8 +761,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1116820285}
-  - component: {fileID: 1116820283}
   - component: {fileID: 1116820286}
+  - component: {fileID: 1116820287}
+  - component: {fileID: 1116820283}
   m_Layer: 0
   m_Name: InGameManagers
   m_TagString: Untagged
@@ -853,6 +810,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afedb066f8a76fa4492b2ea44075da40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.InGameStateManager
+--- !u!114 &1116820287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116820282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd2c14844a68634a9a27ae00a80b6ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivorsLike.GemManager
 --- !u!1 &1578614830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1001,7 @@ MonoBehaviour:
   _mapCtrl: {fileID: 933019015}
   _waveSystemCtrl: {fileID: 1596719569}
   _enemyManager: {fileID: 1596719567}
-  _gemManager: {fileID: 178615789}
+  _gemManager: {fileID: 1116820287}
   _hudCtrl: {fileID: 1688780188}
   _skillSelectionView: {fileID: 4012220830325105417}
   _resultPanelCanvas: {fileID: 2080003469}
@@ -2351,11 +2320,10 @@ SceneRoots:
   - {fileID: 734649629}
   - {fileID: 933019014}
   - {fileID: 4389492048316241046}
-  - {fileID: 228903196}
   - {fileID: 7309194106185281667}
   - {fileID: 333383182}
-  - {fileID: 635890461}
   - {fileID: 1644530800}
   - {fileID: 1116820285}
   - {fileID: 1596719565}
-  - {fileID: 178615790}
+  - {fileID: 84599526}
+  - {fileID: 228903196}

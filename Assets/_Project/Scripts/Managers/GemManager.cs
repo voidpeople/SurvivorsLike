@@ -158,11 +158,12 @@ namespace SurvivorsLike
             _activeGems[_activeCount] = null;
         }
 
-        // 스테이지 종료 시 활성 Gem 배열 정리 — 풀 인스턴스는 PoolManager.ReleasePool이 일괄 처리
-        public void Clear()
+        private void OnDestroy()
         {
             for (int ii = 0; ii < _activeCount; ++ii)
+            {
                 _activeGems[ii] = null;
+            }
             _activeCount = 0;
         }
     }

@@ -58,17 +58,12 @@ namespace SurvivorsLike
             }
         }
 
-        public void Destroy()
+        protected void OnDestroy()
         {
             for (int ii = 0; ii < _activeCount; ++ii)
             {
                 _activeProjectiles[ii] = null;
             }
-        }
-
-        protected void OnDestroy()
-        {
-            Destroy();
         }
     }
 }

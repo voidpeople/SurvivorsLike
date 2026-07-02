@@ -31,6 +31,7 @@ namespace SurvivorsLike
         // PreCreateAsync에서 maxSize 초과 생성(Release 즉시 Destroy 낭비) 방지용
         private Dictionary<string, int> _poolMaxSizeDic = new();
 
+        protected override bool UseDontDestroyOnLoad => false;
 
         // ─── Unity Lifecycle ─────────────────────────────────────────────────
         protected override void OnDestroy()

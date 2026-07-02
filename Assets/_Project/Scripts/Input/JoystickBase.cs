@@ -22,8 +22,8 @@ namespace SurvivorsLike
         private bool _isPressed;
         private Vector2 _inputValue;
 
-        public bool IsPressed { get { return _isPressed; } }
-        public Vector2 InputValue { get { return _inputValue; } }
+        public bool IsPressed => _isPressed;
+        public Vector2 InputValue => _inputValue;
 
 
         protected virtual void Awake()

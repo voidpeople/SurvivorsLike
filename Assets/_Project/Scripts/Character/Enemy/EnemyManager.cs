@@ -32,7 +32,10 @@ namespace SurvivorsLike
 
         protected void OnDestroy()
         {
-            Destroy();
+            for (int ii = 0; ii < _activeCount; ++ii)
+            {
+                _activeEnemys[ii] = null;
+            }
         }
 
         public void Register(ITickable enemy)
@@ -53,14 +56,6 @@ namespace SurvivorsLike
                     _activeEnemys[_activeCount] = null;
                     return;
                 }
-            }
-        }
-
-        public void Destroy()
-        {
-            for (int ii = 0; ii < _activeCount; ++ii)
-            {
-                _activeEnemys[ii] = null;
             }
         }
 
