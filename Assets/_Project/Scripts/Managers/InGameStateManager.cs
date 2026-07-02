@@ -10,6 +10,7 @@ namespace SurvivorsLike
         Playing,
         Paused,
         LevelingUp,
+        PlayerDead,
         StageFail,
         StageClear
     }
@@ -53,7 +54,7 @@ namespace SurvivorsLike
             if (ChangeState(from: InGameState.Playing, to: InGameState.Paused))
                 Time.timeScale = 0f;
         }
-
+        
         public void ResumeGame()
         {
             if (ChangeState(from: InGameState.Paused, to: InGameState.Playing))
@@ -72,9 +73,29 @@ namespace SurvivorsLike
                 Time.timeScale = 1f;
         }
 
-        public void ClearStage() => ChangeState(from: InGameState.Playing, to: InGameState.StageClear);
+        //플레이어 캐릭터 사망
+        public void PlayerDead()
+        {
+            if (ChangeState(from: InGameState.Playing, to: InGameState.PlayerDead))
+                Time.timeScale = 0f;
+        }
 
-        public void FailStage() => ChangeState(from: InGameState.Playing, to: InGameState.StageFail);
+        //플레이어 캐릭터 소생
+        public void PlayerRevive()
+        {
+            if (ChangeState(from: InGameState.PlayerDead, to: InGameState.Playing))
+                Time.timeScale = 1f;
+        }
+
+        public void ClearStage()
+        {
+            ChangeState(from: InGameState.Playing, to: InGameState.StageClear);
+        }
+
+        public void FailStage()
+        {
+            ChangeState(from: InGameState.Playing, to: InGameState.StageFail);
+        }
 
         private bool ChangeState(InGameState from, InGameState to)
         {

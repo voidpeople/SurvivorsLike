@@ -24,6 +24,9 @@ namespace SurvivorsLike
         [Header("스킬 선택")]
         [SerializeField] private SkillSelectionView _skillSelectionView;
 
+        [Header("스킬 선택")]
+        [SerializeField] private SkillSelectionView _playerReviveView;        
+
         [Header("결과창")]
         [SerializeField] private Canvas _resultPanelCanvas;
         [SerializeField] private GameResultPanelView _resultPanelView;

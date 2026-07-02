@@ -145,7 +145,9 @@ namespace SurvivorsLike
 
         private void OnDied()
         {
+            _isRunning = false;
             _animationCtrl.SetDead();
+            InGameStateManager.Instance.PlayerDead();
         }
     }
 }
