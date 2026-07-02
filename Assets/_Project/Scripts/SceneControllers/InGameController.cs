@@ -24,8 +24,8 @@ namespace SurvivorsLike
         [Header("스킬 선택")]
         [SerializeField] private SkillSelectionView _skillSelectionView;
 
-        [Header("스킬 선택")]
-        [SerializeField] private SkillSelectionView _playerReviveView;        
+        [Header("부활 선택")]
+        [SerializeField] private PlayerReviveView _playerReviveView;        
 
         [Header("결과창")]
         [SerializeField] private Canvas _resultPanelCanvas;
@@ -45,9 +45,14 @@ namespace SurvivorsLike
         private void Awake()
         {
             InGameStateManager.Instance.State
-                .Where(s => s == InGameState.StageClear || s == InGameState.StageFail)
+                .Where(state => state == InGameState.StageClear || state == InGameState.StageFail)
                 .Take(1)                                   // 결과창은 1번만 (중복 차단)
                 .Subscribe(OnStageFinished)
+                .AddTo(_disposables);
+
+            InGameStateManager.Instance.State
+                .Where(state => state == InGameState.PlayerDead)
+                .Subscribe(OnPlayerDead)
                 .AddTo(_disposables);
         }
 
@@ -159,10 +164,10 @@ namespace SurvivorsLike
             _resultPresenter.Show();
         }
 
-        // EnemyBase.OnDead() → 이 메서드 호출로 패배 처리
-        public void OnPlayerDead()
+        public void OnPlayerDead(InGameState state)
         {
-            InGameStateManager.Instance.FailStage();
+            _playerReviveView.Show();
+            //InGameStateManager.Instance.FailStage();
         }
 
         private void OnStageFinished(InGameState state)

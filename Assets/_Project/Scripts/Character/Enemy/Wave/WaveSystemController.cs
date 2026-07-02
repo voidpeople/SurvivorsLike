@@ -29,13 +29,16 @@ namespace SurvivorsLike
             Debug.Assert(_enemyMgr != null, $"{nameof(WaveSystemController)}::Awake=> _enemyMgr is null");
 
             InGameStateManager.Instance.State
-                .Where(s => s == InGameState.Playing)
+                .Where(state => state == InGameState.Playing)
                 .Take(1)                                  // 첫 진입만
-                .Subscribe(_ => StartBattle())
+                .Subscribe(_ => _waveMgr.StartWave())
+                .AddTo(_disposables);
+
+            InGameStateManager.Instance.State 
+                .Where(state => state == InGameState.PlayerDead)
+                .Subscribe(_ => _waveMgr.StopWave())
                 .AddTo(_disposables);
         }
-
-        public void StartBattle() => _waveMgr.StartWave();
 
         public async UniTask InitAsync(WaveDataSO data, Transform playerTrans, CancellationToken ct)
         {

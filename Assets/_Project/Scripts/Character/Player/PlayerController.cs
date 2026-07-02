@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
 using R3;
+using System.Threading;
+using UnityEngine;
 
 
 
@@ -145,8 +147,14 @@ namespace SurvivorsLike
 
         private void OnDied()
         {
+            OnDiedAsync(this.GetCancellationTokenOnDestroy()).Forget();
+        }
+
+        private async UniTaskVoid OnDiedAsync(CancellationToken ct)
+        {
             _isRunning = false;
             _animationCtrl.SetDead();
+            await UniTask.Delay(2000, cancellationToken: ct);
             InGameStateManager.Instance.PlayerDead();
         }
     }
