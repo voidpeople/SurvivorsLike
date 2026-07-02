@@ -3,9 +3,9 @@
 
 namespace SurvivorsLike
 {
-    public class PlayerRevivePresenter : IDisposable
+    public class RevivePresenter : IDisposable
     {
-        private readonly PlayerReviveView _view;
+        private readonly ReviveView _view;
 
         public void Dispose()
         {

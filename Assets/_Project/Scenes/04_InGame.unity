@@ -797,7 +797,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25.05
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -8675304630942769629, guid: 69fe459d2cd176f4894e1016fd319492, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -809,15 +810,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &847000057 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -8675304630942769629, guid: 69fe459d2cd176f4894e1016fd319492, type: 3}
+  m_CorrespondingSourceObject: {fileID: 521264874228550642, guid: 69fe459d2cd176f4894e1016fd319492, type: 3}
   m_PrefabInstance: {fileID: 847000055}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72d87889a3d8b204fb782bc99f5966f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 09c6cd45e6ea6e94698990800db30880, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerReviveView
+  m_EditorClassIdentifier: Assembly-CSharp::ReviveView
 --- !u!1 &933019010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,7 +1286,7 @@ MonoBehaviour:
   _gemManager: {fileID: 1116820287}
   _hudCtrl: {fileID: 1688780188}
   _skillSelectionView: {fileID: 4012220830325105417}
-  _playerReviveView: {fileID: 847000057}
+  _reviveView: {fileID: 847000057}
   _resultPanelCanvas: {fileID: 2080003469}
   _resultPanelView: {fileID: 1062681915}
   _devManager: {fileID: 228903195}

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerReviveView : MonoBehaviour
+public class ReviveView : MonoBehaviour
 {
     public void Show()
     {

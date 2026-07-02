@@ -25,7 +25,7 @@ namespace SurvivorsLike
         [SerializeField] private SkillSelectionView _skillSelectionView;
 
         [Header("부활 선택")]
-        [SerializeField] private PlayerReviveView _playerReviveView;        
+        [SerializeField] private ReviveView _reviveView;        
 
         [Header("결과창")]
         [SerializeField] private Canvas _resultPanelCanvas;
@@ -39,6 +39,8 @@ namespace SurvivorsLike
 
         private PlayerLevelSystem _playerLevelSystem;
         private SkillSelectionPresenter _skillSelectionPresenter;
+        private RevivePresenter _revivePresenter;
+        
 
         private readonly CompositeDisposable _disposables = new();
 
@@ -166,7 +168,7 @@ namespace SurvivorsLike
 
         public void OnPlayerDead(InGameState state)
         {
-            _playerReviveView.Show();
+            _reviveView.Show();
             //InGameStateManager.Instance.FailStage();
         }
 
