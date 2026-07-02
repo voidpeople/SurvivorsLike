@@ -89,12 +89,14 @@ namespace SurvivorsLike
 
         public void ClearStage()
         {
-            ChangeState(from: InGameState.Playing, to: InGameState.StageClear);
+            if(ChangeState(from: InGameState.Playing, to: InGameState.StageClear))
+                Time.timeScale = 1f;
         }
 
         public void FailStage()
         {
-            ChangeState(from: InGameState.Playing, to: InGameState.StageFail);
+            if(ChangeState(from: InGameState.PlayerDead, to: InGameState.StageFail))
+                Time.timeScale = 1f;
         }
 
         private bool ChangeState(InGameState from, InGameState to)

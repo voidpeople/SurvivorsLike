@@ -1324,7 +1324,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 352947332884641437}
-  - component: {fileID: 521264874228550642}
+  - component: {fileID: 6257545990887931130}
   m_Layer: 0
   m_Name: ReviveView
   m_TagString: Untagged
@@ -1353,7 +1353,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &521264874228550642
+--- !u!114 &6257545990887931130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1365,6 +1365,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c6cd45e6ea6e94698990800db30880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReviveView
+  _useEnergyButton: {fileID: 2177800084939836567}
+  _watchAdButton: {fileID: 305027230291351967}
+  _closeButton: {fileID: 6035445520929692647}
 --- !u!1 &6418036733507138606
 GameObject:
   m_ObjectHideFlags: 0

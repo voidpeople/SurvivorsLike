@@ -4,6 +4,7 @@ using R3;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -111,6 +112,7 @@ namespace SurvivorsLike
                 ct);
 
             InitResultPanelAsync(ct);
+            InitRevivePanel();
 
             //3초 후 실행
             await UniTask.Delay(3000, cancellationToken: ct);
@@ -159,6 +161,22 @@ namespace SurvivorsLike
             HideGameResultPanel();
         }
 
+        private void InitRevivePanel()
+        {
+            _revivePresenter = new RevivePresenter(
+                _reviveView,
+                onUseEnergy: OnRevive,
+                onWatchAd: OnRevive,
+                onClose: () => InGameStateManager.Instance.FailStage());
+            _reviveView.Hide();
+        }
+
+        //부활
+        private void OnRevive()
+        {
+            //_playerSpawner.SpawnPlayerController.Revive();
+            InGameStateManager.Instance.PlayerRevive();
+        }
 
         public void OnAllWavesCleared()
         {
@@ -174,7 +192,15 @@ namespace SurvivorsLike
 
         private void OnStageFinished(InGameState state)
         {
+            //bool isClear = (state == InGameState.StageClear);
+            //ShowGameResultPanel(isClear);
+            OnStageFinishedAsync(state, this.GetCancellationTokenOnDestroy()).Forget();
+        }
+
+        private async UniTask OnStageFinishedAsync(InGameState state, CancellationToken ct)
+        {
             bool isClear = (state == InGameState.StageClear);
+            await UniTask.Delay(2000, cancellationToken: ct);            
             ShowGameResultPanel(isClear);
         }
 

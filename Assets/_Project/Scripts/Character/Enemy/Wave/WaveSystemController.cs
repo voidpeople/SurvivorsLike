@@ -13,7 +13,7 @@ namespace SurvivorsLike
     {
 
         [Title("컴포넌트")]
-        [SerializeField] private WaveManager _waveMgr;        
+        [SerializeField] private WaveManager _waveMgr;
         [SerializeField] private EnemySpawner _spawner;
         [SerializeField] private EnemyManager _enemyMgr;
 
@@ -24,8 +24,8 @@ namespace SurvivorsLike
 
         public void Awake()
         {
-            Debug.Assert(_waveMgr  != null, $"{nameof(WaveSystemController)}::Awake=> _waveMgr is null");
-            Debug.Assert(_spawner  != null, $"{nameof(WaveSystemController)}::Awake=> _spawner is null");
+            Debug.Assert(_waveMgr != null, $"{nameof(WaveSystemController)}::Awake=> _waveMgr is null");
+            Debug.Assert(_spawner != null, $"{nameof(WaveSystemController)}::Awake=> _spawner is null");
             Debug.Assert(_enemyMgr != null, $"{nameof(WaveSystemController)}::Awake=> _enemyMgr is null");
 
             InGameStateManager.Instance.State
@@ -34,8 +34,8 @@ namespace SurvivorsLike
                 .Subscribe(_ => _waveMgr.StartWave())
                 .AddTo(_disposables);
 
-            InGameStateManager.Instance.State 
-                .Where(state => state == InGameState.PlayerDead)
+            InGameStateManager.Instance.State
+                .Where(state => (state == InGameState.PlayerDead) || (state == InGameState.StageClear) || (state == InGameState.StageFail))
                 .Subscribe(_ => _waveMgr.StopWave())
                 .AddTo(_disposables);
         }

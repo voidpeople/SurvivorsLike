@@ -20,6 +20,7 @@ namespace SurvivorsLike
 
         void Update()
         {
+            //TODO: 구독 방식으로 수정
             if (!InGameStateManager.Instance.IsPlaying)
                 return;
 

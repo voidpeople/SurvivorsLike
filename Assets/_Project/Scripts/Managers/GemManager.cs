@@ -109,9 +109,9 @@ namespace SurvivorsLike
         {
             if (_playerTransform == null)
                 return;
+
+            //TODO: 구독 방식으로 수정
             if (!InGameStateManager.Instance.IsPlaying)
-                return;
-            if (_activeCount == 0)
                 return;
 
             float dt = Time.deltaTime;

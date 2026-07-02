@@ -96,8 +96,15 @@ namespace SurvivorsLike
             return new LastWaveData(waveType, lastWaveTime, IsOneShotSpawnArrayIndex);
         }
 
-        public void StartWave() => _isRunning = true;
-        public void StopWave() => _isRunning = false;
+        public void StartWave()
+        {
+            _isRunning = true;
+        }
+
+        public void StopWave()
+        {
+            _isRunning = false;
+        }
 
         private void Update()
         {
